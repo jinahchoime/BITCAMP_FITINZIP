@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class memberVO {
+public class MemberVO {
 
 	private String id;
 	private String password;

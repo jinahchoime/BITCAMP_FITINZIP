@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class checkInVO {
+public class CheckInVO {
 
 	private Integer classCode;
 	private String memId;
