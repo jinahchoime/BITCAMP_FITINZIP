@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¸¶ÀÌÆäÀÌÁö</title>
+<meta charset="UTF-8">
+<title>ë§ˆì´íŽ˜ì´ì§€</title>
 </head>
 <body>
-	<a href="updateMemberInfo/">È¸¿øÁ¤º¸ ¼öÁ¤ °¡±â</a>
+	<a href="/updateMemberInfo/">íšŒì›ì •ë³´ ìˆ˜ì • ê°€ê¸°</a>
 </body>
 </html>

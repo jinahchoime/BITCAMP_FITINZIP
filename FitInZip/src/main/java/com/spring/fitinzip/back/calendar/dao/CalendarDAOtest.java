@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-@Repository("calendarDAO")
+@Repository()
 public class CalendarDAOtest {
 	@Autowired
 	private SqlSessionTemplate mybatis;

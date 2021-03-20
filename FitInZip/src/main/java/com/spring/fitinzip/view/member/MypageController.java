@@ -3,8 +3,10 @@ package com.spring.fitinzip.view.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,25 +14,31 @@ import com.spring.fitinzip.back.member.MypageService;
 import com.spring.fitinzip.back.member.vo.MemberVO;
 
 @Controller
-@SessionAttributes("member")
 public class MypageController {
 	
 	@Autowired
 	private MypageService mypageService;
 	
-	@RequestMapping("/updateMemberInfo/")
-	public String updateMember(@ModelAttribute("member") MemberVO vo) {
+	@RequestMapping("/mypage/")
+	public String updateMember(MemberVO vo) {
+		System.out.println("updateMember 실행중");
 		mypageService.updateMember(vo);
-		
-		return "mypage/";
+		return "mypage/mypage";
 	}
 	
-	@RequestMapping("/mypage/")
-	public ModelAndView getMember(ModelAndView model, MemberVO vo) {
+//	@RequestMapping(value = "fitInZip/", method = RequestMethod.POST)
+//	public String updateMember(MemberVO vo) {
+//		System.out.println("updateMember ������");
+//		mypageService.updateMember(vo);
+//		
+//		return "mypage/mypage";
+//	}
+	
+	@RequestMapping("/updateMemberInfo")
+	public String getMember(Model model, MemberVO vo) {
 		MemberVO member = mypageService.getMember(vo);
-		model.addObject("member", member);
-		model.setViewName("updateMemberInfo/");
+		model.addAttribute("member", member);
 		
-		return model;
+		return "mypage/updateMemberInfo";
 	}
 }

@@ -5,7 +5,8 @@
 	<mapper namespace="MypageDAO">
 		<update id="updateMember" parameterType="com.spring.fitinzip.back.member.vo.MemberVO">
 			UPDATE MEMBER SET 
-			POST = #{post}, ADDR_1 = #{addr_1}, ADDR_2 = #{addr_2}	
+			POST = #{post}, ADDR = #{addr}, DETAIL_ADDR = #{detailAddr},
+			EXTRA_ADDR = #{extraAddr}	
 			WHERE ID = 'give'
 		</update> 
 		
