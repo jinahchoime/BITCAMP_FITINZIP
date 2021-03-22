@@ -19,25 +19,26 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
-	@RequestMapping("/mypage/")
-	public String updateMember(MemberVO vo) {
-		System.out.println("updateMember 실행중");
-		mypageService.updateMember(vo);
+	@RequestMapping("/mypage") 
+	public String mypage(MemberVO vo) {
 		return "mypage/mypage";
 	}
 	
-//	@RequestMapping(value = "fitInZip/", method = RequestMethod.POST)
-//	public String updateMember(MemberVO vo) {
-//		System.out.println("updateMember ������");
-//		mypageService.updateMember(vo);
-//		
-//		return "mypage/mypage";
-//	}
+	@RequestMapping("/UpdateMypage") 
+	public String updateMember(MemberVO vo) {
+		System.out.println("updateMember 실행중");
+		mypageService.updateMember(vo);
+		
+		return "redirect:/mypage";
+	}
+	
 	
 	@RequestMapping("/updateMemberInfo")
 	public String getMember(Model model, MemberVO vo) {
 		MemberVO member = mypageService.getMember(vo);
 		model.addAttribute("member", member);
+		
+		System.out.println("member: " + member.toString());
 		
 		return "mypage/updateMemberInfo";
 	}

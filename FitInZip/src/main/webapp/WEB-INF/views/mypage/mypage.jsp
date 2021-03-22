@@ -7,6 +7,6 @@
 <title>마이페이지</title>
 </head>
 <body>
-	<a href="/updateMemberInfo/">회원정보 수정 가기</a>
+	<a href="/updateMemberInfo">회원정보 수정 가기</a>
 </body>
 </html>

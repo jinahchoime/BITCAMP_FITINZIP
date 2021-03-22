@@ -60,7 +60,7 @@
 <body>
 	<table>
 		<tr>
-			<form action="/mypage/" method="post">
+			<form action="/UpdateMypage" method="post">
 				<c:if test="${empty member}">
 					<p>비어있음 아님 오류~</p>
 				</c:if>
