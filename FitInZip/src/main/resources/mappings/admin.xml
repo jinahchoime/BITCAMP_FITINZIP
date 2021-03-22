@@ -1,1 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="AdminDAO">
+ 	<insert id="insert" parameterType="com.spring.fitinzip.back.admin.vo.MapVO">
+ 		INSERT INTO MAP(MAP_ADDR, LATITUDE, HARDNESS)
+		VALUES(#{mapAddr}, #{latitude}, #{hardness})
+ 	</insert>
+  </mapper>

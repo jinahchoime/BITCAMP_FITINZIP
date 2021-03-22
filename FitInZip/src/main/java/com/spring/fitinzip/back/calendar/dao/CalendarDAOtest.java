@@ -12,11 +12,10 @@ public class CalendarDAOtest {
 	private SqlSessionTemplate mybatis;
 	
 	public CalendarDAOtest() {
-		System.out.println("CalendarDAOtest »ý¼ºÀÚ ½ÇÇà");
+		System.out.println("CalendarDAOtest ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	}
 	
 	public void insert(Map<String, String> map) {
-		System.out.println(map);
 		mybatis.insert("test.insertTest", map);
 	}
 	
