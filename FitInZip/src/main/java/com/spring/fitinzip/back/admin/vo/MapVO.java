@@ -1,4 +1,6 @@
-package com.spring.fitinzip.back.member.vo;
+package com.spring.fitinzip.back.admin.vo;
+
+import com.spring.fitinzip.back.cart.vo.CartVO;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,9 +15,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class CheckInVO {
-
-	private Integer classCode;
-	private String memId;
-	private String countingDay;
+public class MapVO {
+	private String mapAddr;
+	private String latitude;
+	private String hardness;
 }
