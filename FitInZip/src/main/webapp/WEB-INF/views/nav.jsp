@@ -11,7 +11,7 @@
             <a class="nav-link" href="/test">원데이PT</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">라이브PT</a>
+            <a class="nav-link" href="classStat">라이브PT</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="product">용품</a>
@@ -20,7 +20,7 @@
             <a class="nav-link" href="#">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">마이페이지</a>
+            <a class="nav-link" href="calendar">마이페이지</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">1:1 컨설팅</a>

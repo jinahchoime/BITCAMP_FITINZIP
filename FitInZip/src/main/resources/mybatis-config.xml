@@ -16,6 +16,10 @@
   		<typeAlias type="알아서" alias="잘 알리어스~"/>
   	</typeAliases> -->
   	
+  	<typeAliases>
+  		<typeAlias type="com.spring.FitInZip.back.calendar.vo.CalendarVO"/>
+  	</typeAliases>
+  	
   <mappers>
    <mapper resource="mappings/calendar.xml"/>     
     <!--  <mapper resource="mappings/cart.xml"/>     
