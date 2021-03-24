@@ -1,1 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartDAO">
+
+	<insert id="insertCart" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	INSERT INTO CART (CART_CODE, MEM_ID, PRO_NUM, AMOUNT)
+	VALUES(CART_SEQ.NEXTVAL, #{mem_id}, #{pro_num}, DEFAULT);
+	</insert>
+
+	<select id="getCartList" resultType="com.spring.FitInZip.back.cart.vo.CartVO">
+	SELECT P.PRO_IMG ,P.PRO_NAME, C.AMOUNT
+	FROM MEMBER M
+	INNER JOIN CART C
+		ON M.ID = C.MEM_ID
+	INNER JOIN PRODUCT P
+		ON C.PRO_NUM = P.PRO_NUM
+	WHERE M.ID = #{mem_id}	 
+	</select>
+
+</mapper>

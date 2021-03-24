@@ -616,6 +616,7 @@ pre code {
   -ms-flex-positive: 1;
   flex-grow: 1;
   max-width: 100%;
+  padding-right:40px;
 }
 
 .row-cols-1 > * {
