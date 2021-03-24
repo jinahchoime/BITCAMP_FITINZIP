@@ -69,7 +69,7 @@ local.properties
 .sts4-cache/
 .classpath
 
-.Servers
+Servers/
 ### Maven ###
 target/
 release.properties
