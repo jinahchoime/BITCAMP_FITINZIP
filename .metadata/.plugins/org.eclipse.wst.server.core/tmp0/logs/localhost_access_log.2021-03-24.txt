@@ -1,9 +1,0 @@
-127.0.0.1 - - [24/Mar/2021:14:24:36 +0900] "GET / HTTP/1.1" 200 6165
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET / HTTP/1.1" 200 6165
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/css/one-page-wonder.min.css HTTP/1.1" 200 2515
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/vendor/bootstrap/css/bootstrap.min.css HTTP/1.1" 200 160398
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/vendor/jquery/jquery.min.js HTTP/1.1" 200 89478
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1" 200 84158
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/img/img_main_cont2.png HTTP/1.1" 200 21780
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/img/img_main_cont1.png HTTP/1.1" 200 27775
-0:0:0:0:0:0:0:1 - - [24/Mar/2021:14:24:37 +0900] "GET /resources/main/img/img_main_cont3.png HTTP/1.1" 200 28937
