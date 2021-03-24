@@ -1,6 +1,5 @@
-INDEX VERSION 1.4+C:\BITCAMP_FITINZIP\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-315308832.index
-338869811.index
-2229413129.index
-38937445.index
-403414011.index
+INDEX VERSION 1.4+C:\MyStudy\Final_Project\Project\BITCAMP_FITINZIP\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2807761884.index
+1237051804.index
+3074050591.index
+3602788678.index
