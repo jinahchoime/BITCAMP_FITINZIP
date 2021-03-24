@@ -1954,6 +1954,7 @@ Caused by: java.io.FileNotFoundException: C:\Users\ASUS\.m2\repository\javax\ser
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2021-03-24 14:23:20.509
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+<<<<<<< HEAD
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2021-03-24 14:35:50.399
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
@@ -1970,3 +1971,11 @@ java.lang.IllegalMonitorStateException
 	at java.base/java.util.concurrent.locks.ReentrantReadWriteLock$WriteLock.unlock(ReentrantReadWriteLock.java:1147)
 	at org.springframework.ide.eclipse.beans.core.internal.model.BeansProject$1.run(BeansProject.java:1128)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+=======
+>>>>>>> dbce95b7c04b0ebd9348b4e93e3b4c5857d0e0dd
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2021-03-24 14:54:58.096
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2021-03-24 14:54:58.146
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!

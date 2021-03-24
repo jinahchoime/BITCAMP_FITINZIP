@@ -69,4 +69,11 @@ local.properties
 .sts4-cache/
 
 .Servers
+### Maven ###
+target/
+release.properties
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
