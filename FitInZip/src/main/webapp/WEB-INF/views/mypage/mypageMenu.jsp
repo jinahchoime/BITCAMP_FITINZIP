@@ -3,13 +3,14 @@
 <div id="menuView" class="column_left mt200">
    	<div class="nav_wrap">
 	    <div class="nav_tit">
-	        <p><img src="https://img.ficle.io/www/play/profile.png"></p> <span style="font-size:inherit; line-height: 21px;">¾È³çÇÏ¼¼¿ä!<br>giveseul ´Ô</span>
+	        <p><img src="https://img.ficle.io/www/play/profile.png"></p> <span style="font-size:inherit; line-height: 21px;">¾È³çÇÏ¼¼¿ä!<br>${member.nickname }´Ô</span>
 	    </div>
 	    <div class="submenu">
 	        <ul class="clearfix pl20">
 	            <li><a href="/mypage/std" class="nav_in">³ªÀÇ Å¬·¡½º</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
+	                    	<li><a href="/mypage/std" class="adClick">Ä¶¸°´õ³»¿ª</a></li>
 	                        <li><a href="/mypage/std" class="adClick">Å¬·¡½º³»¿ª</a></li>
 	                        <li><a href="/mypage/std" class="adClick">ÂòÇÑÅ¬·¡½º</a></li>
 	                        <li><a href="/mypage/std" class="adClick">ÄíÆù³»¿ª</a></li>

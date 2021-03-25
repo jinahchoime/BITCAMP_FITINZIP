@@ -59,195 +59,213 @@
         }).open();
     }
 </script>
+<script type="text/javascript">
+	function check(){
+		var nickname = document.getElementById('nickname').value;
+		var phone = document.getElementById('phone').value;
+		var post = document.getElementById('post').value;
+		
+		if(nickname.length == 0 && phone.length == 0 && post.length == 0){
+			document.getElementById('nick_p').innerHTML = "닉네임을 입력해 주세요";
+			document.getElementById('phone_p').innerHTML = "연락처를 입력해 주세요";
+			document.getElementById('post_p').innerHTML = "우편번호를 입력해 주세요";
+			
+			return false;
+		}
+		
+		if(nickname.length == 0 &&
+				 document.getElementById('nick_p').innerHTML == ""){
+			document.getElementById('nick_p').innerHTML = "닉네임을 입력해 주세요";
+			return false;
+		}
+		
+		if(phone.length == 0 &&
+			 document.getElementById('phone_p').innerHTML == ""){
+			document.getElementById('phone_p').innerHTML = "연락처를 입력해 주세요";
+			return false;
+		}
+		
+		if(post.length == 0 &&
+			 document.getElementById('post_p').innerHTML == ""){
+			document.getElementById('post_p').innerHTML = "우편번호를 입력해 주세요";
+			return false;
+		}
+		
+		if(nickname.length != 0 && phone.length != 0 && post.length != 0){
+			return true;
+		}
+    };
+	
+</script>
 </head>
 <body>
 	<!-- Navigation -->
     <jsp:include page="../nav.jsp"></jsp:include>
     
-	<%-- <table>
-		<tr>
-			<form action="/UpdateMypage" method="post">
-				<c:if test="${empty member}">
-					<p>비어있음 아님 오류~</p>
-				</c:if>
-				<c:if test="${not empty member}">
-					<tr>
-						<th>아이디</th>
-						<td><input type="text" name="id" value="${member.id }"></td>
-					</tr>
-					 <tr>
-						 <th>우편번호</th>
-						 <td><input type="text" name="post" value="${member.post }" id="post"></td>
-					 </tr>
-					 <tr>
-						 <th>도로명주소</th>
-						 <td><input type="text" name="addr" value="${member.addr }" id="addr"></td>
-					 </tr>
-					 <tr>
-					 	<th>상세주소<th>
-					 	<td><input type="text" name="detailAddr" value="${member.detailAddr }" id="detailAddr"></td>
-					 	<td><input type="button" onclick="search_post()" value="주소록"></td>
-					 </tr>
-					 <tr>
-						 <th>참고주소</th>
-						 <td><input type="text" name="extraAddr" id="extraAddr" value="${member.extraAddr }"></td>
-					 </tr>
-					 <tr>
-					 	<td colspan="2"><input type="submit"></td>
-					 </tr>
-				 </c:if>
-			</form>
-		</tr>
-	</table>  --%>
 	
+	<!-- Content  -->
 	<div style="height: 1300px; margin: 0 auto; width: 1200px">
 		<!-- 마이페이지 메뉴  -->
 		<jsp:include page="mypageMenu.jsp"></jsp:include>
 		
-		<div class="column_right mt200">
-		    <p class="tit_area big" style="display: inline-block;">회원정보수정</p>
-		    <div class="line"></div>
-		    <div class="myaccount">
-		    	<c:if test="${empty member}">
-					<p>비어있음 아님 오류~</p>
-				</c:if>
-				<c:if test="${not empty member}">
-		        <dl>
-		            <dt>이름</dt>
-		            <dd>
-		                <div class="btn_search"><input type="text" name="userName" placeholder="이름" disabled="disabled" class="disabled"></div>
-		            </dd>
-		        </dl>
-		        <dl>
-		            <dt>닉네임</dt>
-		            <dd>
-		                <div class="btn_search" style="width: 214px;"><input type="text" name="nicName" placeholder="닉네임" maxlength="10" value="${member.name }"></div>
-		            </dd>
-		        </dl>
-		        <dl>
-		            <dt>연락처</dt>
-		            <dd>
-		                <div class="btn_search"><input type="text" name="userTel" value="${member.phone }"></div>
-		            </dd>
-		        </dl>
-		        <dl>
-		            <dt>이메일</dt>
-		            <dd>
-		                <div class="btn_search"><input type="text" name="userEmail" disabled="disabled" class="disabled" placeholder="${member.id }"></div>
-		            </dd>
-		        </dl>
-		        <dl>
-		        	<!-- ============================ 문제해결 ================================  -->
-		            <dt>생년월일</dt>
-		            <c:set var="birth" value="${member.birth }"/>
-		            <dd class="flat">
-		                <div class="btn_search type5">
-			                <select name="birth_year" class="option_type type1 selected" style="height: 45px;">
-			                		<c:set var="year" value="${f:substring(birth,0,4) }"/>
-			                		<c:forEach var="i" begin="1970" end="2009">
-			                			<c:if test="${year ne i }">
-		                					<option value="${i}"></option>
-		                				</c:if>
-			                			<c:if test="${year eq i }">
-			                				<option value="${i}" selected="selected"></option>
+		<form action="/UpdateMypage" method="post" onsubmit="return check();">
+			<div class="column_right mt200">
+			    <p class="tit_area big" style="display: inline-block;">회원정보수정</p>
+			    <div class="line"></div>
+			    <div class="myaccount">
+			    	<c:if test="${empty member}">
+						<p>비어있음 아님 오류~</p>
+					</c:if>
+					<c:if test="${not empty member}">
+			        <dl>
+			            <dt>이름</dt>
+			            <dd>
+			                <div class="btn_search">
+			                	<input type="text" name="name" placeholder="이름" disabled="disabled" class="disabled" value="${member.name }" id="name">
+			                </div>
+			            </dd>
+			        </dl>
+			        <dl>
+			            <dt>닉네임</dt>
+			            <dd>
+			                <div class="btn_search" style="width: 214px;">
+			                	<input type="text" name="nickname" placeholder="닉네임" maxlength="10" value="${member.nickname }" id="nickname">
+			                	<p style="color:red;" id="nick_p"></p>
+			                </div>
+			            </dd>
+			        </dl>
+			        <dl>
+			            <dt>연락처</dt>
+			            <dd>
+			                <div class="btn_search">
+			                	<input type="text" name="phone" placeholder="010-0000-0000 양식에 맞춰 입력하세요" value="${member.phone }" id="phone">
+			                	<p style="color:red;" id="phone_p"></p>
+			                </div>
+			            </dd>
+			        </dl>
+			        <dl>
+			            <dt>이메일</dt>
+			            <dd>
+			                <div class="btn_search">
+			                	<input type="text" name="id" disabled="disabled" class="disabled" placeholder="${member.id }">
+			                </div>
+			            </dd>
+			        </dl>
+			        <dl>
+			            <dt>생년월일</dt>
+			            <c:set var="birth" value="${member.birth }"/>
+			            <dd>
+			                <div class="btn_search type5">
+				                <select name="year" class="option_type">
+				                		<c:set var="year" value="${f:substring(birth,0,4) }"/>
+				                		<c:forEach var="i" begin="1970" end="2009">
+				                			<c:if test="${year ne i }">
+			                					<option value="${i}">${i}</option>
+			                				</c:if>
+				                			<c:if test="${year eq i }">
+				                				<option value="${i}" selected="selected">${i}</option>
+				                			</c:if>
+				                		</c:forEach>
+			                    </select>
+	                    	</div>
+			                <div class="btn_search type5">
+			                	<select name="month" class="option_type">
+			                		<c:set var="month" value="${f:substring(birth,4,6) }"/>
+			                		<c:forEach var="i" begin="1" end="12">
+			                			<c:if test="${month ne i }">
+			                				<option value="${i}">${i}</option>
+			                			</c:if>
+			                			<c:if test="${month eq i }">
+			                				<option value="${i}" selected="selected">${i}</option>
 			                			</c:if>
 			                		</c:forEach>
-		                    </select>
-                    	</div>
-		                <div class="btn_search type5"><select name="birth_month" class="option_type1 type1 selected" style="height: 45px;">
-		                		<c:set var="month" value="${f:substring(birth,4,6) }"/>
-		                		<c:forEach var="i" begin="1" end="12">
-		                			<c:if test="${month ne i }">
-		                				<option value="${i}"></option>
-		                			</c:if>
-		                			<c:if test="${month eq i }">
-		                				<option value="${i}" selected="selected"></option>
-		                			</c:if>
-		                		</c:forEach>
-		                    </select></div>
-		                <div class="btn_search type5">
-		                	<select name="birth_day" class="option_type2 type1 selected" style="height: 45px;">
-		                		<c:set var="day" value="${f:substring(birth,6,8) }"/>
-		                		<c:forEach var="i" begin="1" end="31">
-		                			<c:if test="${day ne i }">
-		                				<option value="${i}"></option>
-		                			</c:if>
-		                			<c:if test="${day eq i }">
-		                				<option value="${i}" selected="selected"></option>
-		                			</c:if>
-		                		</c:forEach>
-		                    </select>
-		                </div>
-		            </dd>
-		        </dl>
-		        <dl>
-		            <dt>성별</dt>
-		            <dd class="tmiddle">
-		                <div class="form-box-input mb0" style="padding-top: 10px">
-		                	<c:set var="gender" value="${member.gender }" />
-		                    <div class="chk-box">
-		                    	<c:if test="${f:contains(gender, 'm') }">
-		                    		<input type="radio" id="m" name="gender" class="circle-check2" value="1" checked="checked">
-		                    	</c:if>
-		                    	<c:if test="${empty gender}">
-		                    		<input type="radio" id="m" name="gender" class="circle-check2" value="1">
-		                    	</c:if>
-		                    	<c:if test="${f:contains(gender, 'f') }">
-		                    		<input type="radio" id="m" name="gender" class="circle-check2" value="1">
-		                    	</c:if>
-		                    	<label for="m">
-		                    		<i></i>
-		                    		<span class="black" style="display: inline-block; padding: 10px;">남자</span>
-		                    	</label>
-	                    	</div>
-		                    <div class="chk-box">
-		                    	<c:if test="${f:contains(gender, 'f') }">
-		                    		<input type="radio" id="f" name="gender" class="circle-check2" value="2" checked="checked">
-		                    	</c:if>
-		                    	<c:if test="${empty gender}">
-		                    		<input type="radio" id="f" name="gender" class="circle-check2" value="2">
-		                    	</c:if>
-		                    	<c:if test="${f:contains(gender, 'm') }">
-		                    		<input type="radio" id="f" name="gender" class="circle-check2" value="2">
-		                    	</c:if>
-		                    	<label for="f">
-		                    		<i></i>
-		                    		<span class="black" style="display: inline-block; padding: 10px;">여자</span>
-		                    	</label>
-		                    </div>
-		                </div>
-		            </dd>
-		        </dl>
-		        <dl>
-		            <dt>주소</dt>
-		            <dd>
-		                <div class="btn_search flat">
-		                	<input type="text" name="zipCode" readonly="readonly" style="width: 624px; vertical-align: top;" id="post" value="${member.post }"> 
+			                    </select>
+			                </div>
+			                <div class="btn_search type5">
+			                	<select name="day" class="option_type">
+			                		<c:set var="day" value="${f:substring(birth,6,8) }"/>
+			                		<c:forEach var="i" begin="1" end="31">
+			                			<c:if test="${day ne i }">
+			                				<option value="${i}">${i}</option>
+			                			</c:if>
+			                			<c:if test="${day eq i }">
+			                				<option value="${i}" selected="selected">${i}</option>
+			                			</c:if>
+			                		</c:forEach>
+			                    </select>
+			                </div>
+			            </dd>
+			        </dl>
+			        <dl>
+			            <dt>성별</dt>
+			            <dd class="tmiddle">
+			                <div class="form-box-input mb0" style="padding-top: 10px">
+			                	<c:set var="gender" value="${member.gender }" />
+			                    <div class="chk-box">
+			                    	<c:if test="${gender eq 'male' }">
+			                    		<input type="radio" id="m" name="gender" class="circle-check2" value="male" checked="checked">
+			                    	</c:if>
+			                    	<c:if test="${empty gender}">
+			                    		<input type="radio" id="m" name="gender" class="circle-check2" value="male" checked="checked">
+			                    	</c:if>
+			                    	<c:if test="${gender eq 'female' }">
+			                    		<input type="radio" id="m" name="gender" class="circle-check2" value="male" checked="checked">
+			                    	</c:if>
+			                    	<label for="m">
+			                    		<i></i>
+			                    		<span class="black" style="display: inline-block; padding: 10px;">남자</span>
+			                    	</label>
+		                    	</div>
+			                    <div class="chk-box">
+			                    	<c:if test="${gender eq 'female'}">
+			                    		<input type="radio" id="f" name="gender" class="circle-check2" value="female" checked="checked">
+			                    	</c:if>
+			                    	<c:if test="${empty gender}">
+			                    		<input type="radio" id="f" name="gender" class="circle-check2" value="female">
+			                    	</c:if>
+			                    	<c:if test="${gender eq 'male'}">
+			                    		<input type="radio" id="f" name="gender" class="circle-check2" value="female">
+			                    	</c:if>
+			                    	<label for="f">
+			                    		<i></i>
+			                    		<span class="black" style="display: inline-block; padding: 10px;">여자</span>
+			                    	</label>
+			                    </div>
+			                </div>
+			            </dd>
+			        </dl>
+			        <dl>
+			            <dt>주소</dt>
+			            <dd>
+			                <div class="btn_search flat">
+			                	<input type="text" name="post" readonly="readonly" placeholder="우편번호 검색을 누르세요" style="width: 624px; vertical-align: top;" id="post" value="${member.post }"> 
 		                		<a class="adClick btn_basic" style="margin-top: 14px;" onclick="search_post()">우편번호 검색</a>
-		                </div>
-		                <div class="btn_search">
-		                	<input type="text" readonly="readonly" id="addr" value="${member.addr }"> 
-		                	<input type="text" id="detailAddr" value="${member.detailAddr }"> 
-		                	<input type="text" id="extraAddr" value="${member.extraAddr }">
-		                </div>
-		            </dd>
-		        </dl>
-		        <dl>
-		            <dt>프로필 사진</dt>
-		            <dd>
-		                <div class="profile_box"><input type="file" name="uploadImage" id="uploadImage">
-		                    <div class="profile_img"><label for="uploadImage">
-		                            <div class="preload_box"><img src="" style="display: none;"><span class="btn">
-		                                    <em>프로필 등록</em>
-		                                </span></div>
-		                        </label></div>
-		                </div>
-		            </dd>
-		        </dl>
-		       </c:if>
-		    </div>
+			                	<p style="color:red;" id="post_p"></p>
+			                </div>
+			                <div class="btn_search">
+			                	<input type="text" readonly="readonly" name="addr" id="addr" value="${member.addr }"> 
+			                	<input type="text" name="detailAddr" id="detailAddr" value="${member.detailAddr }"> 
+			                	<input type="text" name="extraAddr" id="extraAddr" value="${member.extraAddr }">
+			                </div>
+			            </dd>
+			        </dl>
+			        <!-- <dl>
+			            <dt>프로필 사진</dt>
+			            <dd>
+			                <div class="profile_box"><input type="file" name="uploadImage" id="uploadImage">
+			                    <div class="profile_img"><label for="uploadImage">
+			                            <div class="preload_box"><img src="" style="display: none;"><span class="btn">
+			                                    <em>프로필 등록</em>
+			                                </span></div>
+			                        </label></div>
+			                </div>
+			            </dd>
+			        </dl> -->
+			       </c:if>
+			    </div>
+		    </form>
 		    <div class="btn_wrap mt40">
-		    	<a href="javascript:;" class="btn_basic type5 adClick">저장</a>
+		    	<input type="submit" class="btn_basic type5 adClick" value="저장">
 	    	</div>
 		</div>
 	</div>

@@ -11,6 +11,7 @@
 	<!-- Navigation -->
     <jsp:include page="../nav.jsp"></jsp:include>
     
+    <!-- Content  -->
     <div style="height: 1000px; margin: 0 auto; width: 1200px">
     	<!-- 마이페이지 메뉴  -->
 		<jsp:include page="mypageMenu.jsp"></jsp:include>

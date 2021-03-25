@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1 컨설턴팅</title>
+
 <style>
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
@@ -22,10 +23,74 @@
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
 </style>
+<style>
+	* {
+	font-family: 'Noto Sans KR', sans-serif;
+	}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-	<div id="map" style="width:100%;height:350px;"></div>
+	<!-- Navigation -->
+    <jsp:include page="../nav.jsp"></jsp:include>
+    
+    <!-- Content  -->
+    <div id="content" style="height: 1800px; margin: 70px auto; width: 1200px">
+	  	<div id="box_img">
+	  		<img alt="이미지" src="https://res.cloudinary.com/peloton-cycle/image/fetch/dpr_1.0,f_auto,h_380,q_auto:best/https://images.ctfassets.net/6jnflt57iyzx/13jQUcX99wbQZBfW0pbeLg/677fa0b75c9af8c878f92275b882de62/ShowroomBanner_2020.jpg"
+	  		style="width: 1200px;">
+	  		<h3 style="z-index: 100; display: inline-block; position: absolute; top: 203px; left: 800px; color: white">1:1 CONSULTING</h3>
+	  	</div>
+  		
+	  	<h2 style="text-align: center; margin-top:120px; margin-bottom: 55px; padding-bottom: 30px; width: 100%; border-bottom: 1px solid #ccc;">LOCATION</h2>
+		<div id="map" style="width:100%; height:350px;"></div>
+		
+		<h2 style="text-align: center; margin-top: 120px; margin-bottom: 110px; padding: 25px; width: 100%; border-bottom: 1px solid #ccc;">NOTICE</h2>
+		<div id="notice" style="display: flex; margin: 0 auto; width: 1000px;">
+			<div id="notice_txt" style="margin-right: 200px;">
+				<span style="color:orange;text-align: center; margin-bottom: 50px; width: 380px; height: 80px; display: block;">
+					<i class="fas fa-exclamation-circle fa-5x"></i>
+				</span>
+				<div style="display: bloack; width: 380px; height: 207px; text-align: center;">
+					<h4>오시기 전에<br> 공지사항을 읽어주세요!</h4>
+					<span>
+						<br>
+						30분 전에 방문 해 주세요.<br>
+						방문하려면 현지 쇼룸에 문의하세요<br>
+						최대 2명까지 예약가능 합니다.<br>
+						<br>
+						쇼룸에 정책에 따라 주세요.
+					</span>
+				</div>
+			</div>
+			
+			<div id="notice_icon">
+				<div style="color:gray; margin-bottom: 20px;">
+					<i class="fas fa-head-side-mask fa-3x" style="margin-right: 20px;"></i>
+					<p style="display: inline-block;">마스크를 착용해야 합니다</p>
+				</div>
+				<div style="color:gray; margin-bottom: 20px;">
+					<i class="fas fa-hands-wash fa-3x" style="margin-right: 20px;"></i>
+					<p style="display: inline-block;">손을 꼭 씻도록 합니다</p>
+				</div>
+				<div style="color:gray; margin-bottom: 20px;">
+					<i class="fas fa-people-arrows fa-3x" style="margin-right: 20px;"></i>
+					<p style="display: inline-block;">사람간의 간격을 유지합니다</p>
+				</div>
+				<div style="color:gray; margin-bottom: 20px;">
+					<i class="fas fa-spray-can fa-3x" style="margin-right: 20px;"></i>
+					<p style="display: inline-block;">매장은 소독을 통해 청결을 유지합니다</p>
+				</div>
+				<div style="color:gray; margin-bottom: 20px;">
+					<i class="fas fa-credit-card fa-3x" style="margin-right: 20px;"></i>
+					<p style="display: inline-block;">신용카드 결제만 받습니다.</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	
+	<!-- Footer -->
+    <jsp:include page="../footer.jsp"></jsp:include>
 	
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=42d81b928e716a630ed23f5e7f1d07e8"></script>
 	<script>
@@ -37,10 +102,6 @@
 					hardness : "${map.hardness}"
 				});
 		</c:forEach>
-		/* var la = parseFloat(arr[0].latitude);
-		var ma = parseFloat(arr[0].hardness);	 
-		
-		console.log(la+", " + ma);*/	
 	</script>
 	<script>
 
@@ -60,8 +121,6 @@
 	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
-	//////////////////////////////////////해결하기/////////////////////////////
-	/**/
 	for (var i = 0; i < arr.length; i++) {
 		
 		

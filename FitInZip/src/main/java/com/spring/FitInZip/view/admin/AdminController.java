@@ -23,6 +23,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	@RequestMapping("/searchMap")
+	public String searchMap(){
+		return "consulting/searchMap";
+	}
+	
 	@RequestMapping("/checkMap")
 	@ResponseBody
 	public String checkMap(MapVO map) throws JsonProcessingException {

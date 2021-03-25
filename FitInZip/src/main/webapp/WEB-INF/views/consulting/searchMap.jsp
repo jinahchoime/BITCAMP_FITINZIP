@@ -10,6 +10,7 @@
 	<form>
 		<input type="text" id="sample5_address" placeholder="주소" name="addr">
 		<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" id="btn"><br>
+		<!-- type: hidden 부분 없으면 넘어가는지 확인해보기  -->
 		<input type="hidden" value="" name="la" id="la">
 		<input type="hidden" value="" name="ma" id="ma">
 		<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
