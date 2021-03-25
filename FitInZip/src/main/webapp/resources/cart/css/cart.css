@@ -4,7 +4,6 @@
 	margin-top: 40px;
 }
 	
-
 .cart-title {
 	padding: 0;
 	margin: 0 0 15px 0;
@@ -89,6 +88,7 @@
   vertical-align: top;
   text-align: center;
   box-sizing: border-box;
+  color: #FA5400;
 }
 
 .mypage-cart .product-opt_cart .item-detail .total-price strong {
@@ -99,20 +99,27 @@
   position: absolute;
   top: 23px;
   right: 10px;
+  background-color: transparent;
+  border: none;
 }
 
-.product-opt_cart .item-detail .delete-btn .btn-delete {
-  color: #ddd;
+/* .product-opt_cart .item-detail .delete-btn:hover {
+	background-color: transparent;
 }
+
+.product-opt_cart .item-detail .btn-delete:hover {
+ background-color: transparent;
+} */
 
 .product-opt_cart .item-detail .option-wrap .optchange-btn {
-  display: inline;
   font-size: 14px;
   color: #6c6c6c;
   text-decoration: underline;
   border-radius: 0;
+  display: inline-block;
+  margin-left: 150px;
+  padding-left: 2;
 }
-
 
 .product-opt_cart .item-detail .option-wrap {
   width: 22%;
@@ -169,10 +176,22 @@
   margin-top: -1px;
   padding: 20px;
   border-bottom: 0;
-  background-color: #e5e5e5;
   font-size: 16px;
   font-weight: bold;
-  
+  background-color: #e5e5e5;
+}
+
+.product-checkout {
+	border: 1px solid #e5e5e5;
+    height: 333px;
+}
+
+.product-checkout .label {
+	display: table-cell;
+	color: #000;
+	font-weight: 500;
+	letter-spacing: -1;
+	
 }
 
 .product-checkout .info-price > span {
@@ -185,9 +204,8 @@
   display: table;
   width: 100%;
   border-top: 1px solid #d1d1d1;
-  border-bottom: 1px solid #d1d1d1;
   margin-top: 42px;
-  padding: 27px 0px 27px 0px;
+  padding: 27px 0px;
 }
 
 .product-checkout .total-price .label {
@@ -195,19 +213,26 @@
 }
 
 .product-checkout .btn-order {
-  margin-top: 15px;
+/*   margin-top: 15px; */
   background-color: #fb5302;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
   height: 48px;
-  padding: 16px 50px;
+  padding: 16px 155px;
   max-width: 100%;
   text-decoration: none;
   outline: none;
   cursor: pointer;
   line-height: 100%;
-  box-sizing: border-box;
+  width: 542px;
+  margin: 10px;
+}
+
+.product-checkout .btn-order:hover {
+	text-decoration: none;
+	background-color: #ff8000;
+	color:white;
 }
 
 

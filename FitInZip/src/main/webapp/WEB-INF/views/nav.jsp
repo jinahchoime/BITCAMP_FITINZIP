@@ -14,6 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
+<!-- 장바구니 아이콘 -->
+ <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 <style>
 	* {
@@ -49,7 +51,7 @@
             <a class="nav-link" href="#">1:1 컨설팅</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="cart">장바구니</a>
+            <a class="nav-link" href="cart"><i class="fas fa-shopping-cart"></i></a>
           </li>
         </ul>
       </div>

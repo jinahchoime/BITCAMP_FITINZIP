@@ -21,12 +21,32 @@
 
 <script>
 	//장바구니 버튼 누르면 미니 장바구니가 같은 화면 오른쪽에 사이드바로 뜨면서 동시에 장바구니 테이블에 데이터가 들어가야 함
+	$(function(){
+		$(".addcart-btn").on("click", function(){
+			alert("장바구니 담기 ajax 실행");
+			let formData = new FormData(this.form);
+			let options = {
+					method: "POST",
+					body : new URLSearchParams(formData)
+			}
+			
+			fetch("/insertCart", options)
+				.then(async function (response) {
+					let result = await response.json();
+					alert("장바구니 담기 성공");
+					location.href="/product";
+				})
+				.catch(err => alert("오류 발생: " + err));
+		})
+	})
+		
 	
+
 	
 </script>
 </head>
 <body>
-
+	<!-- navbar -->
 	<jsp:include page="../nav.jsp"></jsp:include>
 
 	<div class="product-list">
@@ -35,11 +55,12 @@
 			<div class="row row-cols-3" >
 			
 				<c:forEach var="productList" items="${productList }">
-			<!--  	<form action="insertCart()" class="product-form"> -->
 					<div class="col product-col" >
-						<button class="product-img-btn">
-							<img style="width: 480px; height: 580px;" src="${productList.proImg }">
+						<button class="product-img-btn" >
+							<img id="modalBtn" style="width: 480px; height: 580px;" src="${productList.proImg }">
 						</button>
+					
+			  	<form action="/insertCart" class="product-form" method="post"> 
 						<h4 class="product-name">${productList.proName }</h4>
 						<p class="product-price">${productList.proPrice }원</p>
 
@@ -68,7 +89,7 @@
 									<option value="10kg(+21,600원)">10kg(+21,600원)</option>
 								</select>
 								<div class="addcart-btn-div dumbbell-cart-btn">
-									<button class="addcart-btn" type="submit">장바구니 담기</button>
+									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
 							</c:if>
 						
@@ -87,18 +108,22 @@
 										MAX: 100KG</option>
 								</select>
 								<div class="addcart-btn-div rubberband-cart-btn">
-									<button class="addcart-btn" type="submit">장바구니 담기</button>
+									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
 							</c:if>
 						
 							<c:if test="${productList.proName ne '덤벨 1kg~10kg' && productList.proName ne '워크아웃 밴드' }">
 								<div class="addcart-btn-div foreach-cart-btn">
-									<button class="addcart-btn" type="submit">장바구니 담기</button>
+									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
 							</c:if>
 						
+					<input type="hidden" name="proNum" value="${productList.proNum}">
+				</form>	 
 					</div>	
-				<!-- </form>	 -->
+					<!-- memId 보내야 mapper에 들어감 
+					<input type="hidden" name="memId" value="${'세션에 저장된 아이디 불러오기'}">
+					-->
 				</c:forEach>
 			</div>
 			
