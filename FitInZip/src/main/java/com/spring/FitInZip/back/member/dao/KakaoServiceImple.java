@@ -4,20 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.spring.FitInZip.back.member.service.LoginService;
+import com.spring.FitInZip.back.member.service.KakaoService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Service
-public class LoginServiceImple implements LoginService{
+public class KakaoServiceImple implements KakaoService{
 	
 	@Autowired
 	private MemberDAO memberDAO;
 	
-	public LoginServiceImple() {
-		System.out.println(">> LoginServiceImple() 객체생성");
+	public KakaoServiceImple() {
+		System.out.println(">> KakaoServiceImple() 객체생성");
 	}
 	
-
+	// 카카오 이미 로그인했는지 아닌지
 	@Override
 	public String kakaoIsFirst(String id) throws JsonProcessingException {
 		System.out.println("kakaoIsFirst");
@@ -26,22 +26,11 @@ public class LoginServiceImple implements LoginService{
 			return isFirst;
 	}
 	
-
-	@Override
-	public void joinMember(MemberVO vo) {
-		memberDAO.joinMember(vo);
-	}
-
-
+	// 카카오 최초 로그인시 가입처리
 	@Override
 	public void kakaoJoin(MemberVO vo) {
 		memberDAO.kakaoJoin(vo);
 		
 	}
-
-
-
-
-
 	
 }

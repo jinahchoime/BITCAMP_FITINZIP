@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/resources/login/css/kakaoAdd.css">
+<link rel="stylesheet" type="text/css" href="/resources/login/css/kakaoJoin.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	window.onload = function(){
@@ -146,7 +146,7 @@
 							<div class="btn_search type5">	
 								<select id="select_day"></select>
 							</div>
-								<br/>
+							<br/>
 						</div>
 						<input type="hidden" name="id" id="id" value="${vo.id }">
 						<input type="hidden" name="gender" id="gender" value="${vo.gender }">

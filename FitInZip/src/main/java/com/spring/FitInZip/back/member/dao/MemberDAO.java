@@ -25,9 +25,16 @@ public class MemberDAO {
 		System.out.println("DAO에 넘어온 vo : " + vo);
 		mybatis.insert("MemberDAO.joinMember", vo);
 	}
-
+	
+	// 카카오로 가입처리
 	public void kakaoJoin(MemberVO vo) {
-		mybatis.insert("MemberDAO.kakaoJoin", vo);
+		mybatis.insert("MemberDAO.join", vo);
+		
+	}
+
+	// 이메일로 가입처리
+	public void emailJoin(MemberVO vo) {
+		mybatis.insert("MemberDAO.emailJoin", vo);
 		
 	}
 	

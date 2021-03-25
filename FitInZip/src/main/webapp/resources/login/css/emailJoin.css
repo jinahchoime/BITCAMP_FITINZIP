@@ -76,7 +76,7 @@ textarea:-ms-input-placeholder {color: #ccc !important;}
 input::placeholder {color: #ccc;}
 textarea::placeholder {color: #ccc;}
 */
-button {border: none; background-color:transparent; cursor:pointer; outline: 0;}
+
 select {-webkit-appearance: none; -moz-appearance: none; appearance: none;}
 select::-ms-expand {display: none;}
 input[type="checkbox"], input[type="radio"] { display:none; }
@@ -115,6 +115,9 @@ option {
 
 .btn_basic.full {
     width: 100%;
+    border: none;
+    cursor:pointer;
+    outline: 0;
 }
 .btn_basic {
     display: inline-block;

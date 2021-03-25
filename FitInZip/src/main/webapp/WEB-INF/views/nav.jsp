@@ -14,7 +14,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/test">원데이PT</a>
+            <a class="nav-link" href="onedayClassMain">원데이PT</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">라이브PT</a>

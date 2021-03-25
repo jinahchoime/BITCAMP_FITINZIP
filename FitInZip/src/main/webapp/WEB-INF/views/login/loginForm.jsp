@@ -12,30 +12,27 @@
 <script src="https://kit.fontawesome.com/fa609ec6e5.js" crossorigin="anonymous"></script>
 <script src="http://developer.kakao.com/sdk/js/kakao.js"></script>
 
-
-
 <script>
-		$(function() {
-			$("#loginEmail").on("click", function() {
-				alert("클릭");
-				var self = this;
+	/* $(function() {
+		$("#loginEmail").on("click", function() {
+			alert("클릭");
+			var self = this;
 
-	            firebase.auth().signInWithEmailAndPassword(self.userEmail, self.userPassword).then(function(res) {
-	                self.goLogin(1, res.user['uid']);
+            firebase.auth().signInWithEmailAndPassword(self.userEmail, self.userPassword).then(function(res) {
+                self.goLogin(1, res.user['uid']);
 
-	            }).catch(function(error) {
-	                //console.log(error);
-	                if(error.code == 'auth/wrong-password') {
-	                    self.showErrorMsg('userPassword', '비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.');
-	                } else if(error.code == 'auth/user-not-found') {
-	                    self.showErrorMsg('userEmail', '가입된 아이디가 없습니다. 다시 확인해주세요.');
-	                } else if(error.code == 'auth/invalid-email') {
-	                    self.showErrorMsg('userEmail', '잘못된 이메일입니다. 다시 확인해주세요.');
-	                }
-	            })
-			})
-		}
-	});
+            }).catch(function(error) {
+                //console.log(error);
+                if(error.code == 'auth/wrong-password') {
+                    self.showErrorMsg('userPassword', '비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.');
+                } else if(error.code == 'auth/user-not-found') {
+                    self.showErrorMsg('userEmail', '가입된 아이디가 없습니다. 다시 확인해주세요.');
+                } else if(error.code == 'auth/invalid-email') {
+                    self.showErrorMsg('userEmail', '잘못된 이메일입니다. 다시 확인해주세요.');
+                }
+            })
+		})
+	}); */
 </script>	
 
 
@@ -73,7 +70,7 @@
 							} else {
 								/* 추가정보 가입페이지로 이동 */
 								document.write(''
-										+ '<form action="/kakaoAdd" id="kakao" method="post">'
+										+ '<form action="/kakaoJoinForm" id="kakao" method="post">'
 										+ '<input type="hidden" id="id" name="id" value=' + id + '>'
 										+ '<input type="hidden" id="nickname" name="nickname" value=' + nickname + '>'
 										+ '<input type="hidden" id="gender" name="gender" value=' + gender + '>'
@@ -132,7 +129,7 @@
 					<div class="last-box mt40">
 						<div class="gray7 mt30">
 							아직 계정이 없으신가요?
-							<a href="joinMain" data-adarea="피클_가입하기" class="ml10 black bold adClick">이메일로 회원가입</a>
+							<a href="emailJoinForm" data-adarea="피클_가입하기" class="ml10 black bold adClick">이메일로 회원가입</a>
 						</div>
 					</div>
 				</div>

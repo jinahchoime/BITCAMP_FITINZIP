@@ -18,4 +18,11 @@
 		VALUES (#{id}, #{name}, #{nickname}, #{gender}, #{phone}, #{birth})
 	</insert>
 	
+	<!-- 이메일로 가입처리(패스워드있음) -->
+	<insert id="emailJoin" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
+		INSERT INTO MEMBER (ID, PASSWORD, NAME, NICKNAME, GENDER, PHONE, BIRTH)
+		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{gender}, #{phone}, #{birth})
+	</insert>
+	
+	
 </mapper>
