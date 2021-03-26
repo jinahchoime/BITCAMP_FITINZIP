@@ -16,7 +16,7 @@
 
 <!-- 장바구니 아이콘 -->
  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
+ 
 <style>
 	* {
 	font-family: 'Noto Sans KR', sans-serif;
@@ -26,14 +26,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">FITIN.ZIP</a>
+      <a class="navbar-brand" href="/">FITIN.ZIP</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/test">원데이PT</a>
+            <a class="nav-link" href="#">원데이PT</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">라이브PT</a>
@@ -45,10 +45,10 @@
             <a class="nav-link" href="#">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">마이페이지</a>
+            <a class="nav-link" href="/mypage">마이페이지</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">1:1 컨설팅</a>
+            <a class="nav-link" href="/searchMap">1:1 컨설팅</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="cart"><i class="fas fa-shopping-cart"></i></a>

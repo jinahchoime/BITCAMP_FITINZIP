@@ -25,5 +25,4 @@
   <div class="container">
     <a href="#" style="color:white;">강사/관리자 로그인</a>
   </div>
-  <!-- /.container -->
 </footer>
