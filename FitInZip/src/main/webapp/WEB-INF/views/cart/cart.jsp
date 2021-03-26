@@ -41,6 +41,9 @@
 							<div class="info-wrap">
 								<a style="color: #000000;" class="tit" href="/product">${cartList.proName }</a>
 								<span class="opt quantity">수량 : ${cartList.amount }</span>
+								<c:if test="${cartList.proName eq '워크아웃 밴드' }">
+								<span class="select-option">스타일: </span>
+								</c:if>
 							</div>
 						</div>
 						<div class="option-wrap">
@@ -50,6 +53,8 @@
 						</div>
 						<div class="total-price">
 							<strong class="retail-price">${cartList.proPrice }원</strong>
+							<span><i class="fas fa-arrow-up"></i></span>
+							<span><i class="fas fa-arrow-down"></i></span>
 						</div>
 						
 						<!-- Button trigger modal -->

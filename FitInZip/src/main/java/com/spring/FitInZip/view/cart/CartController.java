@@ -56,7 +56,7 @@ public class CartController {
 		
 		//System.out.println("vo: " +vo);
 		
-		//boolean isExist = findProduct(request.getParameter("proNum"), vo);
+		boolean isExist = findProduct(request.getParameter("proNum"), vo);
 		
 		cartService.insertCart(vo);
 		
