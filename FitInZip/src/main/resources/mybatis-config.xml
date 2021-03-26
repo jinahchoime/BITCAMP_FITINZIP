@@ -13,6 +13,7 @@
     <mapper resource="mappings/product.xml"/>     
   	<mapper resource="mappings/mypage.xml"/>
   	<mapper resource="mappings/admin.xml"/>     
+   <mapper resource="mappings/member.xml"/>
   </mappers>
 
 </configuration>

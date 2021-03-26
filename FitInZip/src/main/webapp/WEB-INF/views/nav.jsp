@@ -33,7 +33,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">원데이PT</a>
+            <a class="nav-link" href="onedayClassMain">원데이PT</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">라이브PT</a>
@@ -42,7 +42,7 @@
             <a class="nav-link" href="product">용품</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">로그인</a>
+            <a class="nav-link" href="loginMain">로그인</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/mypage">마이페이지</a>
