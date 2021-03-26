@@ -1,9 +1,10 @@
-package com.spring.FitInZip.back.member.dao;
+package com.spring.FitInZip.back.member.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.spring.FitInZip.back.member.dao.MemberDAO;
 import com.spring.FitInZip.back.member.service.KakaoService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 

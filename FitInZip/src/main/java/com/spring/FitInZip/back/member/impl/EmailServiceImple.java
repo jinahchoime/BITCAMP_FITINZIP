@@ -1,8 +1,9 @@
-package com.spring.FitInZip.back.member.dao;
+package com.spring.FitInZip.back.member.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.FitInZip.back.member.dao.MemberDAO;
 import com.spring.FitInZip.back.member.service.EmailService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
@@ -16,5 +17,11 @@ public class EmailServiceImple implements EmailService {
 	public void emailJoin(MemberVO vo) {
 		memberDAO.emailJoin(vo);
 	}
+
+	@Override
+	public MemberVO emailLogin(MemberVO vo) {
+		return memberDAO.emailLogin(vo);
+	}
+	
 
 }

@@ -37,5 +37,15 @@ public class MemberDAO {
 		mybatis.insert("MemberDAO.emailJoin", vo);
 		
 	}
+
+	public MemberVO emailLogin(MemberVO vo) {
+		System.out.println("===> emailLogin() 실행");
+		
+		MemberVO mvo = mybatis.selectOne("MemberDAO.emailLogin", vo);
+		System.out.println("emailLogin : " + mvo);
+		
+		return mvo;
+		
+	}
 	
 }

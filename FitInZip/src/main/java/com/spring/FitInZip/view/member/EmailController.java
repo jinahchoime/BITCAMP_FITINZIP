@@ -1,15 +1,24 @@
 package com.spring.FitInZip.view.member;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.member.service.EmailService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 
 @Controller
+@SessionAttributes("mvo")
 public class EmailController {
 	
 	@Autowired
@@ -41,6 +50,33 @@ public class EmailController {
 		emailService.emailJoin(vo);
 		return "true";
 	}
+	
+	@RequestMapping("/emailLoginCheck")
+	@ResponseBody
+	public boolean emailLogin(MemberVO vo, Model model) {
+		
+		boolean isJoin = false;
+		
+		System.out.println("emailLogin 실행중");
+		System.out.println("입력한 이메일 정보 : " + vo);
+	
+		MemberVO mvo = emailService.emailLogin(vo);
+		System.out.println("로그인 후 받아온 정보 : " + mvo);
+		
+		if (mvo != null && mvo.getWithdrawal().equals("WD00") && mvo.getRole().equals("RL00")) {
+			isJoin = true;
+			model.addAttribute("mvo" ,mvo);
+		}
+		
+		
+		System.out.println(isJoin);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		
+		return isJoin;
+	}
+	
+	
 	
 	
 }

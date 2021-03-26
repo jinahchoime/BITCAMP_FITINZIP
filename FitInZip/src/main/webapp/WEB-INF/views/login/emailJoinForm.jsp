@@ -76,9 +76,7 @@
 			  })
 			  .catch(err => alert("오류가 발생 : " + err));
 		})
-	})
-
-
+	});
 </script>
 
 </head>
