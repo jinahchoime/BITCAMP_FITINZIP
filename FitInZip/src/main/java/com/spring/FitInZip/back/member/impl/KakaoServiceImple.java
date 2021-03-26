@@ -20,11 +20,10 @@ public class KakaoServiceImple implements KakaoService{
 	
 	// 카카오 이미 로그인했는지 아닌지
 	@Override
-	public String kakaoIsFirst(String id) throws JsonProcessingException {
+	public MemberVO kakaoIsFirst(String id){
 		System.out.println("kakaoIsFirst");
-			String isFirst = memberDAO.kakaoIsFirst(id);
-			
-			return isFirst;
+		
+		return memberDAO.kakaoIsFirst(id);
 	}
 	
 	// 카카오 최초 로그인시 가입처리

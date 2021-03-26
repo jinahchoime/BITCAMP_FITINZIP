@@ -119,16 +119,16 @@
 						var gender = kakao_account.gender;
 						
 						$.ajax({
-							url: "/kakaoLogin",
+							url: "/kakaoLoginCheck",
 							method: "post",
 							data: { "id" : id,
 									"nickname" : nickname,
 									"gender" : gender
 									},
 							dataType: "json"
-						}).then(function (isFirst) {
+						}).then(function (isJoin) {
 							/* alert("가입여부 : " + isFirst); */
-							if (isFirst == 1) {
+							if (isJoin == true) {
 								alert("로그인되었습니다");
 								location.href="/";
 							} else {

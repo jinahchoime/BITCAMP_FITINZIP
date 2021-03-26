@@ -13,12 +13,12 @@ public class MemberDAO {
 	@Autowired 
 	private SqlSessionTemplate mybatis;
 	
-	public String kakaoIsFirst(String id) throws JsonProcessingException {
+	public MemberVO kakaoIsFirst(String id){
 		System.out.println("DAO에 넘어온 id : " + id);
-		String isFirst = mybatis.selectOne("MemberDAO.kakaoIsfirst", id);
+		MemberVO mvo = mybatis.selectOne("MemberDAO.kakaoIsfirst", id);
+		System.out.println("emailLogin : " + mvo);
 		
-		System.out.println("isFirst : " + isFirst);
-		return isFirst;
+		return mvo;
 	}
 	
 	public void joinMember(MemberVO vo) {
@@ -28,7 +28,7 @@ public class MemberDAO {
 	
 	// 카카오로 가입처리
 	public void kakaoJoin(MemberVO vo) {
-		mybatis.insert("MemberDAO.join", vo);
+		mybatis.insert("MemberDAO.kakaoJoin", vo);
 		
 	}
 
@@ -45,7 +45,6 @@ public class MemberDAO {
 		System.out.println("emailLogin : " + mvo);
 		
 		return mvo;
-		
 	}
 	
 }

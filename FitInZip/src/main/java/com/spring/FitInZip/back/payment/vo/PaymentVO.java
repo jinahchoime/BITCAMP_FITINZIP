@@ -18,7 +18,7 @@ import lombok.ToString;
 public class PaymentVO {
 
 	private Integer payIndex;
-	private Integer classCode;
+	private Integer clsCode;
 	private String orderNum;
 	private String memId;
 	private Integer originPrice;

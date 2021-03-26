@@ -36,7 +36,7 @@
             <a class="nav-link" href="onedayClassMain">원데이PT</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">라이브PT</a>
+            <a class="nav-link" href="liveClassMain">라이브PT</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="product">용품</a>
