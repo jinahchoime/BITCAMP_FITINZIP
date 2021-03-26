@@ -7,17 +7,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
@@ -102,6 +105,14 @@ public class HomeController {
 	@RequestMapping(value = "classRegister")
 	public String goRegister() {
 		return "trainer/classRegister";
+	}
+	
+	@RequestMapping(value = "regCls")
+	public String regClsProc(ClsVO vo, MultipartHttpServletRequest clsOriName) throws IllegalStateException, IIOException, Exception {
+		System.out.println("dsadd");
+		System.out.println("vo: " + vo.toString());
+		
+		return "trainer/classStatus";
 	}
 	
 }

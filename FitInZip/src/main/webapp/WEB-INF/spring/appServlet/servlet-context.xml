@@ -14,7 +14,8 @@
 		~Resolver 명칭이 있는 객체 명은 대체로 정해져 있음 -->
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10000000"></beans:property>
+		<beans:property name="maxUploadSize" value="10000000"/>
+		<beans:property name="maxUploadSizePerFile" value="10485760"/>
 	</beans:bean>
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
