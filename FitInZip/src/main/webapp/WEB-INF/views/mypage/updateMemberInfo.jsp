@@ -65,17 +65,26 @@
 		var phone = document.getElementById('phone').value;
 		var post = document.getElementById('post').value;
 		
-		if(nickname.length == 0 && phone.length == 0 && post.length == 0){
+		/* if(nickname.length == 0 && phone.length == 0 && post.length == 0){
 			document.getElementById('nick_p').innerHTML = "닉네임을 입력해 주세요";
 			document.getElementById('phone_p').innerHTML = "연락처를 입력해 주세요";
 			document.getElementById('post_p').innerHTML = "우편번호를 입력해 주세요";
 			
 			return false;
-		}
+		} */
+		
 		
 		if(nickname.length == 0 &&
 				 document.getElementById('nick_p').innerHTML == ""){
 			document.getElementById('nick_p').innerHTML = "닉네임을 입력해 주세요";
+			return false;
+		}
+		
+		if(!(nickname.length == 0)){
+			document.getElementById('nick_p').innerHTML = "";
+		}
+		
+		if(nickname.length == 0){
 			return false;
 		}
 		
@@ -85,15 +94,29 @@
 			return false;
 		}
 		
+		if(!(phone.length == 0)){
+				document.getElementById('phone_p').innerHTML = "";
+		}
+		
+		if(phone.length == 0){
+			return false;
+		}
+		
 		if(post.length == 0 &&
 			 document.getElementById('post_p').innerHTML == ""){
 			document.getElementById('post_p').innerHTML = "우편번호를 입력해 주세요";
 			return false;
 		}
 		
-		if(nickname.length != 0 && phone.length != 0 && post.length != 0){
-			return true;
+		if(!(post.length == 0)){
+			document.getElementById('post_p').innerHTML = "";
 		}
+		
+		if(post.length == 0){
+			return false;
+		}
+		
+		return true
     };
 	
 </script>
@@ -121,7 +144,8 @@
 			            <dt>이름</dt>
 			            <dd>
 			                <div class="btn_search">
-			                	<input type="text" name="name" placeholder="이름" disabled="disabled" class="disabled" value="${member.name }" id="name">
+			                	<input type="text" name="name" placeholder="이름" disabled="disabled" class="disabled" value="${member.name }" id="name"
+			                	style="color:#ccc">
 			                </div>
 			            </dd>
 			        </dl>

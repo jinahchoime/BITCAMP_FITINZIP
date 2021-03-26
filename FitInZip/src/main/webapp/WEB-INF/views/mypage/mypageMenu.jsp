@@ -10,8 +10,7 @@
 	            <li><a href="/mypage/std" class="nav_in">나의 클래스</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
-	                    	<li><a href="/mypage/std" class="adClick">캘린더내역</a></li>
-	                        <li><a href="/mypage/std" class="adClick">클래스내역</a></li>
+	                        <li><a href="/clsHistory" class="adClick">클래스내역</a></li>
 	                        <li><a href="/mypage/std" class="adClick">찜한클래스</a></li>
 	                        <li><a href="/mypage/std" class="adClick">쿠폰내역</a></li>
 	                    </ul>

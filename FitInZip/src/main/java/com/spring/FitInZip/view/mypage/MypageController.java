@@ -27,9 +27,14 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
+	@RequestMapping("/clsHistory") 
+	public String clsHistory(MemberVO vo) {
+		return "mypage/clsHistory";
+	}
+	
 	@RequestMapping("/UpdateMypage") 
 	public String updateMember(MemberVO vo, HttpServletRequest request) {
-		System.out.println("updateMember ½ÇÇàÁß");
+		System.out.println("updateMember ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		
 		String month = request.getParameter("month");
 		if(month.length() == 1) {
@@ -60,4 +65,6 @@ public class MypageController {
 		
 		return "mypage/updateMemberInfo";
 	}
+	
+	
 }
