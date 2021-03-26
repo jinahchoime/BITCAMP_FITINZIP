@@ -14,8 +14,8 @@ public class Criteria {
 	private int amount;		// 페이지 당 표시할 글의 수
 	
 	public Criteria() {
-		// 기본 페이지는 1페이지, 페이지 당 표시할 글의 수는 2개
-		this(1, 2);
+		// 기본 페이지는 1페이지, 페이지 당 표시할 글의 수는 10개
+		this(1, 10);
 	}
 
 	public Criteria(int pageNum, int amount) {

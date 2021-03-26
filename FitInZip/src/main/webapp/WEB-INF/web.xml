@@ -37,6 +37,10 @@
 			</init-param>
 			<load-on-startup>1</load-on-startup>
 		</servlet>
+		
+		<multipart-config>
+			
+		</multipart-config>
 			
 		<servlet-mapping>
 			<servlet-name>appServlet</servlet-name>

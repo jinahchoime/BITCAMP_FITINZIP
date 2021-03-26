@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	<div class="grid-container">
 		<div class="item1">
 			<div>
-				<h1>그리드 헤더</h1>
+				<h1>나의 일정</h1>
 			</div>
 		</div>
 		<div class="item2">

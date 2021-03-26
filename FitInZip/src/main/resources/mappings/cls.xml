@@ -1,1 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="class">
+	
+	<select id="getListWithPaging" resultType="ClsVO" parameterType="com.spring.FitInZip.back.cls.clsStatus.Criteria">
+		<![CDATA[
+			select *
+			from
+			    (select /*+INDEX_DESC(FIT_CLASS FIT_CLASS_PK) */ rownum rn, CLS_CODE, TRAINER_ID, CLS_CATEGORY, CLS_NAME, CLS_TAG, START_DATE,
+			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, CLS_ORI_NAME, CLS_FILE_NAME,
+			        CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
+			    from fit_class
+			    where rownum <= #{pageNum} * #{amount})
+			where rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+	
+</mapper>

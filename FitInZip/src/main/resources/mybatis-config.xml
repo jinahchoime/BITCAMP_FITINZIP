@@ -17,11 +17,13 @@
   	</typeAliases> -->
   	
   	<typeAliases>
-  		<typeAlias type="com.spring.FitInZip.back.calendar.vo.CalendarVO"/>
+  		<typeAlias type="com.spring.FitInZip.back.calendar.vo.CalendarVO" alias="CalendarVO"/>
+  		<typeAlias type="com.spring.FitInZip.back.cls.vo.ClsVO" alias="ClsVO"/>
   	</typeAliases>
   	
   <mappers>
-   <mapper resource="mappings/calendar.xml"/>     
+   <mapper resource="mappings/calendar.xml"/>
+   <mapper resource="mappings/cls.xml"/>
     <!--  <mapper resource="mappings/cart.xml"/>     
     <mapper resource="mappings/cls.xml"/>     
     <mapper resource="mappings/member.xml"/>     

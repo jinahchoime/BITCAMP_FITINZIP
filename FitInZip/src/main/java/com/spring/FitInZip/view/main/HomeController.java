@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
+import com.spring.FitInZip.back.cls.clsStatus.Criteria;
+import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
+import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
+import com.spring.FitInZip.back.cls.vo.ClsVO;
 
 /**
  * Handles requests for the application home page.
@@ -29,8 +33,12 @@ import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 public class HomeController {
 	@Autowired
 	private CalendarService calendarService;
+	@Autowired
+	private ClsStatusService clsStatusService;
+	
 	private String mem_id;
 	private String mem_id2;
+	private Criteria crt = new Criteria();
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -82,8 +90,18 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "classStat")
-	public String goClassStat() {
+	public String goClassStat(Criteria crt, Model model) {
+		List<ClsVO> list = clsStatusService.getList(crt);
+		System.out.println("list: " + list);
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", new PageDTO(crt, 5));
+		
 		return "trainer/classStatus";
+	}
+	
+	@RequestMapping(value = "classRegister")
+	public String goRegister() {
+		return "trainer/classRegister";
 	}
 	
 }
