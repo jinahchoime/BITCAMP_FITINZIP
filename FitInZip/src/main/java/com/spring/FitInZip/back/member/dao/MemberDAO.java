@@ -28,7 +28,7 @@ public class MemberDAO {
 	
 	// 카카오로 가입처리
 	public void kakaoJoin(MemberVO vo) {
-		mybatis.insert("MemberDAO.join", vo);
+		mybatis.insert("MemberDAO.kakaoJoin", vo);
 		
 	}
 

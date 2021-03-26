@@ -17,7 +17,7 @@ import com.spring.FitInZip.back.member.vo.MemberVO;
 
 
 @Controller
-@SessionAttributes("mvo")
+@SessionAttributes("member")
 public class EmailController {
 	
 	@Autowired
@@ -59,12 +59,12 @@ public class EmailController {
 		System.out.println("emailLogin 실행중");
 		System.out.println("입력한 이메일 정보 : " + vo);
 	
-		MemberVO mvo = emailService.emailLogin(vo);
-		System.out.println("로그인 후 받아온 정보 : " + mvo);
+		MemberVO member = emailService.emailLogin(vo);
+		System.out.println("로그인 후 받아온 정보 : " + member);
 		
-		if (mvo != null && mvo.getWithdrawal().equals("WD00") && mvo.getRole().equals("RL00")) {
+		if (member != null && member.getWithdrawal().equals("WD00") && member.getRole().equals("RL00")) {
 			isJoin = true;
-			model.addAttribute("mvo" ,mvo);
+			model.addAttribute("member" ,member);
 		}
 		
 		

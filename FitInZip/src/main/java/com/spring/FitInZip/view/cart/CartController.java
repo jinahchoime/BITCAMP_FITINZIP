@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.FitInZip.back.cart.CartService;
 import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.cart.vo.CartVO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Controller
 public class CartController {
@@ -24,11 +25,10 @@ public class CartController {
 	private CartService cartService;
 	
 	@RequestMapping("/cart")
-	public String getCartList(Model model, CartVO vo, CartDTO dto) {
+	public String getCartList(Model model, CartVO vo, CartDTO dto, MemberVO member) {
 		
 		//아이디에 해당하는 장바구니 없으면 문구 띄워주기
 		
-		vo.setMemId("jinah");
 		
 		List<CartDTO> cartList = cartService.getCartList(vo);
 		//System.out.println("dto : " + dto);
@@ -45,21 +45,19 @@ public class CartController {
 	//카트 담기
 	@ResponseBody
 	@RequestMapping(value="/insertCart", method= RequestMethod.POST)
-	public String insertCart(Model model, CartVO vo, HttpServletRequest request) {
+	public String insertCart(Model model, CartVO vo, MemberVO member, HttpServletRequest request) {
 		
 		//HttpSession session = request.getSession();
 		//session.setAttribute("mem_id", "jinah");
 		//String mem_id = (String)session.getAttribute("mem_id");
 		
-		vo.setMemId("jinah");
-		System.out.println("FSDFDSFSD"+ vo.getProNum());
 		//vo.setProNum(request.getParameter("proNum"));
 		
 		//dto
 		
 		//System.out.println("vo: " +vo);
 		
-		boolean isExist = findProduct(request.getParameter("proNum"), vo);
+		//boolean isExist = findProduct(request.getParameter("proNum"), vo);
 		
 		cartService.insertCart(vo);
 		
