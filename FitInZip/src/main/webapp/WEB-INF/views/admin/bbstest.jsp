@@ -1,66 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- jquery -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.js" type="text/javascript"></script> -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script> -->
-
-
-<!-- bbs -->
-<link rel="stylesheet" href="../resources/admin/css/bbs.css">
-<link rel="stylesheet" href="../resources/admin/js/bbs.js">
-
-
-<!-- MainSidebar -->
-<link rel="stylesheet" href="../resources/admin/css/style5.css">
- 
- 
-<script>
-
-	function changeSt(btn){
-		let id = btn.parentElement.parentElement.firstElementChild.textContent;
-		alert(id);
-		
-		$.ajax({
-			url: "bbs1Modal",
-			type: "GET",
-			dataType: "json",
-			data: {send:id},
-			success: function(data){
-				alert("사발~"+data);
-			
-			},
-			error: function (){
-				alert("짜쓰~"+error);
-				}
-		});
-		
-	}
-
-</script>
-<style>
-.theadWidth {
- width:100px;
-}
-
-.title1{
-  text-align: center;
-  font-weight: 800;
-  font-size: 20px;
-  color: #fff;
-  text-transform: uppercase;
-}
-
-</style>
-
-</head>
-<body>
 <section>
   <!--for demo wrap-->
   <h1 class="title1" style="padding-top: 25px; padding-bottom: 15px;">강사 가입 승인 요청 LIST</h1>
@@ -114,7 +53,6 @@
   </div>
 </section>
 
-</body>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -124,7 +62,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <h5 id="modalBody"></h5>
+        <h5 id="modalBody2"></h5>
+        <h5 id="modalBody3"></h5>
+        <h5 id="modalBody4"></h5>
+        <h5 id="modalBody5"></h5>
+        <h5 id="modalBody6"></h5>
+        <h5 id="modalBody7"></h5>
+        <h5 id="modalBody8"></h5>
+        <h5 id="modalBody9"></h5>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">승인완료</button>
@@ -133,5 +79,3 @@
     </div>
   </div>
 </div>
-
-</html>

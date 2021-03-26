@@ -25,8 +25,8 @@
     <mapper resource="mappings/payment.xml"/>     
     <mapper resource="mappings/product.xml"/>     
     <mapper resource="mappings/review.xml"/>     
-    <mapper resource="mappings/trainer.xml"/>     
-    <mapper resource="mappings/admin.xml"/>   -->   
+    <mapper resource="mappings/trainer.xml"/> -->     
+    <mapper resource="mappings/admin.xml"/>    
   </mappers>
 
    
