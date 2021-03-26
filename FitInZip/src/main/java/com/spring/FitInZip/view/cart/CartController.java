@@ -52,7 +52,10 @@ public class CartController {
 		//String mem_id = (String)session.getAttribute("mem_id");
 		
 		vo.setMemId("jinah");
+		System.out.println("FSDFDSFSD"+ vo.getProNum());
 		//vo.setProNum(request.getParameter("proNum"));
+		
+		//dto
 		
 		//System.out.println("vo: " +vo);
 		
