@@ -1,4 +1,4 @@
-package com.spring.FitInZip.back.payment.vo;
+package com.spring.FitInZip.back.mypage.vo;
 
 import java.sql.Date;
 
@@ -15,16 +15,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class PaymentVO {
-
-	private Integer payIndex;
+public class UserClsDTO {
 	private String clsCode;
-	private String orderNum;
+	private String clsCategory;
+	private String clsName;
+	private Date startDate;
+	private Date endDate;
+	private String yoil;
+	private Date startTime;
+	private Date endTime;
 	private String memId;
-	private Integer originPrice;
-	private Integer paidPrice;
-	private Integer commission;
-	private Integer netPrice;
-	private String payMethod;
-	private Date payDate;
+	private String commonName;
+	
 }

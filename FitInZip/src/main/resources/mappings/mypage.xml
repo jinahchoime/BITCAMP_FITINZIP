@@ -9,11 +9,17 @@
 			BIRTH = #{birth}, NICKNAME = #{nickname},
 			POST = #{post}, ADDR = #{addr}, 
 			DETAIL_ADDR = #{detailAddr}, EXTRA_ADDR = #{extraAddr}	
-			WHERE ID = 'give@naver.com'
+			WHERE ID = #{id}
 		</update> 
 		
-		<select id="selectMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO" 
-				resultType="com.spring.FitInZip.back.member.vo.MemberVO">
-			SELECT * FROM MEMBER WHERE ID = 'give@naver.com'
+		<select id="selectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			SELECT F.*, C.COMMON_NAME
+			FROM FIT_CLASS F 
+			    INNER JOIN PAYMENT P
+			ON P.CLS_CODE = F.CLS_CODE
+			    INNER JOIN COMMON C
+			ON F.CLS_CATEGORY = C.COMMON_CODE
+			WHERE P.MEM_ID = #{memId}
 		</select>
 	</mapper>
