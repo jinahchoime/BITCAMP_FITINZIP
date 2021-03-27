@@ -162,7 +162,7 @@
 			            <dt>연락처</dt>
 			            <dd>
 			                <div class="btn_search">
-			                	<input type="text" name="phone" placeholder="010-0000-0000 양식에 맞춰 입력하세요" value="${member.phone }" id="phone">
+			                	<input type="text" name="phone" placeholder="-빼고 입력하세요" value="${member.phone }" id="phone">
 			                	<p style="color:red;" id="phone_p"></p>
 			                </div>
 			            </dd>
@@ -182,7 +182,7 @@
 			                <div class="btn_search type5">
 				                <select name="year" class="option_type">
 				                		<c:set var="year" value="${f:substring(birth,0,4) }"/>
-				                		<c:forEach var="i" begin="1970" end="2009">
+				                		<c:forEach var="i" begin="1970" end="2021">
 				                			<c:if test="${year ne i }">
 			                					<option value="${i}">${i}</option>
 			                				</c:if>

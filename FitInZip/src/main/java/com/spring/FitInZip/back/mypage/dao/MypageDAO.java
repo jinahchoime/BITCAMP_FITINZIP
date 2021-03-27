@@ -1,11 +1,14 @@
 package com.spring.FitInZip.back.mypage.dao;
 
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.FitInZip.back.member.vo.MemberVO;
+import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
 
 @Repository
 public class MypageDAO {
@@ -13,12 +16,16 @@ public class MypageDAO {
 	private SqlSessionTemplate mybatis;
 	
 	public void updateMember(MemberVO vo) {
-		mybatis.update("MypageDAO.updateMember", vo);
+		int result = mybatis.update("MypageDAO.updateMember", vo);
+		System.out.println("처리 결과 : " + result);
 	}
 	
 	public MemberVO selectMember(MemberVO vo) {
 		return mybatis.selectOne("MypageDAO.selectMember", vo);
 	}
 	
+	public List<UserClsDTO> getUserClsList(UserClsDTO dto){
+		return mybatis.selectList("MypageDAO.selectCls", dto);
+	}
 	
 }

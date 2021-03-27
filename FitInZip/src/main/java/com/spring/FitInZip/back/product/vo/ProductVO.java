@@ -21,4 +21,5 @@ public class ProductVO {
 	private String proInfo;
 	private String proImg;
 	private Integer proStock;
+	private String proOpt;
 }
