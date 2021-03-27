@@ -11,7 +11,7 @@
             <thead>
                 <tr>
                     <th>클래스</th>
-                    <th>진행상태</th>
+                    <th>입장</th>
                 </tr>
             </thead>
             <tbody id="content">
