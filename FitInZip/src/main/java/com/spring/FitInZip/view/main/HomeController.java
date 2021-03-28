@@ -1,11 +1,13 @@
 package com.spring.FitInZip.view.main;
 
-import java.text.DateFormat;
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +16,12 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
@@ -40,8 +41,6 @@ public class HomeController {
 	private ClsStatusService clsStatusService;
 	
 	private String mem_id;
-	private String mem_id2;
-	private Criteria crt = new Criteria();
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -54,7 +53,6 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		session.setAttribute("ID", "hong");
 		mem_id = (String)session.getAttribute("ID");
-		mem_id2 = "kim";
 		
 		return "main";
 	}
@@ -108,9 +106,51 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "regCls")
-	public String regClsProc(ClsVO vo, MultipartHttpServletRequest clsOriName) throws IllegalStateException, IIOException, Exception {
-		System.out.println("dsadd");
-		System.out.println("vo: " + vo.toString());
+	public String regClsProc(ClsVO vo) throws IllegalStateException, IIOException, Exception {
+		
+		System.out.println(vo.getStartDate());
+		
+		// 클래스 코드를 생성하기 
+		java.util.Date now = new java.util.Date();
+	    SimpleDateFormat vans = new SimpleDateFormat("yyyyMMdd");
+	    String wdate = vans.format(now);
+	    
+	    String classKey = clsStatusService.getClassSeq();
+	    String classCode = "C" + wdate + "_" + classKey;
+		
+		// 파일명 중복 시 uuid를 무작위 생성하여 붙여주기 때문에 별도 저장 가능
+		UUID uuid = UUID.randomUUID();
+		
+		String fileName = "" + uuid + "_";
+		MultipartFile classUploadFile = vo.getClsFileName();
+		if(classUploadFile != null) {
+			fileName += classUploadFile.getOriginalFilename();
+			classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
+		}
+		
+		// 시작, 끝 시간 입력을 위한 가공
+		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date start = vo.getStartDate();
+		Date end = vo.getEndDate();
+		
+		String startTime = "" + converter.format(start);
+		String endTime = "" + converter.format(end);
+		
+		startTime += " " + vo.getStartTime() + ":00";
+		endTime += " " + vo.getEndTime() + ":00";
+		
+		vo.setStartTime(startTime);
+		vo.setEndTime(endTime);
+		
+		System.out.println("starttime: " + startTime + ", endtime: " + endTime);
+		
+		vo.setClsOriName(fileName);
+		vo.setClsCode(classCode);
+		
+		System.out.println("vo: " + vo.toString());	
+		
+		clsStatusService.insertClass(vo);
 		
 		return "trainer/classStatus";
 	}

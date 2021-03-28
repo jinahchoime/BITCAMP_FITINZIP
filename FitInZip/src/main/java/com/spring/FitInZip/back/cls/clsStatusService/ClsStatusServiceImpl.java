@@ -37,5 +37,17 @@ public class ClsStatusServiceImpl implements ClsStatusService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void insertClass(ClsVO cls) {
+		System.out.println("삽입 결과: " + dao.insertCls(cls));
+		
+	}
+
+	// 클래스 번호 생성을 위한 시퀀스 채번
+	@Override
+	public String getClassSeq() {
+		return dao.getSequence();
+	}
 	
 }

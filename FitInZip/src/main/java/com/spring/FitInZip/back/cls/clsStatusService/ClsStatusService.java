@@ -11,6 +11,7 @@ public interface ClsStatusService {
 	public void register(ClsVO cls);
 	public ClsVO getClass(String cno);
 	public void updateClass(ClsVO cls);
-	
+	public void insertClass(ClsVO cls);
+	public String getClassSeq();
 	
 }

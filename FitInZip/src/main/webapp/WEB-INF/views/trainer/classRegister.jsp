@@ -7,16 +7,19 @@
 <head>
 <meta charset="UTF-8">
 <title>강의 등록</title>
-<script src="${path }/resources/ckeditor/ckeditor.js"></script>
+<%-- <script src="${path }/resources/ckeditor/ckeditor.js"></script> --%>
+<script src="https://cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	
 	$(function(){
 		
-		$(".lap").on(function(){
-			var rev = $(".lap").val();
-			
-			
+		$(".startTime").blur(function(){
+			console.log($(".startTime").val());
+		});
+		
+		$(".startDate").on(function(){
+			console.log($(".startDate").val());
 		});
 		
 	});
@@ -24,10 +27,11 @@
 </script>
 </head>
 <body>
+	<div style="text-align:center">
+		<h1>강의 등록 화면</h1>
+	</div>
 	
-	<h1>강의 등록 화면</h1>
-	
-	<div id="main-container">
+	<div id="main-container" style="text-align:center">
 		<form id="class-info" action="regCls" enctype="multipart/form-data" method="post">
 			<div class="part1">
 				<table>
@@ -50,20 +54,23 @@
 						<td><input type="text" name="clsTag"></td>
 					</tr>
 					<tr>
-						<th>시작일자</th>
-						<td><input type="date" name="startDate"></td>
+						<th>프로그램 진행 기간</th>
+						<td>
+							<!-- 시스템적으로 처리할 수 있는 방법에 한계가 있는 것 같아, 끝 날짜까지 받아보려 함 -->
+							<input type="date" class="startDate" name="startDate"> ~
+							<input type="date" name="endDate">
+						</td>
 						<th>요일</th>
-						<td>일주일에 <select>
-							<option class="lap">횟수</option>
-							<c:forEach var="i" begin="0" end="6">
-								<option class="lapsePerWeek" value="${i + 1 }">${i + 1 }</option>
-							</c:forEach>
-						</select>회,
-						<div class="test"></div>
-								
+						<td>
+							<!-- validation 시 %/% 조건 확인할 것 -->
+							<input type="text" name="yoil" placeholder="ex)월/수/금">
 						</td>
 						<th>시작 시간</th>
-						<td><input type="time" name="startTime"></td>
+						<td>
+							<!-- 끝 시간은 시작에서 50분 더해 줌 -->
+							<input type="time" class="startTime" name="startTime" > ~
+							<input type="time" class="startTime" name="endTime">
+						</td>
 					</tr>
 					<tr>
 						<th>수업 횟수</th>
@@ -96,7 +103,9 @@
 							</select>
 						</td>
 						<th>소모 칼로리</th>
-						<td><input type="number" name="calorie"></td>
+						<td>
+							<input type="number" name="calorie">kcal
+						</td>
 					</tr>
 					<tr>
 						<th>운동장비</th>
@@ -120,9 +129,9 @@
 			</div>
 			
 			<div class="part3">
-				<input type="file" name="clsOriName">
+				<input type="file" name="clsFileName" placeholder="파일 선택">
 				강의 주소:<input type="text" name="meetUrl">
-				<input type="hidden" name="clsStatus" value="sucker">
+				<input type="hidden" name="clsStatus" value="CS00">
 				<input type="hidden" name="trainerId" value="kim">
 				<p>
 					<input type="submit" value="등록">

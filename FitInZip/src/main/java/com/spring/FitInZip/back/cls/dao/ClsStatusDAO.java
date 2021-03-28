@@ -21,4 +21,11 @@ public class ClsStatusDAO {
 		return list;
 	}
 	
+	public String getSequence() {
+		return mybatis.selectOne("class.getClassSeq");
+	}
+	
+	public int insertCls(ClsVO vo) {
+		return mybatis.insert("class.regClass", vo);
+	}
 }

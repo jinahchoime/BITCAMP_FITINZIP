@@ -1,6 +1,6 @@
 package com.spring.FitInZip.back.cls.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,8 +27,10 @@ public class ClsVO {
 	private String clsCategory;
 	private String clsName;
 	private String clsTag;
-	private String startDate;
-	private String endDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date endDate;
 	private String yoil;
 	private String startTime;
 	private String endTime;
@@ -38,7 +40,7 @@ public class ClsVO {
 	private Integer perPrice;
 	private String clsInfo;
 	private String curriculum;
-	private MultipartFile clsOriName;
+	private String clsOriName;
 	private MultipartFile clsFileName;
 	private String clsStatus;
 	private Integer maxMem;
