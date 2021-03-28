@@ -9,12 +9,12 @@ import com.spring.FitInZip.back.member.service.KakaoService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Service
-public class KakaoServiceImple implements KakaoService{
+public class KakaoServiceImpl implements KakaoService{
 	
 	@Autowired
 	private MemberDAO memberDAO;
 	
-	public KakaoServiceImple() {
+	public KakaoServiceImpl() {
 		System.out.println(">> KakaoServiceImple() 객체생성");
 	}
 	

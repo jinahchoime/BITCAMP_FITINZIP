@@ -1,1 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ClsDAO">
+
+	<select id="getClassList" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
+		SELECT *
+		FROM FIT_CLASS F, MEMBER M
+		WHERE F.TRAINER_ID = M.ID
+		AND CLS_STATUS = 'CS01'
+	</select>
+	
+</mapper>
