@@ -16,7 +16,6 @@
             </thead>
             <tbody id="content">
  			</tbody>
- 			<!-- <input type="button" value="btn" onclick="clsdata()"> -->
         </table>
     </div>
     <p class="tit_area big mb10">종료된 클래스</p>

@@ -30,7 +30,7 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
-	
+	/*마이페이지로*/
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
@@ -42,11 +42,13 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
+	/*클래스 내역 페이지로*/
 	@RequestMapping("/clsHistory")
 	public String clsHistory() {
 		return "mypage/clsHistory";
 	}
 	
+	/*클래스 history 내역 ajax로 뿌리기*/
 	@RequestMapping("/clsdata") 
 	@ResponseBody
 	public List<UserClsDTO> clsData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
@@ -57,6 +59,31 @@ public class MypageController {
 		
 	}
 	
+	/*찜한내역 페이지로*/
+	@RequestMapping("/clsHeart")
+	public String clsHeart() {
+		return "mypage/clsHeart";
+	}
+	
+	/*쿠폰내역 페이지로*/
+	@RequestMapping("/couponHistory")
+	public String couponHistory() {
+		return "mypage/couponHistory";
+	}
+	
+	/*주문조회 페이지로*/
+	@RequestMapping("/productHistory")
+	public String productHistory() {
+		return "mypage/productHistory";
+	}
+	
+	/*회원수정 페이지로*/
+	@RequestMapping("/updateMemberInfo")
+	public String getMember() {
+		return "mypage/updateMemberInfo";
+	}
+	
+	/*회원수정 처리*/
 	@RequestMapping("/UpdateMypage") 
 	public String updateMember(MemberVO vo, HttpServletRequest request, HttpSession session) {
 		System.out.println("updateMember 실행");
@@ -89,11 +116,11 @@ public class MypageController {
 	}
 	
 	
-	@RequestMapping("/updateMemberInfo")
-	public String getMember() {
-		return "mypage/updateMemberInfo";
+	
+	/*회원탈퇴 페이지로*/
+	@RequestMapping("/withdrawal")
+	public String withdrawal() {
+		return "mypage/withdrawal";
 	}
-	
-	
 	
 }
