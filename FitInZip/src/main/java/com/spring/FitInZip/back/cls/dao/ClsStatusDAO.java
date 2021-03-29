@@ -31,6 +31,6 @@ public class ClsStatusDAO {
 	
 	// update를 위한 클래스 가져오기
 	public ClsVO getCls(ClsVO vo) {
-		return mybatis.selectOne("class.selectClassForMod", vo);
+		return mybatis.selectOne("ClsDAO.selectClassForMod", vo);
 	}
 }

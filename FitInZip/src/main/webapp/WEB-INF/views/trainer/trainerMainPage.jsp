@@ -64,7 +64,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                 
                         <a class="collapse-item" href="/myClass">나의 클래스</a>
-                        <a class="collapse-item" href="cards.html">클래스 신청현황</a>
+                        <a class="collapse-item" href="classStat">클래스 신청현황</a>
                     </div>
                 </div>
             </li>

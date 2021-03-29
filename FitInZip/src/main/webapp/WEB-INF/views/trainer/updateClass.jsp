@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,12 @@
 				<table>
 					<tr>
 						<td>
-							<select name="clsCategory" value="${cls.clsCategory }">
+							<select name="clsCategory">
 								<option>카테고리 선택</option>
-								<option value="ct_wt">웨이트</option>
-								<option value="ct_ft">피트니스</option>
-								<option value="ct_yg">요오가</option>
-								<option value="ct_fl">필라이트</option>
+								<option value="ct_wt" <c:if test="${cls.clsCategory=='ct_wt' }">selected</c:if>>웨이트</option>
+								<option value="ct_ft" <c:if test="${cls.clsCategory=='ct_ft' }">selected</c:if>>피트니스</option>
+								<option value="ct_yg" <c:if test="${cls.clsCategory=='ct_yg' }">selected</c:if>>요오가</option>
+								<option value="ct_fl" <c:if test="${cls.clsCategory=='ct_fl' }">selected</c:if>>필라이트</option>
 							</select>
 						</td>
 						<td colspan="4">
