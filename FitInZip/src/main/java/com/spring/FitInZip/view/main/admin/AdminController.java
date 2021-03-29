@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.FitInZip.back.admin.service.AdminService;
+import com.spring.FitInZip.back.admin.AdminService;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.view.main.HomeController;
 
 @Controller
@@ -31,6 +32,36 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	@Autowired
 	private AdminService adminService;
 	
+	/*다슬*/
+	@RequestMapping("/searchMap")
+	public String searchMap(){
+		return "consulting/searchMap";
+	}
+	
+	@RequestMapping("/checkMap")
+	@ResponseBody
+	public String checkMap(MapVO map) throws JsonProcessingException {
+		
+		adminService.insertMap(map);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		return mapper.writeValueAsString(null);
+	}
+	
+	
+	@RequestMapping("/consulting")
+	public String consulting(MapVO map, Model model){
+		List<MapVO> maplist = adminService.getMapList(map);
+		
+		model.addAttribute("maplist", maplist);
+		
+		System.out.println("maplist : " + maplist);
+		
+		return "consulting/consulting";
+	}
+	
+	/*상희*/
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public String home(Model model) {
 		List<GetMemberCheckDTO> list = adminService.getMemberCheck();
