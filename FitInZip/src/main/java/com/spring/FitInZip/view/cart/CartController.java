@@ -51,7 +51,8 @@ public class CartController {
 		//session.setAttribute("mem_id", "jinah");
 		//String mem_id = (String)session.getAttribute("mem_id");
 		
-		//vo.setProNum(request.getParameter("proNum"));
+		vo.setMemId("jinah");
+		vo.setProNum(request.getParameter("proNum"));
 		
 		//dto
 		
