@@ -20,4 +20,10 @@ public class ClsServiceImpl implements ClsService {
 		return clsDAO.getClassList();
 	}
 
+	@Override
+	public List<ClsListDTO> getClassCategory(String clsCategory) {
+		// TODO Auto-generated method stub
+		return clsDAO.getClassCategory(clsCategory);
+	}
+
 }

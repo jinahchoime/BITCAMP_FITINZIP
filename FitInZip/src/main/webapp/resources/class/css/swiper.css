@@ -12,8 +12,8 @@
 .topbnr_subtitle, .topbnr_subtitle * {
     font-size: 60px;
     line-height: 80px;
-    font-weight: 500;
-    color: black;
+    font-weight: 100;
+    color: white;
     text-align: center;
 }
 .topbnr_subtitle {
@@ -24,11 +24,12 @@
 }
 
 .topbnr_subtitle strong {
-    font-weight: 900;
+    font-weight: 300;
 }
 
 .main_txt_rolling li {
-    font-weight: 900 !important;
+    font-weight: 600 !important;
+    color: DarkOrange;
 }
 
 .swiper-container {

@@ -34,6 +34,15 @@
 	});
 </script>
 
+<script>
+	$(function(){
+		$("#classCategory").on('click',function(){
+			alert("클릭");
+		});
+	});
+</script>
+
+
 </head>
 <body>
 
@@ -45,7 +54,7 @@
 				<div class="content_area pd0" v-cloak>
 					<div class="topbnr_area_wrap">
 						<div class="topbnr_subtitle" style="width: 600px;">
-							이제는 ZIP에서<br> <strong>[&nbsp;
+							이제는 집에서<br> <strong>[&nbsp;
 								<div class="main_txt_rolling swiper-container" id="maintxt_roll" style="display: inline-block; width: 305px;">
 									<ul class="swiper-wrapper">
 										<li class="swiper-slide">온라인 PT</li>
@@ -92,8 +101,7 @@
 														<span>${cls.commonName}</span> <span>· ${cls.name}</span>
 													</div>
 													<div class="play_tit">
-														<p>
-															<br>${cls.clsName}</p>
+														<p><br>${cls.clsName}</p>
 														<div class="play_date2">첫 수업일
 															${cls.startDate}(${cls.startYoil})</div>
 														<div class="play_date2">매주 ${cls.yoil} ${cls.pm}
@@ -108,8 +116,7 @@
 														</div>
 														<div class="play_price">
 															<span class="cost"> ${cls.totalPrice} </span>
-															<div class="ct_cost">(회당
-																${cls.perPrice}원/${cls.lapse}회)</div>
+															<div class="ct_cost">( 회당 ${cls.perPrice}원 / ${cls.lapse}회 )</div>
 														</div>
 													</div>
 												</a>

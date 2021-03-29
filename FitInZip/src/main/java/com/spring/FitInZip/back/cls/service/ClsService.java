@@ -9,4 +9,5 @@ import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 public interface ClsService {
 	
 	List<ClsListDTO> getClassList();
+	List<ClsListDTO> getClassCategory(String clsCategory);
 }

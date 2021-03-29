@@ -30,5 +30,15 @@ public class LiveClassController {
 		
 		return "class/liveClass";
 	}
+	
+	@RequestMapping("/getClassCategory")
+	public void getClassCategory(String clsCategory, Model model) {
+		
+		List<ClsListDTO> classList = clsService.getClassCategory(clsCategory);
+		System.out.println("classList : " + classList);
+		
+		model.addAttribute("classList", classList);
+		
+	}
 
 }

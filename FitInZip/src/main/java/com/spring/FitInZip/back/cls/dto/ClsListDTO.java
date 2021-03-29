@@ -1,7 +1,5 @@
 package com.spring.FitInZip.back.cls.dto;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

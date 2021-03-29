@@ -47,4 +47,20 @@
 		AND CLS_STATUS = 'CS01'
 	</select>
 	
+	<select id="getClassCategory" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
+		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
+        TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
+        TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+        TO_CHAR(START_TIME, 'PM') PM,
+        TO_CHAR(START_TIME, 'FMHH:MI') START_TIME,
+        MAX_MEM, LAPSE,
+        TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+        TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE   
+       
+		FROM FIT_CLASS F, MEMBER M, COMMON C
+		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
+		AND CLS_STATUS = 'CS01' AND CLS_CATEGORY = #{clsCategory}
+	</select>
+	
+	
 </mapper>
