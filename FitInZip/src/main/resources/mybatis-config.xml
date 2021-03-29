@@ -17,20 +17,15 @@
   	</typeAliases> 
   	
   <mappers>
-   <mapper resource="mappings/trainer.xml"/>
    <mapper resource="mappings/cart.xml"/> 
     <mapper resource="mappings/product.xml"/>     
-<<<<<<< HEAD
   	<mapper resource="mappings/mypage.xml"/>
-  	<mapper resource="mappings/admin.xml"/>  
   	<mapper resource="mappings/member.xml"/>  
     <mapper resource="mappings/calendar.xml"/>
-   <mapper resource="mappings/cls.xml"/>        
-=======
+    <mapper resource="mappings/cls.xml"/>        
     <mapper resource="mappings/review.xml"/>     
-    <mapper resource="mappings/trainer.xml"/> -->     
+    <mapper resource="mappings/trainer.xml"/>   
     <mapper resource="mappings/admin.xml"/>    
->>>>>>> 15927af78c07b38c03cbf76a6cecf8a1c175ff83
   </mappers>
 
 </configuration>

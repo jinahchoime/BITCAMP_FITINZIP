@@ -33,22 +33,22 @@ public class AdminDAO {
 	/*상희*/
 	public List<GetMemberCheckDTO> getMemberCheck(){
 		System.out.println("여기까진오냐?");
-		return mybatis.selectList("admin.getMemberCheck");
+		return mybatis.selectList("AdminDAO.getMemberCheck");
 	}
 	
 	public List<GetModalDTO> getModalList(String id){
 		System.out.println("DAO : " + id);
-		return mybatis.selectList("admin.getModal",id);
+		return mybatis.selectList("AdminDAO.getModal",id);
 	}
 	
 	public Integer updateTrainer(String id) {
 		
-		return mybatis.update("admin.insertTrainer",id);
+		return mybatis.update("AdminDAO.insertTrainer",id);
 	}
 	
 	public Integer rejectTrainer(String id) {
 		System.out.println("거절 "+id);
 		
-		return mybatis.update("admin.rejectTrainer",id);
+		return mybatis.update("AdminDAO.rejectTrainer",id);
 	}
 }
