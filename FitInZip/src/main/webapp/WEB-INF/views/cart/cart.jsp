@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>장바구니</title>
+<title>FITINZIP | 장바구니</title>
 <link rel="stylesheet" type="text/css" href="../resources/cart/css/cart.css"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -103,7 +103,7 @@
 					<span class="label">총 결제 예정 금액</span>
 					<span class="price sale total"><strong>총 결제 몇 원</strong></span>
 				</div>
-				<a class="btn-link xlarge width-max btn-order indian-red" href=#>주문하기</a>
+				<a class="btn-link xlarge width-max btn-order indian-red" href="order">주문하기</a>
 			</div>
 		</div>	
 	</article>

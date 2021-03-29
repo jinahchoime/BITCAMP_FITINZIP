@@ -25,14 +25,14 @@
 		$(".addcart-btn").on("click", function(){
 			alert("장바구니 담기 ajax 실행");
 			
-			var selectVal = [];
+			/* var selectVal = [];
 			var dumbbell = $("#dumbbell option:selected").val();
 			
 			dumbbell.each(function(){
 				selectVal.push($(this).val();
 			});
 				
-			console.log(selectVal);
+			console.log(selectVal); */
 			
 			let formData = new FormData(this.form);
 			let options = {
@@ -52,7 +52,7 @@
 	
 	console.log($("#dumbbell option:selected").val());
 	
-	function insertCart() {
+	/* function insertCart() {
 		//사용자 id를 갖고 온다
 		//var memId = $('#memId').val();
 		
@@ -68,7 +68,7 @@
 	}
 	
 	var dumbbell = document.getElementById('dumbbell').value;
-	var band = document.getElementById('rubberband').value;
+	var band = document.getElementById('rubberband').value; */
 	
 </script>
 </head>
@@ -104,7 +104,7 @@
 							<c:if test="${productList.proName eq '덤벨 1kg~10kg'}">
 								<select class="dumbbell-option" id="dumbbell">
 									<option value="none">[필수]옵션을 선택하세요</option>
-									<option value="1kg">1kg</option>
+									<option value="210326001">1kg</option>
 									<option value="2kg">2kg(+2,400원)</option>
 									<option value="3kg">3kg(+4,800원)</option>
 									<option value="4kg">4kg(+7,200원)</option>

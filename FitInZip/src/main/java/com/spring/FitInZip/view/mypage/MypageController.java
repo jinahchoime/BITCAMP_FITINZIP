@@ -1,7 +1,9 @@
 package com.spring.FitInZip.view.mypage;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,8 @@ import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.FitInZip.back.calendar.service.CalendarService;
+import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
@@ -29,6 +33,48 @@ public class MypageController {
 	
 	@Autowired
 	private MypageService mypageService;
+	
+	// 캘린더
+	@Autowired
+	private CalendarService calendarService;
+	
+	@RequestMapping(value="calendar")
+	public String goCalendar(HttpServletRequest request, Model model) {
+		
+		return "calendar/myCalendar";
+	}
+	
+	@RequestMapping(value = "getAttendance")
+	@ResponseBody
+	public List<CalendarVO> getAttendance(HttpSession session) {
+		String id = ((MemberVO)session.getAttribute("member")).getId();
+		List<CalendarVO> list = calendarService.selectAttendList(id);
+		
+		return list;
+	}
+	
+	
+	@RequestMapping(value = "setAttendance")
+	@ResponseBody
+	public Map<String, String> name(HttpSession session) {
+		String id = ((MemberVO)session.getAttribute("member")).getId();
+		
+		CalendarVO vo = calendarService.chkAttendance(id);
+		Map<String, String> map = new HashMap<String, String>();
+		
+		if(vo != null) {
+			map.put("result", "overlap");
+			return map;
+		}
+		
+		int result = calendarService.insertAttendance(id);
+		if(result == 1) {
+			map.put("result", "chk");
+		}
+		return map;
+	}
+	
+	// 캘린더 끝
 	
 	
 	@RequestMapping("/mypage")
