@@ -35,8 +35,7 @@ public class CartController {
 		//System.out.println("dto : " + dto);
 		//System.out.println("vo:" + vo);
 		model.addAttribute("cartList", cartList);
-		
-		
+		 
 		System.out.println("cartList:" + cartList );
 		
 		return "cart/cart";
