@@ -19,7 +19,7 @@ public class ReviewVO {
 
 	private String trainerId;
 	private String classCode;
-	private String eviewContent;
+	private String reviewContent;
 	private String memId;
 	private Date regDate;
 	private Integer star;
