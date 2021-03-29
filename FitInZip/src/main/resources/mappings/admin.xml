@@ -6,7 +6,7 @@
 	<select id="getMemberCheck" resultType="com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO">
 	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME
 	FROM MEMBER M, TRAINER_REGISTER T, COMMON C
-	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE AND T.REG_STATUS = 'CS00'
+	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE AND T.REG_STATUS = 'RS00'
     ORDER BY T.REGISTER_DATE
 	</select>
 
@@ -15,4 +15,18 @@
 	FROM MEMBER M, TRAINER_REGISTER T 
 	WHERE M.ID = T.TRAINER_ID AND ID = #{id}
 	</select>
+	
+	<update id="insertTrainer" parameterType="String">
+	UPDATE TRAINER_REGISTER 
+	SET REG_STATUS = 'RS01' 
+	WHERE TRAINER_ID = #{id}
+	</update>
+	
+	<update id="rejectTrainer" parameterType="String">
+	UPDATE TRAINER_REGISTER 
+	SET REG_STATUS = 'RS02' 
+	WHERE TRAINER_ID = #{id}
+	</update>
+	
+	
 </mapper>

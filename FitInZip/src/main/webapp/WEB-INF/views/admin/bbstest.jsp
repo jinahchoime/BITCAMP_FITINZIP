@@ -38,8 +38,14 @@
      		 	<td class="theadWidth">
      		 	<!-- <button id="button1" onclick="changeSt()">승인</button> -->
      		 	<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="changeSt(this);">
-  				승인
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="changeSt(this);"
+				style="
+    			BACKGROUND: orangered;
+    			border-color: white;
+    			height: 25px;
+   				font-size: 12px;
+				line-height: 12px;">
+  				승 인
 				</button>
      		 	</td>
      		</tr>
@@ -55,7 +61,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">님</h5>
@@ -73,8 +79,10 @@
         <h5 id="modalBody9"></h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">승인완료</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">승인거부</button>
+        <button type="button" class="btn btn-primary" id="btnResult1" onclick="approveTrainer();">승인완료</button>
+        <button type="button" class="btn btn-secondary" id="btnResult2" onclick="rejectTrainer();">승인거부</button>
+        <!-- 여기 작업해야됨 comment ajext로 이동하는 function은 2개로 주고 컨트롤러는 하나에서 담당해서 처리하면 mapper에서만 분기처리하면 될듯??  -->
+        <!--data-bs-dismiss="modal"  모달 끄는 기능-->
       </div>
     </div>
   </div>

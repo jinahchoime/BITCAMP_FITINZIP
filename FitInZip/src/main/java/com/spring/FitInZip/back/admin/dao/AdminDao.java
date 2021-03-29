@@ -24,4 +24,15 @@ public class AdminDao {
 		System.out.println("DAO : " + id);
 		return mybatis.selectList("admin.getModal",id);
 	}
+	
+	public Integer updateTrainer(String id) {
+		
+		return mybatis.update("admin.insertTrainer",id);
+	}
+	
+	public Integer rejectTrainer(String id) {
+		System.out.println("거절 "+id);
+		
+		return mybatis.update("admin.rejectTrainer",id);
+	}
 }

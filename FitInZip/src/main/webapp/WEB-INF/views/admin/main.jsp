@@ -154,6 +154,7 @@
 			</nav>
 
 			<div>
+			<!-- 가입승인게시판 -->
 			<jsp:include page="bbstest.jsp"></jsp:include>
 			</div>
 			
@@ -236,10 +237,47 @@
 			$('#modalBody7').html(data.questionFirst);
 			$('#modalBody8').html(data.questionSecond);
 			$('#modalBody9').html(data.registerDate);
-			
 		}
+	}
+	
+	function approveTrainer(){
+		let id = document.getElementById('modalBody').innerHTML;
+		let btnId = document.getElementById('btnResult1').innerHTML
 		
+		$.ajax({
+			url: "approveTrainer",
+			type: "post",
+			dataType: "json",
+			data: {id:id, btnId:btnId},
+			success: function(data){
+				console.log("승인이 완료 되었습니다.");
+				window.location.href="adminMain";
+			
+			},
+			error: function (){
+				alert("실패 : "+error);
+				}
+		});
+	}
+	
+	function rejectTrainer(){
+		let id = document.getElementById('modalBody').innerHTML;
+		let btnId = document.getElementById('btnResult2').innerHTML
 		
+		$.ajax({
+			url: "rejectTrainer",
+			type: "post",
+			dataType: "json",
+			data: {id:id, btnId:btnId},
+			success: function(data){
+				console.log("승인이 거절 되었습니다.");
+				window.location.href="adminMain";
+			
+			},
+			error: function (){
+				alert("실패 : "+error);
+				}
+		});
 	}
 
 </script>

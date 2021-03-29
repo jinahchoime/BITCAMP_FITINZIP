@@ -8,4 +8,6 @@ import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 public interface AdminService {
 	public List<GetMemberCheckDTO> getMemberCheck();
 	public List<GetModalDTO> getModalList(String id);
+	public Integer updateTrainer(String id);
+	public Integer rejectTrainer(String id);
 }

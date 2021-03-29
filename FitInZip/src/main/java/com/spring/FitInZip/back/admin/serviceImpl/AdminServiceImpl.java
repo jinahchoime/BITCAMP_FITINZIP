@@ -28,4 +28,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminDAO.getModalList(id);
 	}
+
+	@Override
+	public Integer updateTrainer(String id) {
+		
+		return adminDAO.updateTrainer(id);
+	}
+
+	@Override
+	public Integer rejectTrainer(String id) {
+		
+		return adminDAO.rejectTrainer(id);
+	}
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.service.AdminService;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
@@ -57,4 +59,32 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		
 		return list;
 	}
+	
+	@RequestMapping("/approveTrainer")
+	@ResponseBody
+	public String updateTrainer(String id, String btnId) throws JsonProcessingException{
+		System.out.println(">>id : " +id);
+		System.out.println(">>btnid : " +btnId);
+		String result = String.valueOf(adminService.updateTrainer(id));
+		System.out.println(">>resultvalue : " + result);
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		return mapper.writeValueAsString(result);
+	}
+	
+	@RequestMapping("/rejectTrainer")
+	@ResponseBody
+	public String rejectTrainer(String id, String btnId) throws JsonProcessingException{
+		System.out.println(">>id : " +id);
+		System.out.println(">>btnid : " +btnId);
+		String result = String.valueOf(adminService.rejectTrainer(id));
+		System.out.println(">>resultvalue : " + result);
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		return mapper.writeValueAsString(result);
+	}
+	
+
 }

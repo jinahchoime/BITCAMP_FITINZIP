@@ -127,8 +127,8 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">승인완료</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">승인거부</button>
+        <button type="button" class="btn btn-primary" name="btnResult">승인완료</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" name="btnResult">승인거부</button>
       </div>
     </div>
   </div>
