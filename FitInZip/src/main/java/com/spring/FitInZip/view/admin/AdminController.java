@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.FitInZip.back.admin.AdminService;
+import com.spring.FitInZip.back.admin.service.AdminService;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
@@ -109,6 +109,17 @@ public class AdminController {
 		ObjectMapper mapper = new ObjectMapper();
 
 		return mapper.writeValueAsString(result);
+	}
+	
+	@RequestMapping("/registerMaster")
+	public String registerMaster(Model model) {
+		List<GetMemberCheckDTO> list = adminService.getMemberCheckRM();
+		model.addAttribute("bbs1",list);
+		
+		
+		System.out.println("가입승인 컨트롤러 : "+list);
+		
+		return "admin/registerMaster";
 	}
 	
 }

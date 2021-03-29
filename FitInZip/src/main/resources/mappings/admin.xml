@@ -38,4 +38,12 @@
 	SET REG_STATUS = 'RS02' 
 	WHERE TRAINER_ID = #{id}
 	</update>
+	
+	<select id="getMemberCheckRM" resultType="com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO">
+	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME 
+	FROM MEMBER M, TRAINER_REGISTER T, COMMON C 
+	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE 
+    ORDER BY COMMON_NAME
+	</select>
+	
  </mapper>

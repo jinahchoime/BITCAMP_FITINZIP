@@ -1,4 +1,4 @@
-package com.spring.FitInZip.back.admin.dao;
+package com.spring.FitInZip.back.admin.serviceImpl;
 
 
 import java.util.List;
@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.FitInZip.back.admin.AdminService;
+import com.spring.FitInZip.back.admin.dao.AdminDAO;
+import com.spring.FitInZip.back.admin.service.AdminService;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
@@ -56,6 +57,12 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Integer rejectTrainer(String id) {
 		return adminDAO.rejectTrainer(id);
+	}
+
+
+	@Override
+	public List<GetMemberCheckDTO> getMemberCheckRM() {
+		return adminDAO.getMemberCheckRM();
 	}
 }
 

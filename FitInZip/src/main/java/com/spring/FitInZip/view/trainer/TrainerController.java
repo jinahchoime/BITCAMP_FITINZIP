@@ -84,6 +84,8 @@ public class TrainerController {
     @ResponseBody
     public String loginTrainer(RegisterTrainerDTO dto, Model model) throws Exception {
     	System.out.println("trainerCheck!");
+    	System.out.println("아이디를내놔라~"+dto.getId());
+    	System.out.println("패스워드를내놔라~"+dto.getPassword());
     	RegisterTrainerDTO member = trainerService.loginTrainer(dto); 
     	//System.out.println("컨트롤러~"+vo.getId());
 	  

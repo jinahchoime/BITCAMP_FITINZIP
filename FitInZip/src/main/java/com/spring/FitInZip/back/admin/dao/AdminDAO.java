@@ -51,4 +51,8 @@ public class AdminDAO {
 		
 		return mybatis.update("AdminDAO.rejectTrainer",id);
 	}
+	
+	public List<GetMemberCheckDTO> getMemberCheckRM(){
+		return mybatis.selectList("getMemberCheckRM");
+	}
 }

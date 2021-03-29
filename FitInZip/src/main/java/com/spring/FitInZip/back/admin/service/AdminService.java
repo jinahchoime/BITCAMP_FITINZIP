@@ -1,4 +1,4 @@
-package com.spring.FitInZip.back.admin;
+package com.spring.FitInZip.back.admin.service;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ public interface AdminService {
 	List<GetModalDTO> getModalList(String id);
 	Integer updateTrainer(String id);
 	Integer rejectTrainer(String id);
+	List<GetMemberCheckDTO> getMemberCheckRM();
 	
 	/*다슬*/
 	void insertMap(MapVO vo);

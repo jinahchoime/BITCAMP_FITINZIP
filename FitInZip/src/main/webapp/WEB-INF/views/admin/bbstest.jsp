@@ -18,7 +18,7 @@
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content h700" >
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
      	<c:if test="${empty bbs1 }">
