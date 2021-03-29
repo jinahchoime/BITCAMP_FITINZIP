@@ -78,8 +78,8 @@
 					<td>${i.clsName }</td>
 					<c:if test="${i.clsStatus == 'RS00' }">
 						<td>
-							<form action="#">
-								<input type="hidden" value="${i.clsCode }">
+							<form action="modifyClass">
+								<input type="hidden" name="clsCode" value="${i.clsCode }">
 								<input type="submit" value="수정">
 							</form>
 						</td>

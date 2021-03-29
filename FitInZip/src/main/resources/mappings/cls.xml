@@ -13,8 +13,8 @@
 			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, CLS_ORI_NAME, CLS_FILE_NAME,
 			        CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
 			    from fit_class
-			    where rownum <= #{pageNum} * #{amount})
-			where rn > (#{pageNum} -1) * #{amount}
+			    where rownum <= #{pageNum} * #{amount} and trainer_id = #{trainerId})
+			where rn > (#{pageNum} -1) * #{amount} and trainer_id = #{trainerId}
 		]]>
 	</select>
 	
@@ -30,5 +30,12 @@
 		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, <![CDATA[to_timestamp(#{startTime, jdbcType=TIMESTAMP}]]>, 'hh24:mi:ss'), to_timestamp(#{endTime, jdbcType=TIMESTAMP}, 'hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
 		#{curriculum}, #{clsOriName}, 'upload', #{clsStatus}, #{maxMem}, #{calorie}, #{meetUrl})
 	</insert>
+	
+	<!-- 수정을 위한 강의 불러오기 -->
+	<select id="selectClassForMod" parameterType="clsVO" resultType="clsVO">
+		select *
+		from fit_class
+		where cls_code = #{clsCode} and trainer_id = #{trainerId}
+	</select>
 	
 </mapper>

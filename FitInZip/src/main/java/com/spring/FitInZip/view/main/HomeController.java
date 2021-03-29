@@ -31,6 +31,7 @@ import com.spring.FitInZip.back.cls.clsStatus.Criteria;
 import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
 import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 
 /**
  * Handles requests for the application home page.
@@ -43,6 +44,7 @@ public class HomeController {
 	private ClsStatusService clsStatusService;
 	
 	private String mem_id;
+	private MemberVO member;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -55,6 +57,10 @@ public class HomeController {
 		HttpSession session = request.getSession();
 		session.setAttribute("ID", "hong");
 		mem_id = (String)session.getAttribute("ID");
+		
+		member = new MemberVO();
+		member.setId("kim");
+		session.setAttribute("trainer", member);
 		
 		return "main";
 	}
@@ -94,6 +100,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "classStat")
 	public String goClassStat(Criteria crt, Model model) {
+		crt.setTrainerId(member.getId());
+		
 		List<ClsVO> list = clsStatusService.getList(crt);
 		System.out.println("list: " + list + " , list size: " + list.size());
 		model.addAttribute("list", list);
@@ -158,6 +166,22 @@ public class HomeController {
 		rttr.addAttribute("amount", crt.getAmount());
 		
 		return "redirect:classStat";
+	}
+	
+	@RequestMapping(value = "modifyClass")
+	public String modifyClass(HttpServletRequest request, HttpSession session, Model model) {
+		String clsCode = request.getParameter("clsCode");
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		ClsVO vo = new ClsVO();
+		vo.setClsCode(clsCode);
+		vo.setTrainerId("kim");
+		
+		ClsVO getCls = clsStatusService.getClass(vo);
+		
+		model.addAttribute("cls", getCls);
+		
+		return "trainer/updateClass";
 	}
 	
 }

@@ -27,9 +27,8 @@ public class ClsStatusServiceImpl implements ClsStatusService {
 	}
 
 	@Override
-	public ClsVO getClass(String cno) {
-		// TODO Auto-generated method stub
-		return null;
+	public ClsVO getClass(ClsVO cls) {
+		return dao.getCls(cls);
 	}
 
 	@Override
