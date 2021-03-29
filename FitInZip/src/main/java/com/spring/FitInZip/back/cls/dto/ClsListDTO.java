@@ -19,11 +19,11 @@ public class ClsListDTO {
 
 	private String clsCode;			// 클래스코드
 	private String trainerId;		// 강사명
-	private String clsCategory;		// 카테고리
+	private String commonName;		// 카테고리 한글로
 	private String clsName;			// 수업명		
 	private Date startDate;			// 시작날짜
-	private Date endDate;			// 끝날짜
 	private String yoil;			// 요일
+	private String pm;				// 오전/오후
 	private Date startTime;			// 시작시간
 	private Date endTime;			// 끝 시간
 	private Integer lapse;			// 회차

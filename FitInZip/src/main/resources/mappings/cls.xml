@@ -6,8 +6,8 @@
 
 	<select id="getClassList" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
 		SELECT *
-		FROM FIT_CLASS F, MEMBER M
-		WHERE F.TRAINER_ID = M.ID
+		FROM FIT_CLASS F, MEMBER M, COMMON C
+		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
 		AND CLS_STATUS = 'CS01'
 	</select>
 	
