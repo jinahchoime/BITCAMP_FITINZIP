@@ -2,17 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="test">
+<mapper namespace="calendar">
 
-	<insert id="insertTest" parameterType="Map">
-		insert into calendar
-		values(#{memId}, #{attendDate})
-	</insert>
-	
-	<select id="selectOne" parameterType="String" resultType="String">
-		SELECT ATTEND_DATE FROM CALENDAR WHERE MEM_ID = #{ID}
+	<!-- 전체 출석 목록 select -->
+	<select id="selectAttend" parameterType="String" resultType="CalendarVO">
+		select *
+		from calendar
+		where mem_id = #{mem_id}
 	</select>
 	
+	<!-- 출석 중복 확인 -->
+	<select id="chkAttendance" parameterType="Map" resultType="CalendarVO">
+		select *
+		from calendar
+		where mem_id = #{mem_id} and attend_date = #{attend_date}
+	</select>
+	
+	<insert id="insertAttendance" parameterType="String">
+		insert into calendar
+		values(#{mem_id}, to_char(sysdate,'yyyy-mm-dd'))
+	</insert>
 	
 </mapper>
 

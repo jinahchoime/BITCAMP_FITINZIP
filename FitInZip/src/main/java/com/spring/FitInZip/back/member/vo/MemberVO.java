@@ -18,6 +18,7 @@ public class MemberVO {
 	private String id;
 	private String password;
 	private String name;
+	private String nickname;
 	private String phone;
 	private String post;
 	private String addr;
@@ -29,4 +30,5 @@ public class MemberVO {
 	private String memFileName;
 	private String role;
 	private String withdrawal;
+	
 }

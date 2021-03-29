@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
   <title>FITIN.ZIP</title>
-
+  
   <!-- Bootstrap core CSS -->
   <link href="../resources/main/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,7 +24,6 @@
   <!-- 한글 폰트 -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-
 
 <style>
 	* {
@@ -46,10 +45,6 @@
         <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">둘러보기</a>
       </div>
     </div>
-    <!-- <div class="bg-circle-1 bg-circle"></div>
-    <div class="bg-circle-2 bg-circle"></div>
-    <div class="bg-circle-3 bg-circle"></div>
-    <div class="bg-circle-4 bg-circle"></div> -->
   </header>
 
   <section>

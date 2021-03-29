@@ -1,1 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ClsDAO">
+	
+	<!-- 페이징을 위한 쿼리 -->
+	<select id="getListWithPaging" resultType="ClsVO" parameterType="com.spring.FitInZip.back.cls.clsStatus.Criteria">
+		<![CDATA[
+			select *
+			from
+			    (select /*+INDEX_DESC(FIT_CLASS FIT_CLASS_PK) */ rownum rn, CLS_CODE, TRAINER_ID, CLS_CATEGORY, CLS_NAME, CLS_TAG, START_DATE,
+			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, CLS_ORI_NAME, CLS_FILE_NAME,
+			        CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
+			    from fit_class
+			    where rownum <= #{pageNum} * #{amount})
+			where rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+	
+	<!-- 주문번호 생성을 위한 시퀀스 select -->
+	<select id="getClassSeq" resultType="String">
+		SELECT class_seq.NEXTVAL seq_num FROM dual
+	</select>
+	
+	<!-- 강의 등록 -->
+	<insert id="regClass" parameterType="ClsVO">
+		insert into fit_class
+		values(#{clsCode}, #{trainerId}, #{clsCategory}, #{clsName}, 
+		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, <![CDATA[to_timestamp(#{startTime, jdbcType=TIMESTAMP}]]>, 'hh24:mi:ss'), to_timestamp(#{endTime, jdbcType=TIMESTAMP}, 'hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
+		#{curriculum}, #{clsOriName}, 'upload', #{clsStatus}, #{maxMem}, #{calorie}, #{meetUrl})
+	</insert>
+	
+
+	<select id="getClassList" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
+		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
+        TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
+        TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+        TO_CHAR(START_TIME, 'PM') PM,
+        TO_CHAR(START_TIME, 'FMHH:MI') START_TIME,
+        MAX_MEM, LAPSE,
+        TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+        TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE   
+       
+		FROM FIT_CLASS F, MEMBER M, COMMON C
+		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
+		AND CLS_STATUS = 'CS01'
+	</select>
+	
+</mapper>
