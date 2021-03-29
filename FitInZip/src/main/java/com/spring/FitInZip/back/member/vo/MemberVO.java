@@ -30,5 +30,5 @@ public class MemberVO {
 	private String memFileName;
 	private String role;
 	private String withdrawal;
-	private String nickname;
+	
 }
