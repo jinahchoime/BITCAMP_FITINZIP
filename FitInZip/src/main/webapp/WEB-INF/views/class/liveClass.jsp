@@ -15,6 +15,8 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 
 	<div id="container">
+	<div id="live_list" class="contents_wrap pt80">
+	<div class="play_list_wrap">
 	<div class="play_list_area mt20">
 	<div class="play_list_type1">
 		<c:if test="${empty classList }">
@@ -40,21 +42,21 @@
 										<span>· ${cls.name}</span>
 									</div>
 									<div class="play_tit">
-										<p>${cls.clsName}</p>
-										<div class="play_date2">첫 수업일${cls.startDate}</div>
-										<div class="play_date2">요일 / 시간</div>
+										<p><br>${cls.clsName}</p>
+										<div class="play_date2">첫 수업일 ${cls.startDate}(${cls.startYoil})</div>
+										<div class="play_date2">매주 ${cls.yoil} ${cls.pm} ${cls.startTime} </div>
 										<!---->
 										<div class="play_num">
 											<b class="maincolor1">신청한 인원</b>
-											 / 수강최대인원&nbsp;&nbsp;
+											 / ${cls.maxMem}명&nbsp;&nbsp;
 											 <span class="label small2 round on">2명 남았어요!</span>
 											 <span class="label small2 round end4" style="display: none;">모집이 마감 됐어요</span>
 										</div>
 										<div class="play_price">
 											<span class="cost">
-											120,000
+											${cls.totalPrice}
 											</span>
-											<div class="ct_cost">(회당 10,000원/12회)</div>
+											<div class="ct_cost">(회당 ${cls.perPrice}원/${cls.lapse}회)</div>
 										</div>
 									</div>
 								</a>
@@ -64,6 +66,8 @@
 				</c:forEach>
 			</ul>
 		</c:if>
+	</div>
+	</div>
 	</div>
 	</div>
 	</div>

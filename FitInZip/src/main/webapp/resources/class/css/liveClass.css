@@ -17,9 +17,21 @@ ul, li, ol, dl, dt, dd {
 a:link, a:visited, a:hover, a:active, a:focus {
     text-decoration: none;
 }
+a > div {
+	position:absolute;
+}
 
 
 
+
+.pt80 {
+    padding-top: 80px !important;
+}
+.contents_wrap {
+    position: relative;
+    width: 1120px;
+    margin: 0 auto;
+}
 .play_list_area {
     position: relative;
 }
@@ -92,7 +104,7 @@ img, input {
 }
 .play_list_type1 .play_box .play_info .play_tit > p {
     display: inline-block;
-    height: 44px;
+    height: 65px;
     font-size: 16px;
     line-height: 22px;
     font-weight: 500;
@@ -162,12 +174,16 @@ b {
     color: #000;
 }
 .play_list_type1 .play_box .play_info .play_price .cost {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: 900;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 800;
     color: #000;
 }
 .play_list_type1 .play_box .play_info .play_price .cost:after {
+	position: relative;
+    font-size: 16px;
+    left: -4px;
+    top: -1px;
     content: '원';
     font-weight: 700;
 }
@@ -177,6 +193,8 @@ b {
 }
 .play_list_type1 .play_box .play_info .play_price > div {
     display: inline-block;
+    position: relative;
+    top: -2px;
 }
 
 
