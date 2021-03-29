@@ -8,16 +8,13 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
   
-  	<!-- <typeAliases>
-  		<typeAlias type="com.spring.fitness.VO" alias="boardVO"/>
-  		<typeAlias type="알아서" alias="잘 알리어스~"/>
-  		<typeAlias type="알아서" alias="잘 알리어스~"/>
-  		<typeAlias type="알아서" alias="잘 알리어스~"/>
-  		<typeAlias type="알아서" alias="잘 알리어스~"/>
-  	</typeAliases> -->
+  	 <typeAliases>
+  		<typeAlias type="com.spring.FitInZip.back.member.vo.MemberVO" alias="memberVO"/>
+  		<typeAlias type="com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO" alias="trainerDTO"/>
+  	</typeAliases> 
   	
   <mappers>
-   <mapper resource="mappings/calendar.xml"/>     
+   <mapper resource="mappings/trainer.xml"/>     
     <!--  <mapper resource="mappings/cart.xml"/>     
     <mapper resource="mappings/cls.xml"/>     
     <mapper resource="mappings/member.xml"/>     
