@@ -73,7 +73,7 @@ public class AdminController {
 		//model.addAttribute("bbs1",list);
 		//System.out.println(list);
 		
-		return "admin/bbs";
+		return "admin/bbstest";
 	}
 	@RequestMapping(value = "/bbs1Modal", method = RequestMethod.GET)
 	@ResponseBody
