@@ -30,12 +30,12 @@ public class CartController {
 		//아이디에 해당하는 장바구니 없으면 문구 띄워주기
 		
 		
+		vo.setMemId("jinah");
 		List<CartDTO> cartList = cartService.getCartList(vo);
 		//System.out.println("dto : " + dto);
 		//System.out.println("vo:" + vo);
 		model.addAttribute("cartList", cartList);
 		
-		cartService.getCartList(vo);
 		
 		System.out.println("cartList:" + cartList );
 		

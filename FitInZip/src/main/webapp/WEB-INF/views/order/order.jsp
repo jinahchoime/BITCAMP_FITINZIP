@@ -63,6 +63,7 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
 	<section class="wrapper">
+		<form action="pay">
 		<section class="order-checkout">
 			<input type="hidden" id="상품명인가????">
 			<article class="contents">
@@ -166,7 +167,7 @@
 				</div>
 			</article>
 		</section>
-	
+		</form>
 	</section>
 	
 	<!-- 임시 div -->
