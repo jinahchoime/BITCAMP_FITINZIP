@@ -37,6 +37,13 @@ public class MypageServiceImpl implements MypageService{
 		return mypageDAO.getUserClsList(dto);
 	}
 
+	@Override
+	public List<UserClsDTO> getUserWishCls(UserClsDTO dto) {
+		return mypageDAO.getUserWishCls(dto);
+	}
+	
+	
+
 	
 
 }

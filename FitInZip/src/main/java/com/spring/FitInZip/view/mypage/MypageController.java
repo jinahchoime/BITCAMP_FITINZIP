@@ -65,6 +65,17 @@ public class MypageController {
 		return "mypage/clsHeart";
 	}
 	
+	/*찜한내역 ajax로 뿌리기*/
+	@RequestMapping("/clsHeartData") 
+	@ResponseBody
+	public List<UserClsDTO> clsHeartData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.getUserWishCls(dto);
+		
+	}
+	
 	/*쿠폰내역 페이지로*/
 	@RequestMapping("/couponHistory")
 	public String couponHistory() {

@@ -28,42 +28,59 @@
 					var startDate = new Date(returnValue[i].startDate).getFullYear() + "-" + (new Date(returnValue[i].startDate).getMonth() + 1) + "-" + new Date(returnValue[i].startDate).getDate();
 					//끝날짜
 					var endDate= new Date(returnValue[i].endDate).getFullYear() + "-" + (new Date(returnValue[i].endDate).getMonth() + 1) + "-" + new Date(returnValue[i].endDate).getDate();
-					var arr = getDateRangeData(startDate, endDate);
-					
 					var weekName = new Array('일','월','화','수','목','금','토');
 					
 					
+					
 					/* 지금클래스 종료클래스 나누기  */
-					var compareday = new Date(returnValue[i].endDate);
-					compareday.setDate(compareday.getDate() + 1); //날짜 하루 더하기
-					if(today.getTime() < compareday.getTime()){
+					var compareeday = new Date(returnValue[i].endDate); //끝날짜
+					var comparesday = new Date(returnValue[i].startDate); //시작날짜
+					compareeday.setDate(compareeday.getDate() + 1); //날짜 하루 더하기
+					
+					if(today.getTime() < compareeday.getTime()){
+						//오늘날짜보다 이전
 						var button = "";
 						/*요일 구하기*/
-						for(var j=0; j<arr.length; j++){
-							var getYo = new Date(arr[j]).getDay();
-							var yo = weekName[getYo];
-							var yoil = returnValue[i].yoil;
+						var getYo = new Date().getDay();
+						var todayYo = weekName[getYo];
+						var yoil = returnValue[i].yoil; 
+						
+						console.log(todayYo);
+						console.log(yoil);
+						
+						var year = new Date().getFullYear();
+						var month = new Date().getMonth();
+						var date = new Date().getDate();
+						var hours = new Date(returnValue[i].startTime).getHours(); //시작시간
+						var endhours = new Date(returnValue[i].endTime).getHours(); //끝시간
+						var miunutes = new Date(returnValue[i].startTime).getMinutes(); //시작 분
+						var endmiunutes = new Date(returnValue[i].endTime).getMinutes(); //끝 분 
+						
+						if(todayYo == yoil){
+							var compareTime = new Date(year, month, date, hours, miunutes); // 시작 시간 date 객체
+							console.log(compareTime);
 							
-							/* 요일 맞음 */
-							if(yo == yoil){
-								if(new Date(arr[j]).getFullYear() == new Date().getFullYear() 
-										&& new Date(arr[j]).getMonth() == new Date().getMonth()
-											&& new Date(arr[j]).getDate() == new Date().getDate()){
-									button = '<input type="button" class="maincolor1" value="입장">';
-								}else{
-									button = '<input type="button" class="maincolor1" value="입장" disabled>';
-								}
+							var endcompareTime = new Date(year, month, date, endhours, endmiunutes); // 끝 시간 date 객체
+							console.log(endcompareTime);
+							
+							if(compareTime - 10 && (new Date().getTime() < endcompareTime.getTime())){
+								//시작시간 10분 전이면서 지금 시간이 끝시간 전이면 입장버튼 활성화
+								button = '<input type="button" class="maincolor1" value="입장">';
 							}else{
 								button = '<input type="button" class="maincolor1" value="입장" disabled>';
-							} 
+							}
+						}else{
+							button = '<input type="button" class="maincolor1" value="입장" disabled>';
+						} 
+						
+							dispHtml1 = text(returnValue[i], dispHtml1, button);
+						    $('#content').html(dispHtml1); 
+						}else if(today.getTime() > compareeday.getTime()){
+							dispHtml2 = text(returnValue[i], dispHtml2, button);
+						    $('#end_content').html(dispHtml2);
 						}
 						
-						dispHtml1 = text(returnValue[i], dispHtml1, button);
-					    $('#content').html(dispHtml1);
-					}else if(today.getTime() > compareday.getTime()){
-						dispHtml2 = text(returnValue[i], dispHtml2, button);
-					    $('#end_content').html(dispHtml2);
-					}
+					
 				}
 				
 				function text(value, dispHtml, button){
@@ -90,22 +107,6 @@
 					return dispHtml;
 				}
 				
-				
-				function getDateRangeData(startDate, endDate){ 
-					
-					var res_day = [];
-				 	var ss_day = new Date(startDate);
-				   	var ee_day = new Date(endDate);    	
-				  		while(ss_day.getTime() <= ee_day.getTime()){
-				  			var _mon_ = (ss_day.getMonth()+1);
-				  			_mon_ = _mon_ < 10 ? '0'+_mon_ : _mon_;
-				  			var _day_ = ss_day.getDate();
-				  			_day_ = _day_ < 10 ? '0'+_day_ : _day_;
-				   			res_day.push(ss_day.getFullYear() + '-' + _mon_ + '-' +  _day_);
-				   			ss_day.setDate(ss_day.getDate() + 1);
-				   	}
-				   	return res_day;
-				}
 				
 	               
 			}/*success 끝*/,

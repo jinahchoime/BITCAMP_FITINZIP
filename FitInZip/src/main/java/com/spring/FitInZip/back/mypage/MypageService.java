@@ -10,5 +10,8 @@ public interface MypageService {
 	void updateMember(MemberVO vo);
 	MemberVO getMember(MemberVO vo);
 	
+	/*클래스 내역*/
 	List<UserClsDTO> getUserCls(UserClsDTO dto);
+	/*찜한 클래스 내역*/
+	List<UserClsDTO> getUserWishCls(UserClsDTO dto);
 }

@@ -22,4 +22,15 @@
 			ON F.CLS_CATEGORY = C.COMMON_CODE
 			WHERE P.MEM_ID = #{memId}
 		</select>
+		
+		<select id="selectWhishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			SELECT F.*, C.COMMON_NAME
+			FROM FIT_CLASS F
+		     	INNER JOIN WISH_CLASS W 
+		     ON W.CLASS_CODE = F.CLS_CODE
+             INNER JOIN COMMON C
+             ON F.CLS_CATEGORY = C.COMMON_CODE
+			     WHERE W.MEM_ID = #{memId}
+		</select>
 	</mapper>

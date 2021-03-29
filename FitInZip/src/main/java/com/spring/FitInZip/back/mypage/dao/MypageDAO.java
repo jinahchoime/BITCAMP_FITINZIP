@@ -28,4 +28,8 @@ public class MypageDAO {
 		return mybatis.selectList("MypageDAO.selectCls", dto);
 	}
 	
+	public List<UserClsDTO> getUserWishCls(UserClsDTO dto) {
+		return mybatis.selectList("MypageDAO.selectWhishCls", dto);
+	}
+	
 }

@@ -3,7 +3,7 @@
 <div style="display:inline-block; width: 800px; margin-top: 120px;" class="ml30">
     <div class="column_left_wrap clearfix" style="width: 1098px;">
         <div class="maintxt2">쿠폰내역</div>
-        <div class="maintxt line2">사용할 수 있는 쿠폰이 <b class="maincolor1">1장</b> 있습니다</div>
+        <div class="maintxt line2">사용할 수 있는 쿠폰이 <b class="maincolor5">1장</b> 있습니다</div>
         <div class="cpn_wrap mt20 mb30">
             <ul class="clearfix">
                 <li style="list-style:none; margin-left: 0;">
@@ -14,7 +14,7 @@
     						box-sizing: border-box;">
                             <dl>
                                 <dt>&lt;특별이벤트&gt; 라이브PT 전용 30,000원 할인 쿠폰</dt>
-                                <dd class="cpn_price_type">30,000원</dd>
+                                <dd class="cpn_price_type maincolor5">30,000원</dd>
                                 <dd>03.26 - 03.28(2일 남았어요!)</dd>
                                 <dd>다른 쿠폰과 중복사용불가</dd>
                             </dl>
