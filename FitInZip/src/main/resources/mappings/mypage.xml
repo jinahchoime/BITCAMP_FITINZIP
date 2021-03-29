@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="MypageDAO">
+		<update id="updateMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
+			UPDATE MEMBER SET 
+			PHONE = #{phone}, GENDER = #{gender},
+			BIRTH = #{birth}, NICKNAME = #{nickname},
+			POST = #{post}, ADDR = #{addr}, 
+			DETAIL_ADDR = #{detailAddr}, EXTRA_ADDR = #{extraAddr}	
+			WHERE ID = #{id}
+		</update> 
+		
+		<select id="selectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			SELECT F.*, C.COMMON_NAME
+			FROM FIT_CLASS F 
+			    INNER JOIN PAYMENT P
+			ON P.CLS_CODE = F.CLS_CODE
+			    INNER JOIN COMMON C
+			ON F.CLS_CATEGORY = C.COMMON_CODE
+			WHERE P.MEM_ID = #{memId}
+		</select>
+	</mapper>

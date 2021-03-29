@@ -1,1 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="AdminDAO">
+	<!-- 다슬  -->
+ 	<insert id="insert" parameterType="com.spring.FitInZip.back.admin.vo.MapVO">
+ 		INSERT INTO MAP(MAP_ADDR, LATITUDE, HARDNESS)
+		VALUES(#{mapAddr}, #{latitude}, #{hardness})
+ 	</insert>
+ 	
+ 	<select id="select" resultType="com.spring.FitInZip.back.admin.vo.MapVO">
+ 		SELECT * FROM MAP
+ 	</select>
+ 	 
+ 	<!-- 상희  -->
+ 	<select id="getMemberCheck" resultType="com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO">
+	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME
+	FROM MEMBER M, TRAINER_REGISTER T, COMMON C
+	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE AND T.REG_STATUS = 'RS00'
+    ORDER BY T.REGISTER_DATE
+	</select>
+
+	<select id="getModal" resultType="com.spring.FitInZip.back.admin.vo.GetModalDTO" parameterType="String">
+	SELECT M.ID, M.NAME, M.PHONE, M.GENDER, M.BIRTH, T.TRAINER_INTRO, T.CAREER, T.QUESTION_FIRST, T.QUESTION_SECOND, T.REGISTER_DATE   
+	FROM MEMBER M, TRAINER_REGISTER T 
+	WHERE M.ID = T.TRAINER_ID AND ID = #{id}
+	</select>
+	
+	<update id="insertTrainer" parameterType="String">
+	UPDATE TRAINER_REGISTER 
+	SET REG_STATUS = 'RS01' 
+	WHERE TRAINER_ID = #{id}
+	</update>
+	
+	<update id="rejectTrainer" parameterType="String">
+	UPDATE TRAINER_REGISTER 
+	SET REG_STATUS = 'RS02' 
+	WHERE TRAINER_ID = #{id}
+	</update>
+ </mapper>

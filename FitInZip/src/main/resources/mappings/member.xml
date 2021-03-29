@@ -1,1 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberDAO">
+	
+	<!-- 카카오로 로그인한 사람 데이터가 있는지 없는지 -->
+	<!-- 1이면 이미 가입 -> 로그인, 0 이면 최초 -> 가입포멧 -->
+	<select id="kakaoIsfirst" parameterType="string" resultType="com.spring.FitInZip.back.member.vo.MemberVO">
+		SELECT * FROM MEMBER
+		WHERE ID = #{id}
+	</select>
+
+	<!-- 카카오 추가정보 기입하고 가입 -->
+	<insert id="kakaoJoin" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
+		INSERT INTO MEMBER (ID, NAME, NICKNAME, GENDER, PHONE, BIRTH)
+		VALUES (#{id}, #{name}, #{nickname}, #{gender}, #{phone}, #{birth})
+	</insert>
+	
+	<!-- 이메일로 가입처리(패스워드있음) -->
+	<insert id="emailJoin" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
+		INSERT INTO MEMBER (ID, PASSWORD, NAME, NICKNAME, GENDER, PHONE, BIRTH)
+		VALUES (#{id}, #{password}, #{name}, #{nickname}, #{gender}, #{phone}, #{birth})
+	</insert>
+	
+	<!-- 이메일로 로그인 -->
+	<select id="emailLogin"  parameterType="com.spring.FitInZip.back.member.vo.MemberVO" resultType="com.spring.FitInZip.back.member.vo.MemberVO">
+		SELECT * FROM MEMBER
+		WHERE ID = #{id} AND PASSWORD = #{password}
+	</select>
+	
+	
+	
+	
+</mapper>

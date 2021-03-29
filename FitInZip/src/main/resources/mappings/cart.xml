@@ -1,1 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartDAO">
+
+	<!-- 장바구니에 담기 -->
+	<insert id="insertCart" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	INSERT INTO CART (CART_CODE, MEM_ID, PRO_NUM)
+	VALUES(CART_SEQ.NEXTVAL, #{memId}, #{proNum})
+	</insert>
+
+	<!-- 상품담은 장바구니 불러오기 -->
+	<select id="getCartList" resultType="com.spring.FitInZip.back.cart.vo.CartDTO"
+			parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	SELECT P.PRO_IMG, P.PRO_NAME, P.PRO_PRICE, C.AMOUNT, P.PRO_NUM
+	FROM CART C
+		INNER JOIN MEMBER M
+	ON M.ID = C.MEM_ID
+		INNER JOIN PRODUCT P
+	ON C.PRO_NUM = P.PRO_NUM
+	WHERE M.ID = #{memId}
+	</select>	
+
+	<!-- 장바구니에서 상품 선택 삭제 -->
+	<delete id="deleteCart" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	DELETE FROM CART
+	WHERE PRO_NUM = #{proNum}
+	</delete>
+</mapper>

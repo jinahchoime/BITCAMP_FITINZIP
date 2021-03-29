@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="class">
+<mapper namespace="ClsDAO">
 	
 	<!-- 페이징을 위한 쿼리 -->
 	<select id="getListWithPaging" resultType="ClsVO" parameterType="com.spring.FitInZip.back.cls.clsStatus.Criteria">
@@ -36,6 +36,21 @@
 		select *
 		from fit_class
 		where cls_code = #{clsCode} and trainer_id = #{trainerId}
+	</select>
+
+	<select id="getClassList" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
+		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
+        TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
+        TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+        TO_CHAR(START_TIME, 'PM') PM,
+        TO_CHAR(START_TIME, 'FMHH:MI') START_TIME,
+        MAX_MEM, LAPSE,
+        TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+        TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE   
+       
+		FROM FIT_CLASS F, MEMBER M, COMMON C
+		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
+		AND CLS_STATUS = 'CS01'
 	</select>
 	
 </mapper>

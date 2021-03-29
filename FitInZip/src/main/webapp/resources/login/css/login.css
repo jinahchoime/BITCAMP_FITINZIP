@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+* {
+	margin: 0;
+	padding : 0;
+	font-family: 'Noto Sans KR', sans-serif;
+	-webkit-tap-highlight-color: transparent;
+}
+a:link, a:visited, a:hover, a:active, a:focus {
+    text-decoration: none;
+}
+div {
+    display: block;
+}
+.contents {
+    position: relative;
+    margin: 0 auto;
+}
+section {
+    display: block;
+}
+.join_wrap {
+    padding-top: 250px;
+    text-align: center;
+}
+.join_wrap .contents {
+    max-width: 360px;
+    margin: 0 auto;
+}
+.page_title {
+    margin: 0 -100%;
+}
+.page_title h2 {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 11px;
+}
+.page_title p {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #777;
+    margin-bottom: 28px;
+}
+.form-box-input {
+    position: relative;
+    width: 100%;
+    margin-bottom: 12px;
+	height: 50px;
+}
+input[type="text"], input[type="number"], input[type="password"], select {
+    width: 100%;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    padding: 14px 15px;
+    border: 1px solid #ccc;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #000;
+    background: #fff;
+    outline: 0;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+input[type="button"] {
+	border: none;
+	outline: 0;
+}
+input::-webkit-input-placeholder {
+	color: #ccc;
+}
+
+.myform_box {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.myform_box:before {
+    content: '';
+    display: table;
+}
+.myform_box:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+label {
+    cursor: default;
+}
+.form-box-input .msg-box {
+    display: block;
+    color: #fc6160;
+    text-align: left;
+    margin-top: 0.357em;
+}
+.btn_basic.full {
+    width: 100%;
+}
+.btn_basic {
+    display: inline-block;
+    text-align: center;
+    min-width: 92px;
+    padding: 0 20px;
+    font-size: 15px;
+    line-height: 50px;
+    font-weight: 700;
+    color: #fff;
+    box-sizing: border-box;
+    background: #000;
+}
+.btn_basic.disabled, .btn_basic:disabled {
+    color: #fff;
+    background: #999;
+    cursor: default;
+}
+
+
+.btn_basic.icn-social.kk {
+    background: #ffe812;
+    color: #000;
+    width: 100%;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    min-width: 92px;
+    padding: 0 20px;
+    line-height: 50px;
+    font-weight: 700;
+    box-sizing: border-box;
+}
+.btn_basic.icn-social.kk:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+    margin-top: -3px;
+    background: url(https://img.hamggae.com/www/common/icon/ic_kk.png) no-repeat;
+    background-size: 100% auto;
+}
+
+.gray7 {
+    color: #777 !important;
+    font-size: 14px;
+}
+.bold {
+    font-weight: 700 !important;
+}
+.mt5 {
+    margin-top: 5px !important;
+}
+.mt10 {
+    margin-top: 10px !important;
+}
+
+.mt15 {
+    margin-top: 15px !important;
+}
+.mt30 {
+    margin-top: 30px !important;
+}
+.ml10 {
+    margin-left: 10px !important;
+}
+.black {
+    color: #000 !important;
+}
+
+
