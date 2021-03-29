@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,24 +15,29 @@ import com.spring.FitInZip.back.member.service.KakaoService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Controller
+@SessionAttributes("member")
 public class KakaoController {
 	
 	@Autowired
 	private KakaoService kakaoService; 
 
 	// 카카오가입정보 받기
-	@RequestMapping(value="/kakaoLogin")
+	@RequestMapping(value="/kakaoLoginCheck")
 	@ResponseBody
-	public String kakaoLoginInfo(String id) throws JsonProcessingException {
+	public boolean kakaoLoginInfo(String id, Model model){
+		
+		boolean isJoin = false;
+		
 		// 일단 카카오로 받은 정보 DB에 있는지 없는지 확인해야함
 		System.out.println(">>> - KakaoLoginInfo()");
-		System.out.println("id : " + id);
-		ObjectMapper mapper = new ObjectMapper();
+		MemberVO member = kakaoService.kakaoIsFirst(id);
 		
+		if (member != null) {
+			isJoin = true;
+			model.addAttribute("member", member);
+		}		
 		
-		String isFirst = kakaoService.kakaoIsFirst(id);
-		
-		return mapper.writeValueAsString(isFirst);
+		return isJoin;
 	}
 	
 	// 카카오 가입자 기본정보 가지고 추가정보 기입창 ㄱㄱ ㅅㅂ
@@ -46,9 +53,11 @@ public class KakaoController {
 	
 	@RequestMapping(value="/kakaoJoin")
 	@ResponseBody
-	public String kakaoJoin(MemberVO vo) throws JsonProcessingException {
+	public String kakaoJoin(MemberVO vo, Model model) throws JsonProcessingException {
 		System.out.println(">>> - 카카오 추가정보 가지고 insert하러 가자 제발~.~");
 		System.out.println("추가정보 입력 후 vo : " + vo);
+		
+		model.addAttribute("member", vo);
 		
 		kakaoService.kakaoJoin(vo);
 		return "true";

@@ -18,8 +18,8 @@ public class TrainerVO {
 	private String trainerId;
 	private String trainerIntro;
 	private String career;
-	private String question_1;
-	private String question_2;
+	private String question1;
+	private String question2;
 	private Integer totalCal;
 	private String regStatus;
 	private String bankAccount;

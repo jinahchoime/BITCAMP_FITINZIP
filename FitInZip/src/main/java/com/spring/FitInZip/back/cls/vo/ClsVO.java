@@ -1,14 +1,19 @@
 package com.spring.FitInZip.back.cls.vo;
 
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Data	
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,11 +27,13 @@ public class ClsVO {
 	private String clsCategory;
 	private String clsName;
 	private String clsTag;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 	private String yoil;
-	private Date startTime;
-	private Date endTime;
+	private String startTime;
+	private String endTime;
 	private Integer lapse;
 	private String clsLevel;
 	private String equip;
@@ -34,7 +41,7 @@ public class ClsVO {
 	private String clsInfo;
 	private String curriculum;
 	private String clsOriName;
-	private String clsFileName;
+	private MultipartFile clsFileName;
 	private String clsStatus;
 	private Integer maxMem;
 	private Integer calorie;

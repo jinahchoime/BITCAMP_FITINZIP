@@ -10,11 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.AdminService;
+import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
+import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 
 @Controller
@@ -23,6 +26,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	/*Îã§Ïä¨*/
 	@RequestMapping("/searchMap")
 	public String searchMap(){
 		return "consulting/searchMap";
@@ -34,8 +38,6 @@ public class AdminController {
 		
 		adminService.insertMap(map);
 		
-		System.out.println("AdminController ø°º≠ insertMap Ω««‡");
-		System.out.println("∫“∑Ø¡ˆ≥ƒ???"+map.toString());
 		ObjectMapper mapper = new ObjectMapper();
 		
 		return mapper.writeValueAsString(null);
@@ -52,5 +54,61 @@ public class AdminController {
 			
 			return "consulting/consulting";
 		}
+	
+	
+	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
+	public String home(Model model) {
+		List<GetMemberCheckDTO> list = adminService.getMemberCheck();
+		model.addAttribute("bbs1",list);
+		
+		
+		System.out.println("Î©îÏù∏Ïª®Ìä∏Î°§Îü¨ : "+list);
+		
+		return "admin/main";
+	}
+	
+	@RequestMapping(value = "/getMemberCheck", method = RequestMethod.GET)
+	public String getMemberCheck(Model model) {
+		//List<GetMemberCheckDTO> list = adminService.getMemberCheck();
+		//model.addAttribute("bbs1",list);
+		//System.out.println(list);
+		
+		return "admin/bbs";
+	}
+	@RequestMapping(value = "/bbs1Modal", method = RequestMethod.GET)
+	@ResponseBody
+	public List<GetModalDTO> getModalList(String id){
+		System.out.println(">>id : " +id);
+		List<GetModalDTO> list = adminService.getModalList(id);
+		System.out.println(">>modalReturn : " + list);
+		
+		return list;
+	}
+	
+	@RequestMapping("/approveTrainer")
+	@ResponseBody
+	public String updateTrainer(String id, String btnId) throws JsonProcessingException{
+		System.out.println(">>id : " +id);
+		System.out.println(">>btnid : " +btnId);
+		String result = String.valueOf(adminService.updateTrainer(id));
+		System.out.println(">>resultvalue : " + result);
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		return mapper.writeValueAsString(result);
+	}
+	
+	@RequestMapping("/rejectTrainer")
+	@ResponseBody
+	public String rejectTrainer(String id, String btnId) throws JsonProcessingException{
+		System.out.println(">>id : " +id);
+		System.out.println(">>btnid : " +btnId);
+		String result = String.valueOf(adminService.rejectTrainer(id));
+		System.out.println(">>resultvalue : " + result);
+		
+		ObjectMapper mapper = new ObjectMapper();
+
+		return mapper.writeValueAsString(result);
+	}
 	
 }
