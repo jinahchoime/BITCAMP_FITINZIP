@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="MypageDAO">
+		<!-- 회원정보 수정하기  -->
 		<update id="updateMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
 			UPDATE MEMBER SET 
 			PHONE = #{phone}, GENDER = #{gender},
@@ -12,6 +13,7 @@
 			WHERE ID = #{id}
 		</update> 
 		
+		<!-- 클래스 내역 가지고 오기  -->
 		<select id="selectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
 			SELECT F.*, C.COMMON_NAME
@@ -23,6 +25,7 @@
 			WHERE P.MEM_ID = #{memId}
 		</select>
 		
+		<!-- 찜하기 클래스 내역 가지고 오기  -->
 		<select id="selectWhishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
 			SELECT F.*, C.COMMON_NAME
@@ -32,5 +35,30 @@
              INNER JOIN COMMON C
              ON F.CLS_CATEGORY = C.COMMON_CODE
 			     WHERE W.MEM_ID = #{memId}
+		</select>
+		
+		<!-- 찜하기 클래스 없애기  -->
+		<delete id="deleteWishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			DELETE FROM WISH_CLASS
+			WHERE CLASS_CODE = #{clsCode}
+			AND MEM_ID = #{memId}
+		</delete>
+		
+		<!-- 쿠폰내역 불러오기  -->
+		<select id="couponHistory" parameterType="com.spring.FitInZip.back.mypage.vo.UserCouponDTO"
+			resultType="com.spring.FitInZip.back.mypage.vo.UserCouponDTO">
+			SELECT C.COUPON_NAME, C.COUPON_CODE, C.DISCOUNT_PRICE, 
+			C.COUPON_START_DATE, C.COUPON_END_DATE, O.COMMON_NAME, 
+			    (SELECT COUNT(*) 
+			        FROM  mem_coupon M
+			        INNER JOIN COMMON O
+			        ON m.coupon_status = O.COMMON_CODE
+			        WHERE O.COMMON_CODE = 'CPU01' AND M.MEM_ID = #{memId}) AS "UNUSED_COUNT"
+			FROM MEM_COUPON M 
+			    INNER JOIN COUPON_INFO C
+			    ON C.COUPON_CODE = M.COUPON_CODE
+			    INNER JOIN COMMON O
+			    ON M.COUPON_STATUS = O.COMMON_CODE
+			    WHERE M.MEM_ID = #{memId} AND O.COMMON_CODE = 'CPU01'
 		</select>
 	</mapper>

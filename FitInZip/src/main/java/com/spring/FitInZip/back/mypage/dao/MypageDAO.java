@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 
 @Repository
 public class MypageDAO {
@@ -30,6 +31,14 @@ public class MypageDAO {
 	
 	public List<UserClsDTO> getUserWishCls(UserClsDTO dto) {
 		return mybatis.selectList("MypageDAO.selectWhishCls", dto);
+	}
+	
+	public void deleteWishCls(UserClsDTO dto) {
+		mybatis.delete("MypageDAO.deleteWishCls", dto);
+	}
+	
+	public List<UserCouponDTO> getcouponData(UserCouponDTO dto) {
+		return mybatis.selectList("MypageDAO.couponHistory", dto);
 	}
 	
 }

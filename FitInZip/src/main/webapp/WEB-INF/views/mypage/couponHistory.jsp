@@ -8,6 +8,58 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="../resources/mypage/css/mypage.css" rel="stylesheet"></link>
 <link href="../resources/mypage/css/cls.css" rel="stylesheet"></link>
+<script type="text/javascript">
+	$(function(){
+		$.ajax("/couponData",{
+			type: "get",
+			dataType : "json",
+			success : function(returnValue){
+				var count; /*미사용 쿠폰 수*/
+				var dispHtml = '';
+				$.each(returnValue, function(){
+					count = this.unusedCount;
+					var charge = this.discountPrice + "";
+					dispHtml += '<ul class="clearfix" style="display: inline-block; width: 388px; margin-right: 50px;"><li style="list-style:none; margin-left: 0; width: 388px;">';
+					dispHtml += '<div class="cpn_keep_img"><div class="cpn_in" style="display: table; width: 100%; height: 100%;';
+					dispHtml += 'background: url(https://img.ficle.io/www/notice/bg_cpn2.png) no-repeat; background-size: 100% 100%; box-sizing: border-box;">';
+					dispHtml += '<dl><dt>';
+					dispHtml += '&lt;특별이벤트&gt; ';
+					dispHtml += this.couponName;
+					dispHtml += '</dt><dd class="cpn_price_type maincolor5">';
+					if(charge.length == 5){
+						charge = charge.slice(0,2) + "," +charge.slice(2,charge.length);
+						dispHtml += charge + '원';
+					}else if(charge.length == 4){
+						charge = charge.slice(0,1) + "," +charge.slice(1, charge.length);
+						dispHtml += charge + '원';
+					}
+					dispHtml += '</dd><dd>';
+					if(this.couponStartDate == null && this.couponEndDate == null){
+						dispHtml += '기한없음';
+					}else{
+						dispHtml += new Date(this.couponStartDate).getFullYear() + "-" + (new Date(this.couponStartDate).getMonth() + 1) + "-" + new Date(this.couponStartDate).getDate();
+						dispHtml += " ~ ";
+						dispHtml += new Date(this.couponEndDate).getFullYear() + "-" + (new Date(this.couponEndDate).getMonth() + 1) + "-" + new Date(this.couponEndDate).getDate();
+						/////////////남은 일수 구해라!!!!!!!!!!
+						/* dispHtml += '(' + remainDay.getDate() + '일 남았어요!)';  */
+					}
+					dispHtml += '</dd><dd>다른 쿠폰과 중복사용불가</dd></dl><div class="cpn_state state1"><a>';
+					dispHtml += '<p>';
+					dispHtml += this.commonName;
+					dispHtml += '</p></a></div></div></div></li></ul>';
+				})
+				$('#piece').text(count+"장");
+				$('#content').html(dispHtml);
+			},
+			error : function(){
+				alert("실패!");
+			}
+			
+		})
+		
+		
+	})
+</script>
 </head>
 <body>
 	<!-- Navigation -->

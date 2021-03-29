@@ -15,8 +15,9 @@
 			type: "get",
 			dataType : "json",
 			success : function(returnValue){
-				alert("성공!");
 				var dispHtml1 = '';
+				var clsCode1 = '';
+				
 				var btn = new Array(returnValue.length);
 				console.log(btn);
 				for(var i=0; i<btn.length; i++){
@@ -28,6 +29,7 @@
 				$('#content').html(dispHtml1);
 				
 				var dispHtml = '';
+				
 				function text(value, btn){
 					dispHtml += '<tr><td class="type_diff"><div class="list_img"><img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-03-08/1615190947042146270.png" alt="클래스썸네일"></div> <a href="/play/play_apply/293" target="_blank">';
 					dispHtml += '<div class="list_txt full"><dl class="prod_infor"><dt>';
@@ -46,7 +48,9 @@
 					dispHtml += new Date(value.endDate).getHours() + ":" + new Date(value.endDate).getMinutes();
 					dispHtml += '</dd></dl></div></a></td><td class="black"><a style="cursor: pointer" id="';
 					dispHtml += btn;
-					dispHtml +='" onclick=""><span class="awsome" style="color:red">';
+					dispHtml +='" onclick="noHeart(';
+					dispHtml += value.clsCode
+					dispHtml += ')"><span class="awsome" style="color:red">';
 					dispHtml += '<i class="fas fa-heart fa-2x"></i></span></a></td></tr>';
 					
 					return dispHtml;
@@ -58,11 +62,25 @@
 			
 		})
 		
-		$('#btn0').click(function(){
-			alert("하트놉!");
-		})
 		
 	})
+</script>
+<script type="text/javascript">
+	function noHeart(clsCode1){
+		alert("해당 클래스 찜하기를 취소합니다.");
+		$.ajax("/noHeart",{
+			type: "get",
+			dataType: "json",
+			data : {clsCode : clsCode1},
+			success : function(returnValue){
+				location.href="/clsHeart";
+			},
+			error : function () {
+				alert("실패");
+			}
+		})
+		
+	}
 </script>
 </head>
 <body>

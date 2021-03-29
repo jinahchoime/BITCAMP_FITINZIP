@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Service("mypageService")
@@ -41,9 +42,19 @@ public class MypageServiceImpl implements MypageService{
 	public List<UserClsDTO> getUserWishCls(UserClsDTO dto) {
 		return mypageDAO.getUserWishCls(dto);
 	}
-	
-	
 
+	@Override
+	public void deleteWishCls(UserClsDTO dto) {
+		mypageDAO.deleteWishCls(dto);
+		
+	}
+
+	@Override
+	public List<UserCouponDTO> getcouponData(UserCouponDTO dto) {
+		return mypageDAO.getcouponData(dto);
+	}
+	
+	
 	
 
 }

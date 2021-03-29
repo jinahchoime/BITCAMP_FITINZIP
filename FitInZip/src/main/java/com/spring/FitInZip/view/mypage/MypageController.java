@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
@@ -31,6 +33,7 @@ import com.spring.FitInZip.back.member.vo.MemberVO;
 @Controller
 public class MypageController {
 	
+	//마이페이지 서비스
 	@Autowired
 	private MypageService mypageService;
 	
@@ -123,10 +126,35 @@ public class MypageController {
 		
 	}
 	
+	/*찜한 내역 지우기*/
+	@RequestMapping("/noHeart")
+	@ResponseBody
+	public String checkMap(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		mypageService.deleteWishCls(dto);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		return mapper.writeValueAsString(null);
+	}
+	
 	/*쿠폰내역 페이지로*/
 	@RequestMapping("/couponHistory")
 	public String couponHistory() {
 		return "mypage/couponHistory";
+	}
+	
+	/*쿠폰내역 데이터 뿌리기*/
+	@RequestMapping("/couponData")
+	@ResponseBody
+	public List<UserCouponDTO> getcouponData(UserCouponDTO dto, HttpSession session) throws JsonProcessingException {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.getcouponData(dto);
 	}
 	
 	/*주문조회 페이지로*/

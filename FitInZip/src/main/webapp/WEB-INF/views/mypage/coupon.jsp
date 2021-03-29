@@ -3,30 +3,10 @@
 <div style="display:inline-block; width: 800px; margin-top: 120px;" class="ml30">
     <div class="column_left_wrap clearfix" style="width: 1098px;">
         <div class="maintxt2">쿠폰내역</div>
-        <div class="maintxt line2">사용할 수 있는 쿠폰이 <b class="maincolor5">1장</b> 있습니다</div>
-        <div class="cpn_wrap mt20 mb30">
-            <ul class="clearfix">
-                <li style="list-style:none; margin-left: 0;">
-                    <div class="cpn_keep_img">
-                        <div class="cpn_in" style="display: table; width: 100%; height: 100%;
-     						background: url(https://img.ficle.io/www/notice/bg_cpn2.png) no-repeat;
-    						background-size: 100% 100%;
-    						box-sizing: border-box;">
-                            <dl>
-                                <dt>&lt;특별이벤트&gt; 라이브PT 전용 30,000원 할인 쿠폰</dt>
-                                <dd class="cpn_price_type maincolor5">30,000원</dd>
-                                <dd>03.26 - 03.28(2일 남았어요!)</dd>
-                                <dd>다른 쿠폰과 중복사용불가</dd>
-                            </dl>
-                            <div class="cpn_state state1"><a href="javascript:;">
-                                    <p>사용가능</p>
-                                </a></div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+        <div class="maintxt line2">사용할 수 있는 쿠폰이 <b class="maincolor5" id="piece"></b> 있습니다</div>
+        <div class="cpn_wrap mt20 mb30" id="content">
         </div>
-        <!----> <div class="maintxt line2">다운로드 가능한 쿠폰이 없습니다.</div>
+        <div class="maintxt line2">다운로드 가능한 쿠폰이 없습니다.</div>
         <div class="cpn_wrap mt20 mb30">
             <div class="cpn_none">다운로드 가능한 쿠폰이 없습니다.</div>
         </div>
