@@ -33,11 +33,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+	<!-- MainSidebar -->
+	<link rel="stylesheet" href="../resources/admin/css/style5.css">
 	
-<!-- MainSidebar -->
-<link rel="stylesheet" href="../resources/admin/css/style5.css">
- 
 
 <style type="text/css">
 		.modal-backdrop{
@@ -56,12 +54,14 @@
   font-size: 20px;
   color: #fff;
   text-transform: uppercase;
+
+
 }
 
 	</style>
 	
 
-	
+
 </head>
 
 <body>
@@ -125,7 +125,7 @@
 		</nav>
 
 		<!-- Page Content Holder -->
-		<div id="content">
+		<div id="content" style='padding-top: 20px' id="navconvert">
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
@@ -157,9 +157,9 @@
 			<!-- 가입승인게시판 -->
 			<jsp:include page="bbstest.jsp"></jsp:include>
 			</div>
-			
 			<div class="line"></div>
-
+	<jsp:include page="bbstest.jsp"></jsp:include>
+			
 			<h2>Lorem Ipsum Dolor</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
 				do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -281,6 +281,36 @@
 	}
 
 </script>
-</body>
 
+
+<!-- modal창 설정  -->
+<div class="modal fade" id="exampleModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">님</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5 id="modalBody"></h5>
+        <h5 id="modalBody2"></h5>
+        <h5 id="modalBody3"></h5>
+        <h5 id="modalBody4"></h5>
+        <h5 id="modalBody5"></h5>
+        <h5 id="modalBody6"></h5>
+        <h5 id="modalBody7"></h5>
+        <h5 id="modalBody8"></h5>
+        <h5 id="modalBody9"></h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnResult1" onclick="approveTrainer();">승인완료</button>
+        <button type="button" class="btn btn-secondary" id="btnResult2" onclick="rejectTrainer();">승인거부</button>
+     
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- modal창 설정 끝 -->
+
+</body>
 </html>
