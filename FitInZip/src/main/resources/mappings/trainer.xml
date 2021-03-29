@@ -1,1 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="trainer">	
+	<!-- 강사로그인 -->
+	<select id="loginTrainer" parameterType="trainerDTO" resultType="trainerDTO">
+		SELECT *
+		FROM MEMBER m, TRAINER_REGISTER t
+        WHERE m.ID = t.TRAINER_ID
+		AND m.ID = #{id}
+		AND m.PASSWORD = #{password}
+	</select>
+	<!-- 강사 마이페이지 메인 (신청한 클래스 개수) -->
+	 <select id="TrainerMain1" parameterType="trainerDTO" resultType="String">
+	    SELECT COUNT(*) AS REQ_CLASS
+	    FROM FIT_CLASS f, TRAINER_REGISTER t
+	    WHERE f.TRAINER_ID = t.TRAINER_ID
+	    AND t.TRAINER_ID = #{id}
+	    AND f.CLS_STATUS = 'CS00'
+	</select> 
+
+	<!-- 강사 마이페이지 메인 (진행중인 클래스 개수) -->
+	<select id="TrainerMain2" parameterType="trainerDTO" resultType="String">
+		SELECT COUNT(*) AS ING_CLASS
+	    FROM FIT_CLASS f, TRAINER_REGISTER t
+	    WHERE f.TRAINER_ID = t.TRAINER_ID
+	    AND t.TRAINER_ID = #{id}
+	    AND f.CLS_STATUS = 'CS01'
+	    AND f.START_DATE <![CDATA[ <= ]]> SYSDATE 
+	    AND f.END_DATE <![CDATA[ > ]]> SYSDATE
+
+	</select>
+	
+	<!-- 강사 메이페이지 메인 (정산금) -->
+	<select id="TrainerMain3" parameterType="trainerDTO" resultType="String">
+		SELECT TO_CHAR(TOTAL_CAL, '999,999,999') AS TOTAL_CAL
+	    FROM TRAINER_REGISTER
+	    WHERE TRAINER_ID = #{id}
+	</select>
+	
+	<!-- 강사 등록하기 -->
+	<!-- <insert id="insertTrainer1" parameterType="memberVO">
+	    INSERT INTO MEMBER (ID, PASSWORD, NAME, PHONE, GENDER, BIRTH, MEM_ORI_NAME, MEM_FILE_NAME, ROLE, WITHDRAWAL, NICKNAME)
+	    VALUES (#{id}, #{password}, #{name}, #{phone}, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD02', #{nickname})
+	</insert>
+	<insert id="insertTrainer2" parameterType="com.spring.FitInZip.back.trainer.vo.TrainerVO">
+		INSERT INTO TRAINER_REGISTER (TRAINER_ID, TRAINER_INTRO, CAREER, QUESTION_FIRST, QUESTION_SECOND, TOTAL_CAL, REG_STATUS, REGISTER_DATE)
+		VALUES (#{trainerId}, #{trainerIntro}, #{career}, #{question_1}, #{question_2}, 0, 'RS00', SYSDATE)
+	</insert> -->
+	
+	<insert id="insertTrainer" parameterType="trainerDTO">
+		INSERT ALL
+	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD02', #{nickname})
+	    INTO TRAINER_REGISTER VALUES(#{id}, #{trainerIntro}, #{career}, #{question1}, #{question2}, 0, 'RS00', null, null, SYSDATE)
+	    SELECT *
+	    FROM DUAL
+	</insert>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="checkId" parameterType="String" resultType="Integer">
+		SELECT COUNT(ID) FROM MEMBER
+		WHERE ID = #{id}
+	</select>
+	
+	<select id="trainerInfo" parameterType="trainerDTO" resultType="trainerDTO">
+		SELECT * 
+	    FROM MEMBER m, TRAINER_REGISTER t
+    	WHERE m.ID = t.TRAINER_ID
+    	AND t.TRAINER_ID = #{id}
+	</select>
+	
+	<update id="updateInfo1" parameterType="trainerDTO">
+		UPDATE MEMBER
+    	SET PASSWORD = #{password}
+    	WHERE ID = #{id}
+	</update>
+	
+	<update id="updateInfo2" parameterType="trainerDTO">
+		UPDATE TRAINER_REGISTER
+    	SET TRAINER_INTRO = #{trainerIntro}, 
+        CAREER = #{career}
+    	WHERE TRAINER_ID = #{id}
+	</update>
+	
+	<!-- 내 리뷰 확인 -->
+	<select id="checkReview" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO">
+		SELECT m.NAME, f.CLS_NAME, r.REVIEW_CONTENT, r.REG_DATE, r.STAR, m.MEM_ORI_NAME
+		FROM MEMBER m, REVIEW r, FIT_CLASS f
+		WHERE r.MEM_ID = m.ID
+		AND f.CLS_CODE = r.CLASS_CODE
+		AND r.TRAINER_ID = #{id}
+	</select>
+	
+	
+</mapper>

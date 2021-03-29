@@ -34,7 +34,7 @@
 	            <li><a href="javascript:;" class="nav_in">회원정보</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
-	                        <li><a href="/mypage/edit" class="adClick">나의일정</a></li>
+	                        <li><a href="/calendar" class="adClick">나의일정</a></li>
 	                        <li><a href="/updateMemberInfo" class="adClick">정보수정</a></li>
 	                        <li><a href="/withdrawal" class="adClick">회원탈퇴</a></li>
 	                    </ul>

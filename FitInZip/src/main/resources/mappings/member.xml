@@ -6,9 +6,8 @@
 	
 	<!-- 카카오로 로그인한 사람 데이터가 있는지 없는지 -->
 	<!-- 1이면 이미 가입 -> 로그인, 0 이면 최초 -> 가입포멧 -->
-	<select id="kakaoIsfirst" parameterType="string" resultType="String">
-		SELECT COUNT(*)
-		FROM MEMBER
+	<select id="kakaoIsfirst" parameterType="string" resultType="com.spring.FitInZip.back.member.vo.MemberVO">
+		SELECT * FROM MEMBER
 		WHERE ID = #{id}
 	</select>
 

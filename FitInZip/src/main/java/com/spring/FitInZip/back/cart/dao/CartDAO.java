@@ -17,6 +17,7 @@ public class CartDAO {
 	
 	//장바구니 불러오기
 	public List<CartDTO> getCartList(CartVO vo) {
+		System.out.println("asdasdsa "+vo.getMemId());
 		return mybatis.selectList("CartDAO.getCartList", vo);
 	}
 	
