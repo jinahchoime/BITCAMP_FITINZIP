@@ -18,5 +18,6 @@ public interface AdminService {
 	void insertMap(MapVO vo);
 	void updateMap(MapVO vo);
 	List<MapVO> getMapList(MapVO vo);
+	
 }
 

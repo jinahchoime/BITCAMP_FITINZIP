@@ -34,6 +34,7 @@ public class AdminServiceImpl implements AdminService{
 		return adminDAO.selectMap(vo);
 	}
 	
+	
 	/*상희*/
 	@Override
 	public List<GetMemberCheckDTO> getMemberCheck() {
