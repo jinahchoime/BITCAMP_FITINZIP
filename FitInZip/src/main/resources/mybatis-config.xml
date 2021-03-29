@@ -8,12 +8,25 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
   	
+  	<typeAliases>
+  		<typeAlias type="com.spring.FitInZip.back.calendar.vo.CalendarVO" alias="CalendarVO"/>
+  		<typeAlias type="com.spring.FitInZip.back.cls.vo.ClsVO" alias="ClsVO"/>
+  	</typeAliases>
+  	
+  	<typeHandlers>
+  		<typeHandler javaType="java.sql.Timestamp" handler="org.apache.ibatis.type.DateTypeHandler"/>
+        <typeHandler javaType="java.sql.Time"      handler="org.apache.ibatis.type.DateTypeHandler"/>
+        <typeHandler javaType="java.sql.Date"      handler="org.apache.ibatis.type.DateTypeHandler"/>
+  	</typeHandlers>
+  	
   <mappers>
-    <mapper resource="mappings/cart.xml"/>     
+    <mapper resource="mappings/cart.xml"/> 
     <mapper resource="mappings/product.xml"/>     
   	<mapper resource="mappings/mypage.xml"/>
   	<mapper resource="mappings/admin.xml"/>     
-   <mapper resource="mappings/member.xml"/>
+    <mapper resource="mappings/member.xml"/>  
+    <mapper resource="mappings/calendar.xml"/>
+   <mapper resource="mappings/cls.xml"/>  
   </mappers>
 
 </configuration>
