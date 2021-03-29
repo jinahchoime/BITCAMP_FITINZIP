@@ -125,7 +125,7 @@
 			        	</label>
 			        </div>
 			    </article>
-			    <form action="/kakaoJoin" method="post">
+			    <form>
 					<article>
 						<div data-adarea="이름" class="form-box-input adClick">
 							<input type="text" name="name" id="name" placeholder="이름 입력(가입 후 변경이 불가합니다 )" class>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,13 +63,8 @@ public class EmailController {
 		
 		if (member != null && member.getWithdrawal().equals("WD00") && member.getRole().equals("RL00")) {
 			isJoin = true;
-			model.addAttribute("member" ,member);
+			model.addAttribute("member", member);
 		}
-		
-		System.out.println("id: " + member.getId());
-		System.out.println(isJoin);
-		ObjectMapper mapper = new ObjectMapper();
-		
 		
 		return isJoin;
 	}

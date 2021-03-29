@@ -16,16 +16,16 @@ public class ClsStatusDAO {
 	
 	public List<ClsVO> getListWithPaging(Criteria crt) {
 		
-		List<ClsVO> list = mybatis.selectList("class.getListWithPaging", crt);
+		List<ClsVO> list = mybatis.selectList("ClsDAO.getListWithPaging", crt);
 		
 		return list;
 	}
 	
 	public String getSequence() {
-		return mybatis.selectOne("class.getClassSeq");
+		return mybatis.selectOne("ClsDAO.getClassSeq");
 	}
 	
 	public int insertCls(ClsVO vo) {
-		return mybatis.insert("class.regClass", vo);
+		return mybatis.insert("ClsDAO.regClass", vo);
 	}
 }

@@ -8,7 +8,7 @@ import com.spring.FitInZip.back.member.service.EmailService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Service
-public class EmailServiceImple implements EmailService {
+public class EmailServiceImpl implements EmailService {
 
 	@Autowired
 	private MemberDAO memberDAO;
