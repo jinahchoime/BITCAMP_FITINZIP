@@ -5,17 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>FITINZIP | 결제</title>
+<link rel="stylesheet" type="text/css"
+	href="../resources/product/css/productPay.css" />
 </head>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
-	<section class="content-area">
+	<section class="order-checkout">
 		<article class="contents">
 			<div class="order-wrap">
-				<h2 class="title">주문결제</h2>
-					<div class="order_simply_tit">
-						<strong>얼마</strong>
-					</div>
+				<h2 class="contents-title">
+					<span class="title">주문결제</span>
+				</h2>
 				<div class="order-tab-wrap" >
 					<div class="order-tab reservations-customer">
 						<div class="header">
@@ -23,7 +24,6 @@
 							<span class="preview">주문자 아이디 </span>
 							<span class="preview">주문자 번호 </span>
 						</div>
-						<div class="order-info"></div>
 					</div>
 					<div class="order-tab">
 						<h5 class="tit">배송지 정보</h5>
@@ -132,7 +132,7 @@
 	
 	
 	<!-- 임시 div -->
-	<div style="height:800px;"></div>
+	<div style="height:600px;"></div>
 	
 	
 	<!-- Footer -->

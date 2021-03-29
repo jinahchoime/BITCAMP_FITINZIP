@@ -57,7 +57,6 @@
 
 .order-wrap .contents-title {
 	margin: 0 auto;
-	font-weight: bold;
 	letter-spacing: -0.2px;
 	text-align: center;
 	padding-bottom: 30px;
@@ -196,7 +195,7 @@
 .delivery-price .label {
 	float: left;
 }
-.delivery-pricce .price {
+.delivery-price .price {
 	float: right;
 }
 

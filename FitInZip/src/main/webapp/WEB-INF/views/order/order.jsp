@@ -63,15 +63,15 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
 	<section class="wrapper">
-		<form action="pay">
+		<!-- <form action="/productPay"> -->
 		<section class="order-checkout">
 			<input type="hidden" id="상품명인가????">
 			<article class="contents">
 				<div class="order-wrap">
 					<h2 class="contents-title">
 						<span class="title">주문결제</span>
-						<input type="hidden" name="samedayDeliveryNotAvailable">
-						<input type="hidden" name="samedayDeliveryNotAvailableMessage">
+						<!-- <input type="hidden" name="samedayDeliveryNotAvailable">
+						<input type="hidden" name="samedayDeliveryNotAvailableMessage"> -->
 					</h2>
 						<div class="order_simply_tit">
 						</div>
@@ -111,7 +111,8 @@
 							<a href="cart" class="link">장바구니 바로가기</a>
 						</div>
 						
-						<button type="submit" class="button xlarge width-max">다음 단계 진행</button>
+						<!-- <button type="submit" class="button xlarge width-max">다음 단계 진행</button> -->
+						<a href="productPay">다음 단계 진행</a>
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
 						<div class="order-tab product-checkout checkout">
@@ -121,15 +122,15 @@
 							<div id="order-summary" class="body view">
 								<div class="cart-order_list">
 									<div class="order-list">
-										<input type="hidden" name="productNum" value="">
-										<input type="hidden" name="amount" value="">
+										<!-- <input type="hidden" name="productNum" value="">
+										<input type="hidden" name="amount" value=""> -->
 										<div class="image-wrap">
 											<img src="" alt="">
 										</div>
 										<div class="order-info">
 											<a class="tit" href="">상품명</a>
 											<div class='current-option-wrap'>
-												<input type="hidden" name="옵션넣어" value="옵션밸류">
+												<!-- <input type="hidden" name="옵션넣어" value="옵션밸류"> -->
 												<span class="opt">1kg...</span>
 												<span class="qty">수량 : 1개</span>
 												<span class="price-wrap">
@@ -167,7 +168,7 @@
 				</div>
 			</article>
 		</section>
-		</form>
+		<!-- </form> -->
 	</section>
 	
 	<!-- 임시 div -->
