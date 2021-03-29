@@ -32,6 +32,10 @@
 <script type="text/javascript">
 	$(function(){
 		
+		$("#register").on("click", function(){
+			self.location = "classRegister";
+		});
+		
 		var actionForm = $("#actionForm");
 		
 		$(".paginate_button a").on("click", function(e){
@@ -73,7 +77,12 @@
 				<tr>
 					<td>${i.clsName }</td>
 					<c:if test="${i.clsStatus == 'RS00' }">
-						<td><button>수정</button></td>
+						<td>
+							<form action="#">
+								<input type="hidden" value="${i.clsCode }">
+								<input type="submit" value="수정">
+							</form>
+						</td>
 					</c:if>
 					<c:if test="${i.clsStatus == 'RS01' }">
 						<td>승인완료</td>
@@ -89,7 +98,7 @@
 				<ul>
 					
 					<c:if test="${pageMaker.prev }">
-						<li>
+						<li class="paginate_button previous">
 							<a href="${pageMaker.startPage - 1 }">Prev</a>
 						</li>
 					</c:if>
@@ -99,7 +108,7 @@
 					</c:forEach>
 					
 					<c:if test="${pageMaker.next }">
-						<li>
+						<li class="paginate_button next">
 							<a href="${pageMaker.endPage + 1 }">Next</a>
 						</li>
 					</c:if>
@@ -111,7 +120,7 @@
 					<input type="hidden" name="amount" value="${pageMaker.crt.amount }">
 				</form>
 				
-				<input type="button" value="등록" onclick="goRegister()">
+				<input type="button" id="register" value="등록">
 				
 			</div>
 		</div>

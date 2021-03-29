@@ -27,7 +27,7 @@
 	<insert id="regClass" parameterType="ClsVO">
 		insert into fit_class
 		values(#{clsCode}, #{trainerId}, #{clsCategory}, #{clsName}, 
-		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, <![CDATA[to_timestamp(#{startTime, jdbcType=TIMESTAMP}]]>, 'yyyy-MM-dd hh24:mi:ss'), to_timestamp(#{endTime, jdbcType=TIMESTAMP}, 'yyyy-MM-dd hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
+		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, <![CDATA[to_timestamp(#{startTime, jdbcType=TIMESTAMP}]]>, 'hh24:mi:ss'), to_timestamp(#{endTime, jdbcType=TIMESTAMP}, 'hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
 		#{curriculum}, #{clsOriName}, 'upload', #{clsStatus}, #{maxMem}, #{calorie}, #{meetUrl})
 	</insert>
 	
