@@ -87,15 +87,15 @@ html {
     padding: 8px;
 }
 .MuiGrid-item {
-   /*  margin: 0; */
+     margin: 0; 
     box-sizing: border-box;
 }
 
 .MuiGrid-container {
-   /*  width: 100%; */
+     width: 100%; 
     display: flex;
     flex-wrap: wrap;
-    /* box-sizing: border-box; */
+     box-sizing: border-box; 
     }
 .css-1iv07fo-avatar-avatar-ReviewCard-ReviewCard-avatar-ReviewCard {
     min-width: 4rem;
@@ -128,14 +128,14 @@ html {
     justify-content: center;
 }    
 
-.MuiAvatar-img {
+ .MuiAvatar-img {
   color: transparent;
   width: 100%;
   height: 100%;
   object-fit: cover;
   text-align: center;
   text-indent: 10000px;
-}
+} 
 
 </style>
 
@@ -301,8 +301,8 @@ html {
 							        <div class="MuiGrid-root MuiGrid-item">
 							            <div class="MuiGrid-root css-uf2l3s-review MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap">
 							                <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item">
-							                    <div class="MuiGrid-root MuiGrid-item">
-							                        <img src="https://d2f44qya6fghrh.cloudfront.net/user/524/profile.jpg?etag=kixuktsv" class="MuiAvatar-img">${review.memOriName }
+							                    <div class="MuiGrid-root MuiGrid-item MuiAvatar-root">
+							                        <img src="https://d2f44qya6fghrh.cloudfront.net/user/524/profile.jpg?etag=kixuktsv" class="MuiAvatar-img" style="border-radius: 50%; width:40px; height:40px;">${review.memOriName }
 							                    </div>
 							                    <div class="MuiGrid-root css-r0bh7x-shortInformation MuiGrid-item">
 							                        <p class="MuiTypography-root css-9f72dd-caption-caption-medium MuiTypography-body1">${review.name }</p>
