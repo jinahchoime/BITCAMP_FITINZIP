@@ -7,6 +7,7 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
+<<<<<<< HEAD
   
   	 <typeAliases>
   		<typeAlias type="com.spring.FitInZip.back.member.vo.MemberVO" alias="memberVO"/>
@@ -20,20 +21,15 @@
     <mapper resource="mappings/member.xml"/>     
     <mapper resource="mappings/order.xml"/>     
     <mapper resource="mappings/payment.xml"/>     
+=======
+  	
+  <mappers>
+    <mapper resource="mappings/cart.xml"/>     
+>>>>>>> de572ae2d33377d856214eff811fec9c462ed4e1
     <mapper resource="mappings/product.xml"/>     
-    <mapper resource="mappings/review.xml"/>     
-    <mapper resource="mappings/trainer.xml"/>     
-    <mapper resource="mappings/admin.xml"/>   -->   
+  	<mapper resource="mappings/mypage.xml"/>
+  	<mapper resource="mappings/admin.xml"/>     
+   <mapper resource="mappings/member.xml"/>
   </mappers>
 
-   
 </configuration>
-
-
-
-
-
-
-
-
-
