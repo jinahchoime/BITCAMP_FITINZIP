@@ -29,6 +29,7 @@ a > div {
 }
 .contents_wrap {
     position: relative;
+    top: 500px;
     width: 1120px;
     margin: 0 auto;
 }
@@ -133,14 +134,14 @@ img, input {
     color: #666;
 }
 .maincolor1 {
-    color: #7b2fb9 !important;
+    color: DarkOrange !important;
 }
 b {
     font-weight: bold;
 }
 .label.on {
     color: #fff;
-    background: #7b2fb9;
+    background: DarkOrange;
 }
 .label.round {
     padding: 0 7px;
