@@ -18,6 +18,13 @@
 		]]>
 	</select>
 	
+	<!-- 페이징을 위해 등록한 강의의 개수 조회 -->
+	<select id="getTotalCount" parameterType="String" resultType="Integer">
+		select count(*)
+		from fit_class
+		where trainer_id = #{trainerId }
+	</select>
+	
 	<!-- 주문번호 생성을 위한 시퀀스 select -->
 	<select id="getClassSeq" resultType="String">
 		SELECT class_seq.NEXTVAL seq_num FROM dual
@@ -27,9 +34,34 @@
 	<insert id="regClass" parameterType="ClsVO">
 		insert into fit_class
 		values(#{clsCode}, #{trainerId}, #{clsCategory}, #{clsName}, 
-		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, <![CDATA[to_timestamp(#{startTime, jdbcType=TIMESTAMP}]]>, 'hh24:mi:ss'), to_timestamp(#{endTime, jdbcType=TIMESTAMP}, 'hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
-		#{curriculum}, #{clsOriName}, 'upload', #{clsStatus}, #{maxMem}, #{calorie}, #{meetUrl})
+		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, to_timestamp(#{startTime}, 'yyyy-MM-dd hh24:mi:ss'), to_timestamp(#{endTime}, 'yyyy-MM-dd hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
+		#{curriculum}, #{clsOriName}, 'upload', 'CS00', #{maxMem}, #{calorie}, #{meetUrl})
 	</insert>
+	
+	<!-- 강의 수정 -->
+	<update id="modClass" parameterType="clsVO">
+		update fit_class
+		set CLS_CATEGORY = #{clsCategory},
+			CLS_NAME = #{clsName},
+			CLS_TAG = #{clsTag},
+			START_DATE = #{startDate},
+			END_DATE = #{endDate},
+			YOIL = #{yoil},
+			START_TIME = to_timestamp(#{startTime}, 'yyyy-MM-dd hh24:mi:ss'),
+			END_TIME = to_timestamp(#{endTime}, 'yyyy-MM-dd hh24:mi:ss'),
+			LAPSE = #{lapse},
+			CLS_LEVEL = #{clsLevel},
+			EQUIP = #{equip},
+			PER_PRICE = #{perPrice},
+			CLS_INFO = #{clsInfo},
+			CURRICULUM = #{curriculum},
+			CLS_ORI_NAME = 'upload',
+			CLS_STATUS = #{clsStatus},
+			MAX_MEM = #{maxMem},
+			CALORIE = #{calorie},
+			MEET_URL = #{meetUrl}
+		where CLS_CODE = #{clsCode} and TRAINER_ID = #{trainerId}
+	</update>
 	
 	<!-- 수정을 위한 강의 불러오기 -->
 	<select id="selectClassForMod" parameterType="clsVO" resultType="clsVO">

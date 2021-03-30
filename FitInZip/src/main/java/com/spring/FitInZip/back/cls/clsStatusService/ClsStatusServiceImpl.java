@@ -20,6 +20,15 @@ public class ClsStatusServiceImpl implements ClsStatusService {
 		return list;
 	}
 	
+	
+	
+	@Override
+	public Integer getTotal(String trainerId) {
+		return dao.getClassCount(trainerId);
+	}
+
+
+
 	@Override
 	public void register(ClsVO cls) {
 		// TODO Auto-generated method stub
@@ -33,7 +42,7 @@ public class ClsStatusServiceImpl implements ClsStatusService {
 
 	@Override
 	public void updateClass(ClsVO cls) {
-		// TODO Auto-generated method stub
+		System.out.println("수정 결과 : " + dao.updateCls(cls));
 		
 	}
 
