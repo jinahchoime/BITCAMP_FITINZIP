@@ -1,8 +1,8 @@
 .order-checkout {
 	max-width: 1440px;
 	margin: 0 auto;
-	padding: 0 0 30px;
 	box-sizing: border-box;
+	padding-top: 80px;
 }
 
 .contents {
@@ -10,14 +10,19 @@
 	margin: 0 auto;
 	box-sizing: border-box;
 }
-
 .order-wrap {
 	position: relative;
 	margin: 0 auto;
 }
-
-.order-checkoug .contents-title {
-	margin: 0 auto;
+.order-tab-wrap {
+	display: inline-block;
+	width: 1000px;
+}
+#block {
+	display: block;
+	width: 100%;
+}
+.order-checkout .contents-title {
 	padding: 50px 0 30px;
 	font-size: 28px;
 	font-weight: bold;
@@ -47,19 +52,10 @@
 	color: #111111;
 	display: inline;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 22px;
 	vertical-align: middle;
 	line-height: 1;
 }
-
-.order-tab .header .preview {
-	font-size: 11px;
-	position: absolute;
-	right: 50px;
-	top: 34px;
-	color: #2e2e2e;
-}
-
 .order-tab .body {
 	padding: 0 25px 32px;
 	font-size: 14px;
@@ -81,11 +77,8 @@
 
 .uk-grid > * {
 	padding-left: 20px;
-	flex: none;
-	margin: 0;
 	float: left;
 }
-
 li {
 	display: list-item;
 }
@@ -95,7 +88,7 @@ li {
 }
 
 .order-tab .body .order-field-list .input-form-group {
-	margin-top: 10px;
+	margin-top: 50px;
 }
 
 .order-tab .footer {
@@ -142,7 +135,6 @@ li {
 	float: none;
 	width: auto;
 	display: block;
-	border: 0;
 }
 
 .order_tab_wrap .order-tab.product-checkout .header {
@@ -179,7 +171,7 @@ li {
 	border-top: 0;
 }
 .order-tab .body {
-	font-size: 14px;
+	font-size: 16px;
 }
 .order_tab_wrap .order-tab.product-checkout .cart-order_list {
 	margin: 0;
@@ -222,7 +214,7 @@ li {
 	display: table-cell;
 	padding: 0 0 0 30px;
 	vertical-align: top;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 18px;
 }
 .order_tab_wrap .order-tab.product-checkout .order-list .order-info .tit {
@@ -279,7 +271,7 @@ a {
 	float: left;
 }
 .product-checkout .label {
-	font-size: 14px;
+	font-size: 16px;
 	color: #000;
 	font-weight: 500;
 	letter-spacing: -1px;
@@ -295,7 +287,7 @@ a {
 	
 }
 .product-checkout .price {
-	font-size: 14px;
+	font-size: 16px;
 }
 
 .order-wrap .product-checkout .info-price .delivery-price {
@@ -319,5 +311,46 @@ a {
 	color: #fa5400;
 }
 .product-checkout .price {
-	font-size: 14px;
+	font-size: 16px;
+}
+
+.order-tab .body .order-field-list .payment-method-list .payment-method-item {
+	max-width: 480px;
+	margin-bottom: 10px;
+}
+.payment-method-list {
+	width: 600px;
+}
+.order-field-list .payment-method-list .payment-method-item .payment-method-item-title {
+	box-sizing: border-box;
+	padding: 17px 25px 16px;
+	border: 1px solid #d1d1d1;
+	font-size: 19px;
+	cursor: pointer;
+	text-align: center;
+}
+.payment-method-item-title {
+	color: #606060;
+}
+
+.input-checkbox > label > .label {
+	font-size: 18px;
+	margin-left: -10px;
+}
+.icon-checkbox {
+	float: left;
+	width: 15px;
+	height: 15px;
+	background-position: -22px -320px;
+	z-index: 10;
+}
+[type=checkbox] {
+	width: 18px;
+	height: 18px;
+}
+.order-tab .order-complete {
+	position: relative;
+}
+.uk-width-7-10 {
+	width: 70%;
 }

@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="../resources/cart/css/cart.css"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
- <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
 
 </head>
@@ -26,6 +26,7 @@
 				<div class="product-select-all">
 					<a style="color: #000000;" class="btn-cart-delete-All" href=#>전체삭제</a>
 				</div>
+				
 		<c:forEach var="cartList" items="${cartList }">
 		<form action="/deleteCart" method="get">
 				<div class="product-opt_cart">
@@ -92,7 +93,7 @@
 				<div class="info-price">
 					<span class="item-price">
 						<span class="label">상품 금액</span>
-						<span class="price"><strong>다 더한거</strong></span> 
+						<span class="price"><strong>~원</strong></span> 
 					</span>
 					<span class="delivery-price">
 						<span class="label">예상 배송비</span>

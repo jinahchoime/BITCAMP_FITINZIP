@@ -15,10 +15,11 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private CartDAO cartDAO;
 
-	public List<CartDTO> getCartList(CartVO vo) {
-		return cartDAO.getCartList(vo);
+	@Override
+	public List<CartDTO> getCartList(String mem_id) {
+		return cartDAO.getCartList(mem_id);
 	}
-	
+
 	//장바구니에 상품 담기
 	@Override
 	public void insertCart(CartVO vo) {
@@ -31,6 +32,7 @@ public class CartServiceImpl implements CartService {
 	public void deleteCart(CartVO vo) {
 		cartDAO.deleteCart(vo);
 	}
+
 
 
 }

@@ -111,8 +111,8 @@
 							<a href="cart" class="link">장바구니 바로가기</a>
 						</div>
 						
-						<!-- <button type="submit" class="button xlarge width-max">다음 단계 진행</button> -->
-						<a href="productPay">다음 단계 진행</a>
+						<button type="submit" class="button xlarge width-max">다음 단계 진행</button> 
+						<a href="productPay">다음단계진행a태그</a>
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
 						<div class="order-tab product-checkout checkout">

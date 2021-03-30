@@ -18,18 +18,43 @@
 					<span class="title">주문결제</span>
 				</h2>
 				<div class="order-tab-wrap" >
-					<div class="order-tab reservations-customer">
+					<div class="order-tab reservations-customer" id="block">
 						<div class="header">
 							<h5 class="tit">주문고객</h5>
-							<span class="preview">주문자 아이디 </span>
-							<span class="preview">주문자 번호 </span>
+						<!-- 	<span class="preview">주문자 아이디 </span>
+							<span class="preview">주문자 번호 </span> -->
+						</div>
+						<div id="orderinfo-review" class="body view">
+							<div class="order-complete">
+								<div class="uk-grid uk-margin-bottom">
+									<div class="uk-width-7-10">
+										<dl><dd class="uk-margin-small-bottom">주문자이름</dd></dl>
+										<dl><dd class="uk-margin-small-bottom">연락처</dd></dl>
+										<dl><dd class="uk-margin-small-bottom">아이디</dd></dl>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="order-tab">
-						<h5 class="tit">배송지 정보</h5>
-						<span class="preview">주소 어디냐~~~~</span>
+					<div class="order-tab" id="block">
+						<div class="header">
+							<h5 class="tit">배송지 정보</h5>
+						</div>	
+						<div class="delivery-info">
+							<div id="shipping-review" class="body view">
+								<div class="order-complete">
+									<div class="uk-grid">
+										<div class="uk-width-7-10">
+											<dl><dd class="uk-margin-small-bottom text-box">
+												<span>배송지 주소 들어가면 됨</span>
+											</dd></dl>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="order-tab reservations-order">
+					<div class="order-tab reservations-order" id="block">
 						<div class="header">
 							<h5 class="tit">결제수단 선택</h5>
 						</div>
@@ -39,19 +64,14 @@
 								<ul class="order-field-container uk-grid">
 									<li class="order-field-list uk-width-small-1-1 uk-width-medium-1-1">
 										<div class="payment-method-list">
-											<div class="paymeny-method-item">
-												<!-- 여기에 카카오페이 화면... -->
+											<div class="payment-method-item">
 												<h6 class="payment-method-item-title">
-													<img style=" " src="" alt="카카오페이">
+													<img style="width:60px; " src="../resources/product/img/icon_kakaopay_100.jpg" alt="카카오페이">
 													카카오페이
 												</h6>
 											</div>
-											<div class="paymeny-method-item">
-												<!-- 여기에 카드결제 화면... -->
-												<h6 class="payment-method-item-title">
-													<img style=" " src="" alt="신용카드">
-													카카오페이
-												</h6>
+											<div class="payment-method-item">
+												<h6 class="payment-method-item-title">신용카드</h6>
 											</div>
 										</div>
 									</li>
@@ -61,7 +81,7 @@
 												<span class="input-checkbox">
 													<input type="checkbox" name="isCheckoutAgree">
 													<label for="isCheckoutAgree">
-														체크박스 아이콘..?
+														<i class="icon-checkbox"></i>
 														<span class="label font-size-s">위 주문의 상품, 가격, 배송정보에 동의합니다.</span>
 													</label>
 												</span>
