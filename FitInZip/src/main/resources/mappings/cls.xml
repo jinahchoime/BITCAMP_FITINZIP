@@ -32,7 +32,7 @@
 	</insert>
 	
 
-	<select id="getClassList" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
+	<select id="getClassList" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
 		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
         TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
         TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
@@ -44,9 +44,12 @@
        
 		FROM FIT_CLASS F, MEMBER M, COMMON C
 		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
-		AND CLS_STATUS = 'CS01'
+		AND CLS_STATUS = 'CS01' 
+		<if test="value != null">
+			AND CLS_CATEGORY = #{value}
+		</if>
 	</select>
-	
+<!-- 	
 	<select id="getClassCategory" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
 		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
         TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
@@ -61,6 +64,6 @@
 		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
 		AND CLS_STATUS = 'CS01' AND CLS_CATEGORY = #{clsCategory}
 	</select>
-	
+	 -->
 	
 </mapper>

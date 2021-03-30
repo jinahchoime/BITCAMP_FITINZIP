@@ -16,14 +16,15 @@ public class ClsServiceImpl implements ClsService {
 	private ClsDAO clsDAO;
 
 	@Override
-	public List<ClsListDTO> getClassList() {
-		return clsDAO.getClassList();
+	public List<ClsListDTO> getClassList(String clsCategory) {
+		
+		return clsDAO.getClassList(clsCategory);
 	}
-
+/*
 	@Override
 	public List<ClsListDTO> getClassCategory(String clsCategory) {
 		// TODO Auto-generated method stub
 		return clsDAO.getClassCategory(clsCategory);
 	}
-
+*/
 }
