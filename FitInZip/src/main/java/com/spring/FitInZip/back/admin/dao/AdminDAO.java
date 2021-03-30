@@ -53,6 +53,12 @@ public class AdminDAO {
 	}
 	
 	public List<GetMemberCheckDTO> getMemberCheckRM(){
-		return mybatis.selectList("getMemberCheckRM");
+		return mybatis.selectList("AdminDAO.getMemberCheckRM");
 	}
+	
+	public List<GetMemberCheckDTO> allListRM(String key){
+		System.out.println("DAO 파라미터 값 : " + key);
+		return mybatis.selectList("AdminDAO.allListRM",key);
+	}
+
 }

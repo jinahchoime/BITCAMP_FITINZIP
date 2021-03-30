@@ -35,11 +35,8 @@ public class AdminController {
 	@RequestMapping("/checkMap")
 	@ResponseBody
 	public String checkMap(MapVO map) throws JsonProcessingException {
-		
 		adminService.insertMap(map);
-		
 		ObjectMapper mapper = new ObjectMapper();
-		
 		return mapper.writeValueAsString(null);
 	}
 	
@@ -47,11 +44,8 @@ public class AdminController {
 	@RequestMapping("/consulting")
 	public String consulting(MapVO map, Model model){
 			List<MapVO> maplist = adminService.getMapList(map);
-			
 			model.addAttribute("maplist", maplist);
-			
 			System.out.println("maplist : " + maplist);
-			
 			return "consulting/consulting";
 		}
 	
@@ -60,8 +54,6 @@ public class AdminController {
 	public String home(Model model) {
 		List<GetMemberCheckDTO> list = adminService.getMemberCheck();
 		model.addAttribute("bbs1",list);
-		
-		
 		System.out.println("메인컨트롤러 : "+list);
 		
 		return "admin/main";
@@ -92,7 +84,6 @@ public class AdminController {
 		System.out.println(">>btnid : " +btnId);
 		String result = String.valueOf(adminService.updateTrainer(id));
 		System.out.println(">>resultvalue : " + result);
-		
 		ObjectMapper mapper = new ObjectMapper();
 
 		return mapper.writeValueAsString(result);
@@ -105,7 +96,6 @@ public class AdminController {
 		System.out.println(">>btnid : " +btnId);
 		String result = String.valueOf(adminService.rejectTrainer(id));
 		System.out.println(">>resultvalue : " + result);
-		
 		ObjectMapper mapper = new ObjectMapper();
 
 		return mapper.writeValueAsString(result);
@@ -115,11 +105,19 @@ public class AdminController {
 	public String registerMaster(Model model) {
 		List<GetMemberCheckDTO> list = adminService.getMemberCheckRM();
 		model.addAttribute("bbs1",list);
-		
-		
 		System.out.println("가입승인 컨트롤러 : "+list);
 		
 		return "admin/registerMaster";
 	}
 	
+	/* 승인 -> 가입신청 ajax 처리부분*/
+	@RequestMapping("/allListRM")
+	public String allListRM(Model model,String key) {
+		System.out.println("key : " + key);
+		List<GetMemberCheckDTO> list = adminService.allListRM(key);
+		System.out.println("오잉??"+list);
+		model.addAttribute("bbs1",list);
+
+		return "admin/registerMasterPart";
+	}
 }

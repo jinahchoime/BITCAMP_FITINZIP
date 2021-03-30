@@ -43,7 +43,17 @@
 	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME 
 	FROM MEMBER M, TRAINER_REGISTER T, COMMON C 
 	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE 
-    ORDER BY COMMON_NAME
+    ORDER BY T.REG_STATUS
 	</select>
 	
+	<select id="allListRM" resultType="com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO" parameterType="string">
+	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME
+	FROM MEMBER M, TRAINER_REGISTER T, COMMON C
+	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE
+	<if test="value != null">
+		AND T.REG_STATUS = #{value}
+	</if>
+	ORDER BY T.REG_STATUS,T.REGISTER_DATE
+	</select>
+
  </mapper>

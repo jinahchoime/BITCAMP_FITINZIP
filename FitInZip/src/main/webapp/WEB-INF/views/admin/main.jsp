@@ -157,7 +157,7 @@
 
 	function changeSt(btn){
 		let id = btn.parentElement.parentElement.firstElementChild.textContent;
-		
+	
 		$.ajax({
 			url: "bbs1Modal",
 			type: "GET",
@@ -189,7 +189,7 @@
 	}
 	
 	function approveTrainer(){
-		let id = document.getElementById('modalBody').innerHTML;
+		let id = document.getElementById('modalBody').value;
 		let btnId = document.getElementById('btnResult1').innerHTML
 		
 		$.ajax({
@@ -198,7 +198,7 @@
 			dataType: "json",
 			data: {id:id, btnId:btnId},
 			success: function(data){
-				console.log("승인이 완료 되었습니다.");
+				alert("승인이 완료 되었습니다.");
 				window.location.href="adminMain";
 			
 			},
@@ -209,7 +209,7 @@
 	}
 	
 	function rejectTrainer(){
-		let id = document.getElementById('modalBody').innerHTML;
+		let id = document.getElementById('modalBody').value;
 		let btnId = document.getElementById('btnResult2').innerHTML
 		
 		$.ajax({
@@ -241,15 +241,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<h5 id="modalBody"></h5>
-					<h5 id="modalBody2"></h5>
-					<h5 id="modalBody3"></h5>
-					<h5 id="modalBody4"></h5>
-					<h5 id="modalBody5"></h5>
-					<h5 id="modalBody6"></h5>
-					<h5 id="modalBody7"></h5>
-					<h5 id="modalBody8"></h5>
-					<h5 id="modalBody9"></h5>
+				<%@ include file="listModalRM.jsp"%>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" id="btnResult1"

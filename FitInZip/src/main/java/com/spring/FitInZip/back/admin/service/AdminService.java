@@ -14,6 +14,7 @@ public interface AdminService {
 	Integer updateTrainer(String id);
 	Integer rejectTrainer(String id);
 	List<GetMemberCheckDTO> getMemberCheckRM();
+	List<GetMemberCheckDTO> allListRM(String key);
 	
 	/*다슬*/
 	void insertMap(MapVO vo);

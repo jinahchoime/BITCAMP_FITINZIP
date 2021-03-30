@@ -64,5 +64,12 @@ public class AdminServiceImpl implements AdminService{
 	public List<GetMemberCheckDTO> getMemberCheckRM() {
 		return adminDAO.getMemberCheckRM();
 	}
+
+
+	@Override
+	public List<GetMemberCheckDTO> allListRM(String key) {
+		
+		return adminDAO.allListRM(key);
+	}
 }
 
