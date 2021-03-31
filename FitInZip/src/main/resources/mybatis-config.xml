@@ -25,6 +25,7 @@
     <mapper resource="mappings/cls.xml"/>        
     <mapper resource="mappings/trainer.xml"/>   
     <mapper resource="mappings/admin.xml"/>   
+    <mapper resource="mappings/order.xml"/> 
   </mappers>
 
 </configuration>

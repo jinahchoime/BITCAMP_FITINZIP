@@ -15,6 +15,6 @@ public class ProductPayController {
 	
 	@RequestMapping("/productPay")
 	public String getOrder() {
-		return "productPay/productPay";
+		return "pay/productPay";
 	}
 }

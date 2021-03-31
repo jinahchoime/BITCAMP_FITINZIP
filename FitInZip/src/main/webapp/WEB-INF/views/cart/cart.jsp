@@ -39,23 +39,23 @@
 	
 	<article class="contents margin-xsmall">
 		<h2 class="cart-title">장바구니</h2>
-		<div class="mc-cart-num">
-			<span>~개 상품</span>
-		</div>
+		
 		<div class="item-container">
 			<div class="item-list-wrap" id="cart">
 				<div class="product-select-all">
 					<a style="color: #000000;" class="btn-cart-delete-All" href=# onclick="deleteAllCart()">전체삭제</a>
 				</div>
 				
-			<c:forEach var="cartList" items="${cartList }">
 				
 				<c:if test="${empty cartList }">
-					<h2>장바구니에 담긴 상품이 없습니다. 뭐야아아아안</h2>
-					<a href="/cart">계속 쇼핑하기</a>
+					<i class="fas fa-shopping-bag" style="width:65px; height:60px;"></i><br>
+					<span style="font-size: ">장바구니에 담긴 상품이 없습니다.</span><br>
+					<a href="/product" class="goProduct-btn">계속 쇼핑하기</a>
 				</c:if>
 				
-					<form action="/deleteCart" method="get">
+				<c:if test="${!empty cartList }">
+			<c:forEach var="cartList" items="${cartList }">
+					<form action="/deleteCart" method="get" name="deleteCart">
 						<div class="product-opt_cart">
 							<!-- <input type="hidden" name="proName">
 							<input type="hidden" name="mem_id">
@@ -116,10 +116,10 @@
 								        <h5 class="modal-title" id="exampleModalLabel"></h5>
 								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								      </div>
-								      <div class="modal-body">
+								      <div class="modal-body updown">
 								        	<span>수량 : ${cartList.amount }</span> &nbsp;
-								        	<input type="button" onclick="amountChange('up')" class="fas fa-arrow-up arrow">
-								        	<input type="button" onclick="amountChange('down')" class="fas fa-arrow-down arrow">
+								        	<input type="button" onclick="amountChange('up')" class="fas fa-arrow-up arrow up">
+								        	<input type="button" onclick="amountChange('down')" class="fas fa-arrow-down arrow down">
 								      </div>
 								      <div class="modal-footer">
 								        <button type="button" style=" background-color: #d1d1d1; border: #d1d1d1; color:black;" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
@@ -134,13 +134,19 @@
 						</div>	
 					</form>
 				</c:forEach>
+			</c:if>
 			</div>
+			
+			<c:set var="sum" value="0"/>
 			<div class="product-checkout">
 				<strong class="tit">주문예정금액</strong>
 				<div class="info-price">
 					<span class="item-price">
 						<span class="label">상품 금액</span>
-						<span class="price"><strong>~원</strong></span> 
+						<c:forEach var="cartList" items="${cartList }" >
+							<c:set var="sum" value="${sum + cartList.proPrice }" />
+						</c:forEach>
+						<span class="price"><strong><c:out value="${sum }"/>원</strong></span> 
 					</span>
 					<span class="delivery-price">
 						<span class="label">예상 배송비</span>
@@ -149,10 +155,11 @@
 				</div>
 				<div class="total-price">
 					<span class="label">총 결제 예정 금액</span>
-					<span class="price sale total"><strong>총 결제 몇 원</strong></span>
+					<span class="price sale total"><strong><c:out value="${sum }"/>원</strong></span>
 				</div>
 				<a class="btn-link xlarge width-max btn-order indian-red" href="order">주문하기</a>
 			</div>
+			
 		</div>	
 	</article>
 	

@@ -246,14 +246,19 @@
 .price {
 	text-align: right;
 }
-
+ 
 .arrow {
 	color: #ff471a;
 }
+.goProduct-btn {
+	color:#111; 
+	text-decoration: underline;
+	 
+}
 
-
-
-
+.item-price .price {
+	padding-left: 156px;
+}
 
 
 

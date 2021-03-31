@@ -86,7 +86,6 @@ public class CartController {
 	public String deleteCart(Model model, CartVO vo, HttpServletRequest request) {
 		
 		System.out.println("dddd :" + request.getParameter("cartCode"));
-		vo.setCartCode(Integer.parseInt(request.getParameter("cartCode")));
 		//System.out.println(">>" +request.getParameter("proNum"));
 		//System.out.println("proNum:" + vo.getProNum());
 		//System.out.println("vo:" + vo);

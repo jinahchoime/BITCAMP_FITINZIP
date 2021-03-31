@@ -58,6 +58,11 @@
             }
         }).open();
     }
+    
+    function pay() {
+    	location.href="/productPay"
+    }
+  
 </script>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
@@ -79,7 +84,9 @@
 						<div class="header">
 							<h5 class="tit">주문고객</h5>
 							<div class="body view">
-								아이디, 번호 찍어주기
+								${sessionScope.member.id }<br>
+								${sessionScope.member.name }<br>
+								${sessionScope.member.phone }
 							</div>
 							<h5 class="tit">배송지 정보</h5>
 						</div>
@@ -111,41 +118,49 @@
 							<a href="cart" class="link">장바구니 바로가기</a>
 						</div>
 						
-						<button type="submit" class="button xlarge width-max">다음 단계 진행</button> 
-						<a href="productPay">다음단계진행a태그</a>
+						<button onclick="pay()" class="button xlarge width-max">다음 단계 진행</button> 
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
 						<div class="order-tab product-checkout checkout">
 							<div class="header mini-box">
 								<h5 class="tit"><strong>주문내역</strong></h5>
 							</div>
+							<c:forEach var="cartList" items="${cartList }">
 							<div id="order-summary" class="body view">
 								<div class="cart-order_list">
 									<div class="order-list">
 										<!-- <input type="hidden" name="productNum" value="">
 										<input type="hidden" name="amount" value=""> -->
 										<div class="image-wrap">
-											<img src="" alt="">
+											<img style="width:120px; height:120px;" src="${cartList.proImg }" alt="상품이미지">
 										</div>
 										<div class="order-info">
-											<a class="tit" href="">상품명</a>
+											<a class="tit" href="">${cartList.proName }</a>
 											<div class='current-option-wrap'>
 												<!-- <input type="hidden" name="옵션넣어" value="옵션밸류"> -->
 												<span class="opt">1kg...</span>
-												<span class="qty">수량 : 1개</span>
+												<span class="qty">수량 : ${cartList.amount }</span>
 												<span class="price-wrap">
-													<strong class="retail-price">가격써라</strong>
+													<strong class="retail-price">${cartList.proPrice }</strong>
 												</span>
 											</div>
 										</div>
 									</div>
 									
 								</div>
+								
+							</div>	
+							</c:forEach>
+
 								<div class="uk-width-1-1 info-price">
 									<span class="item-price">
 										<span class="label">상품 금액</span>
 										<span class="price">
-											<strong>가격 얼마 원</strong>
+											<c:set var="sum" value="0"/>
+											<c:forEach var="cartList" items="${cartList }" >
+												<c:set var="sum" value="${sum + cartList.proPrice }" />
+											</c:forEach>
+											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
 									</span>
 									<span class="delivery-price">
@@ -157,15 +172,22 @@
 									<div class="total-price">
 										<span class="label">총 결제 예정 금액</span>
 										<span class="price sale total">
-											<strong>총 얼마 원</strong>
+											<c:set var="sum" value="0"/>
+											<c:forEach var="cartList" items="${cartList }" >
+												<c:set var="sum" value="${sum + cartList.proPrice }" />
+											</c:forEach>
+											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
+										
+										
 									</div>
 								</div>
+								
 							</div>
 						</div>
+						
 					</div>	
 					
-				</div>
 			</article>
 		</section>
 		<!-- </form> -->
