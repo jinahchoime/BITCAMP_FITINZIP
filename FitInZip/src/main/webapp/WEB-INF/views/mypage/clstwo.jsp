@@ -17,5 +17,8 @@
             <tbody id="content">
  			</tbody>
         </table>
+        <button id="searchMoreNotify" class="btn_basic type5 adClick mt50" style="display: inherit; margin: 0 auto;">
+        	더보기
+        </button>
     </div>
 </div>

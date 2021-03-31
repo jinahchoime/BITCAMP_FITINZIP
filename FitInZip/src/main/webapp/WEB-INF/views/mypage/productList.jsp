@@ -10,33 +10,34 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>상품</th>
-                    <th>상태</th>
+                    <th>상품정보</th>
                     <th>가격</th>
+                    <th>진행상태</th>
                 </tr>
+            </thead>
+            <thead>
+            	<tr>
+            		<td colspan="3" style="text-align: left; padding: 8px;">
+	            		<span style="padding-left: 20px">주문일자 : <b style="color:black">0000000</b></span>
+	            		<span style="padding-left: 50px">주문번호 : <b style="color:black">0000000</b></span>
+            		</td>
+            	</tr>
             </thead>
             <tbody id="content">
             	<tr>
-				    <td class="type_diff">
-				        <div class="list_img"><img src="https://t1.daumcdn.net/cfile/tistory/99BA8A505DE372E91A" alt="클래스썸네일"></div> 
-				        <a href="/play/play_apply/293" target="_blank">
-				            <div class="list_txt full">
-				                <dl class="prod_infor">
-				                    <dt>
-				                        <div class="play_tch"><span>아령</span></div>
-				                        	아령 1KG
-				                    </dt>
-				                </dl>
-				            </div>
-				        </a>
-				    </td>
-				    <td class="black">
-				    	주문완료
-					</td>
-					<td class="black">
-				    	16500원
-					</td>
-				</tr>
+            		<td style="text-align: left; padding-left: 20px;">
+            		<span style="display: inline-block; width: 100px; height: 100px; margin-bottom: 20px">
+            			<img alt="이미지" src="http://localhost:8080/resources/product/img/dumbbell.jpg" style="width: 100%;">
+            		</span>
+            		<span style="display: inline-block;padding-left: 50px;vertical-align: middle;font-size: 17px;line-height: 25px;">
+            			덤벨 1kg~10kg<br>
+            			1Kg<br>
+            			수량1개
+            		</span>
+            		</td>
+            		<td style="font-size: 20px;">2,400원</td>
+            		<td style="font-size: 20px;">주문완료</td>
+            	</tr>
  			</tbody>
         </table>
     </div>

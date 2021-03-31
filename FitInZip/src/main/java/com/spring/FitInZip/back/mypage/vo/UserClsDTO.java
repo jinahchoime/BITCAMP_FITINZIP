@@ -27,4 +27,9 @@ public class UserClsDTO {
 	private String memId;
 	private String commonName;
 	
+	/*시작번호 끝번호*/
+	private Integer startIndex;
+	private Integer endIndex;
+	
+	
 }

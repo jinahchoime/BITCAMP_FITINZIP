@@ -34,7 +34,7 @@
 					
 					/* 지금클래스 종료클래스 나누기  */
 					var compareeday = new Date(returnValue[i].endDate); //끝날짜
-					var comparesday = new Date(returnValue[i].startDate); //시작날짜
+					/* var comparesday = new Date(returnValue[i].startDate); //시작날짜 */
 					compareeday.setDate(compareeday.getDate() + 1); //날짜 하루 더하기
 					
 					if(today.getTime() < compareeday.getTime()){
@@ -45,8 +45,6 @@
 						var todayYo = weekName[getYo];
 						var yoil = returnValue[i].yoil; 
 						
-						console.log(todayYo);
-						console.log(yoil);
 						
 						var year = new Date().getFullYear();
 						var month = new Date().getMonth();
@@ -69,16 +67,20 @@
 							}else{
 								button = '<input type="button" class="maincolor1" value="입장" disabled>';
 							}
+							
 						}else{
 							button = '<input type="button" class="maincolor1" value="입장" disabled>';
 						} 
 						
-							dispHtml1 = text(returnValue[i], dispHtml1, button);
-						    $('#content').html(dispHtml1); 
-						}else if(today.getTime() > compareeday.getTime()){
-							dispHtml2 = text(returnValue[i], dispHtml2, button);
-						    $('#end_content').html(dispHtml2);
-						}
+						dispHtml1 = text(returnValue[i], dispHtml1, button);
+					    $('#content').html(dispHtml1); 
+					    
+					}else if(today.getTime() > compareeday.getTime()){
+						button = '<input type="button" class="maincolor1" value="입장" disabled>';
+						
+						dispHtml2 = text(returnValue[i], dispHtml2, button);
+					    $('#end_content').html(dispHtml2);
+					}
 						
 					
 				}
@@ -122,7 +124,7 @@
     <jsp:include page="../nav.jsp"></jsp:include>
     
     <!-- Content  -->
-    <div style="height: 1000px; margin: 0 auto; width: 1200px">
+    <div style="min-height: 858px; margin: 0 auto; width: 1200px">
     	<!-- 마이페이지 메뉴  -->
 		<jsp:include page="mypageMenu.jsp"></jsp:include>
 		
