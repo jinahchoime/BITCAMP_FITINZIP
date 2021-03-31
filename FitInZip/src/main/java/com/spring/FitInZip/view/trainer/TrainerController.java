@@ -203,7 +203,11 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "classRegister")
-	public String goRegister() {
+	public String goRegister(Criteria crt, Model model) {
+		
+		model.addAttribute("pageNum", crt.getPageNum());
+		model.addAttribute("amount", crt.getAmount());
+		
 		return "trainer/classRegister";
 	}
 
@@ -354,6 +358,15 @@ public class TrainerController {
 
 		return "redirect:classStat";
 
+	}
+	
+	@RequestMapping("goBack")
+	public String moveList(Criteria crt, RedirectAttributes rttr) {
+		
+		rttr.addAttribute("pageNum", crt.getPageNum());
+		rttr.addAttribute("amount", crt.getAmount());
+		
+		return "redirect:classStat";
 	}
 
 }
