@@ -11,6 +11,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/gcal.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path }/resources/calendar/css/main.min.css">
+<link href="../resources/mypage/css/mypage.css" rel="stylesheet"></link>
+<link href="../resources/mypage/css/cls.css" rel="stylesheet"></link>
 <script type="text/javascript">
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -124,29 +126,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 </head>
 <body>
-	
-	<div class="grid-container">
-		<div class="item1">
-			<div>
-				<h1>나의 일정</h1>
-			</div>
-		</div>
-		<div class="item2">
-			<div>
-				<ul>
-					<li>메뉴1</li>
-					<li>메뉴2</li>
-					<li>메뉴3</li>
-				</ul>
-			</div>
-		</div>
-		<div class="item3"><div id='calendar'></div></div>
-		<div class="item4">
-			<div>
-				<h1>그리드 풋터</h1>
-			</div>
-		</div>
+	<!-- Navigation -->
+    <jsp:include page="../nav.jsp"></jsp:include>
+    
+    <!-- Content  -->
+    <div style="min-height: 858px; margin: 0 auto; width: 1200px">
+    	<!-- 마이페이지 메뉴  -->
+		<jsp:include page="../mypage/mypageMenu.jsp"></jsp:include>
+		
+		<!-- 주문내역 -->
+		<div class="item3 mt200 ml10" style="display: inline-block; width: 910px;"><div id='calendar'></div></div>
 	</div>
 	
+	<!-- Footer -->
+    <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

@@ -22,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
 import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
+import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
+import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.vo.MapVO;
@@ -163,6 +165,16 @@ public class MypageController {
 		return "mypage/productHistory";
 	}
 	
+	/*주문조회 내역 데이터 뿌리기*/
+	@RequestMapping("/productData")
+	@ResponseBody
+	public List<UserProductDTO> getProductList(UserProductDTO dto, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.getproductList(dto);
+	}
+	
 	/*회원수정 페이지로*/
 	@RequestMapping("/updateMemberInfo")
 	public String getMember() {
@@ -207,6 +219,29 @@ public class MypageController {
 	@RequestMapping("/withdrawal")
 	public String withdrawal() {
 		return "mypage/withdrawal";
+	}
+	
+	/*회원탈퇴 하기*/
+	@RequestMapping("/deleteUser")
+	@ResponseBody
+	public String deleteUser(HttpSession session, HttpServletRequest request, UserWithdrawalDTO dto) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		dto.setId(member.getId());
+		String wantSay = (String) request.getAttribute("wantSay");
+		
+		if(wantSay == null) {
+			System.out.println("wantSay null : " + wantSay);
+			mypageService.deleteUserNoReason(dto);
+			
+		}else {
+			System.out.println("wantSay !null : " + wantSay);
+			mypageService.deleteUserIsReason(dto);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		return mapper.writeValueAsString(null);
 	}
 	
 }

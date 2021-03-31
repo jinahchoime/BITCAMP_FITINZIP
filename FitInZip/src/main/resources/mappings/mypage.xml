@@ -56,14 +56,53 @@
 			C.COUPON_START_DATE, C.COUPON_END_DATE, O.COMMON_NAME, 
 			    (SELECT COUNT(*) 
 			        FROM  mem_coupon M
-			        INNER JOIN COMMON O
-			        ON m.coupon_status = O.COMMON_CODE
-			        WHERE O.COMMON_CODE = 'CPU01' AND M.MEM_ID = #{memId}) AS "UNUSED_COUNT"
+                    INNER JOIN COUPON_INFO C
+                    ON C.COUPON_CODE = M.COUPON_CODE
+			        WHERE M.MEM_ID = #{memId}
+                    AND TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
+                    OR C.COUPON_END_DATE IS NULL
+                    ) AS "UNUSED_COUNT"
 			FROM MEM_COUPON M 
 			    INNER JOIN COUPON_INFO C
 			    ON C.COUPON_CODE = M.COUPON_CODE
 			    INNER JOIN COMMON O
 			    ON M.COUPON_STATUS = O.COMMON_CODE
-			    WHERE M.MEM_ID = #{memId} AND O.COMMON_CODE = 'CPU01'
+			    WHERE M.MEM_ID = #{memId} 
+                AND O.COMMON_CODE = 'CPU01'
+                AND TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
+                OR C.COUPON_END_DATE IS NULL
 		</select>
+		
+		<!-- 주문조회 불러오기  -->
+		<select id="productHistory" parameterType="com.spring.FitInZip.back.mypage.vo.UserProductDTO"
+			resultType="com.spring.FitInZip.back.mypage.vo.UserProductDTO">
+			SELECT R.*
+				FROM(SELECT ROWNUM AS RNUM, M.*
+				        FROM (SELECT D.ORDER_NUM, D.AMOUNT, D.PRO_NUM, E.PAID_PRICE, E.PAY_DATE, P.PRO_NAME, P.PRO_IMG
+				            FROM ORDER_DETAIL D
+				            INNER JOIN PRODUCT P
+				            ON D.PRO_NUM = P.PRO_NUM
+				            INNER JOIN PAYMENT E
+				            ON D.ORDER_NUM = E.ORDER_NUM
+				        WHERE E.MEM_ID = #{memId}
+				        ) M
+				    )R
+				WHERE RNUM BETWEEN #{startIndex} AND #{endIndex
+				}
+		</select>
+		
+		<!-- 회원탈퇴시 회원정보 수정 01 - 탈퇴사유가 없는 경우 -->
+		<update id="deleteUserNoReason" parameterType="com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO">
+			UPDATE MEMBER
+			SET WITHDRAWAL = 'WD01' WITHDRAWAL_REASON = #{withdrawalReason}
+			WHERE ID = #{id}
+		</update>
+		
+		<!-- 회원탈퇴시 회원정보 수정 02 - 탈퇴사유가 있 경우 -->
+		<update id="deleteUserIsReason" parameterType="com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO">
+			UPDATE MEMBER
+			SET WITHDRAWAL = 'WD01', WITHDRAWAL_REASON = #{withdrawalReason}
+			, WANT_SAY = #{wantSay}
+			WHERE ID = #{id}
+		</update>
 	</mapper>

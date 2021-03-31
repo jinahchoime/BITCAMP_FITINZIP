@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
 import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
+import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
+import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 
 @Repository
 public class MypageDAO {
@@ -41,4 +43,17 @@ public class MypageDAO {
 		return mybatis.selectList("MypageDAO.couponHistory", dto);
 	}
 	
+	public List<UserProductDTO> getproductList(UserProductDTO dto) {
+		return mybatis.selectList("MypageDAO.productHistory", dto);
+	}
+	
+	//회원탈퇴시 회원정보 수정 01 - 탈퇴사유가 없는 경우
+	public void deleteUserNoReason(UserWithdrawalDTO dto) {
+		mybatis.update("MypageDAO.deleteUserNoReason", dto);
+	}
+	
+	//회원탈퇴시 회원정보 수정 02 - 탈퇴사유가 있 경우
+	public void deleteUserIsReason(UserWithdrawalDTO dto) {
+		mybatis.update("MypageDAO.deleteUserIsReason", dto);
+	}
 }
