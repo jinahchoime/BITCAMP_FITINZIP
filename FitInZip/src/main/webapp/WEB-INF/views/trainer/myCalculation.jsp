@@ -1,7 +1,10 @@
+<%@page import="java.util.Date"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
  
 <!DOCTYPE html>
 <html lang="en">
@@ -25,14 +28,92 @@
     <!-- Custom styles for this template-->
     <link href="../resources/trainer/css/TrainerMain-sb-admin-2.min.css" rel="stylesheet">
 
+	
+   <!-- Jquery -->
+  <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	//날짜 유효성 검사
+  $(function() {
+	$( "#btnSearch" ).click(function(){
+		console.log("버튼 눌렀다.");
+		var dateFrom = document.getElementById('dateFrom'); //시작일 
+		var dateTo = document.getElementById('dateTo'); //종료일 
+		var today = new Date(); //오늘 날짜 
+		
+		dateFrom = new Date(dateFrom.value); 
+		console.log("dateFrom: " + dateFrom);
+		var fromYear = dateFrom.getFullYear(); 
+		var fromMonth = ("0"+ (dateFrom.getMonth() + 1)).slice(-2); 
+		var fromDay = ("0" + dateFrom.getDate()).slice(-2); 
+		//날짜 지정을 하지 않았을 때 NaN이 발생하여 0으로 처리 
+		if (isNaN(fromYear) || isNaN(fromMonth) || isNaN(fromDay)){
+			fromYear = 0; fromMonth = 0; fromDay = 0; 
+			alert("시작날짜를 입력해주세요.");
+			return false;
+			}
+		dateFrom = fromYear +'-'+ fromMonth +'-'+fromDay; 
+		console.log("dateFrom: " + dateFrom);
+		
+		dateTo = new Date(dateTo.value); 
+		console.log("dateTo: " + dateTo);
+		var toYear = dateTo.getFullYear(); 
+		var toMonth = ("0"+ (dateTo.getMonth() + 1)).slice(-2);  
+		var toDay = ("0" + dateTo.getDate()).slice(-2); 
+		
+		//날짜 지정을 하지 않았을 때 NaN이 발생하여 0으로 처리 
+		if (isNaN(toYear) || isNaN(toMonth) || isNaN(toDay)){
+			toYear = 0; toMonth = 0; toDay = 0; 
+			alert("종료날짜를 입력해주세요.");
+			return false;
+			}
+		dateTo = toYear +'-'+ toMonth +'-'+toDay; 
+		console.log("dateTo: " + dateTo);
+		
+		if(dateTo < dateFrom) {
+			alert("종료일은 시작일 이후로 선택해주세요.");
+			return false;
+		}
+		
+		//날짜 검색 시 ajax 이용
+		var info = {
+				'dateFrom' : dateFrom,
+				'dateTo' : dateTo 
+		}
+		
+		 $.ajax("/myCalculation", {
+			data: info,
+			type: "post",
+			
+			success: function(data) {
+				//alert("성공!");
+				$('#tableList').empty();
+				
+				var html = '';
+				$.each(data, function(index, obj) {
+					//alert("obj:" + obj["clsName"]);
+					
+					html = $( '<tr>' + '<td>' + obj["endDate"] + '</td> <td>'
+							+ obj["clsName"] + '</td> <td>' + obj["paidPrice"] + "원" + '</td> <td>'
+							+ obj["commission"] + "원" + '</td> <td>' + obj["netPrice"] + "원" + '</td>');
+					$('#tableList').append(html);
+					html += '</tr>';
+				}); 
+				
+			}, 
+			error: function() {
+				alert("에러");
+			}
+		}); 
+	});
+	});//click() end  
+		
+	
+
+</script>
 </head>
 
 <body id="page-top">
-	
-	<h1>정산하기</h1>
-	
-	
-	
 	
    <!-- Page Wrapper -->
     <div id="wrapper">
@@ -47,14 +128,10 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">FITIN.ZIP TRAINER </div>
             </a>
-
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
-
-
             <!-- Heading -->
-            <div class="sidebar-heading">
-                	
+            <div class="sidebar-heading">      	
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -67,7 +144,6 @@
                
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                
                         <a class="collapse-item" href="/myClass">나의 클래스</a>
                         <a class="collapse-item" href="cards.html">클래스 신청현황</a>
                     </div>
@@ -84,16 +160,12 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                       
                         <a class="collapse-item" href="/myCalculation">건별 정산내역</a>
                         <a class="collapse-item" href="/myWithdraw">정산금액 인출하기</a>
-          
                     </div>
                 </div>
             </li>
-            
-           
-            
+
             <li class="nav-item">
                 <a class="nav-link" href="/changeInfo">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -107,16 +179,13 @@
                     <span>내 후기 보기</span></a>
             </li>
             
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-           
+            </div>  
         </ul>
         <!-- End of Sidebar -->
 
@@ -156,7 +225,6 @@
                                 </a>
                             </div>
                         </li>
-
                     </ul>
 
                 </nav>
@@ -165,21 +233,72 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                  
                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">나의 클래스</h1>
-                    
-                    <div>
-                    
+                   <!--  <h1 class="h3 mb-2 text-gray-800">건별 정산내역</h1> -->
+                    <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p> -->
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                    <form action="/myCalculation" method="post">
+                        <div class="card-header py-3" style="text-align: center; padding-bottom: 10px;">
+                            <h6 class="m-0 font-weight-bold" style="font-size: 1.1em; padding-bottom: 20px;">나의 정산 예정일 </h6>
+                            <h3 style="padding-bottom: 20px">클래스 완료일 + 1일</h3>
+                         	
+                         	<div id="dateType" >
+                         		<input type="date" id="dateFrom" name="dateFrom"> &nbsp; ~ &nbsp; 
+                         		<input type="date" id="dateTo" name="dateTo">
+                         		<!-- <a href="#" class="btn btn-primary btn-icon-split" style="margin-right: -95px; margin-left: 30px;">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">검색하기</span>
+                                    </a> -->
+
+                                 <button class="btn btn-secondary" name="btnSearch" id="btnSearch" type="button" style="margin-right: -95px; margin-left: 30px;">Search</button>
+                         	 </div>                        	 
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>정산예정일</th>
+                                            <th>클래스명</th>
+                                            <th>결제금액</th>
+                                            <th>수수료</th>
+                                            <th>정산금액</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                  
+                                    <tbody id="tableList">
+                                    <c:if test="${empty calList }">
+                                    	<tr>
+                                    		<td colspan="5">데이터가 없습니다.</td>
+                                    	</tr>
+                                    	</c:if>
+                                    	<c:if test="${not empty calList }">
+                                    		<c:forEach var="cal" items="${calList }"> 
+                                    			<tr>
+		                                            <td>
+		                                            	${cal.endDate }
+													</td>
+		                                            <td>${cal.clsName }</td>
+		                                            <td>${cal.paidPrice }원</td>
+		                                            <td>${cal.commission }원</td>
+		                                            <td>${cal.netPrice }원</td>   
+		                                        </tr>
+                                    		</c:forEach>
+                                    	</c:if> 
+                                    </tbody>
+                                </table>                               
+                            </div>
+                        </div>
+                        </form>
                     </div>
-                   
-					<hr>
-                    
-                    <h1 class="h3 mb-4 text-gray-800">지난 클래스</h1>
-					
-					<div>
-					
-					</div>
-					
                 </div>
                 <!-- /.container-fluid -->
 

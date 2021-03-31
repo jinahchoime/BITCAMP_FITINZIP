@@ -1,14 +1,19 @@
 package com.spring.FitInZip.view.trainer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,16 +23,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
+import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 
 
 @Controller
-@SessionAttributes({"member", "reqClass", "ingClass", "totalCal", "trainerInfo", "reviewList"})
+@SessionAttributes({"admin", "member", "reqClass", "ingClass", "totalCal", "trainerInfo", "reviewList", "calList"})
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -79,60 +84,47 @@ public class TrainerController {
 	public String loginView(RegisterTrainerDTO dto) {
 		return "trainer/trainerLogin";
 	}
-	
+
+	//로그인 시 데이터 전달 (강사/관리자 확인)
     @RequestMapping(value = "/trainerLogin", method = RequestMethod.POST) 
     @ResponseBody
-    public String loginTrainer(RegisterTrainerDTO dto, Model model) throws Exception {
-    	System.out.println("trainerCheck!");
-    	RegisterTrainerDTO member = trainerService.loginTrainer(dto); 
-    	//System.out.println("컨트롤러~"+vo.getId());
-	  
-    	System.out.println("member: " + member);
-    	String result = "";
-    	ObjectMapper mapper = new ObjectMapper();
-
-    	if(member == null) {
-    		System.out.println("로그인실패"); 
-    		result = "no";
-    	}  else if (member.getRole().equals("RL01")) {
-    		model.addAttribute("member", member);
-    		result = "ok"; 
-    	} else if (member.getRole().equals("RL02")) {
-    		System.out.println("관리자다~"); 
-    		result = "ok";
-    	} else {
-    		System.out.println("오류"); 
-    		result = "error";
-    	}
-    	return mapper.writeValueAsString(result);
+    public MemberVO loginTrainer(MemberVO vo, Model model) throws Exception {
+    	System.out.println("trainerCheck!");	
+    	MemberVO mvo = trainerService.loginFirst(vo);
+    	model.addAttribute("admin", mvo);
+    	return mvo;
     }
- 
+    //강사 로그인
     @RequestMapping("/trainerMainPage") 
-    public String mainPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
-    	System.out.println("mainPage~");
-    	
-    	System.out.println("메인페이지 dto: " + dto);
-  
-    	String reqClass = trainerService.mainPage1(dto);
-    	System.out.println("Controller reqClass: " + reqClass);
-    	model.addAttribute("reqClass", reqClass);
-  
-    	String ingClass = trainerService.mainPage2(dto);
-    	model.addAttribute("ingClass", ingClass);
-  
-    	String totalCal = trainerService.mainPage3(dto);
-    	model.addAttribute("totalCal", totalCal);
-    	
-    	model.addAttribute("member", dto);    	
-    	
-    	return "trainer/trainerMainPage"; 
-    }	
-  
+    public String mainPage(RegisterTrainerDTO dto, @ModelAttribute("admin") MemberVO vo, Model model) {
+    	// System.out.println("mvo: " + vo); 
+    	System.out.println("mvo 타입: " + vo.getRole()); 
+    	dto.setId(vo.getId());
+    	dto.setPassword(vo.getPassword());
+    	RegisterTrainerDTO member = trainerService.loginTrainer(dto);
+    	 
+    	String reqClass = trainerService.mainPage1(member);
+     	System.out.println("Controller reqClass: " + reqClass);
+     	model.addAttribute("reqClass", reqClass);
+   
+     	String ingClass = trainerService.mainPage2(member);
+     	model.addAttribute("ingClass", ingClass);
+   
+     	String totalCal = trainerService.mainPage3(member);
+     	model.addAttribute("totalCal", totalCal);
+     	
+    	 System.out.println("로그인 member: " + member);
+    	 model.addAttribute("member", member);
+    	 
+    	 return "trainer/trainerMainPage";
+    }
+    //마이클래스
     @RequestMapping("/myClass") 
     public String myPage(MemberVO vo) {
     	return "trainer/myClass";
 	}
-  
+    
+    //내 정보 수정
     @RequestMapping(value = "/changeInfo", method = RequestMethod.GET) 
     public String changeInfoView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
     	RegisterTrainerDTO info = trainerService.trainerInfo(dto);
@@ -162,7 +154,35 @@ public class TrainerController {
     	return "trainer/myReview";
     }
     
-  
+    //정산하기	
+    @RequestMapping(value = "/myCalculation", method = RequestMethod.GET) 
+    public String checkCal(@ModelAttribute("member") RegisterTrainerDTO dto, HashMap<String, String> map, Model model) {
+    	
+    	map.put("id", dto.getId());
+    	
+    	//System.out.println("map: " + map);
+    	List<TrainerCalDTO> calList = trainerService.checkCal(map);
+	    model.addAttribute("calList", calList); 
+	    System.out.println("내역 보여준다~");
+	    return "trainer/myCalculation"; 
+	    }
+    
+    @RequestMapping(value = "/myCalculation", method = RequestMethod.POST) 
+    @ResponseBody
+    public List<TrainerCalDTO> checkCalList(@ModelAttribute("member") RegisterTrainerDTO dto, @RequestParam("dateFrom") String dateFrom, @RequestParam("dateTo")
+	  String dateTo, HashMap<String, String> map) throws Exception {
+    	map.put("id", dto.getId());
+    	map.put("sDate", dateFrom);
+    	map.put("eDate", dateTo);
+    	System.out.println("map: " + map);
+    	
+	    List<TrainerCalDTO> calList2 = trainerService.checkCal(map); 
+	    System.out.println("calList2: " + calList2);
+	    return calList2;
+    }
+	
+    
+    //로그아웃
     @RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		System.out.println(">>>로그아웃 처리");

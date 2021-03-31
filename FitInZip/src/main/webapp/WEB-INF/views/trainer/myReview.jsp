@@ -289,31 +289,25 @@ html {
                     	<hr>
                     		<c:forEach var="review" items="${reviewList }">
                     		<div class="css-1urjkj8-root">
-							    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap">
-							        <!-- <div class="MuiGrid-root MuiGrid-item">
-							            <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-1 MuiGrid-align-items-xs-center">
-							                <div class="MuiGrid-root MuiGrid-item"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10">
-							                        <path d="M9.984 3.792a.35.35 0 00-.282-.243l-3.026-.463L5.307.2c-.06-.122-.18-.2-.312-.2s-.252.078-.312.201l-1.36 2.88-3.025.463a.352.352 0 00-.281.248.375.375 0 00.09.373l2.197 2.241-.519 3.168a.37.37 0 00.14.355c.107.083.25.094.368.03l2.702-1.496L7.71 9.956c.118.065.26.053.367-.03a.369.369 0 00.14-.355l-.52-3.167 2.198-2.241a.378.378 0 00.089-.37z" fill="#FC5E5E" fill-rule="nonzero"></path>
-							                    </svg></div>
-							
-							            </div>
-							        </div> -->
+							    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap" style="display: flex; margin-bottom: -30px;">
 							        <div class="MuiGrid-root MuiGrid-item">
-							            <div class="MuiGrid-root css-uf2l3s-review MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap">
-							                <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item">
-							                    <div class="MuiGrid-root MuiGrid-item MuiAvatar-root">
-							                        <img src="https://d2f44qya6fghrh.cloudfront.net/user/524/profile.jpg?etag=kixuktsv" class="MuiAvatar-img" style="border-radius: 50%; width:40px; height:40px;">${review.memOriName }
+							            <div class="MuiGrid-root css-uf2l3s-review MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-direction-xs-column MuiGrid-wrap-xs-nowrap" >
+							                <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item" style="padding: 8px; display: flex;">
+							                    <div class="MuiGrid-root MuiGrid-item MuiAvatar-root" style="padding: 8px; margin: 0; box-sizing: border-box;">
+							                 
+							                        <img src="" onerror="this.src='../resources/trainer/img/review_basic_img.png'" class="MuiAvatar-img" style="border-radius: 50%; width:40px; height:40px;">${review.memOriName }
 							                    </div>
-							                    <div class="MuiGrid-root css-r0bh7x-shortInformation MuiGrid-item">
-							                        <p class="MuiTypography-root css-9f72dd-caption-caption-medium MuiTypography-body1">${review.name }</p>
-							                        <p class="MuiTypography-root css-62lz7s-caption-caption-defaultWeight-dateText-dateText MuiTypography-body1">${review.regDate }</p>
+							                    <div class="MuiGrid-root css-r0bh7x-shortInformation MuiGrid-item" style="flex-flow: column nowrap; display: flex; -webkit-box-pack: center; justify-content: center; margin: 0;
+ 												   justify-content: center; box-sizing: border-box; padding: 8px;">
+							                        <p class="MuiTypography-root css-9f72dd-caption-caption-medium MuiTypography-body1" style="margin: 0">${review.name }</p>
+							                        <p class="MuiTypography-root css-62lz7s-caption-caption-defaultWeight-dateText-dateText MuiTypography-body1" style="margin: 0">${review.regDate }</p>
 							                    </div>
 							                </div>
 							                <div>
-							                	<p>${review.clsName }</p>
+							                	<p style="font-size: 0.9em; font-style: bold; font-weight: bold; padding: 8px; margin-bottom: auto;">${review.clsName }</p>
 							                </div>
-							                <div class="MuiGrid-root MuiGrid-item">
-							                    <p class="MuiTypography-root css-c2srae-smallBody-smallBody-defaultWeight-comment MuiTypography-body1">${review.reviewContent }</p>
+							                <div class="MuiGrid-root MuiGrid-item" style="padding: 8px; font-size: 0.9em;">
+							                    <p class="MuiTypography-root css-c2srae-smallBody-smallBody-defaultWeight-comment MuiTypography-body1" style="line-height: 1.5; letter-spacing: 0rem; word-break: break-all; font-weight: 400; white-space: pre-wrap; margin: 0;">${review.reviewContent }</p>
 							                </div>
 							            </div>
 							
@@ -322,42 +316,7 @@ html {
 							        </div>
 							
 							    </div>
-							    
-							
-							
-								<!-- ​<div class="table_basic_list list3 review_wrap"> -->
-								  <%--   <ul>
-								        <li>
-								            <div class="leftbox">
-								                <div class="review_nm">
-								                    <div class="login_thum middle">
-								                        <span>
-								                            <img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/user/2021-03-14/1615694036134572348.jpg"
-								                            style="height:50px; width:50px;" >
-								                        </span>
-								                    </div> 
-								                    <span class="middle">${review.name }</span>
-								                    <div class="star_group small ml5">
-								                        <span class="on">1</span>
-								                        <span class="on">2</span>
-								                        <span class="on">3</span>
-								                        <span class="on">4</span><span class="on">5</span>
-								                        <p>별점: ${review.star }</p>
-								                    </div>
-								                    <div>
-								                        <p> ${review.clsName} </p>
-								                    </div>
-								                    <div>
-								                        <p> ${review.regDate}</p>
-								                    </div>
-								                </div>
-								                <div class="review_txt">${review.reviewContent }
-								                    <!---->
-								                </div>
-								            </div>
-								            
-								        </li>
-								    </ul> --%>
+
 								</div>
 								<hr>
                     		</c:forEach>

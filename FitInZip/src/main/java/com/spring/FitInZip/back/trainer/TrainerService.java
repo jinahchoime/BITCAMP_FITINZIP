@@ -1,14 +1,19 @@
 package com.spring.FitInZip.back.trainer;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
+import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 
 public interface TrainerService {
-	//로그인
+	//전체로그인
+	MemberVO loginFirst(MemberVO vo);
+	
+	//로그인2
 	RegisterTrainerDTO loginTrainer(RegisterTrainerDTO dto);
 	
 	//메인페이지
@@ -33,4 +38,10 @@ public interface TrainerService {
 	
 	//내 리뷰 확인
 	List<TrainerReviewDTO> checkReview(RegisterTrainerDTO dto);
+	
+	//정산 내역 확인
+	List<TrainerCalDTO> checkCal(HashMap<String, String> map);
+	
+	
+	
 }
