@@ -33,6 +33,17 @@ public class CartServiceImpl implements CartService {
 		cartDAO.deleteCart(vo);
 	}
 
+	@Override
+	public void deleteAllCart(String mem_id) {
+		cartDAO.deleteAllCart(mem_id);
+	}
 
+	@Override
+	public void updateAmount(CartVO vo) {
+		cartDAO.updateAmount(vo);
+	}
+
+
+	
 
 }

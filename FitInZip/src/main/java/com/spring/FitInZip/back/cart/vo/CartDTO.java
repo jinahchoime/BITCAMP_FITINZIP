@@ -21,4 +21,5 @@ public class CartDTO {
 	private String proPrice;
 	private String proNum;
 	private Integer amount;
+	private Integer cartCode;
 }

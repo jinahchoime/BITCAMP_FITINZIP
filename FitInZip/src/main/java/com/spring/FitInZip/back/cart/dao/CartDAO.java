@@ -29,4 +29,14 @@ public class CartDAO {
 	public void deleteCart(CartVO vo) {
 		mybatis.delete("CartDAO.deleteCart", vo);
 	}
+	
+	//장바구니 상품 전체 삭제
+	public void deleteAllCart(String mem_id) {
+		mybatis.delete("CartDAO.deleteAllCart", mem_id);
+	}
+	
+	//장바구니 상품 수량 변경
+	public void updateAmount(CartVO vo) {
+		mybatis.update("CartDAO.updateAmount", vo);
+	}
 }

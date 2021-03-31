@@ -83,12 +83,9 @@
   display: block;
 }
 
-.product-opt_cart .item-detail .total-price {
-  padding-top: 3px;
-  vertical-align: top;
-  text-align: center;
-  box-sizing: border-box;
-  color: #FA5400;
+.retail-price {
+	color: #FA5400;
+	padding-left: 400px;
 }
 
 .mypage-cart .product-opt_cart .item-detail .total-price strong {
@@ -101,6 +98,13 @@
   right: 10px;
   background-color: transparent;
   border: none;
+}
+
+.change-btn {
+  position: absolute;
+  top: 23px;
+  right: 130px;
+  
 }
 
 /* .product-opt_cart .item-detail .delete-btn:hover {
@@ -243,11 +247,9 @@
 	text-align: right;
 }
 
-/* .item-price .label {
-	padding-right: 53px;
+.arrow {
+	color: #ff471a;
 }
- */
-
 
 
 

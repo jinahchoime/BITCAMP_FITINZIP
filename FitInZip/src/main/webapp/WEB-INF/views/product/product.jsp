@@ -25,21 +25,37 @@
 		$(".addcart-btn").on("click", function(){
 			alert("장바구니 담기 ajax 실행");
 			
+			if (${empty sessionScope.member.getId()} ) {
+				alert("로그인 후 이용가능합니다.");
+				location.href="/loginMain";
+			}
+			
+			
 			let formData = new FormData(this.form);
 			let options = {
 					method: "POST",
 					body : new URLSearchParams(formData)
 			}
 			
-			fetch("/insertCart", options)
+			fetch("/insertCart", options) //일단 들어가고 confirm도 물어봄
 				.then(async function (response) {
 					let result = await response.json();
-					alert("장바구니 담기 성공");
-					location.href="/product";
+					/*
+					if (${sessionScope.isExist == true } ) {
+						 var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
+						 if(cart) {
+							 location.href="/cart";
+						 } else {
+							 location.href="/product";
+						 }
+					} else {
+						alert("장바구니 담기 성공");
+					} 
+					*/
+					//alert("장바구니 담기 성공");
+					//location.href="/product"; 
 				})
-				.catch(err => alert("로그인 후 이용가능합니다."),
-						location.href="/loginMain"); //에 로그인성공했을 때도 이거 뜨네;;;;;
-				//alert("오류 발생: " + err)
+				.catch(err => alert("오류 발생: " + err)); 
 				
 		})
 	})
