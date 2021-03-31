@@ -11,7 +11,12 @@
 					<ul>
 						<c:forEach var="cls" items="${classList }">
 							<li>
-								<div class="play_box">
+								<c:if test="${cls.reminder > 0}">
+									<div class="play_box">
+								</c:if>
+								<c:if test="${cls.reminder < 1}">
+									<div class="play_box end">
+								</c:if>
 									<a href="/getClassDetail?clsCode=${cls.clsCode}" data-adarea="피클_상품보기"
 										class="adClick">
 										<div class="play_thum">
@@ -36,10 +41,14 @@
 													${cls.startTime}</div>
 												<!---->
 												<div class="play_num">
-													<b class="maincolor1">신청한 인원</b> /
+													<b class="maincolor1">${cls.join}명</b> /
 													${cls.maxMem}명&nbsp;&nbsp;
-													<span class="label small2 round on">2명 남았어요!</span>
-													<span class="label small2 round end4" style="display: none;">모집이 마감 됐어요</span>
+													<c:if test="${cls.reminder > 0}">
+														<span class="label small2 round on">${cls.reminder}명 남았어요</span>
+													</c:if>
+													<c:if test="${cls.reminder < 1}">
+														<span class="label small2 round end4">모집이 마감 됐어요</span>
+													</c:if>
 												</div>
 												<div class="play_price">
 													<span class="cost"> ${cls.totalPrice} </span>

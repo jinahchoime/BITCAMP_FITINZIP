@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 
 @Repository
@@ -16,19 +17,13 @@ public class ClsDAO {
 	
 	// 클래스 전체 리스트
 	public List<ClsListDTO> getClassList(String clsCategory){
-		System.out.println("getClassList() 실행");
-		
-		System.out.println("getClassList에 전달된 clsCategory : " + clsCategory);
-		
 		return mybatis.selectList("ClsDAO.getClassList", clsCategory);
 	}
 
-	/*
-	// 카테고리별 필터링한 리스트
-	public List<ClsListDTO> getClassCategory(String clsCategory){
-		System.out.println("getClassCategory() 실행");
+	public ClsDetailDTO getClassDetail(String clsCode) {
+		return mybatis.selectOne("ClsDAO.getClassDetail", clsCode);
 		
-		return mybatis.selectList("ClsDAO.getClassCategory", clsCategory);
 	}
-	*/
+
+	
 }

@@ -63,7 +63,7 @@ div {
 }
 .label.start {
     color: #fff;
-    background: #ffa200;
+    background: DarkTurquoise;
 }
 .label {
     display: inline-block;
@@ -177,14 +177,14 @@ ul {
 .fns_price {
     display: inline-block;
     vertical-align: middle;
-    font-size: 14px;
-    line-height: 30px;
+    font-size: 15px;
+    line-height: 28px;
     font-weight: 700;
     color: #000;
 }
 
 .fns_price b {
-    font-size: 20px;
+    font-size: 25px;
     margin-right: 0;
     font-weight: 700;
 }
@@ -247,6 +247,47 @@ ul {
 .radius {
     border-radius: 5px !important;
 }
+.fns_time {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.mb5 {
+    margin-bottom: 5px !important;
+}
+.fns_time .area:last-child {
+    padding-left: 8px;
+}
+.fns_time .area {
+    display: inline-block;
+    vertical-align: middle;
+}
+.fns_time .time_area.diff span {
+    font-weight: 400;
+}
+.fns_time .time_area span {
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+.font12 {
+    font-size: 12px !important;
+    line-height: 18px !important;
+}
+.font14 {
+    font-size: 14px !important;
+    line-height: 20px !important;
+}
+.black {
+    color: #000 !important;
+}
+.bg_gray3 {
+    background: #ccc !important;
+}
+
+
+
 .mt0 {
     margin-top: 0 !important;
 }
@@ -267,6 +308,145 @@ ul {
     margin: 0 -5px;
     overflow: hidden;
 }
+.table_basic_tab.tab1 {
+    border-bottom: 1px solid #e8e8e8;
+}   
+    
+    
+/* 컨텐츠 부분 */
+.layout_h80 {
+    height: 80px;
+}
+.main_cont {
+    overflow: hidden;
+}
+.contents_wrap {
+    position: relative;
+    width: 1120px;
+    margin: 0 auto;
+}
+
+.table_basic_tab.tab1 ul {
+    display: table;
+    height: 48px;
+    margin: 0 -15px;
+}
+.table_basic_tab.tab1 ul li {
+    display: table-cell;
+    vertical-align: bottom;
+    padding: 0 15px;
+}
+.table_basic_tab.tab1 ul li a {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.table_basic_tab.tab1 ul li.on a span {
+    font-weight: 700;
+    color: #000;
+}
+.table_basic_tab.tab1 ul li a span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #999;
+    text-align: center;
+}
+.table_basic_tab.tab1 ul li.on a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 3px;
+    background: #000;
+}
+
+.contents_wrap_type2 {
+    width: 740px;
+}
+.content_area {
+    overflow: visible;
+}
+.content_area {
+    padding: 50px 0;
+    position: relative;
+}
+.wad_area {
+    margin-bottom: 50px;
+}
+.homet_program ul {
+    display: table;
+    width: calc(100% + 15px);
+    margin: 0 -7.5px;
+}
+.homet_program ul li {
+    display: table-cell;
+    vertical-align: middle;
+    width: 25%;
+    padding: 0 7.5px;
+}
+.homet_program .homet_box {
+    display: table;
+    width: 100%;
+    padding: 20px 10px;
+    background: #fff;
+    box-shadow: 0 0 4px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.homet_program .homet_box > div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.center {
+    text-align: center !important;
+}
+.homet_program .homet_box > div > div p {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 22px;
+}
+.homet_program .homet_box p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 29px;
+    font-weight: 700;
+    color: DarkOrange;
+}
+
+
+.homet_program .homet_box > div > div {
+    display: table;
+    width: 100%;
+    height: 47px;
+}
+.homet_program .homet_box > div > div + span {
+    margin: 4px auto;
+}
+.homet_program .homet_box span {
+    display: block;
+    margin-top: 11px;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

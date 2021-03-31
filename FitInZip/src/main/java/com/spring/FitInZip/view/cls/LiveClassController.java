@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 import com.spring.FitInZip.back.cls.service.ClsService;
 
 @Controller
-@SessionAttributes("classList")
 public class LiveClassController {
 	
 	@Autowired
@@ -43,10 +43,11 @@ public class LiveClassController {
 	
 	// 클래스 상세글
 	@RequestMapping("/getClassDetail")
-	public String getClassDetail(HttpServletRequest request) {
+	public String getClassDetail(HttpServletRequest request, Model model) {
 		String clsCode = request.getParameter("clsCode");
+		ClsDetailDTO classDetail = clsService.getClassDetail(clsCode);
 		
-		
+		model.addAttribute("detail", classDetail);
 		
 		return "class/classDetail";
 	}

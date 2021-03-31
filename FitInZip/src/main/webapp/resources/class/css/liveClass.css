@@ -81,6 +81,22 @@ li {
     overflow: hidden;
     background: #ebebeb;
 }
+.play_list_type1 .play_box.end .play_thum:before {
+    content: '모집마감';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    line-height: 320px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background: rgba(0,0,0,.4);
+}
 img, input {
     border: 0;
     vertical-align: middle;
@@ -167,10 +183,14 @@ b {
     border-radius: 50px;
 }
 .label.small2 {
-    padding: 0 7px;
+    padding: 0px 8px 1px 8px;
     font-size: 11px;
-    line-height: 18px;
+    line-height: 15px;
     font-weight: 400;
+}
+.label.end4 {
+    color: #aaa;
+    background: #efefef;
 }
 .label {
     display: inline-block;

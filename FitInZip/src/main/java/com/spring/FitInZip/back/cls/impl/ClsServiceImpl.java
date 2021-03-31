@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.FitInZip.back.cls.dao.ClsDAO;
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 import com.spring.FitInZip.back.cls.service.ClsService;
 
@@ -14,17 +15,25 @@ public class ClsServiceImpl implements ClsService {
 	
 	@Autowired
 	private ClsDAO clsDAO;
-
+	
 	@Override
 	public List<ClsListDTO> getClassList(String clsCategory) {
 		
-		return clsDAO.getClassList(clsCategory);
+		List<ClsListDTO> list = clsDAO.getClassList(clsCategory);
+	      for (ClsListDTO dto : list) {
+	    	  dto.setReminder();
+	    }
+	      
+		return list;
 	}
-/*
+
 	@Override
-	public List<ClsListDTO> getClassCategory(String clsCategory) {
-		// TODO Auto-generated method stub
-		return clsDAO.getClassCategory(clsCategory);
+	public ClsDetailDTO getClassDetail(String clsCode) {
+		
+		ClsDetailDTO dto = clsDAO.getClassDetail(clsCode);
+	    	  dto.setReminder();
+	  
+		return dto;
+		
 	}
-*/
 }
