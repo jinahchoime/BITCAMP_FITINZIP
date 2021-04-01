@@ -219,7 +219,9 @@ public class TrainerController {
 		// 2. 화면 네비게이션(로그인페이지)
 		return "main";
 	}
-
+    
+    
+    //동현
 	@RequestMapping(value = "classStat")
 	public String goClassStat(@ModelAttribute("member") RegisterTrainerDTO dto, Criteria crt, Model model) {
 		crt.setTrainerId(dto.getId());
