@@ -198,9 +198,7 @@ public class TrainerController {
     	return "redirect:trainerMainPage";
     }
     
- 
-    
-    
+
     //로그아웃
     @RequestMapping("/logout")
 	public String logout(HttpSession session) {
