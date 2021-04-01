@@ -1,12 +1,15 @@
 package com.spring.FitInZip.back.trainer.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
+import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Service
@@ -84,6 +87,23 @@ public class TrainerServiceImpl implements TrainerService{
 		return trainerDAO.checkReview(dto);
 	}
 
+	@Override
+	public MemberVO loginFirst(MemberVO vo) {
+		return trainerDAO.loginFirst(vo);
+	}
+
+	@Override
+	public List<TrainerCalDTO> checkCal(HashMap<String, String> map) {
+		return trainerDAO.checkCal(map);
+	}
+
+	@Override
+	public void updateCal(RegisterTrainerDTO dto) {
+		trainerDAO.updateCal(dto);
+		
+	}
+
+	
 	
 	
 }

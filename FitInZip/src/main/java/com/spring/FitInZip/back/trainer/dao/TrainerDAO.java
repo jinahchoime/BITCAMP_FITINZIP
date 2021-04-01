@@ -1,16 +1,17 @@
 package com.spring.FitInZip.back.trainer.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
+import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
-
-
 
 @Repository
 public class TrainerDAO {
@@ -20,6 +21,12 @@ public class TrainerDAO {
 	
 	public TrainerDAO() {}
 
+	public MemberVO loginFirst(MemberVO vo) {
+		System.out.println("강사냐 관리자냐~");
+		return mybatis.selectOne("trainer.login", vo);
+		
+	}
+	
 	public RegisterTrainerDTO loginTrainer(RegisterTrainerDTO dto) {
 		System.out.println("TrainerDAO 넘어왔다~");
 
@@ -30,7 +37,7 @@ public class TrainerDAO {
 	
 	public String mainpage1(RegisterTrainerDTO dto) {
 		System.out.println("DAO 메인페이지~");
-		System.out.println("DTO dto: " + dto);
+		//System.out.println("DTO dto: " + dto);
 		String reqClass = mybatis.selectOne("trainer.TrainerMain1", dto);
 		System.out.println("DAO reqClass: " + reqClass);
 		return reqClass;
@@ -39,7 +46,7 @@ public class TrainerDAO {
 	
 	public String mainpage2(RegisterTrainerDTO dto) {
 		System.out.println("DAO 메인페이지2~");
-		System.out.println("DTO dto: " + dto);
+		//System.out.println("DTO dto: " + dto);
 		String ingClass = mybatis.selectOne("trainer.TrainerMain2", dto);
 		System.out.println("DAO ingClass: " + ingClass);
 		return ingClass;
@@ -48,7 +55,7 @@ public class TrainerDAO {
 	
 	public String mainpage3(RegisterTrainerDTO dto) {
 		System.out.println("DAO 메인페이지3~");
-		System.out.println("DTO dto: " + dto);
+		//System.out.println("DTO dto: " + dto);
 		String totalCal = mybatis.selectOne("trainer.TrainerMain3", dto);
 		System.out.println("DAO totalCal: " + totalCal);
 		return totalCal;
@@ -89,6 +96,19 @@ public class TrainerDAO {
 		List<TrainerReviewDTO> list = mybatis.selectList("trainer.checkReview", dto);
 		System.out.println("DAO list: " + list);
 		return list;
-		
 	}
+	
+	public List<TrainerCalDTO> checkCal(HashMap<String, String> map) {
+		System.out.println("정산내역 확인~~");
+		List<TrainerCalDTO> list = mybatis.selectList("trainer.checkCal", map);
+		System.out.println("DAO 정산리스트: " + list);
+		return list;
+	}
+	
+	public void updateCal(RegisterTrainerDTO dto) {
+		int result = mybatis.update("trainer.updateWithdraw", dto);
+		System.out.println("정산금 인출 결과: " + result);
+	}
+	
+
 }

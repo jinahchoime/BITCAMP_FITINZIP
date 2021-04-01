@@ -5,14 +5,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="trainer">	
+	<!-- 처음 로그인 시 -->
+	<select id="login" parameterType="memberVO" resultType="memberVO">
+		SELECT * FROM MEMBER
+		WHERE ID = #{id}
+		AND PASSWORD = #{password}
+		AND WITHDRAWAL = 'WD00'
+	</select>
+
 	<!-- 강사로그인 -->
-	<select id="loginTrainer" parameterType="trainerDTO" resultType="trainerDTO">
+	<select id="loginTrainer" parameterType="memberVO" resultType="trainerDTO">
 		SELECT *
 		FROM MEMBER m, TRAINER_REGISTER t
         WHERE m.ID = t.TRAINER_ID
 		AND m.ID = #{id}
 		AND m.PASSWORD = #{password}
+		AND t.REG_STATUS = 'RS01'
 	</select>
+	
 	<!-- 강사 마이페이지 메인 (신청한 클래스 개수) -->
 	 <select id="TrainerMain1" parameterType="trainerDTO" resultType="String">
 	    SELECT COUNT(*) AS REQ_CLASS
@@ -31,7 +41,6 @@
 	    AND f.CLS_STATUS = 'CS01'
 	    AND f.START_DATE <![CDATA[ <= ]]> SYSDATE 
 	    AND f.END_DATE <![CDATA[ > ]]> SYSDATE
-
 	</select>
 	
 	<!-- 강사 메이페이지 메인 (정산금) -->
@@ -42,18 +51,9 @@
 	</select>
 	
 	<!-- 강사 등록하기 -->
-	<!-- <insert id="insertTrainer1" parameterType="memberVO">
-	    INSERT INTO MEMBER (ID, PASSWORD, NAME, PHONE, GENDER, BIRTH, MEM_ORI_NAME, MEM_FILE_NAME, ROLE, WITHDRAWAL, NICKNAME)
-	    VALUES (#{id}, #{password}, #{name}, #{phone}, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD02', #{nickname})
-	</insert>
-	<insert id="insertTrainer2" parameterType="com.spring.FitInZip.back.trainer.vo.TrainerVO">
-		INSERT INTO TRAINER_REGISTER (TRAINER_ID, TRAINER_INTRO, CAREER, QUESTION_FIRST, QUESTION_SECOND, TOTAL_CAL, REG_STATUS, REGISTER_DATE)
-		VALUES (#{trainerId}, #{trainerIntro}, #{career}, #{question_1}, #{question_2}, 0, 'RS00', SYSDATE)
-	</insert> -->
-	
 	<insert id="insertTrainer" parameterType="trainerDTO">
 		INSERT ALL
-	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD02', #{nickname})
+	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD00', #{nickname}, null, null)
 	    INTO TRAINER_REGISTER VALUES(#{id}, #{trainerIntro}, #{career}, #{question1}, #{question2}, 0, 'RS00', null, null, SYSDATE)
 	    SELECT *
 	    FROM DUAL
@@ -65,6 +65,7 @@
 		WHERE ID = #{id}
 	</select>
 	
+	<!-- 강사 정보 수정 시 기존 정보확인 -->
 	<select id="trainerInfo" parameterType="trainerDTO" resultType="trainerDTO">
 		SELECT * 
 	    FROM MEMBER m, TRAINER_REGISTER t
@@ -72,6 +73,7 @@
     	AND t.TRAINER_ID = #{id}
 	</select>
 	
+	<!-- 강사 정보 수정 -->
 	<update id="updateInfo1" parameterType="trainerDTO">
 		UPDATE MEMBER
     	SET PASSWORD = #{password}
@@ -94,5 +96,29 @@
 		AND r.TRAINER_ID = #{id}
 	</select>
 	
+	<!-- 강사 정산내역 -->
+	<select id="checkCal" parameterType="Map" resultType="com.spring.FitInZip.back.trainer.vo.TrainerCalDTO">
+		SELECT TO_CHAR(f.END_DATE + 1, 'YYYY-MM-DD') as endDate, 
+			   f.CLS_NAME, 
+			   TO_CHAR(NVL(p.PAID_PRICE, 0), '999,999,999') as paidPrice, 
+			   TO_CHAR(NVL(p.COMMISSION, 0), '999,999,999') as commission,
+			   TO_CHAR(NVL(p.NET_PRICE, 0), '999,999,999') as netPrice
+		FROM TRAINER_REGISTER t, FIT_CLASS f, PAYMENT P
+		WHERE t.TRAINER_ID = f.TRAINER_ID
+		AND f.CLS_CODE = p.CLS_CODE
+		AND t.TRAINER_ID = #{id}
+		<if test="sDate != null and eDate != null">
+			AND TO_CHAR(f.END_DATE + 1, 'YYYY-MM-DD') <![CDATA[ >= ]]> #{sDate}
+			AND TO_CHAR(f.END_DATE + 1, 'YYYY-MM-DD') <![CDATA[ <= ]]> #{eDate}
+		</if>
+		ORDER BY endDate DESC
+	</select>
+	
+	<!-- 강사 정산금 인출하기 -->
+	<update id="updateWithdraw" parameterType="trainerDTO">
+		UPDATE TRAINER_REGISTER
+	    SET BANK_ACCOUNT = #{bankAccount}, BANK_NAME = #{bankName}, TOTAL_CAL = #{totalCal} - #{requestCal}
+    	WHERE TRAINER_ID = #{id}
+	</update>
 	
 </mapper>

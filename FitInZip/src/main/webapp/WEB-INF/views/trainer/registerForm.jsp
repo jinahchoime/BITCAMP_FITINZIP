@@ -51,8 +51,44 @@
           }
       }
       
-      var idPass;
-      var idRegex = /^[a-zA-Z0-9]{4,12}$/;
+      function registerInfo() {
+    	  if(document.getElementById("password").value.length < 5) {
+    		  alert("비밀번호는 5자리 이상 입력해주세요.");
+    		  return false;
+    	  } 
+    	  if(document.getElementById("name").value.length == 0) {
+    		  alert("이름을 입력해주세요.");
+    		  return false;
+    	  }
+    	  if(document.getElementById("nickname").value.length == 0) {
+    		  alert("별명을 입력해주세요.");
+    		  return false;
+    	  }
+    	  if(document.getElementById("phone").value.length < 11) {
+    		  alert("핸드폰번호를 입력해주세요.");
+    		  return false;
+    	  }
+    	  if(document.getElementById("birth").value.length < 8) {
+    		  alert("생년월일을 입력해주세요.");
+    		  return false;
+    	  }
+
+    	  if(document.getElementById("question1").value.length == 0) {
+    		  alert("질문에 대답해주세요.");
+    		  return false;
+    	  } 
+    	  if(document.getElementById("question2").value.length == 0) {
+    		  alert("질문에 대답해주세요.");
+    		  return false;
+    	  }
+    
+      	alert("강사 신청이 완료되었습니다. 강사 등록 확정은 이메일로 안내해드리겠습니다.");
+      	location.href = "/registerForm" 
+ 
+      	
+      }
+      
+    
       $(document).ready(function(){
       	//아이디 중복체크
       	$("#id").blur(function(){
@@ -85,6 +121,8 @@
       			});	
       		});
       });
+      
+      
   </script>
 
 
@@ -107,7 +145,7 @@
 	    <div class="row g-3">  
 	      <div class="col-md-7 col-lg-8" style="width: 620px; margin: 0 auto;">
 	        <h4 class="mb-3" style="text-align: center; padding-bottom: 20px;">온라인 지원서</h4>
-	        <form class="needs-validation" action="/registerForm" method="post"> <!-- enctype="multipart/form-data" --> 
+	        <form class="needs-validation" method="post" > <!-- enctype="multipart/form-data" --> 
          
 	            <div class="col-12">
 	            	<label for="id" class="form-label">아이디(이메일주소)</label>
@@ -120,33 +158,21 @@
 	           	<div class="col-12">
 	            	<label for="password" class="form-label" style="margin-top: 10px">비밀번호</label>
 	              	<input type="text" class="form-control" name="password" id="password" placeholder="" required>
-	              	<div class="invalid-feedback">
-	              	비밀번호를 적어주세요.
-	              	</div>
 	            </div>
           
 	            <div class="col-12">
 	            	<label for="name" class="form-label" style="margin-top: 10px">이름</label>
 	              	<input type="text" class="form-control" name="name" id="name" placeholder="홍길동" value="" required>
-	              	<div class="invalid-feedback">
-	              	이름을 적어주세요.	
-	              	</div>
 	            </div>
 	            
 	            <div class="col-12">
 	            	<label for="name" class="form-label" style="margin-top: 10px">별명</label>
 	              	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="홍씨" value="" required>
-	              	<div class="invalid-feedback">
-	              	별명을 적어주세요.	
-	              	</div>
 	            </div>
 
 	            <div class="col-12">
 	            	<label for="phone" class="form-label" style="margin-top: 10px">핸드폰번호</label>
                 	<input type="text" class="form-control" name="phone" id="phone" placeholder="01012345678" required>
-	              	<div class="invalid-feedback">
-	                	  핸드폰번호를 적어주세요.
-	                </div>
 	            </div>
 	       
             	<label for="gender" class="form-label" style="margin-top: 10px">성별</label>
@@ -162,9 +188,6 @@
 	            <div class="col-12">
 	            	<label for="birth" class="form-label"style="margin-top: 15px">생년월일 </label>
 	              	<input type="text" class="form-control" name="birth" id="birth" placeholder="19900101" required>
-	              	<div class="invalid-feedback">
-	              	생년월일을 입력해주세요.
-	              	</div>
 	            </div>
 				
 				<!-- <div class="file1">
@@ -175,13 +198,13 @@
 				
 				<div class="mb-3">
 					<label for="content" style="margin-top: 10px">강사소개</label>
-					<textarea id = "editor" name = "trainerIntro"></textarea>
+					<textarea id="editor" name = "trainerIntro"></textarea>
 					<script type="text/javascript">CKEDITOR.replace('editor');</script>
 				</div>
 				
 				<div class="mb-3">
 					<label for="content" style="margin-top: 10px">자격 및 경력</label>
-					<textarea id = "editor2" name = "career"></textarea>
+					<textarea id="editor2" name = "career"></textarea>
 					<script type="text/javascript">CKEDITOR.replace('editor2');</script>
 				</div>
 			
@@ -205,15 +228,14 @@
 				
 	            <div class="col-12">
 	            	<label for="address" class="form-label" style="margin-top: 10px">강의하는 곳의 Wi-Fi가 잘 갖추어져 있나요?</label>
-	              	<input type="text" class="form-control" name="question1" placeholder="네/아니오" required>
+	              	<input type="text" class="form-control" name="question1" id="question1" placeholder="네/아니오" required>
 	            </div>
 	
 	            <div class="col-12">
 	            	<label for="address2" class="form-label" style="margin-top: 10px">사용중인 핸드폰 기종을 적어주세요.</label>
-	              	<input type="text" class="form-control" name="question2" placeholder="아이폰12" required>
+	              	<input type="text" class="form-control" name="question1" id="question2" placeholder="아이폰12" required>
 	            </div>
-				<input type="submit" id="reg_submit" value="강사신청하기" class="w-100 btn btn-primary btn-lg" style="margin-top:30px">
-				<!-- <button class="w-100 btn btn-primary btn-lg" type="submit" style="margin-top:30px">강사 신청하기</button> -->	          
+				<button class="w-100 btn btn-lg btn-primary" type="submit" id="reg_submit" style="margin-top:30px" onclick="registerInfo(this.form)">강사신청하기</button>	          
 	        </form>
 	      </div>
 	    </div>

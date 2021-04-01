@@ -1,5 +1,11 @@
 package com.spring.FitInZip.back.trainer.vo;
 
+
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +36,8 @@ public class RegisterTrainerDTO {
 	private String role;
 	private String withdrawal;
 	private String nickname;
+	private String withdrawalReason;
+	private String wantSay;
 	
 	//private String trainerId;
 	private String trainerIntro;
@@ -40,4 +48,13 @@ public class RegisterTrainerDTO {
 	private String regStatus;
 	private String bankAccount;
 	private String bankName;
+	
+	private String ingClass;
+	private String reqClass;
+	
+	private Integer requestCal;
+	
+	
+	
+	
 }
