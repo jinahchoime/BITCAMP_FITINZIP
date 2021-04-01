@@ -1,7 +1,5 @@
 package com.spring.FitInZip.back.cls.dto;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,6 +30,10 @@ public class ClsListDTO {
 	private String perPrice;		// 회당 가격	
 	private String totalPrice;		// 전체 가격	
 	private Integer maxMem;			// 최대인원
+	private Integer join;			// 신청인원
+	private Integer reminder;		// 남은인원
 	
-	
+	public void setReminder() {
+		this.reminder = maxMem - join;
+	}
 }

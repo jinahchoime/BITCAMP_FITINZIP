@@ -16,8 +16,9 @@ public class OrderDAO {
 	private SqlSessionTemplate mybatis;
 	
 	//주문페이지 불러오기
-	public List<CartDTO> getOrderPage(CartVO vo) {
-		return mybatis.selectList("CartDAO.getCartList", vo);
+	public List<CartDTO> getOrderPage(String mem_id) {
+		return mybatis.selectList("OrderDAO.getOrderList", mem_id);
 	}
+	
 	
 }

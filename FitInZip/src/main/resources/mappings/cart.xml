@@ -13,7 +13,7 @@
 	<!-- 상품담은 장바구니 불러오기 -->
 	<select id="getCartList" resultType="com.spring.FitInZip.back.cart.vo.CartDTO"
 			parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
-	SELECT P.PRO_IMG, P.PRO_NAME, P.PRO_PRICE, C.AMOUNT, P.PRO_NUM
+	SELECT P.PRO_IMG, P.PRO_NAME, P.PRO_PRICE, C.AMOUNT, P.PRO_NUM, C.CART_CODE
 	FROM CART C
 		INNER JOIN MEMBER M
 	ON M.ID = C.MEM_ID
@@ -25,6 +25,20 @@
 	<!-- 장바구니에서 상품 선택 삭제 -->
 	<delete id="deleteCart" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
 	DELETE FROM CART
-	WHERE PRO_NUM = #{proNum}
+	WHERE CART_CODE = #{cartCode}
 	</delete>
+	
+	<!-- 장바구니 상품 전체 삭제 -->
+	<delete id="deleteAllCart" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	DELETE FROM CART WHERE MEM_ID= #{memId}	
+	</delete>
+	
+	<!-- 장바구니 상품 수량 변경 -->
+	<update id="updateAmount" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	UPDATE CART 
+	SET AMOUNT = #{amount} + 1
+	WHERE CART_CODE = #{cartCode}
+	</update>
+	
+	
 </mapper>

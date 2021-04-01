@@ -7,5 +7,5 @@ import com.spring.FitInZip.back.cart.vo.CartVO;
 
 public interface OrderService {
 
-	List<CartDTO> getCartList(CartVO vo);
+	List<CartDTO> getCartList(String mem_id);
 }

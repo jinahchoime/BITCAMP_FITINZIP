@@ -27,15 +27,10 @@ button {
 	cursor: pointer;
 }
 
-.dumbbell-cart-btn {
+.dumbbell-cart-btn, .rubberband-cart-btn {
 	margin-top: 25px;
 	cursor: pointer;
 }
-
-.rubberband-cart-btn {
-	margin-top: 25px;
-	cursor: pointer;
-}	
 
 .product-title {
 	display: block;
@@ -80,10 +75,17 @@ button {
 	text-align: center;
 }
 
-.dumbbell-option, .rubberband-option {
+.dumbbell-option {
 	margin-top: 35px; 
 	height: 60px;
 	width: 478px;
+	font-size: 18px;
+}
+
+.rubberband-option {
+	margin-top: 35px; 
+	height: 60px;
+	width: 451px;
 	font-size: 18px;
 }
 
@@ -138,12 +140,3 @@ button {
 	text-decoration: none;
 	cursor: pointer;
 }
-
-
-
-
-
-
-
-
-

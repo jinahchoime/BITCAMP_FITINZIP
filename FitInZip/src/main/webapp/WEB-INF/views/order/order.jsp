@@ -10,6 +10,7 @@
 
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     function execDaumPostcode() {
         new daum.Postcode({
@@ -58,20 +59,40 @@
             }
         }).open();
     }
+    
+
+
+    
+    
+    //배송메모
+  	function deli(val) {
+    	var $value = $(val);
+    	var $direct = $('input[name=direct]');
+    	
+    	if($value.val() == 'directMsg') {
+    		$direct.attr('readonly', false);
+    		$direct.val('');
+    	} else {
+    		$direct.attr('readonly', true);
+    		$direct.val($value.val());
+    	}
+    }
+  
+ 
 </script>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
 	<section class="wrapper">
-		<form action="pay">
+		<!-- <form action="/productPay"> -->
 		<section class="order-checkout">
-			<input type="hidden" id="상품명인가????">
 			<article class="contents">
+				<form action="productPay" method="post">
 				<div class="order-wrap">
 					<h2 class="contents-title">
 						<span class="title">주문결제</span>
-						<input type="hidden" name="samedayDeliveryNotAvailable">
-						<input type="hidden" name="samedayDeliveryNotAvailableMessage">
+						<!-- <input type="hidden" name="samedayDeliveryNotAvailable">
+						<input type="hidden" name="samedayDeliveryNotAvailableMessage"> -->
 					</h2>
 						<div class="order_simply_tit">
 						</div>
@@ -79,23 +100,27 @@
 						<div class="header">
 							<h5 class="tit">주문고객</h5>
 							<div class="body view">
-								아이디, 번호 찍어주기
+								${sessionScope.member.id }<br>
+								${sessionScope.member.name }<br>
+								${sessionScope.member.phone }
 							</div>
 							<h5 class="tit">배송지 정보</h5>
 						</div>
 						<div class="address">
-							<input type="text" id="postcode" placeholder="우편번호">
+							<input type="text" name="postcode" id="postcode" placeholder="우편번호">
 							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" id="address" placeholder="주소"><br>
-							<input type="text" id="detailAddress" placeholder="상세주소">
-							<input type="text" id="extraAddress" placeholder="참고항목">
+							<input type="text" name="address" id="address" placeholder="주소"><br>
+							<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+							<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
 						</div>
-						<select class="delivery-message" id="DeliMsg">
+						
+						<select class="delivery-message" id="deliMsg" onchange="deli(this)">
 							<option class="deli-msg-default" value="none">배송 메모를 선택해주세요.</option>
-							<option value="callPlz">배송 시 연락 부탁드립니다.</option>
-							<option value="quickPlz">빠른 배송 부탁드립니다.</option>
+							<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
+							<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
 							<option value="directMsg">직접 입력</option>
-						</select>
+						</select><br>
+						<input type="text" name="direct" placeholder="직접 입력">
 						<!-- 직접입력 클릭하면  input type text 나타난다 -->
 						
 						<div class="delivery-info">
@@ -111,40 +136,49 @@
 							<a href="cart" class="link">장바구니 바로가기</a>
 						</div>
 						
-						<button type="submit" class="button xlarge width-max">다음 단계 진행</button>
+						<button type="submit" class="button xlarge width-max">다음 단계 진행</button> 
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
 						<div class="order-tab product-checkout checkout">
 							<div class="header mini-box">
 								<h5 class="tit"><strong>주문내역</strong></h5>
 							</div>
+							<c:forEach var="cartList" items="${cartList }">
 							<div id="order-summary" class="body view">
 								<div class="cart-order_list">
 									<div class="order-list">
-										<input type="hidden" name="productNum" value="">
-										<input type="hidden" name="amount" value="">
+										<!-- <input type="hidden" name="productNum" value="">
+										<input type="hidden" name="amount" value=""> -->
 										<div class="image-wrap">
-											<img src="" alt="">
+											<img style="width:120px; height:120px;" src="${cartList.proImg }" alt="상품이미지">
 										</div>
 										<div class="order-info">
-											<a class="tit" href="">상품명</a>
+											<a class="tit" href="">${cartList.proName }</a>
 											<div class='current-option-wrap'>
-												<input type="hidden" name="옵션넣어" value="옵션밸류">
+												<!-- <input type="hidden" name="옵션넣어" value="옵션밸류"> -->
 												<span class="opt">1kg...</span>
-												<span class="qty">수량 : 1개</span>
+												<span class="qty">수량 : ${cartList.amount }</span>
 												<span class="price-wrap">
-													<strong class="retail-price">가격써라</strong>
+													<strong class="retail-price">${cartList.proPrice } 원</strong>
 												</span>
 											</div>
 										</div>
 									</div>
 									
 								</div>
+								
+							</div>	
+							</c:forEach>
+
 								<div class="uk-width-1-1 info-price">
 									<span class="item-price">
 										<span class="label">상품 금액</span>
 										<span class="price">
-											<strong>가격 얼마 원</strong>
+											<c:set var="sum" value="0"/>
+											<c:forEach var="cartList" items="${cartList }" >
+												<c:set var="sum" value="${sum + cartList.proPrice }" />
+											</c:forEach>
+											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
 									</span>
 									<span class="delivery-price">
@@ -156,18 +190,25 @@
 									<div class="total-price">
 										<span class="label">총 결제 예정 금액</span>
 										<span class="price sale total">
-											<strong>총 얼마 원</strong>
+											<c:set var="sum" value="0"/>
+											<c:forEach var="cartList" items="${cartList }" >
+												<c:set var="sum" value="${sum + cartList.proPrice }" />
+											</c:forEach>
+											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
+										
+										
 									</div>
 								</div>
+								
 							</div>
 						</div>
+						
 					</div>	
-					
-				</div>
+					</form>
 			</article>
 		</section>
-		</form>
+		<!-- </form> -->
 	</section>
 	
 	<!-- 임시 div -->

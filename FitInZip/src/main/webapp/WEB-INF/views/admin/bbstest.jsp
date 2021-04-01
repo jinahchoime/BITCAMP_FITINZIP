@@ -18,7 +18,7 @@
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content h700" >
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
      	<c:if test="${empty bbs1 }">
@@ -35,6 +35,7 @@
      		 	<td>${bbs1.gender }</td>
      		 	<td>${bbs1.birth }</td>
      		 	<td>${bbs1.commonName }</td>
+     		 	<c:if test="${bbs1.commonName eq '승인대기중'}">
      		 	<td class="theadWidth">
      		 	<!-- <button id="button1" onclick="changeSt()">승인</button> -->
      		 	<!-- Button trigger modal -->
@@ -48,6 +49,7 @@
   				승 인
 				</button>
      		 	</td>
+     		 	</c:if>
      		</tr>
      		</c:forEach>
      	</c:if>
@@ -58,32 +60,3 @@
     </table>
   </div>
 </section>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">님</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h5 id="modalBody"></h5>
-        <h5 id="modalBody2"></h5>
-        <h5 id="modalBody3"></h5>
-        <h5 id="modalBody4"></h5>
-        <h5 id="modalBody5"></h5>
-        <h5 id="modalBody6"></h5>
-        <h5 id="modalBody7"></h5>
-        <h5 id="modalBody8"></h5>
-        <h5 id="modalBody9"></h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnResult1" onclick="approveTrainer();">승인완료</button>
-        <button type="button" class="btn btn-secondary" id="btnResult2" onclick="rejectTrainer();">승인거부</button>
-        <!-- 여기 작업해야됨 comment ajext로 이동하는 function은 2개로 주고 컨트롤러는 하나에서 담당해서 처리하면 mapper에서만 분기처리하면 될듯??  -->
-        <!--data-bs-dismiss="modal"  모달 끄는 기능-->
-      </div>
-    </div>
-  </div>
-</div>

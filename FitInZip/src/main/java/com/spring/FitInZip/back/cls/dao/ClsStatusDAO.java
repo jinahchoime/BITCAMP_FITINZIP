@@ -21,11 +21,24 @@ public class ClsStatusDAO {
 		return list;
 	}
 	
+	public Integer getClassCount(String trainerId) {
+		return mybatis.selectOne("ClsDAO.getTotalCount", trainerId);
+	}
+	
 	public String getSequence() {
 		return mybatis.selectOne("ClsDAO.getClassSeq");
 	}
 	
 	public int insertCls(ClsVO vo) {
 		return mybatis.insert("ClsDAO.regClass", vo);
+	}
+	
+	// update를 위한 클래스 가져오기
+	public ClsVO getCls(ClsVO vo) {
+		return mybatis.selectOne("ClsDAO.selectClassForMod", vo);
+	}
+	
+	public int updateCls(ClsVO vo) {
+		return mybatis.update("ClsDAO.modClass", vo);
 	}
 }

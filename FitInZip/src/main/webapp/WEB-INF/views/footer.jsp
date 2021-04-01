@@ -21,7 +21,7 @@
 	}
 </style>    
 <!-- Footer -->
-<footer class="py-5" style="background-color: #000000B3;">
+<footer class="py-5" style="background-color: #000000B3; position: inherit; margin-top: 110px;">
   <div class="container">
     <a href="/registerTrainerMainPage" style="color:white;">강사 신청하기</a><br>
     <a href="/trainerLogin" style="color:white;">강사/관리자 로그인</a>

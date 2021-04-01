@@ -519,7 +519,7 @@
 /* ì¿ í° */
 .cpn_wrap .cpn_none {font-size: 12px; line-height: 1.5em; font-weight: 400; color: #666; text-align: center;}
 .cpn_wrap ul {margin: 0 -20px;}
-.cpn_wrap ul li {float: left; width: calc(33.333% - 40px); margin: 0 20px 20px;}
+.cpn_wrap ul li {float: left; /* width: calc(33.333% - 40px); */ margin: 0 20px 20px;}
 .cpn_keep_img {display: table; position: relative; width: 100%; /*height: 0; padding-bottom: 44.247%; background: url('img.ficle.io/notice/bg_cpn2.png') no-repeat; background-size: 100%; box-sizing: border-box;*/}
 .cpn_keep_img .cpn_in {display: table; /*position: absolute; left: 0; top: 0; */width: 100%; height: 100%; background: url('img.ficle.io/notice/bg_cpn2.png') no-repeat; background-size: 100% 100%; box-sizing: border-box;}
 .cpn_keep_img dl {display: table-cell; vertical-align: top; padding: 6.49% 7.08%;}

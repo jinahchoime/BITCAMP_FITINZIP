@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
+import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
+import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Service("mypageService")
@@ -33,10 +36,54 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<UserClsDTO> getUserCls(UserClsDTO dto) {
-		return mypageDAO.getUserClsList(dto);
+	public List<UserClsDTO> nowGetUserCls(UserClsDTO dto) {
+		return mypageDAO.nowGetUserCls(dto);
+	}
+	
+
+	@Override
+	public List<UserClsDTO> endGetUserCls(UserClsDTO dto) {
+		return mypageDAO.endGetUserCls(dto);
 	}
 
+	@Override
+	public void insertCheckIn(UserClsDTO dto) {
+		mypageDAO.insertCheckIn(dto);
+		
+	}
+
+	@Override
+	public List<UserClsDTO> getUserWishCls(UserClsDTO dto) {
+		return mypageDAO.getUserWishCls(dto);
+	}
+
+	@Override
+	public void deleteWishCls(UserClsDTO dto) {
+		mypageDAO.deleteWishCls(dto);
+		
+	}
+
+	@Override
+	public List<UserCouponDTO> getcouponData(UserCouponDTO dto) {
+		return mypageDAO.getcouponData(dto);
+	}
+
+	@Override
+	public List<UserProductDTO> getproductList(UserProductDTO dto) {
+		return mypageDAO.getproductList(dto);
+	}
+
+	@Override
+	public void deleteUserNoReason(UserWithdrawalDTO dto) {
+		 mypageDAO.deleteUserIsReason(dto);
+		
+	}
+
+	@Override
+	public void deleteUserIsReason(UserWithdrawalDTO dto) {
+		 mypageDAO.deleteUserIsReason(dto);
+		
+	}
 	
 
 }

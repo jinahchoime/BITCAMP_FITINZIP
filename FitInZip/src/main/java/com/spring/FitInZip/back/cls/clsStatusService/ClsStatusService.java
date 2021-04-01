@@ -8,8 +8,9 @@ import com.spring.FitInZip.back.cls.vo.ClsVO;
 public interface ClsStatusService {
 	
 	public List<ClsVO> getList(Criteria crt);
+	public Integer getTotal(String trainerId);
 	public void register(ClsVO cls);
-	public ClsVO getClass(String cno);
+	public ClsVO getClass(ClsVO cls);
 	public void updateClass(ClsVO cls);
 	public void insertClass(ClsVO cls);
 	public String getClassSeq();

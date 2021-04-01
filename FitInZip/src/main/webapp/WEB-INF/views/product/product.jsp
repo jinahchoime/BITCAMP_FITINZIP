@@ -25,14 +25,11 @@
 		$(".addcart-btn").on("click", function(){
 			alert("장바구니 담기 ajax 실행");
 			
-			/* var selectVal = [];
-			var dumbbell = $("#dumbbell option:selected").val();
+			if (${empty sessionScope.member.getId()} ) {
+				alert("로그인 후 이용가능합니다.");
+				location.href="/loginMain";
+			}
 			
-			dumbbell.each(function(){
-				selectVal.push($(this).val();
-			});
-				
-			console.log(selectVal); */
 			
 			let formData = new FormData(this.form);
 			let options = {
@@ -40,35 +37,31 @@
 					body : new URLSearchParams(formData)
 			}
 			
-			fetch("/insertCart", options)
+			fetch("/insertCart", options) //일단 들어가고 confirm도 물어봄
 				.then(async function (response) {
 					let result = await response.json();
-					alert("장바구니 담기 성공");
-					location.href="/product";
+					/*
+					if (${sessionScope.isExist == true } ) {
+						 var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
+						 if(cart) {
+							 location.href="/cart";
+						 } else {
+							 location.href="/product";
+						 }
+					} else {
+						alert("장바구니 담기 성공");
+					} 
+					*/
+					//alert("장바구니 담기 성공");
+					//location.href="/product"; 
 				})
-				.catch(err => alert("오류 발생: " + err));
+				.catch(err => alert("오류 발생: " + err)); 
+				
 		})
 	})
 	
-	console.log($("#dumbbell option:selected").val());
+	//console.log($("#dumbbell option:selected").val());
 	
-	/* function insertCart() {
-		//사용자 id를 갖고 온다
-		//var memId = $('#memId').val();
-		
-		//name이 같은 select box의 값들을 배열에 담는다
-		var selectVal = [];
-		var dumbbell = $("#dumbbell option:selected").val();
-		
-		dumbbell.each(function(){
-			selectVal.push($(this).val();
-		});
-			
-		console.log(selectVal);
-	}
-	
-	var dumbbell = document.getElementById('dumbbell').value;
-	var band = document.getElementById('rubberband').value; */
 	
 </script>
 </head>
@@ -84,7 +77,7 @@
 				<c:forEach var="productList" items="${productList }">
 					<div class="col product-col" >
 						<button class="product-img-btn" >
-							<img id="modalBtn" style="width: 480px; height: 580px;" src="${productList.proImg }">
+							<img id="modalBtn" style="width: 380px; height: 450px;" src="${productList.proImg }">
 						</button>
 					
 			  	<form action="/insertCart" class="product-form" method="post"> 
@@ -123,16 +116,11 @@
 							<c:if test="${productList.proName eq '워크아웃 밴드'}">
 								<select class="rubberband-option" id="rubberband">
 									<option class="option-default-text" value="none">[필수]옵션을 선택하세요</option>
-									<option value="레드 ">레드 - 1.3cm &nbsp;
-										MAX: 20KG</option>
-									<option value="블랙 ">블랙 - 2.1cm &nbsp;
-										MAX: 39KG</option>
-									<option value="퍼플 ">퍼플 - 3.2cm &nbsp;
-										MAX: 45KG</option>
-									<option value="그린 ">그린 - 4.5cm &nbsp;
-										MAX: 75KG</option>
-									<option value="블루 ">블루 - 6.4cm &nbsp;
-										MAX: 100KG</option>
+									<option value="레드 ">레드 - 1.3cm &nbsp; MAX: 20KG</option>
+									<option value="블랙 ">블랙 - 2.1cm &nbsp; MAX: 39KG</option>
+									<option value="퍼플 ">퍼플 - 3.2cm &nbsp; MAX: 45KG</option>
+									<option value="그린 ">그린 - 4.5cm &nbsp; MAX: 75KG</option>
+									<option value="블루 ">블루 - 6.4cm &nbsp; MAX: 100KG</option>
 								</select>
 								<div class="addcart-btn-div rubberband-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>

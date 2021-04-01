@@ -16,9 +16,8 @@ public class CartDAO {
 	private SqlSessionTemplate mybatis;
 	
 	//장바구니 불러오기
-	public List<CartDTO> getCartList(CartVO vo) {
-		System.out.println("asdasdsa "+vo.getMemId());
-		return mybatis.selectList("CartDAO.getCartList", vo);
+	public List<CartDTO> getCartList(String mem_id) {
+		return mybatis.selectList("CartDAO.getCartList", mem_id);
 	}
 	
 	//장바구니에 물건 담기
@@ -29,5 +28,15 @@ public class CartDAO {
 	//장바구니에서 상품 선택 삭제
 	public void deleteCart(CartVO vo) {
 		mybatis.delete("CartDAO.deleteCart", vo);
+	}
+	
+	//장바구니 상품 전체 삭제
+	public void deleteAllCart(String mem_id) {
+		mybatis.delete("CartDAO.deleteAllCart", mem_id);
+	}
+	
+	//장바구니 상품 수량 변경
+	public void updateAmount(CartVO vo) {
+		mybatis.update("CartDAO.updateAmount", vo);
 	}
 }
