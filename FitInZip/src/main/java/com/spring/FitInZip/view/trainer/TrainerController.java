@@ -188,19 +188,14 @@ public class TrainerController {
     }
     
     @RequestMapping("/myWithdrawCheck")
-    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto) {
+    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto, RedirectAttributes rttr) {
 
     	System.out.println("dto:" + dto);
-		/*
-		 * Integer withdrawCal = dto.getTotalCal() 
-		 *  dto.getRequestCal();
-		 * dto.setTotalCal(withdrawCal); System.out.println("설정 후 dto: " + dto);
-		 */
     	
     	trainerService.updateCal(dto);
     	
     	System.out.println("정산금 인출 신청 성공!");
-    	return "redirect:/trainer/trainerMainPage";
+    	return "redirect:trainerMainPage";
     }
     
  
