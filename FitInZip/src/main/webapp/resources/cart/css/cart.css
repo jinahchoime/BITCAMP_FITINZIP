@@ -7,7 +7,7 @@
 .cart-title {
 	padding: 0;
 	margin: 0 0 15px 0;
-	margin-top: 150px;
+	margin-top: 120px;
 	text-align: center;
 	font-size: 28px;
 	line-height: 24px;
@@ -83,12 +83,9 @@
   display: block;
 }
 
-.product-opt_cart .item-detail .total-price {
-  padding-top: 3px;
-  vertical-align: top;
-  text-align: center;
-  box-sizing: border-box;
-  color: #FA5400;
+.retail-price {
+	color: #FA5400;
+	padding-left: 400px;
 }
 
 .mypage-cart .product-opt_cart .item-detail .total-price strong {
@@ -101,6 +98,13 @@
   right: 10px;
   background-color: transparent;
   border: none;
+}
+
+.change-btn {
+  position: absolute;
+  top: 23px;
+  right: 130px;
+  
 }
 
 /* .product-opt_cart .item-detail .delete-btn:hover {
@@ -195,7 +199,7 @@
 }
 
 .product-checkout .info-price > span {
-  width: 100%;
+  width: 100%; 
   display: table;
   margin-top: 20px;
 }
@@ -210,23 +214,23 @@
 
 .product-checkout .total-price .label {
   font-size: 20px;
+  padding-left: 20px;
 }
 
 .product-checkout .btn-order {
-/*   margin-top: 15px; */
   background-color: #fb5302;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
   height: 48px;
-  padding: 16px 155px;
+  padding: 16px 144px;
   max-width: 100%;
   text-decoration: none;
   outline: none;
   cursor: pointer;
   line-height: 100%;
   width: 542px;
-  margin: 10px;
+  margin: 20px;
 }
 
 .product-checkout .btn-order:hover {
@@ -235,19 +239,35 @@
 	color:white;
 }
 
+.info-price {
+	padding-left: 20px;
+}
 
+.price {
+	text-align: right;
+}
+ 
+.arrow {
+	color: #ff471a;
+}
+.goProduct-btn {
+	color:#111; 
+	text-decoration: underline;
+}
 
+.item-price .price {
+	padding-left: 156px;
+}
 
+.cart-empty {
+	border-top: 1px solid #dedfda;
+	border-bottom: 1px solid #dedfda;
+	padding: 40px 0;
+	text-align: center;
+	line-height: 45px;
+	width: 1440px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-  
+.goProduct-btn:active, .goProduct-btn:hover {
+	color: #212529;
+} 

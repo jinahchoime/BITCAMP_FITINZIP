@@ -1,4 +1,6 @@
-package com.spring.FitInZip.back.cart.vo;
+package com.spring.FitInZip.back.payment.vo;
+
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,13 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class CartDTO {
+public class ProductAmountVO {
 
-	private String id;
-	private String proImg;
-	private String proName;
-	private String proPrice;
-	private String proNum;
-	private Integer amount;
-	private Integer cartCode;
+	private Integer total, tax_free, vat, point, discount;
 }

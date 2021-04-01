@@ -17,8 +17,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	//주문페이지 불러오기
 	@Override
-	public List<CartDTO> getCartList(CartVO vo) {
-		return orderDAO.getOrderPage(vo);
+	public List<CartDTO> getCartList(String mem_id) {
+		return orderDAO.getOrderPage(mem_id);
 	}
 
 	
