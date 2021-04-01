@@ -19,7 +19,7 @@
 			aria-expanded="false" class="dropdown-toggle">승인</a></li>
 		<ul class="collapse list-unstyled" id="homeSubmenu">
 			<li><a href="/registerMaster">가입 신청</a></li>
-			<li><a href="#">강의 신청</a></li>
+			<li><a href="/classMaster">강의 신청</a></li>
 		</ul>
 		</li>
 

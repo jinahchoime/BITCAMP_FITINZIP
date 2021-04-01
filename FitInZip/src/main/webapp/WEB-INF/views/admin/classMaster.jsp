@@ -10,7 +10,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	type="text/javascript"></script>
-
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -160,12 +159,9 @@
 
 </style>
 
-
-
 </head>
 
 <body>
-
 
 	<div class="wrapper">
 		<!-- Sidebar Holder -->
@@ -173,33 +169,33 @@
 
 		<!-- Page Content Holder -->
 		<div id="content" style='padding-top: 20px' id="navconvert">
-			<!-- NavBar  -->
+			<!-- NavBar -->
 			<jsp:include page="mainNavBar.jsp"></jsp:include>
 
-
+			<!-- 가입승인게시판 -->
 			<div>
-				<!-- 가입승인게시판 -->
 				<section>
 					<!--for demo wrap-->
-					<h1 class="title1" style="padding-top: 25px; padding-bottom: 15px;">강사
-						가입 승인 요청 LIST</h1>
+					<h1 class="title1" style="padding-top: 25px; padding-bottom: 15px;">클래스
+						승인 요청 LIST</h1>
 					<div class="tbl-header">
 						<table cellpadding="0" cellspacing="0" border="0">
 							<thead>
 								<tr style="text-align: center;">
-									<th>아이디</th>
-									<th>이름</th>
-									<th>성별</th>
-									<th>생년월일</th>
-									<th>승인여부</th>
+									<th style="width: 120px;">신청코드</th>
+									<th style="width: 150px;">강사명</th>
+									<th style="width: 120px;">종목</th>
+									<th>클래스명</th>
+									<th>클래스일정</th>
+									<th style="width: 150px;">승인여부</th>
 									<th class="theadWidth">
 										<div class="dropdown">
 											<button onclick="myFunction()" class="dropbtn">정렬 ▼</button>
 											<div id="myDropdown" class="dropdown-content">
-												<button onclick="allList()" class="dropbtn2">전체조회</button>	
-												<button onclick="allList('RS00')" class="dropbtn2">승인대기중</button>	
-												<button onclick="allList('RS01')" class="dropbtn2">승인완료</button>	
-												<button onclick="allList('RS02')" class="dropbtn2">승인거절</button>	
+												<button onclick="allClsList()" class="dropbtn2">전체조회</button>
+												<button onclick="allClsList('CS00')" class="dropbtn2">승인대기중</button>
+												<button onclick="allClsList('CS01')" class="dropbtn2">승인완료</button>
+												<button onclick="allClsList('CS02')" class="dropbtn2">승인거절</button>
 											</div>
 										</div>
 									</th>
@@ -210,23 +206,21 @@
 					</div>
 					<div class="tbl-content h700">
 						<table cellpadding="0" cellspacing="0" border="0">
-							<tbody id="getList">
-								<%@ include file="registerMasterPart.jsp"%>
+							<tbody id=getClsList>
+								<%@ include file="classMasterPart.jsp"%>
 							</tbody>
 
 						</table>
 					</div>
 				</section>
 			</div>
-
-
 		</div>
 	</div>
 
 
 
 
-	<script type="text/javascript">
+			<script type="text/javascript">
 		$(document).ready(function() {
 			$('#sidebarCollapse').on('click', function() {
 				$('#sidebar').toggleClass('active');
@@ -234,150 +228,161 @@
 			});
 		});
 	</script>
-	<script>
-		function changeSt(btn) {
-			let id = btn.parentElement.parentElement.firstElementChild.textContent;
-			$.ajax({
-				url : "bbs1Modal",
-				type : "GET",
-				dataType : "json",
-				data : {
-					id : id
-				},
-				success : function(data) {
-					data.forEach(function(element) {
-						makeModalData(element);
-					})
+			<script>
+			<!--클래스 승인 modal승인 클릭 부분 -->
+				function changeClsModal(btn) {
+					let id = btn.parentElement.parentElement.firstElementChild.textContent;
 
-				},
-				error : function() {
-					alert("짜쓰~" + error);
+					/* let name = document.getElementById('bbsClsName').innerText; */
+					/* $('#clsModalLabel').html(name); */
+					$.ajax({
+						url : "bbsClsModal",
+						type : "POST",
+						dataType : "json",
+						data : {
+							id : id
+						},
+						success : function(data) {
+							data.forEach(function(element) {
+								console.log(element);
+								makeClsModalList(element);
+							})
+
+						},
+						error : function() {
+						
+						}
+					});
 				}
-			});
-
-			function makeModalData(data) {
-				$('#exampleModalLabel').html(data.name+" 강사님");
-				$('#modalBody').html(data.id);
-				$('#modalBody2').html(data.phone);
-				$('#modalBody3').html(data.gender);
-				$('#modalBody4').html(data.birth);
-				$('#modalBody5').html(data.trainerIntro);
-				$('#modalBody6').html(data.career);
-				$('#modalBody7').html(data.questionFirst);
-				$('#modalBody8').html(data.questionSecond);
-				$('#modalBody9').html(data.registerDate);
-			}
-		}
-
-		function approveTrainer() {
-			let id = document.getElementById('modalBody').innerHTML;
-			let btnId = document.getElementById('btnResult1').innerHTML
-
-			$.ajax({
-				url : "approveTrainer",
-				type : "post",
-				dataType : "json",
-				data : {
-					id : id,
-					btnId : btnId
-				},
-				success : function(data) {
-					alert("승인이 완료 되었습니다.");
-					window.location.href = "registerMaster";
-
-				},
-				error : function() {
-					alert("실패 : " + error);
+				function makeClsModalList(data) {
+					$('#clsModalLabel').html(data.name + " 강사님");
+					$('#modalClsBody').html(data.clsCode);
+					$('#modalClsBody2').html(data.trainerId);
+					$('#modalClsBody3').html(data.commonName);
+					$('#modalClsBody4').html(data.clsName);
+					$('#modalClsBody5').html(data.sumDate);
+					/* $('#modalClsBody6').html(data.endDate); */
+					$('#modalClsBody7').html(data.sumTime);
+					/* $('#modalClsBody8').html(data.endTime); */
+					$('#modalClsBody9').html(data.lapse);
+					$('#modalClsBody10').html(data.perPrice + " 원");
+					$('#modalClsBody11').html(data.clsInfo);
+					$('#modalClsBody12').html(data.curriculum);
+					$('#modalClsBody13').html(data.maxMem + " 명");
+					$('#modalClsBody14').html(data.calorie + " cal");
 				}
-			});
-		}
 
-		function rejectTrainer() {
-			let id = document.getElementById('modalBody').innerHTML;
-			let btnId = document.getElementById('btnResult2').innerHTML
+				function approveClsTrainer() {
+					let id = document.getElementById('modalClsBody').innerHTML;
+					let btnId = document.getElementById('btnClsResult1').innerHTML
+					
 
-			$.ajax({
-				url : "rejectTrainer",
-				type : "post",
-				dataType : "json",
-				data : {
-					id : id,
-					btnId : btnId
-				},
-				success : function(data) {
-					alert("승인이 거절 되었습니다.");
-					window.location.href = "registerMaster";
+					$.ajax({
+						url : "approveClsTrainer",
+						type : "post",
+						dataType : "json",
+						data : {
+							id : id,
+							btnId : btnId
+						},
+						success : function(data) {
+							alert("승인 되었습니다.");
+							window.location.href = "classMaster";
 
-				},
-				error : function() {
-					alert("실패 : " + error);
+						},
+						error : function() {
+							alert("실패 : ");
+						}
+					});
 				}
-			});
-		}
-	
-		function allList(key){
-			$.ajax({
-				url : "allListRM",
-				type : "post",
-				data : {key : key},
-				success : function(data) {
-					$('#getList').html(data);
-				},
-				error : function() {
-					alert("실패 : ");
+
+				function rejectClsTrainer() {
+					let id = document.getElementById('modalClsBody').innerHTML;
+					let btnId = document.getElementById('btnClsResult2').innerHTML
+					
+
+					$.ajax({
+						url : "approveClsTrainer",
+						type : "post",
+						dataType : "json",
+						data : {
+							id : id,
+							btnId : btnId
+						},
+						success : function(data) {
+							alert("승인 거부 되었습니다.");
+							window.location.href = "classMaster";
+
+						},
+						error : function() {
+							alert("실패 : ");
+						}
+					});
 				}
-			});
-		}
-	</script>
-<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
+				function allClsList(key) {
+					$.ajax({
+						url : "allListCM",
+						type : "post",
+						data : {
+							key : key
+						},
+						success : function(data) {
+							console.log(data);
+							$('#getClsList').html(data);
+						},
+						error : function() {
+							alert("실패 : ");
+						}
+					});
+				}
+			</script>
+			<script>
+				/* When the user clicks on the button,
+				 toggle between hiding and showing the dropdown content */
+				function myFunction() {
+					document.getElementById("myDropdown").classList
+							.toggle("show");
+				}
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+				// Close the dropdown menu if the user clicks outside of it
+				window.onclick = function(event) {
+					if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+						var dropdowns = document
+								.getElementsByClassName("dropdown-content");
+						var i;
+						for (i = 0; i < dropdowns.length; i++) {
+							var openDropdown = dropdowns[i];
+							if (openDropdown.classList.contains('show')) {
+								openDropdown.classList.remove('show');
+							}
+						}
+					}
+				}
+			</script>
 
+			<!-- 클래스승인 modal창 설정  -->
+			<div class="modal fade" id="exampleModal2" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="clsModalLabel"></h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<%@ include file="listModalCLS.jsp"%>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="btnClsResult1"
+								onclick="approveClsTrainer();">승인완료</button>
+							<button type="button" class="btn btn-secondary"
+								id="btnClsResult2" onclick="rejectClsTrainer();">승인거부</button>
 
-</script>
-
-
-	<!-- modal창 설정  -->
-	<div class="modal fade" id="exampleModal" tabindex="-1">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">님</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				<%@ include file="listModalRM.jsp"%>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="btnResult1"
-						onclick="approveTrainer();">승인완료</button>
-					<button type="button" class="btn btn-secondary" id="btnResult2"
-						onclick="rejectTrainer();">승인거부</button>
-
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- modal창 설정 끝 -->
-
+			<!-- modal창 설정 끝 -->
 </body>
 </html>

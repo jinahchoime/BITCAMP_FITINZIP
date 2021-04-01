@@ -1,14 +1,20 @@
 package com.spring.FitInZip.back.admin.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
+import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.cls.vo.ClsVO;
 
 @Repository
 public class AdminDAO {
@@ -35,6 +41,10 @@ public class AdminDAO {
 		System.out.println("여기까진오냐?");
 		return mybatis.selectList("AdminDAO.getMemberCheck");
 	}
+	public List<GetClsCheckDTO> getClsCheck(){
+		System.out.println("여기까진오냐?");
+		return mybatis.selectList("AdminDAO.getClsCheck");
+	}
 	
 	public List<GetModalDTO> getModalList(String id){
 		System.out.println("DAO : " + id);
@@ -60,5 +70,27 @@ public class AdminDAO {
 		System.out.println("DAO 파라미터 값 : " + key);
 		return mybatis.selectList("AdminDAO.allListRM",key);
 	}
+	
+	public List<GetClsModalDTO> getClsModalList(String id){
+		return mybatis.selectList("AdminDAO.getClsModalList", id);
+	}
+	
+	public Integer approveClsTrainer(String id, String btnId) {
+		System.out.println("DAO ID : " + id);
+		System.out.println("DAO btnId : "+ btnId);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("id",id);
+		map.put("btnId", btnId);
+		System.out.println(map.toString());
+		
+		return mybatis.update("AdminDAO.approveClsTrainer",map);
+	}
+	public List<GetClsCheckDTO> getClsList(){
+		return mybatis.selectList("AdminDAO.getClsList");
+	}
 
+	public List<GetClsCheckDTO> allListCM(String key){
+		System.out.println("DAO key" + key);
+		return mybatis.selectList("AdminDAO.allListCM",key);
+	}
 }

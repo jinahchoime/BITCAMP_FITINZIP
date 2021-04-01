@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.service.AdminService;
+import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
+import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.cls.vo.ClsVO;
 
 @Controller
 public class AdminController {
@@ -52,9 +55,17 @@ public class AdminController {
 	
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
 	public String home(Model model) {
+		/* 강사 가입승인 */
 		List<GetMemberCheckDTO> list = adminService.getMemberCheck();
 		model.addAttribute("bbs1",list);
-		System.out.println("메인컨트롤러 : "+list);
+		
+		/* 클래스 가입승인*/
+		List<GetClsCheckDTO> list1 = adminService.getClsCheck();
+		model.addAttribute("bbsCls",list1);
+		
+		System.out.println("bbs1 : "+list);
+		System.out.println("bbsCls : "+list1);
+		
 		
 		return "admin/main";
 	}
@@ -83,6 +94,7 @@ public class AdminController {
 		System.out.println(">>id : " +id);
 		System.out.println(">>btnid : " +btnId);
 		String result = String.valueOf(adminService.updateTrainer(id));
+		
 		System.out.println(">>resultvalue : " + result);
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -119,5 +131,50 @@ public class AdminController {
 		model.addAttribute("bbs1",list);
 
 		return "admin/registerMasterPart";
+	}
+	
+	@RequestMapping("/bbsClsModal")
+	@ResponseBody
+	public List<GetClsModalDTO> getClsModalList(String id){
+		System.out.println(">>id : " +id);
+		List<GetClsModalDTO> list = adminService.getClsModalList(id);
+		System.out.println(">>modalReturn : " + list);
+		
+		return list;
+	}
+	@RequestMapping("/approveClsTrainer")
+	@ResponseBody
+	public String approveClsTrainer(String id, String btnId) throws JsonProcessingException{
+		System.out.println(">>id : " +id);
+		if(btnId.equals("승인완료")) {
+			btnId = "CS01";
+		}else if(btnId.equals("승인거부")) {
+			btnId = "CS02";
+		}
+		System.out.println(">>btnid : " +btnId);
+		String result = String.valueOf(adminService.approveClsTrainer(id, btnId));
+		System.out.println(">>resultvalue : " + result);
+		ObjectMapper mapper = new ObjectMapper();
+
+		return mapper.writeValueAsString(result);
+	}
+	@RequestMapping("/classMaster")
+	public String classMaster(Model model) {
+		List<GetClsCheckDTO> list1 = adminService.getClsList();
+		System.out.println("오잉~>>"+list1);
+		model.addAttribute("bbsCls",list1);
+		
+		
+		return "admin/classMaster";
+	}
+	/* 승인 -> 가입신청 ajax 처리부분*/
+	@RequestMapping("/allListCM")
+	public String allListcM(Model model,String key) {
+		System.out.println("key : " + key);
+		List<GetClsCheckDTO> list = adminService.allListCM(key);
+		System.out.println("allListCM  : "+list);
+		model.addAttribute("bbsCls",list);
+
+		return "admin/classMasterPart";
 	}
 }

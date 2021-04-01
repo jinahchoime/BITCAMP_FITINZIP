@@ -106,7 +106,7 @@
 			<div><jsp:include page="bbstest.jsp"></jsp:include></div>
 
 			<div class="line"></div>
-			<jsp:include page="bbstest.jsp"></jsp:include>
+			<jsp:include page="bbsClass.jsp"></jsp:include>
 
 			<h2>Lorem Ipsum Dolor</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
@@ -154,7 +154,7 @@
         });
     </script>
 	<script>
-
+	<!--강사가입 승인 modal승인 클릭 부분 -->
 	function changeSt(btn){
 		let id = btn.parentElement.parentElement.firstElementChild.textContent;
 	
@@ -188,9 +188,11 @@
 		}
 	}
 	
+
 	function approveTrainer(){
-		let id = document.getElementById('modalBody').value;
+		let id = document.getElementById('modalBody').innerHTML;
 		let btnId = document.getElementById('btnResult1').innerHTML
+		alert("id : " + id + "btnId" + btnId);
 		
 		$.ajax({
 			url: "approveTrainer",
@@ -209,7 +211,7 @@
 	}
 	
 	function rejectTrainer(){
-		let id = document.getElementById('modalBody').value;
+		let id = document.getElementById('modalBody').innerHTML;
 		let btnId = document.getElementById('btnResult2').innerHTML
 		
 		$.ajax({
@@ -218,7 +220,7 @@
 			dataType: "json",
 			data: {id:id, btnId:btnId},
 			success: function(data){
-				console.log("승인이 거절 되었습니다.");
+				alert("승인이 거절 되었습니다.");
 				window.location.href="adminMain";
 			
 			},
@@ -227,11 +229,97 @@
 				}
 		});
 	}
+	
+	<!--클래스 승인 modal승인 클릭 부분 -->
+	function changeClsModal(btn){
+		let id = btn.parentElement.parentElement.firstElementChild.textContent;
+		
 
+		/* let name = document.getElementById('bbsClsName').innerText; */
+		/* $('#clsModalLabel').html(name); */
+		$.ajax({
+			url: "bbsClsModal",
+			type: "POST",
+			dataType: "json",
+			data: {id:id},
+			success: function(data){
+				data.forEach(function(element){
+					console.log(element);
+					makeClsModalList(element);
+				})
+				
+			},
+			error: function (){
+				alert("짜쓰~"+error);
+				}
+		});
+	}
+	function makeClsModalList(data){
+		$('#clsModalLabel').html(data.name+" 강사님");
+		$('#modalClsBody').html(data.clsCode);
+		$('#modalClsBody2').html(data.trainerId);
+		$('#modalClsBody3').html(data.commonName);
+		$('#modalClsBody4').html(data.clsName);
+		$('#modalClsBody5').html(data.sumDate);
+		/* $('#modalClsBody6').html(data.endDate); */
+		$('#modalClsBody7').html(data.sumTime);
+		/* $('#modalClsBody8').html(data.endTime); */
+		$('#modalClsBody9').html(data.lapse);
+		$('#modalClsBody10').html(data.perPrice+" 원");
+		$('#modalClsBody11').html(data.clsInfo);
+		$('#modalClsBody12').html(data.curriculum);
+		$('#modalClsBody13').html(data.maxMem + " 명");
+		$('#modalClsBody14').html(data.calorie + " cal");
+	}
+
+	function approveClsTrainer(){
+		let id = document.getElementById('modalClsBody').innerHTML;
+		let btnId = document.getElementById('btnClsResult1').innerHTML
+		alert("id : " + id + "btnId : " + btnId);	
+		
+		$.ajax({
+			url: "approveClsTrainer",
+			type: "post",
+			dataType: "json",
+			data: {id:id, btnId:btnId},
+			success: function(data){
+				alert("승인 되었습니다.");
+				window.location.href="adminMain";
+			
+			},
+			error: function (){
+				alert("실패 : ");
+				}
+		});
+	}
+	
+	function rejectClsTrainer(){
+		let id = document.getElementById('modalClsBody').innerHTML;
+		let btnId = document.getElementById('btnClsResult2').innerHTML
+		alert("id : " + id + "btnId : " + btnId);	
+		
+		$.ajax({
+			url: "approveClsTrainer",
+			type: "post",
+			dataType: "json",
+			data: {id:id, btnId:btnId},
+			success: function(data){
+				alert("승인 거부 되었습니다.");
+				window.location.href="adminMain";
+			
+			},
+			error: function (){
+				alert("실패 : ");
+				}
+		});
+	}
+	
+	
+	
 </script>
 
 
-	<!-- modal창 설정  -->
+	<!-- 강사가입승인 modal창 설정  -->
 	<div class="modal fade" id="exampleModal" tabindex="-1">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -248,6 +336,28 @@
 						onclick="approveTrainer();">승인완료</button>
 					<button type="button" class="btn btn-secondary" id="btnResult2"
 						onclick="rejectTrainer();">승인거부</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 클래스승인 modal창 설정  -->
+	<div class="modal fade" id="exampleModal2" tabindex="-1">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="clsModalLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<%@ include file="listModalCLS.jsp"%>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnClsResult1"
+						onclick="approveClsTrainer();">승인완료</button>
+					<button type="button" class="btn btn-secondary" id="btnClsResult2"
+						onclick="rejectClsTrainer();">승인거부</button>
 
 				</div>
 			</div>

@@ -26,6 +26,9 @@
 						승 인</button>
 				</td>
 			</c:if>
+				<c:if test="${bbs1.commonName != '승인대기중'}">
+								<td class="theadWidth">&nbsp </td>
+							</c:if>
 		</tr>
 	</c:forEach>
 </c:if>
