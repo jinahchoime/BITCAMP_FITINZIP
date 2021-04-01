@@ -1,0 +1,555 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+* {
+	margin: 0;
+	padding : 0;
+	font-family: 'Noto Sans KR', sans-serif;
+	-webkit-tap-highlight-color: transparent;
+}
+ul, li, ol, dl, dt, dd {
+    list-style: none;
+    font-size: 14px;
+    line-height: 1.571;
+    letter-spacing: 0;
+}
+body, textarea, input, select, button, a, span, p {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.571;
+    letter-spacing: 0;
+}
+a:link, a:visited, a:hover, a:active, a:focus {
+    text-decoration: none;
+}
+div {
+    display: block;
+}
+.contents {
+    position: relative;
+    margin: 0 auto;
+}
+.pt40 {
+    padding-top: 150px !important;
+}
+.contents_wrap {
+    position: relative;
+    width: 1120px;
+    margin: 0 auto;
+}
+.contents_wrap_type2 {
+    width: 740px;
+}
+.wad_apply_area {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+}
+.wad_apply {
+    background: #fff;
+    padding: 40px 30px 50px;
+    width: 340px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+.wad_apply .tag_area .label:not(.text) {
+    margin-bottom: 10px;
+}
+.wad_apply .tag_area .label {
+    margin-right: 3px;
+    font-weight: 400;
+}
+.label.start {
+    color: #fff;
+    background: #33CCCC;
+}
+.label {
+    display: inline-block;
+    text-align: center;
+    padding: 0 8px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 26px;
+    font-weight: 700;
+    color: #fff;
+    box-sizing: border-box;
+    background: #111;
+}
+.wad_apply .tag_area .label:not(.text) {
+    margin-bottom: 10px;
+}
+.wad_apply .tag_area .label {
+    margin-right: 3px;
+    font-weight: 400;
+}
+.label.week {
+    color: #fff;
+    background: #fc434f;
+}
+.wad_apply .tag_area .label:not(.text) {
+    margin-bottom: 10px;
+}
+.wad_apply .tag_area .label {
+    margin-right: 3px;
+    font-weight: 400;
+}
+.label.day {
+    color: #fff;
+    background: #21c35d;
+}
+.wad_apply .wad_tch span {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+.wad_apply > p {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 auto 2px;
+}
+.wad_apply .tag_area .label {
+    margin-right: 3px;
+    font-weight: 400;
+}
+.label.text {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+    box-sizing: border-box;
+    background: none;
+}
+.wad_apply .wad_info {
+    margin-top: 25px;
+    text-align: left;
+}
+.mb30 {
+    margin-bottom: 30px !important;
+}
+.flat {
+    font-size: 0;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    /* padding-inline-start: 40px; */
+}
+.wad_apply .wad_info li:first-child {
+    width: 100%;
+}
+.wad_apply .wad_info li {
+    display: block;
+    font-size: 13px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #666;
+}
+.wad_apply .wad_info li b {
+    font-weight: 700;
+}
+.maincolor1 {
+    color: #ff4c4c !important;
+}
+.price_area {
+    display: table;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+.price_area .price.bottom {
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+
+.fns_price {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 15px;
+    line-height: 28px;
+    font-weight: 700;
+    color: #000;
+}
+
+.fns_price b {
+    font-size: 25px;
+    margin-right: 0;
+    font-weight: 700;
+}
+.price_area .ct_cost {
+    display: block;
+    font-size: 12px;
+    line-height: 19px;
+    font-weight: 400;
+    color: #666;
+}
+.price_area .price {
+    display: table-cell;
+    vertical-align: middle;
+}
+.right {
+    text-align: right !important;
+}
+.middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+/* .btn_share {
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    text-indent: -9999px;
+    font-size: 0;
+    cursor: pointer;
+} */
+.ml10 {
+    margin-left: 10px !important;
+}
+.font13 {
+    font-size: 13px !important;
+    line-height: 20px !important;
+}
+.black {
+    color: #000 !important;
+}
+.btn_basic.full {
+    width: 100%;
+}
+.btn_basic.big2 {
+    font-size: 18px;
+    line-height: 60px;
+}
+.btn_basic {
+    display: inline-block;
+    text-align: center;
+    min-width: 92px;
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 50px;
+    font-weight: 700;
+    color: #fff;
+    box-sizing: border-box;
+    background: #000;
+}
+.radius {
+    border-radius: 5px !important;
+}
+.fns_time {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.mb5 {
+    margin-bottom: 5px !important;
+}
+.fns_time .area:last-child {
+    padding-left: 8px;
+}
+.fns_time .area {
+    display: inline-block;
+    vertical-align: middle;
+}
+.fns_time .time_area.diff span {
+    font-weight: 400;
+}
+.fns_time .time_area span {
+    position: relative;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+.font12 {
+    font-size: 12px !important;
+    line-height: 18px !important;
+}
+.font14 {
+    font-size: 14px !important;
+    line-height: 20px !important;
+}
+.black {
+    color: #000 !important;
+}
+.bg_gray3 {
+    background: #ccc !important;
+}
+
+
+
+.mt0 {
+    margin-top: 0 !important;
+}
+.relative {
+    position: relative;
+}
+.mainback1 {
+    background: linear-gradient( to right, DarkOrange, #FF3399 );
+    background-size: 200%;
+    transition: .5s;
+}
+.mainback1:hover {
+    text-decoration: none;
+    color: white;
+    background-position: right;
+}
+
+.play_list_type1 .play_box {
+    position: relative;
+}
+.play_list_type1 .play_box .play_grid2 {
+    display: table;
+    width: calc(100% + 10px);
+    margin: 0 -5px;
+    overflow: hidden;
+}
+.table_basic_tab.tab1 {
+    border-bottom: 1px solid #e8e8e8;
+}   
+    
+    
+/* 컨텐츠 부분 */
+.layout_h80 {
+    height: 80px;
+}
+.main_cont {
+    overflow: hidden;
+}
+.contents_wrap {
+    position: relative;
+    width: 1120px;
+    margin: 0 auto;
+}
+
+.table_basic_tab.tab1 ul {
+    display: table;
+    height: 48px;
+    margin: 0 -15px;
+}
+.table_basic_tab.tab1 ul li {
+    display: table-cell;
+    vertical-align: bottom;
+    padding: 0 15px;
+}
+.table_basic_tab.tab1 ul li a {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.table_basic_tab.tab1 ul li.on a span {
+    font-weight: 700;
+    color: #000;
+}
+.table_basic_tab.tab1 ul li a span {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #999;
+    text-align: center;
+}
+.table_basic_tab.tab1 ul li.on a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 3px;
+    background: #000;
+}
+
+.contents_wrap_type2 {
+    width: 740px;
+}
+.content_area {
+    overflow: visible;
+}
+.content_area {
+    padding: 50px 0;
+    position: relative;
+}
+.wad_area {
+    margin-bottom: 80px;
+}
+.homet_program ul {
+    display: table;
+    width: calc(100% + 15px);
+    margin: 0 -7.5px;
+}
+.homet_program ul li {
+    display: table-cell;
+    vertical-align: middle;
+    width: 25%;
+    padding: 0 7.5px;
+}
+.homet_program .homet_box {
+    display: table;
+    width: 100%;
+    padding: 20px 10px;
+    background: #fff;
+    box-shadow: 0 0 4px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.homet_program .homet_box > div {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.center {
+    text-align: center !important;
+}
+.homet_program .homet_box > div > div p {
+    display: table-cell;
+    vertical-align: middle;
+    line-height: 22px;
+}
+.homet_program .homet_box p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 29px;
+    font-weight: 700;
+    color: DarkOrange;
+}
+
+
+.homet_program .homet_box > div > div {
+    display: table;
+    width: 100%;
+    height: 47px;
+}
+
+
+.homet_program .homet_box p small {
+    font-size: 13px;
+    font-weight: 700;
+    color: DarkOrange;
+}
+.homet_program .homet_box > div > div p small {
+    display: block;
+}
+.homet_program .homet_box > div > div + span {
+    margin: 4px auto;
+}
+.homet_program .homet_box span {
+    display: block;
+    margin-top: 11px;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #666;
+}
+
+.subtxt2 h3 {
+	font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+}
+
+.subtxt2 p {
+    color: #666 !important;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    margin-bottom: 70px !important;
+}
+.small_text {
+	font-size: medium;
+	color: DarkOrange;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+/* 강사소개 */
+.content_area {
+    overflow: visible;
+}
+.content_area {
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid #ddd;
+}
+.maintxt2 {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+.wad_area:last-child {
+    margin-bottom: 0;
+}
+.coach_wrap .coach_info {
+    display: table;
+}
+.coach_wrap .coach_info .coach_img {
+    width: 100px;
+}
+.coach_wrap .coach_info > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.coach_wrap .coach_info .coach_img span {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.coach_wrap .coach_info .coach_img img {
+    width: 135%;
+    margin: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+}
+img, input {
+    border: 0;
+    vertical-align: middle;
+}
+.coach_wrap .coach_info .nm {
+    padding-left: 10px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+    color: #000;
+}
+.coach_wrap .coach_info > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.coach_wrap .coach_info:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.coach_wrap .coach_txt {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    color: #000;
+}
+.gray_text {
+	color: #666;
+}
+
+
+
+
+
+

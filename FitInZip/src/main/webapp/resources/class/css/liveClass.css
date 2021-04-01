@@ -23,15 +23,31 @@ a > div {
 
 
 
+.contents {
+    position: relative;
+    margin: 0 auto;
+}
 
+
+.pd0 {
+    padding: 0 !important;
+}
+.content_area {
+	background-image: url('/resources/class/img/bg.png');
+	background-position: center;
+	height: 550px;
+	overflow: hidden;
+    position: relative;
+}
 .pt80 {
     padding-top: 80px !important;
 }
 .contents_wrap {
-    position: relative;
-    top: 500px;
     width: 1120px;
     margin: 0 auto;
+}
+.play_list_wrap + .play_list_wrap {
+    margin-top: 40px;
 }
 .play_list_area {
     position: relative;
@@ -41,12 +57,15 @@ a > div {
 }
 .play_list_type1 ul li:not(.swiper-slide) {
     padding: 0 10px 60px 10px;
+    margin: 0 -2px;
+    font-size: 0;
 }
 .play_list_type1 ul li {
     display: inline-block;
     vertical-align: top;
     width: 20%;
     box-sizing: border-box;
+    height: 600px;
 }
 .play_list_type1 .play_box {
     position: relative;
@@ -61,6 +80,22 @@ li {
     padding-bottom: 153.846%;
     overflow: hidden;
     background: #ebebeb;
+}
+.play_list_type1 .play_box.end .play_thum:before {
+    content: '모집마감';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    line-height: 320px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    background: rgba(0,0,0,.4);
 }
 img, input {
     border: 0;
@@ -148,10 +183,14 @@ b {
     border-radius: 50px;
 }
 .label.small2 {
-    padding: 0 7px;
+    padding: 0px 8px 1px 8px;
     font-size: 11px;
-    line-height: 18px;
+    line-height: 15px;
     font-weight: 400;
+}
+.label.end4 {
+    color: #aaa;
+    background: #efefef;
 }
 .label {
     display: inline-block;
@@ -197,8 +236,15 @@ b {
     position: relative;
     top: -2px;
 }
-
-
+.play_list_type1 .play_box .play_info .play_tit {
+    line-height: 22px;
+    font-weight: 500;
+}
+.play_list_type1 ul:after {
+    content: '';
+    display: block;
+    clear: both;
+}
 
 
 
