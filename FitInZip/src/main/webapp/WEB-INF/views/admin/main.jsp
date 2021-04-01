@@ -151,6 +151,7 @@
                 $('#sidebar').toggleClass('active');
                 $(this).toggleClass('active');
             });
+    
         });
     </script>
 	<script>

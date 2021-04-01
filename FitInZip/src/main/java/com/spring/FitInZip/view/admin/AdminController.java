@@ -4,6 +4,7 @@ package com.spring.FitInZip.view.admin;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +24,7 @@ import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Controller
 public class AdminController {
@@ -54,7 +57,11 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/adminMain", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(HttpSession session,Model model) {
+		MemberVO vo = (MemberVO) session.getAttribute("admin");
+		model.addAttribute("vo",vo);
+		System.out.println(vo.toString());
+		
 		/* 강사 가입승인 */
 		List<GetMemberCheckDTO> list = adminService.getMemberCheck();
 		model.addAttribute("bbs1",list);
@@ -114,7 +121,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/registerMaster")
-	public String registerMaster(Model model) {
+	public String registerMaster(HttpSession session,Model model) {
+		MemberVO vo = (MemberVO) session.getAttribute("admin");
+		model.addAttribute("vo",vo);
 		List<GetMemberCheckDTO> list = adminService.getMemberCheckRM();
 		model.addAttribute("bbs1",list);
 		System.out.println("가입승인 컨트롤러 : "+list);
@@ -159,7 +168,9 @@ public class AdminController {
 		return mapper.writeValueAsString(result);
 	}
 	@RequestMapping("/classMaster")
-	public String classMaster(Model model) {
+	public String classMaster(HttpSession session,Model model) {
+		MemberVO vo = (MemberVO) session.getAttribute("admin");
+		model.addAttribute("vo",vo);
 		List<GetClsCheckDTO> list1 = adminService.getClsList();
 		System.out.println("오잉~>>"+list1);
 		model.addAttribute("bbsCls",list1);
@@ -177,4 +188,12 @@ public class AdminController {
 
 		return "admin/classMasterPart";
 	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		System.out.println("test 시작");
+
+		return "admin/amountTest";
+	}
+
 }
