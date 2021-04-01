@@ -13,8 +13,14 @@ public interface MypageService {
 	void updateMember(MemberVO vo);
 	MemberVO getMember(MemberVO vo);
 	
-	/*클래스 내역*/
-	List<UserClsDTO> getUserCls(UserClsDTO dto);
+	/*현재 클래스 내역*/
+	List<UserClsDTO> nowGetUserCls(UserClsDTO dto);
+	/*종료 클래스 내역*/
+	List<UserClsDTO> endGetUserCls(UserClsDTO dto);
+	
+	/*클래스 입장시 체크인 하기*/
+	void insertCheckIn(UserClsDTO dto);
+	
 	/*찜한 클래스 내역*/
 	List<UserClsDTO> getUserWishCls(UserClsDTO dto);
 	/*찜한 클래스 지우기*/

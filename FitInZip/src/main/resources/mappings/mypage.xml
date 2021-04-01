@@ -13,17 +13,47 @@
 			WHERE ID = #{id}
 		</update> 
 		
-		<!-- 클래스 내역 가지고 오기  -->
-		<select id="selectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+		<!-- 현재 클래스 내역 가져오기 -->
+		<select id="nowSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
-			SELECT F.*, C.COMMON_NAME
-			FROM FIT_CLASS F 
-			    INNER JOIN PAYMENT P
-			ON P.CLS_CODE = F.CLS_CODE
-			    INNER JOIN COMMON C
-			ON F.CLS_CATEGORY = C.COMMON_CODE
-			WHERE P.MEM_ID = #{memId}
+			SELECT R.*
+		    FROM(SELECT M.*, ROWNUM AS RNUM
+		        FROM(SELECT F.*, C.COMMON_NAME
+		                    FROM FIT_CLASS F 
+		                        INNER JOIN PAYMENT P
+		                    ON P.CLS_CODE = F.CLS_CODE
+		                        INNER JOIN COMMON C
+		                    ON F.CLS_CATEGORY = C.COMMON_CODE
+		                    WHERE P.MEM_ID = #{memId}
+		                    AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
+		                ) M           
+		        )R
+			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
 		</select>
+		
+		<!-- 종료된 클래스 내역 가져오기 -->
+		<select id="endSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			<![CDATA[SELECT R.*
+		    FROM(SELECT M.*, ROWNUM AS RNUM
+		        FROM(SELECT F.*, C.COMMON_NAME
+		                    FROM FIT_CLASS F 
+		                        INNER JOIN PAYMENT P
+		                    ON P.CLS_CODE = F.CLS_CODE
+		                        INNER JOIN COMMON C
+		                    ON F.CLS_CATEGORY = C.COMMON_CODE
+		                    WHERE P.MEM_ID = #{memId}
+		                    AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
+		                ) M           
+		        )R
+			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}]]>
+		</select>
+		
+		<!-- 클래스 입장시 체크인 하기 -->
+		<insert id="insertCheckIn" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			INSERT INTO CHECK_IN(CLS_CODE, MEM_ID)
+			VALUES(#{clsCode}, #{memId})
+		</insert>
 		
 		<!-- 찜하기 클래스 내역 가지고 오기  -->
 		<select id="selectWhishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
@@ -87,8 +117,7 @@
 				        WHERE E.MEM_ID = #{memId}
 				        ) M
 				    )R
-				WHERE RNUM BETWEEN #{startIndex} AND #{endIndex
-				}
+				WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
 		</select>
 		
 		<!-- 회원탈퇴시 회원정보 수정 01 - 탈퇴사유가 없는 경우 -->

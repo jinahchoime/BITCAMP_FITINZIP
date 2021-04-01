@@ -27,8 +27,19 @@ public class MypageDAO {
 		return mybatis.selectOne("MypageDAO.selectMember", vo);
 	}
 	
-	public List<UserClsDTO> getUserClsList(UserClsDTO dto){
-		return mybatis.selectList("MypageDAO.selectCls", dto);
+	/*현재 클래스 내역 가져오기*/
+	public List<UserClsDTO> nowGetUserCls(UserClsDTO dto){
+		return mybatis.selectList("MypageDAO.nowSelectCls", dto);
+	}
+	
+	/*종료 클래스 내역 가져오기*/
+	public List<UserClsDTO> endGetUserCls(UserClsDTO dto){
+		return mybatis.selectList("MypageDAO.endSelectCls", dto);
+	}
+	
+	/*클래스 입장시 체크인 하기*/
+	public void insertCheckIn(UserClsDTO dto) {
+		mybatis.insert("MypageDAO.insertCheckIn", dto);
 	}
 	
 	public List<UserClsDTO> getUserWishCls(UserClsDTO dto) {
@@ -56,4 +67,5 @@ public class MypageDAO {
 	public void deleteUserIsReason(UserWithdrawalDTO dto) {
 		mybatis.update("MypageDAO.deleteUserIsReason", dto);
 	}
+	
 }

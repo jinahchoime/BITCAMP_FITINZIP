@@ -36,8 +36,20 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public List<UserClsDTO> getUserCls(UserClsDTO dto) {
-		return mypageDAO.getUserClsList(dto);
+	public List<UserClsDTO> nowGetUserCls(UserClsDTO dto) {
+		return mypageDAO.nowGetUserCls(dto);
+	}
+	
+
+	@Override
+	public List<UserClsDTO> endGetUserCls(UserClsDTO dto) {
+		return mypageDAO.endGetUserCls(dto);
+	}
+
+	@Override
+	public void insertCheckIn(UserClsDTO dto) {
+		mypageDAO.insertCheckIn(dto);
+		
 	}
 
 	@Override
