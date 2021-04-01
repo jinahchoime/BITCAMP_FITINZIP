@@ -20,6 +20,13 @@
 	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE AND T.REG_STATUS = 'RS00'
     ORDER BY T.REGISTER_DATE
 	</select>
+	
+	<select id="getClsCheck" resultType="com.spring.FitInZip.back.admin.vo.GetClsCheckDTO">
+	SELECT M.NAME, C.COMMON_NAME,F.CLS_NAME,TO_CHAR(F.START_DATE,'YYYY-MM-DD') AS START_DATE,TO_CHAR(F.END_DATE,'YYYY-MM-DD') AS END_DATE ,F.YOIL,F.CLS_STATUS, F.CLS_CODE
+    FROM FIT_CLASS F, COMMON C, MEMBER M
+    WHERE F.CLS_CATEGORY = C.COMMON_CODE AND F.TRAINER_ID = M.ID AND F.CLS_STATUS = 'CS00'
+    ORDER BY START_DATE
+	</select>
 
 	<select id="getModal" resultType="com.spring.FitInZip.back.admin.vo.GetModalDTO" parameterType="String">
 	SELECT M.ID, M.NAME, M.PHONE, M.GENDER, M.BIRTH, T.TRAINER_INTRO, T.CAREER, T.QUESTION_FIRST, T.QUESTION_SECOND, T.REGISTER_DATE   
@@ -38,4 +45,55 @@
 	SET REG_STATUS = 'RS02' 
 	WHERE TRAINER_ID = #{id}
 	</update>
+	
+	<select id="getMemberCheckRM" resultType="com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO">
+	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME 
+	FROM MEMBER M, TRAINER_REGISTER T, COMMON C 
+	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE 
+    ORDER BY T.REG_STATUS
+	</select>
+	
+	<select id="allListRM" resultType="com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO" parameterType="string">
+	SELECT M.NAME ,M.ID, M.GENDER, M.BIRTH , C.COMMON_NAME
+	FROM MEMBER M, TRAINER_REGISTER T, COMMON C
+	WHERE M.ID = T.TRAINER_ID AND T.REG_STATUS = C.COMMON_CODE
+	<if test="value != null">
+		AND T.REG_STATUS = #{value}
+	</if>
+	ORDER BY T.REG_STATUS,T.REGISTER_DATE
+	</select>
+
+	<select id="getClsModalList" resultType="com.spring.FitInZip.back.admin.vo.GetClsModalDTO" parameterType="string">
+	SELECT F.CLS_CODE, F.TRAINER_ID, C.COMMON_NAME, F.CLS_NAME,
+	TO_CHAR(F.START_DATE,'YYYY-MM-DD') AS START_DATE,
+	TO_CHAR(F.END_DATE,'YYYY-MM-DD') AS END_DATE, F.START_TIME, F.END_TIME,
+	F.LAPSE, F.CLS_LEVEL, F.PER_PRICE, F.CLS_INFO, F.CURRICULUM, F.MAX_MEM,
+	F.CALORIE,M.NAME, F.YOIL
+	FROM FIT_CLASS F, MEMBER M, COMMON C
+	WHERE F.TRAINER_ID =M.ID AND F.CLS_CATEGORY =C.COMMON_CODE AND CLS_CODE = #{value}
+	</select>
+	
+	<update id="approveClsTrainer" parameterType="map">
+	UPDATE FIT_CLASS 
+	SET CLS_STATUS = #{btnId} 
+	WHERE CLS_CODE= #{id} 
+	</update> 
+
+	<select id="getClsList" resultType="com.spring.FitInZip.back.admin.vo.GetClsCheckDTO">
+	SELECT M.NAME, C.COMMON_NAME,F.CLS_NAME,TO_CHAR(F.START_DATE,'YYYY-MM-DD') AS START_DATE,TO_CHAR(F.END_DATE,'YYYY-MM-DD') AS END_DATE ,F.YOIL,F.CLS_STATUS, F.CLS_CODE
+    FROM FIT_CLASS F, COMMON C, MEMBER M
+    WHERE F.CLS_CATEGORY = C.COMMON_CODE AND F.TRAINER_ID = M.ID 
+    ORDER BY F.CLS_STATUS,START_DATE
+	</select>
+	
+	<select id="allListCM" resultType="com.spring.FitInZip.back.admin.vo.GetClsCheckDTO" parameterType="string">
+	SELECT M.NAME, C.COMMON_NAME,F.CLS_NAME,TO_CHAR(F.START_DATE,'YYYY-MM-DD') AS START_DATE,TO_CHAR(F.END_DATE,'YYYY-MM-DD') AS END_DATE ,F.YOIL,F.CLS_STATUS, F.CLS_CODE
+    FROM FIT_CLASS F, COMMON C, MEMBER M
+    WHERE F.CLS_CATEGORY = C.COMMON_CODE AND F.TRAINER_ID = M.ID 
+	<if test="value != null">
+		AND F.CLS_STATUS = #{value}
+	</if>
+	ORDER BY F.CLS_STATUS,START_DATE
+	</select>
+	
  </mapper>

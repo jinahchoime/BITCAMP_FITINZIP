@@ -98,6 +98,8 @@ public class TrainerController {
     	model.addAttribute("admin", mvo);
     	return mvo;
     }
+    
+    
     //강사 로그인
     @RequestMapping("/trainerMainPage") 
     public String mainPage(RegisterTrainerDTO dto, @ModelAttribute("admin") MemberVO vo, Model model) {

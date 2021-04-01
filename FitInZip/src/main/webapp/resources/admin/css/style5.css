@@ -14,7 +14,6 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
 }
 
 a, a:hover, a:focus {
@@ -97,6 +96,9 @@ a, a:hover, a:focus {
 #sidebar ul li a:hover {
     color: #ffc107;
     /* background: #6c757d; */
+}
+#injecthover a:hover{
+	color: #ffc107;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
