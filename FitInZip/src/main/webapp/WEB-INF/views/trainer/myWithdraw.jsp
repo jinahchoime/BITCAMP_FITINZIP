@@ -25,14 +25,46 @@
     <!-- Custom styles for this template-->
     <link href="../resources/trainer/css/TrainerMain-sb-admin-2.min.css" rel="stylesheet">
 
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script>
+	
+	$(function(){
+		$('#insert_form').on("submit", function() {
+			event.preventDefault();
+			var calCheck = RegExp(/[^0-9]$/);
+			
+			if($('#requestCal').val() < 5000) {
+				alert("최소 인출 금액은 5,000원입니다.");
+				return false;
+			} else if(calCheck.test($('#requestCal').val()) ) {
+				alert("인출금액은 숫자만 입력해주세요.");
+				$('#requestCal').val('');
+				return false;
+			} else if($('#bankName').val() == '') {
+				alert("은행명을 입력해주세요.");
+				return false;
+			} else if($('#bankAccount').val() == '') {
+				alert("계좌번호을 입력해주세요.");
+				return false;
+			} else if(calCheck.test($('#bankAccount').val()) ) {
+				alert("계좌번호는 숫자만 입력해주세요");
+				return false;
+			} else {
+				alert("성공!");
+			}
+			document.getElementById("insert_form").submit();
+		});
+		
+	});
+	
+	
+	
+	 </script>
+			 
 </head>
 
 <body id="page-top">
-	
-	<h1>정산금액 인출하기</h1>
-	
-	
-	
 	
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -163,22 +195,35 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" style="text-align:center; margin-top: 10%;">
 
                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">나의 클래스</h1>
+                    <div class="col-lg-6" style="margin: auto;">
+
+				    <div class="card position-relative">
+				        <div class="card-header py-3">
+				            <h6 class="m-0 font-weight-bold text-primary">나의 정산금액</h6>
+				        </div>
+				        <div class="card-body">
+				            
+				            <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+				                <div class="navbar-brand" style="margin-left: auto;">${totalCal }원</div>
+				            </nav>
+				            
+				            <div class="dropdown mb-4">
+				                <button class="btn btn-primary" type="button" id="dropdownMenuButton" data-toggle="modal" data-target="#withDrawModal">
+				                   	 인출 신청하기
+				                </button>
+				            </div>
+				            <p class="mb-0 small">주의: 인출 신청 시 잘못된 계좌번호를 기재하여 발생할 수 있는 피해에 FITINZIP은 책임을 지지 않습니다.<br>
+				            						인출 전 본인의 계좌번호가 맞는지 확인해주세요.</p>
+				        </div>
+				    </div>
+				
+				</div>
                     
-                    <div>
-                    
-                    </div>
                    
-					<hr>
-                    
-                    <h1 class="h3 mb-4 text-gray-800">지난 클래스</h1>
-					
-					<div>
-					
-					</div>
+
 					
                 </div>
                 <!-- /.container-fluid -->
@@ -206,6 +251,53 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+
+
+
+ <!-- Logout Modal-->
+    <div class="modal fade" id="withDrawModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">인출 신청하기</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                	<form method="get" action="/myWithdrawCheck" id="insert_form">
+                		<label>정산금액</label>
+                		<label>${totalCal }원</label>
+                		<br>
+                		<br>
+                		<label>인출금액(최소 5000원부터)</label>	
+                		<input type="text" id="requestCal" name="requestCal" class="form-control">
+                		<br>
+                		<label>은행명</label>
+                		<input type="text" id="bankName" name="bankName" class="form-control">
+                		<br>
+                		<label>계좌번호</label>
+                		<input type="text" id="bankAccount" name="bankAccount" class="form-control">
+                		<br>
+                		
+                <div class="modal-footer">
+                <br>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <!-- <a class="btn btn-primary" href="requestWithdraw()">신청하기</a> -->
+                    <input type="submit" class="btn btn-primary" id="requestWithdraw" name="requestWithdraw" value="신청하기">
+                		<br>
+                </div>
+                	</form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

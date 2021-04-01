@@ -64,12 +64,22 @@
       	}
       	
       	function registerForm() {
-      		if()
-      	
-      		alert("정보 수정 성공!");
-      		frm.submit();
+      		if(document.getElementById("password").value.length == 0) {
+      			alert("비밀번호를 입력해주세요.");	
+      			return false;
+      		}
+      		if(document.getElementById("nickname").value.length == 0) {
+      			alert("별명을 입력해주세요.");
+      			return false;
+      		}
+      		if(document.getElementById("phone").value.length == 0){
+      			alert("전화번호를 입력해주세요.");
+      			return false;
+      		}
+      		alert("정보 수정이 완료되었습니다!");
+      		location.href="/trainerMainPage";
       	}
-      	
+      		    	
     </script>
      
 </head>
@@ -207,7 +217,7 @@
                 <div class="row g-3" style= "margin-left: 25%">  
 		        <div class="col-md-7 col-lg-8">
 		        <h4 class="mb-3" style="text-align: center; padding-bottom: 20px;">정보 수정</h4>
-		        <form class="needs-validation" action="/changeInfo" method="post" name="frm"> <!-- enctype="multipart/form-data" --> 
+		        <form class="needs-validation" method="post" name="frm"> <!-- enctype="multipart/form-data" --> 
 		        	<div class="col-12">
 		            	<label for="id" class="form-label">아이디(이메일주소)</label> ${member.id }              
 	            	</div>
@@ -215,9 +225,6 @@
 		           	<div class="col-12">
 		            	<label for="password" class="form-label" style="margin-top: 10px">비밀번호</label>
 		              	<input type="password" class="form-control" name="password" id="password" placeholder="" required>
-		              	<div class="invalid-feedback">
-		              	비밀번호를 적어주세요.
-		              	</div>
 		            </div>
           
 		            <div class="col-12">
@@ -227,17 +234,11 @@
 		            <div class="col-12">
 		            	<label for="name" class="form-label" style="margin-top: 10px">별명</label>
 		              	<input type="text" class="form-control" name="nickname" id="nickname" placeholder="홍씨" value="" required>
-		              	<div class="invalid-feedback">
-		              	별명을 적어주세요.	
-		              	</div>
 		            </div>
 	
 		            <div class="col-12">
 		            	<label for="phone" class="form-label" style="margin-top: 10px">핸드폰번호</label>
 	                	<input type="text" class="form-control" name="phone" id="phone" placeholder="01012345678" required>
-		              	<div class="invalid-feedback">
-		                	  핸드폰번호를 적어주세요.
-		                </div>
 		            </div>
          	
          <!-- <div class="file1">
@@ -257,7 +258,7 @@
 						<textarea id = "editor2" name = "career">${trainerInfo.career }</textarea>
 						<script type="text/javascript">CKEDITOR.replace('editor2');</script>
 					</div>
-					<button class="w-100 btn btn-lg btn-primary" type="button" value="정보수정" id="infoBtn" style="margin-top: 20px" onclick="registerForm()">정보수정</button>
+					<button class="w-100 btn btn-lg btn-primary" type="submit" value="정보수정" id="infoBtn" style="margin-top: 20px" onclick="registerForm()">정보수정</button>
          		</form>
                 </div>
                 <!-- /.container-fluid -->

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
@@ -67,7 +68,7 @@ public class TrainerController {
 		System.out.println(">>>>>>>>>>registerForm dto : " + dto);
 		trainerService.insertTrainer(dto);
 		System.out.println("강사 등록하기 성공!");
-		return "trainer/trainerLogin";
+		return "main";
     }
 	//강사 등록하기 성공 시 이동 페이지
 	/*
@@ -135,7 +136,7 @@ public class TrainerController {
 	}
     
     @RequestMapping(value = "/changeInfo", method = RequestMethod.POST) 
-    public String changeInfo(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    public String changeInfo(@ModelAttribute("member") RegisterTrainerDTO dto) {
     	
     	trainerService.updateInfo1(dto);
     	trainerService.updateInfo2(dto);
@@ -181,6 +182,29 @@ public class TrainerController {
 	    return calList2;
     }
 	
+    @RequestMapping("/myWithdraw")
+    public String myWithdrawView() {
+    	return "trainer/myWithdraw";
+    }
+    
+    @RequestMapping("/myWithdrawCheck")
+    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto) {
+
+    	System.out.println("dto:" + dto);
+		/*
+		 * Integer withdrawCal = dto.getTotalCal() 
+		 *  dto.getRequestCal();
+		 * dto.setTotalCal(withdrawCal); System.out.println("설정 후 dto: " + dto);
+		 */
+    	
+    	trainerService.updateCal(dto);
+    	
+    	System.out.println("정산금 인출 신청 성공!");
+    	return "redirect:/trainer/trainerMainPage";
+    }
+    
+ 
+    
     
     //로그아웃
     @RequestMapping("/logout")

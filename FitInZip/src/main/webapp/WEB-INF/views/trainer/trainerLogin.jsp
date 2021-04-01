@@ -110,20 +110,23 @@
 						//alert("role: " + data.role);
 						//alert("data.id: " + data.id);
 						//alert("id: " + id);
-						//alert("데이터개수: " + data.length());
+						//alert("데이터: " + data.regStatus);
 						if(data.role === 'RL01') {
 							alert("강사로 가르아~");
 							location.href = "/trainerMainPage";
 						} else if(data.role === 'RL02') {
 							alert("관리자로 가르아~");
 							location.href = "/registerTrainerMainPage";
-						} else {
+					
+						}
+						else {
 							alert("아이디 또는 비밀번호가 일치하지 않습니다.");
 						}
 			                       
 			         },
 			         error : function(error) { //404 500등 오류 발생시 
 			         	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+			         	return false;
 			         
 			         }	
 				});

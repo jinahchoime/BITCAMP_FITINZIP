@@ -53,7 +53,7 @@
 	<!-- 강사 등록하기 -->
 	<insert id="insertTrainer" parameterType="trainerDTO">
 		INSERT ALL
-	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD02', #{nickname})
+	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD00', #{nickname}, null, null)
 	    INTO TRAINER_REGISTER VALUES(#{id}, #{trainerIntro}, #{career}, #{question1}, #{question2}, 0, 'RS00', null, null, SYSDATE)
 	    SELECT *
 	    FROM DUAL
@@ -113,5 +113,12 @@
 		</if>
 		ORDER BY endDate DESC
 	</select>
+	
+	<!-- 강사 정산금 인출하기 -->
+	<update id="updateWithdraw" parameterType="trainerDTO">
+		UPDATE TRAINER_REGISTER
+	    SET BANK_ACCOUNT = #{bankAccount}, BANK_NAME = #{bankName}, TOTAL_CAL = #{totalCal} - #{requestCal}
+    	WHERE TRAINER_ID = #{id}
+	</update>
 	
 </mapper>

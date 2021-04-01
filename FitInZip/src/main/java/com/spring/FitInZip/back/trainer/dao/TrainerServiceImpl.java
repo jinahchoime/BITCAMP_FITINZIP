@@ -97,6 +97,12 @@ public class TrainerServiceImpl implements TrainerService{
 		return trainerDAO.checkCal(map);
 	}
 
+	@Override
+	public void updateCal(RegisterTrainerDTO dto) {
+		trainerDAO.updateCal(dto);
+		
+	}
+
 	
 	
 	

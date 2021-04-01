@@ -105,5 +105,10 @@ public class TrainerDAO {
 		return list;
 	}
 	
+	public void updateCal(RegisterTrainerDTO dto) {
+		int result = mybatis.update("trainer.updateWithdraw", dto);
+		System.out.println("정산금 인출 결과: " + result);
+	}
+	
 
 }

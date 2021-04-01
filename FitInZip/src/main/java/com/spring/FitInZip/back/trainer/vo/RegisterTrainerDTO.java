@@ -36,6 +36,8 @@ public class RegisterTrainerDTO {
 	private String role;
 	private String withdrawal;
 	private String nickname;
+	private String withdrawalReason;
+	private String wantSay;
 	
 	//private String trainerId;
 	private String trainerIntro;
@@ -49,6 +51,8 @@ public class RegisterTrainerDTO {
 	
 	private String ingClass;
 	private String reqClass;
+	
+	private Integer requestCal;
 	
 	
 	

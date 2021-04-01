@@ -42,6 +42,7 @@ public interface TrainerService {
 	//정산 내역 확인
 	List<TrainerCalDTO> checkCal(HashMap<String, String> map);
 	
-	
+	//정산금 출금 신청
+	public void updateCal(RegisterTrainerDTO dto);
 	
 }
