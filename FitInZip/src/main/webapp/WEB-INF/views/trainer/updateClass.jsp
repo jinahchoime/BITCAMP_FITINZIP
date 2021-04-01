@@ -184,8 +184,8 @@
 									<!-- db 저장 시 대소문자 구분 명확히 할 것 -->
 									<option value="ct_wt" <c:if test="${cls.clsCategory=='ct_wt' || cls.clsCategory=='CT_WT' }">selected</c:if>>웨이트</option>
 									<option value="ct_ft" <c:if test="${cls.clsCategory=='ct_ft' || cls.clsCategory=='CT_FT' }">selected</c:if>>피트니스</option>
-									<option value="ct_yg" <c:if test="${cls.clsCategory=='ct_yg' || cls.clsCategory=='CT_YG' }">selected</c:if>>요오가</option>
-									<option value="ct_fl" <c:if test="${cls.clsCategory=='ct_fl' || cls.clsCategory=='CT_FL' }">selected</c:if>>필라이트</option>
+									<option value="ct_yg" <c:if test="${cls.clsCategory=='ct_yg' || cls.clsCategory=='CT_YG' }">selected</c:if>>요가</option>
+									<option value="ct_fl" <c:if test="${cls.clsCategory=='ct_fl' || cls.clsCategory=='CT_FL' }">selected</c:if>>필라테스</option>
 								</select>
 							</td>
 							<td colspan="5">

@@ -195,8 +195,8 @@
 									<option>카테고리 선택</option>
 									<option value="ct_wt">웨이트</option>
 									<option value="ct_ft">피트니스</option>
-									<option value="ct_yg">요오가</option>
-									<option value="ct_fl">필라이트</option>
+									<option value="ct_yg">요가</option>
+									<option value="ct_fl">필라테스</option>
 								</select>
 							</td>
 							<td colspan="5">

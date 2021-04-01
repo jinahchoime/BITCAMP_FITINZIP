@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -231,7 +232,9 @@ public class TrainerController {
 		UUID uuid = UUID.randomUUID();
 
 		String fileName = "" + uuid + "_";
-
+		
+		// MultipartResolver -> FileName, OriginName
+		
 		MultipartFile classUploadFile = vo.getClsFileName();
 		if (classUploadFile != null) {
 			fileName += classUploadFile.getOriginalFilename();
