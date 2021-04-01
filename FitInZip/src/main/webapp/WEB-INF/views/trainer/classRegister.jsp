@@ -291,7 +291,8 @@
 							
 							<tr>
 								<td colspan="4" style="text-align: center;">
-									<input type="file" name="clsFileName" placeholder="파일 선택">
+									썸네일 이미지 : <input type="file" name="thumbnail" placeholder="파일 선택">
+									타이틀 이미지 : <input type="file" name="title" placeholder="파일 선택">
 									강의 주소 : <input type="text" name="meetUrl">
 								</td>
 							</tr>
@@ -302,7 +303,6 @@
 						
 						
 						<input type="hidden" name="clsStatus" value="CS00">
-						<input type="hidden" name="trainerId" value="kim">
 					</div>
 					
 						<div style="width: 100%; text-align: center;">

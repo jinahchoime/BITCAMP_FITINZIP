@@ -277,8 +277,21 @@
 						</tr>
 						
 						<tr>
+							<th rowspan="2">기존 업로드 한 이미지</th>
+							<td colspan="3">
+								썸네일 이미지 : <c:if test="${cls.thumbnailOriName != null }"><img src='<c:out value="${thumbnailSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
+										<c:if test="${cls.thumbnailOriName == null }">없음</c:if>
+							</td>
+							<td colspan="3">
+								타이틀 이미지 : <c:if test="${cls.titleOriName != null }"><img src='<c:out value="${titleSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
+									<c:if test="${cls.titleOriName == null }">없음</c:if>
+							</td>
+						</tr>
+						
+						<tr>
 							<td colspan="4" style="text-align: center;">
-								<input type="file" name="clsFileName" placeholder="파일 선택">
+								썸네일 이미지 : <input type="file" name="thumbnail" placeholder="파일 선택">
+								타이틀 이미지 : <input type="file" name="title" placeholder="파일 선택">
 								강의 주소 : <input type="text" name="meetUrl" value="${cls.meetUrl }">
 							</td>
 						</tr>
@@ -296,7 +309,6 @@
 				<input type="hidden" name="originEndDate" value="${cls.endDate }">
 				<input type="hidden" name="originStartTime" value="${cls.startTime }">
 				<input type="hidden" name="originEndTime" value="${cls.endTime }">
-				<input type="hidden" name="originClsFileName" value="${cls.clsFileName }">
 				
 				<input type="hidden" name="pageNum" value='<c:out value="${crt.pageNum }"/>'>
 				<input type="hidden" name="amount" value='<c:out value="${crt.amount }"/>'>

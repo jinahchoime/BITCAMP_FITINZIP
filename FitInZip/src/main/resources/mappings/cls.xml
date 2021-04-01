@@ -10,8 +10,8 @@
 			select *
 			from
 			    (select /*+INDEX_DESC(FIT_CLASS FIT_CLASS_PK) */ rownum rn, CLS_CODE, TRAINER_ID, CLS_CATEGORY, CLS_NAME, CLS_TAG, START_DATE,
-			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, CLS_ORI_NAME, CLS_FILE_NAME,
-			        CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
+			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, THUMBNAIL_ORI_NAME,
+			        THUMBNAIL_FILE_NAME, TITLE_ORI_NAME, TITLE_FILE_NAME, CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
 			    from fit_class
 			    where rownum <= #{pageNum} * #{amount} and trainer_id = #{trainerId})
 			where rn > (#{pageNum} -1) * #{amount} and trainer_id = #{trainerId}
@@ -35,7 +35,7 @@
 		insert into fit_class
 		values(#{clsCode}, #{trainerId}, #{clsCategory}, #{clsName}, 
 		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, to_timestamp(#{startTime}, 'yyyy-MM-dd hh24:mi:ss'), to_timestamp(#{endTime}, 'yyyy-MM-dd hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
-		#{curriculum}, #{clsOriName}, 'upload', 'CS00', #{maxMem}, #{calorie}, #{meetUrl})
+		#{curriculum}, 'CS00', #{maxMem}, #{calorie}, #{meetUrl}, #{thumbnailOriName}, #{thumbnailFileName}, #{titleOriName}, #{titleFileName})
 	</insert>
 	
 	<!-- 강의 수정 -->
@@ -55,8 +55,10 @@
 			PER_PRICE = #{perPrice},
 			CLS_INFO = #{clsInfo},
 			CURRICULUM = #{curriculum},
-			CLS_ORI_NAME = 'upload',
-			CLS_STATUS = #{clsStatus},
+			THUMBNAIL_ORI_NAME = #{thumbnailOriName},
+			THUMBNAIL_FILE_NAME = #{thumbnailFileName}, 
+			TITLE_ORI_NAME = #{titleOriName}, 
+			TITLE_FILE_NAME = #{titleFileName},
 			MAX_MEM = #{maxMem},
 			CALORIE = #{calorie},
 			MEET_URL = #{meetUrl}

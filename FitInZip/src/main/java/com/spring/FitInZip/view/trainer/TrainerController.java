@@ -1,5 +1,7 @@
 package com.spring.FitInZip.view.trainer;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,6 +9,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.imageio.IIOException;
@@ -229,7 +232,7 @@ public class TrainerController {
 		crt.setTrainerId(dto.getId());
 
 		List<ClsVO> list = clsStatusService.getList(crt);
-		System.out.println("list: " + list + " , list size: " + list.size());
+		//System.out.println("list: " + list + " , list size: " + list.size());
 		int count = clsStatusService.getTotal(dto.getId());
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new PageDTO(crt, count)); // 뒤 쪽 매개변수는 총 데이터 개수
@@ -247,11 +250,16 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "regCls")
-	public String regClsProc(ClsVO vo, @ModelAttribute("crt") Criteria crt, RedirectAttributes rttr,
+	public String regClsProc(@ModelAttribute("member") RegisterTrainerDTO dto, ClsVO vo, @ModelAttribute("crt") Criteria crt, RedirectAttributes rttr,
 			@RequestParam(value = "clsTag", required = false) String clsTag,
-			@RequestParam(value = "equip", required = false) String equip)
+			@RequestParam(value = "equip", required = false) String equip, MultipartFile thumbnail, MultipartFile title,
+			HttpServletRequest request)
 			throws IllegalStateException, IIOException, Exception {
-
+		
+		MultipartFile classUploadFile = null;
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
+		System.out.println("경로명 : " + filePath);
+		
 		System.out.println(vo.getStartDate());
 
 		// 클래스 코드를 생성하기
@@ -263,16 +271,40 @@ public class TrainerController {
 		String classCode = "C" + wdate + "_" + classKey;
 
 		// 파일명 중복 시 uuid를 무작위 생성하여 붙여주기 때문에 별도 저장 가능
-		UUID uuid = UUID.randomUUID();
+		//UUID uuid = UUID.randomUUID();
 
-		String fileName = "" + uuid + "_";
+		//String fileName = "" + uuid + "_";
 		
 		// MultipartResolver -> FileName, OriginName
 		
-		MultipartFile classUploadFile = vo.getClsFileName();
-		if (classUploadFile != null) {
-			fileName += classUploadFile.getOriginalFilename();
-			classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
+		/*
+		 * MultipartFile classUploadFile = vo.getClsFileName(); if (classUploadFile !=
+		 * null) { fileName += classUploadFile.getOriginalFilename();
+		 * classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" +
+		 * fileName)); }
+		 */
+		UUID uuid = null;
+		String filename = "";
+		if(thumbnail != null) {
+			uuid = UUID.randomUUID();
+			filename = thumbnail.getOriginalFilename();
+			vo.setThumbnailOriName(filename);
+			filename = uuid + "_" + filename;
+			vo.setThumbnailFileName(filename);
+			
+			classUploadFile = thumbnail;
+			classUploadFile.transferTo(new File(filePath + "thumbnail/" + filename));
+		}
+		
+		if(title != null) {
+			uuid = UUID.randomUUID();
+			filename = title.getOriginalFilename();
+			vo.setTitleOriName(filename);
+			filename = uuid + "_" + filename;
+			vo.setTitleFileName(filename);
+			
+			classUploadFile = title;
+			classUploadFile.transferTo(new File(filePath + "title/" + filename));
 		}
 
 		// 시작, 끝 시간 입력을 위한 가공
@@ -291,8 +323,9 @@ public class TrainerController {
 		vo.setEndTime(endTime);
 
 		System.out.println("starttime: " + startTime + ", endtime: " + endTime);
-
-		vo.setClsOriName(fileName);
+		
+		vo.setTrainerId(dto.getId());
+		/* vo.setClsOriName(fileName); */
 		vo.setClsCode(classCode);
 
 		System.out.println("vo: " + vo.toString());
@@ -330,12 +363,30 @@ public class TrainerController {
 
 		startTime = startTime.substring(11, 16);
 		endTime = endTime.substring(11, 16);
+		
+		String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
+		filePath = filePath.replace('\\', '/');
+		
+		String thumbnail = "";
+		String title = "";
+		if(getCls.getThumbnailFileName() != null) {
+			thumbnail = filePath + "thumbnail/" + getCls.getThumbnailFileName();
+		}
+		
+		if(getCls.getTitleFileName() != null) {
+			title = filePath + "title/" + getCls.getTitleFileName();
+		}
+		
+		
 
 		model.addAttribute("cls", getCls);
 		model.addAttribute("startDate", start);
 		model.addAttribute("endDate", end);
 		model.addAttribute("startTime", startTime);
 		model.addAttribute("endTime", endTime);
+		
+		model.addAttribute("thumbnailSrc", thumbnail);
+		model.addAttribute("titleSrc", title);
 		
 		model.addAttribute("pageNum", crt.getPageNum());
 		model.addAttribute("amount", crt.getAmount());
@@ -354,7 +405,9 @@ public class TrainerController {
 			@RequestParam(value = "clsFileName", required = false) MultipartFile clsFileName) throws Exception {
 		
 		System.out.println("헤으응 vo : " + vo.toString());
-		System.out.println("파일명 헤으응 : " + vo.getClsFileName().getOriginalFilename());
+		/*
+		 * System.out.println("파일명 헤으응 : " + vo.getClsFileName().getOriginalFilename());
+		 */
 		
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -371,20 +424,18 @@ public class TrainerController {
 		vo.setEndTime(endTime);
 		
 		// 파일을 업로드 하지 않은 경우 처리
-		if (vo.getClsFileName().getOriginalFilename() == "") {
-			vo.setClsOriName(request.getParameter("originClsFileName"));
-		} else {
-			UUID uuid = UUID.randomUUID();
-
-			String fileName = "" + uuid + "_";
-
-			MultipartFile classUploadFile = vo.getClsFileName();
-			if (classUploadFile != null) {
-				fileName += classUploadFile.getOriginalFilename();
-				classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
-			}
-			vo.setClsOriName(fileName);
-		}
+		/*
+		 * if (vo.getClsFileName().getOriginalFilename() == "") {
+		 * vo.setClsOriName(request.getParameter("originClsFileName")); } else { UUID
+		 * uuid = UUID.randomUUID();
+		 * 
+		 * String fileName = "" + uuid + "_";
+		 * 
+		 * MultipartFile classUploadFile = vo.getClsFileName(); if (classUploadFile !=
+		 * null) { fileName += classUploadFile.getOriginalFilename();
+		 * classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" +
+		 * fileName)); } vo.setClsOriName(fileName); }
+		 */
 
 		System.out.println("ClsVO : " + vo.toString());
 
