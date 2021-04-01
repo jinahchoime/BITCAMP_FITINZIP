@@ -19,7 +19,6 @@
             <tbody id="content">
  			</tbody>
         </table>
-        <div id="moreBtn">
-        </div>
+        <div id="btn"></div>
     </div>
 </div>

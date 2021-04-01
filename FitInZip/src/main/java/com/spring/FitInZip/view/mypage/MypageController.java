@@ -101,26 +101,17 @@ public class MypageController {
 	}
 	
 	/*현재 클래스 history 내역 ajax로 뿌리기*/
-	@RequestMapping("/nowClsdata") 
+	@RequestMapping("/clsdata") 
 	@ResponseBody
-	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session, HttpServletRequest request) throws JsonProcessingException {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
+		dto.setClsTimeStatus(request.getParameter("clsTimeStatus"));
 		
 		return mypageService.nowGetUserCls(dto);
 		
 	}
 	
-	/*종료 클래스 history 내역 ajax로 뿌리기*/
-	@RequestMapping("/endClsdata") 
-	@ResponseBody
-	public List<UserClsDTO> endClsData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
-		MemberVO member = (MemberVO)session.getAttribute("member");
-		dto.setMemId(member.getId());
-		
-		return mypageService.endGetUserCls(dto);
-		
-	}
 	
 	/*클래스 입장시 체크인하기*/
 	@RequestMapping("/insertCheckIn") 

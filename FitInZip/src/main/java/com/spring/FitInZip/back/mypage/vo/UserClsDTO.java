@@ -31,5 +31,11 @@ public class UserClsDTO {
 	private Integer startIndex;
 	private Integer endIndex;
 	
+	/*총 게시물 수*/
+	private Integer count;
+	
+	/*클래스 상태*/
+	private String clsTimeStatus;
+	
 	
 }
