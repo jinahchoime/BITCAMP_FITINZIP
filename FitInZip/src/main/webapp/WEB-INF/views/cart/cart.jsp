@@ -42,18 +42,19 @@
 		
 		<div class="item-container">
 			<div class="item-list-wrap" id="cart">
+				<c:if test="${empty cartList }">
+					<div class="cart-empty">
+					<i class="fas fa-shopping-bag" style="width:120px; height:80px;"></i><br>
+					<span style="font-size:16px;">장바구니에 담긴 상품이 없습니다.</span><br>
+					<a href="/product" class="goProduct-btn">계속 쇼핑하기</a>
+					</div>
+				</c:if>
+				
+				<c:if test="${!empty cartList }">
 				<div class="product-select-all">
 					<a style="color: #000000;" class="btn-cart-delete-All" href=# onclick="deleteAllCart()">전체삭제</a>
 				</div>
 				
-				
-				<c:if test="${empty cartList }">
-					<i class="fas fa-shopping-bag" style="width:65px; height:60px;"></i><br>
-					<span style="font-size: ">장바구니에 담긴 상품이 없습니다.</span><br>
-					<a href="/product" class="goProduct-btn">계속 쇼핑하기</a>
-				</c:if>
-				
-				<c:if test="${!empty cartList }">
 			<c:forEach var="cartList" items="${cartList }">
 					<form action="/deleteCart" method="get" name="deleteCart">
 						<div class="product-opt_cart">
@@ -137,6 +138,7 @@
 			</c:if>
 			</div>
 			
+			<c:if test="${!empty cartList }">
 			<c:set var="sum" value="0"/>
 			<div class="product-checkout">
 				<strong class="tit">주문예정금액</strong>
@@ -159,7 +161,7 @@
 				</div>
 				<a class="btn-link xlarge width-max btn-order indian-red" href="order">주문하기</a>
 			</div>
-			
+			</c:if>
 		</div>	
 	</article>
 	

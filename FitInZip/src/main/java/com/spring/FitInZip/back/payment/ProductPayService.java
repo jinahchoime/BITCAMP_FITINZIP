@@ -1,6 +1,10 @@
 package com.spring.FitInZip.back.payment;
 
+import java.util.List;
+
+import com.spring.FitInZip.back.cart.vo.CartDTO;
+
 public interface ProductPayService {
 
-	void getOrder();
+	List<CartDTO> getPayList(String mem_id);
 }

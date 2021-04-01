@@ -253,14 +253,21 @@
 .goProduct-btn {
 	color:#111; 
 	text-decoration: underline;
-	 
 }
 
 .item-price .price {
 	padding-left: 156px;
 }
 
+.cart-empty {
+	border-top: 1px solid #dedfda;
+	border-bottom: 1px solid #dedfda;
+	padding: 40px 0;
+	text-align: center;
+	line-height: 45px;
+	width: 1440px;
+}
 
-
-
-  
+.goProduct-btn:active, .goProduct-btn:hover {
+	color: #212529;
+} 

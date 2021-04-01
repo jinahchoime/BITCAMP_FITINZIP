@@ -10,6 +10,7 @@
 
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     function execDaumPostcode() {
         new daum.Postcode({
@@ -59,10 +60,25 @@
         }).open();
     }
     
-    function pay() {
-    	location.href="/productPay"
+
+
+    
+    
+    //배송메모
+  	function deli(val) {
+    	var $value = $(val);
+    	var $direct = $('input[name=direct]');
+    	
+    	if($value.val() == 'directMsg') {
+    		$direct.attr('readonly', false);
+    		$direct.val('');
+    	} else {
+    		$direct.attr('readonly', true);
+    		$direct.val($value.val());
+    	}
     }
   
+ 
 </script>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
@@ -70,8 +86,8 @@
 	<section class="wrapper">
 		<!-- <form action="/productPay"> -->
 		<section class="order-checkout">
-			<input type="hidden" id="상품명인가????">
 			<article class="contents">
+				<form action="productPay" method="post">
 				<div class="order-wrap">
 					<h2 class="contents-title">
 						<span class="title">주문결제</span>
@@ -91,18 +107,20 @@
 							<h5 class="tit">배송지 정보</h5>
 						</div>
 						<div class="address">
-							<input type="text" id="postcode" placeholder="우편번호">
+							<input type="text" name="postcode" id="postcode" placeholder="우편번호">
 							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" id="address" placeholder="주소"><br>
-							<input type="text" id="detailAddress" placeholder="상세주소">
-							<input type="text" id="extraAddress" placeholder="참고항목">
+							<input type="text" name="address" id="address" placeholder="주소"><br>
+							<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+							<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
 						</div>
-						<select class="delivery-message" id="DeliMsg">
+						
+						<select class="delivery-message" id="deliMsg" onchange="deli(this)">
 							<option class="deli-msg-default" value="none">배송 메모를 선택해주세요.</option>
-							<option value="callPlz">배송 시 연락 부탁드립니다.</option>
-							<option value="quickPlz">빠른 배송 부탁드립니다.</option>
+							<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
+							<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
 							<option value="directMsg">직접 입력</option>
-						</select>
+						</select><br>
+						<input type="text" name="direct" placeholder="직접 입력">
 						<!-- 직접입력 클릭하면  input type text 나타난다 -->
 						
 						<div class="delivery-info">
@@ -118,7 +136,7 @@
 							<a href="cart" class="link">장바구니 바로가기</a>
 						</div>
 						
-						<button onclick="pay()" class="button xlarge width-max">다음 단계 진행</button> 
+						<button type="submit" class="button xlarge width-max">다음 단계 진행</button> 
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
 						<div class="order-tab product-checkout checkout">
@@ -141,7 +159,7 @@
 												<span class="opt">1kg...</span>
 												<span class="qty">수량 : ${cartList.amount }</span>
 												<span class="price-wrap">
-													<strong class="retail-price">${cartList.proPrice }</strong>
+													<strong class="retail-price">${cartList.proPrice } 원</strong>
 												</span>
 											</div>
 										</div>
@@ -187,7 +205,7 @@
 						</div>
 						
 					</div>	
-					
+					</form>
 			</article>
 		</section>
 		<!-- </form> -->

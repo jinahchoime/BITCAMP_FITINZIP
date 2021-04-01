@@ -4,7 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PayDAO">
 
-
+	<select id="getPayList" resultType="com.spring.FitInZip.back.cart.vo.CartDTO"
+			parameterType="String">
+	SELECT P.PRO_IMG, P.PRO_NAME, P.PRO_PRICE, C.AMOUNT, P.PRO_NUM, C.CART_CODE
+	FROM CART C
+		INNER JOIN MEMBER M
+	ON M.ID = C.MEM_ID
+		INNER JOIN PRODUCT P
+	ON C.PRO_NUM = P.PRO_NUM
+	WHERE M.ID = #{memId}
+	</select>	
 
 
 
