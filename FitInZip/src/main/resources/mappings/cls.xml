@@ -91,30 +91,37 @@
 	
 	<select id="getClassDetail" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsDetailDTO">
 		SELECT *
-			FROM(SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
-				 TO_CHAR(START_DATE, 'YYYY') YEAR,
- 		         TO_CHAR(START_DATE, 'FMMM') START_MONTH,
- 		         TO_CHAR(START_DATE, 'FMDD') START_DAY,
- 		         TO_CHAR(END_DATE, 'FMMM.DD') END_DATE,
- 		         TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
- 		         TO_CHAR(START_TIME, 'PM') PM,
-		         TO_CHAR(START_TIME, 'HH:MI') START_TIME,
-		         TO_CHAR(END_TIME, 'HH:MI') END_TIME, CURRICULUM,
-		         MAX_MEM, LAPSE, CLS_LEVEL, EQUIP, CLS_INFO,
-		         TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
-		         TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
-		         CLS_TAG,
-		         TRUNC(TO_NUMBER(TO_DATE(TO_CHAR(END_DATE, 'YYYYMMDD'), 'YYYYMMDD') - TO_DATE(TO_CHAR(START_DATE, 'YYYYMMDD'), 'YYYYMMDD')) / 7) + 1 AS WEEK,
-		         (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN    
-       
-                 FROM FIT_CLASS F, MEMBER M, COMMON C 
-                 WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
-                 AND CLS_CODE = #{clsCode}),
-                 (SELECT TRAINER_INTRO, CAREER
-                 	 FROM TRAINER_REGISTER
-                     WHERE TRAINER_ID = (SELECT TRAINER_ID
-                                         FROM FIT_CLASS 
-                                         WHERE CLS_CODE = #{clsCode}))
+		FROM(SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
+			 TO_CHAR(START_DATE, 'YYYY') YEAR,
+		     TO_CHAR(START_DATE, 'FMMM') START_MONTH,
+		     TO_CHAR(START_DATE, 'FMDD') START_DAY,
+		     TO_CHAR(END_DATE, 'FMMM.DD') END_DATE,
+		     TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+		     TO_CHAR(START_TIME, 'PM') PM,
+	         TO_CHAR(START_TIME, 'HH:MI') START_TIME,
+	         TO_CHAR(END_TIME, 'HH:MI') END_TIME, CURRICULUM,
+	         MAX_MEM, LAPSE, CLS_LEVEL, EQUIP, CLS_INFO,
+	         TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+	         TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
+	         CLS_TAG,
+	         TRUNC(TO_NUMBER(TO_DATE(TO_CHAR(END_DATE, 'YYYYMMDD'), 'YYYYMMDD') - TO_DATE(TO_CHAR(START_DATE, 'YYYYMMDD'), 'YYYYMMDD')) / 7) + 1 AS WEEK,
+	         (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN    
+      
+                FROM FIT_CLASS F, MEMBER M, COMMON C 
+                WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
+                AND CLS_CODE = #{clsCode}),
+                (SELECT TRAINER_INTRO, CAREER
+                	 FROM TRAINER_REGISTER
+                    WHERE TRAINER_ID = (SELECT TRAINER_ID
+                                        FROM FIT_CLASS 
+                                        WHERE CLS_CODE = #{clsCode}))
+	</select>
+	
+	<select id="getReview" parameterType="string" resultType="com.spring.FitInZip.back.review.dto.ReviewDTO">
+		SELECT NICKNAME, STAR, REVIEW_CONTENT
+		FROM REVIEW R, MEMBER M
+		WHERE R.MEM_ID = M.ID 
+		AND  CLS_CODE = #{clsCode}
 	</select>
 
 	

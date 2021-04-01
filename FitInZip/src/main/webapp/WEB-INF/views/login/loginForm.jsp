@@ -88,7 +88,7 @@
 				  
 				  if (result == true) {
 					  alert("로그인 완료");
-					  location.href="/";
+					  window.history.go(-1);
 				  } else {
 					  alert("아이디, 비밀번호를 확인하삼");
 				  }

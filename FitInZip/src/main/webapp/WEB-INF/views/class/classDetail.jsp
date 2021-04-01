@@ -7,7 +7,35 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Toastr -->
+<link href="/resources/class/css/toastr.css" rel="stylesheet">
+<script src="/resources/class/js/toastr.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/resources/class/css/classDetail.css">
+<script>
+
+	function reviewRrite(){
+		alert(sessionStorage.getItem("member"));
+		if (getItem(member.id) == "") {
+			toastr.show('수강후기를 작성하려면 로그인이 필요합니다.');
+		} else {
+			alert(getItem(member.id));
+		}
+	};
+	
+	var toastr = new Toastr({
+		position:'topCenter',
+		animation:'slide',
+		timeout: 2500
+	});
+	
+	
+	
+	
+
+
+</script>
 </head>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
@@ -144,8 +172,8 @@
 														<div class="homet_box">
 															<div class="center">
 																<div>
-																	<p>중급
-																		<small>(07:00 ~ 07:50)</small>
+																	<p>${detail.yoil}
+																		<small>(${detail.startTime} ~ ${detail.endTime})</small>
 																	</p>
 																</div>
 																<span>진행시간</span>
@@ -196,23 +224,38 @@
 										<div id="area03" class="content_area">
 											<div class="maintxt2">
 												수강후기
-												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10">리뷰쓰기</a>
+												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" onclick="reviewRrite()">리뷰쓰기</a>
 											</div>
 											<div class="table_basic_list list3 review_wrap">
-												<ul>
-													<li>
-														<div class="leftbox">
-															<div class="review_nm">
-																<div class="login_thum middle">
-																	<span>
-																		<!---->
-																	</span>
+												<c:if test="${empty review }">
+													<span>작성된 후기가 없습니다.</span>
+												</c:if>
+												<c:if test="${not empty review }">
+													<ul>
+														<c:forEach var="review" items="${review }">
+															<li>
+																<div class="leftbox">
+																	<div class="review_nm">
+																		<div class="login_thum middle">
+																			<span>
+																				<!---->
+																			</span>
+																		</div>
+																		<span class="middle">${review.nickName}</span>
+																		<div class="star_group small ml5">
+																			<c:forEach begin="1" end="${review.star}">
+																			    <span class="on">1</span>
+																			</c:forEach>
+																		</div>
+																	</div>
+																	<div class="review_txt">
+																		${review.reviewContent}
+																	</div>
 																</div>
-																<span class="middle">혜원</span>
-															</div>
-														</div>
-													</li>
-												</ul>
+															</li>
+														</c:forEach>
+													</ul>
+												</c:if>
 											</div>
 										</div>
 									</div>

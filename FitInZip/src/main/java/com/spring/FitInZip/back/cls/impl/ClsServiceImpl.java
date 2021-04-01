@@ -9,6 +9,8 @@ import com.spring.FitInZip.back.cls.dao.ClsDAO;
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 import com.spring.FitInZip.back.cls.service.ClsService;
+import com.spring.FitInZip.back.review.dto.ReviewDTO;
+import com.spring.FitInZip.back.review.vo.ReviewVO;
 
 @Service
 public class ClsServiceImpl implements ClsService {
@@ -31,9 +33,14 @@ public class ClsServiceImpl implements ClsService {
 	public ClsDetailDTO getClassDetail(String clsCode) {
 		
 		ClsDetailDTO dto = clsDAO.getClassDetail(clsCode);
-	    	  dto.setReminder();
+	    dto.setReminder();
 	  
 		return dto;
 		
+	}
+
+	@Override
+	public List<ReviewDTO> getReview(String clsCode) {
+		return clsDAO.getReview(clsCode);
 	}
 }
