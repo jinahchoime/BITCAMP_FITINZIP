@@ -21,7 +21,8 @@ public class ClsDetailDTO {
 	private String commonName;		// 카테고리 한글로
 	private String clsName;			// 수업명		
 	private String year;			// 시작년도
-	private String startDate;		// 시작날짜
+	private String startMonth;		// 시작월
+	private String startDay;		// 시작일
 	private String endDate;			// 시작날짜
 	private String startYoil;       // 시작요일
 	private String yoil;			// 요일
@@ -37,6 +38,11 @@ public class ClsDetailDTO {
 	private String clsTag;
 	private String week;	
 	private Integer reminder;		// 남은인원
+	private String equip;			// 준비물	
+	private String clsInfo;			// 수업정보
+	private String curriculum;		// 커리큘럼
+	private String trainerIntro;		// 강사설명
+	private String career;		// 자격 및 경력
 	
 	public void setReminder() {
 		this.reminder = maxMem - join;

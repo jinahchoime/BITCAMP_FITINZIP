@@ -63,7 +63,7 @@ div {
 }
 .label.start {
     color: #fff;
-    background: DarkTurquoise;
+    background: #33CCCC;
 }
 .label {
     display: inline-block;
@@ -160,7 +160,7 @@ ul {
     font-weight: 700;
 }
 .maincolor1 {
-    color: DarkOrange !important;
+    color: #ff4c4c !important;
 }
 .price_area {
     display: table;
@@ -295,9 +295,15 @@ ul {
     position: relative;
 }
 .mainback1 {
-    background: DarkOrange !important;
+    background: linear-gradient( to right, DarkOrange, #FF3399 );
+    background-size: 200%;
+    transition: .5s;
 }
-
+.mainback1:hover {
+    text-decoration: none;
+    color: white;
+    background-position: right;
+}
 
 .play_list_type1 .play_box {
     position: relative;
@@ -377,7 +383,7 @@ ul {
     position: relative;
 }
 .wad_area {
-    margin-bottom: 50px;
+    margin-bottom: 80px;
 }
 .homet_program ul {
     display: table;
@@ -426,6 +432,16 @@ ul {
     width: 100%;
     height: 47px;
 }
+
+
+.homet_program .homet_box p small {
+    font-size: 13px;
+    font-weight: 700;
+    color: DarkOrange;
+}
+.homet_program .homet_box > div > div p small {
+    display: block;
+}
 .homet_program .homet_box > div > div + span {
     margin: 4px auto;
 }
@@ -438,14 +454,99 @@ ul {
     color: #666;
 }
 
+.subtxt2 h3 {
+	font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+}
 
-
-
-
-
-
-
-
+.subtxt2 p {
+    color: #666 !important;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+    margin-bottom: 70px !important;
+}
+.small_text {
+	font-size: medium;
+	color: DarkOrange;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+/* 강사소개 */
+.content_area {
+    overflow: visible;
+}
+.content_area {
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid #ddd;
+}
+.maintxt2 {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+.wad_area:last-child {
+    margin-bottom: 0;
+}
+.coach_wrap .coach_info {
+    display: table;
+}
+.coach_wrap .coach_info .coach_img {
+    width: 100px;
+}
+.coach_wrap .coach_info > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.coach_wrap .coach_info .coach_img span {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.coach_wrap .coach_info .coach_img img {
+    width: 135%;
+    margin: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+}
+img, input {
+    border: 0;
+    vertical-align: middle;
+}
+.coach_wrap .coach_info .nm {
+    padding-left: 10px;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 700;
+    color: #000;
+}
+.coach_wrap .coach_info > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.coach_wrap .coach_info:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.coach_wrap .coach_txt {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 400;
+    color: #000;
+}
+.gray_text {
+	color: #666;
+}
 
 
 
