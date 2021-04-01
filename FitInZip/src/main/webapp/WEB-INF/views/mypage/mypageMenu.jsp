@@ -11,8 +11,8 @@
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
 	                        <li><a href="/clsHistory" class="adClick">클래스내역</a></li>
-	                        <li><a href="/mypage/std" class="adClick">찜한클래스</a></li>
-	                        <li><a href="/mypage/std" class="adClick">쿠폰내역</a></li>
+	                        <li><a href="/clsHeart" class="adClick">찜한클래스</a></li>
+	                        <li><a href="/couponHistory" class="adClick">쿠폰내역</a></li>
 	                    </ul>
 	                </div>
 	            </li>
@@ -23,7 +23,7 @@
 	            <li><a href="/mypage/payhis" class="nav_in">상품</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
-	                        <li><a href="/mypage/payhis" class="adClick">주문조회</a></li>
+	                        <li><a href="/productHistory" class="adClick">주문조회</a></li>
 	                    </ul>
 	                </div>
 	            </li>
@@ -36,7 +36,7 @@
 	                    <ul class="clearfix">
 	                        <li><a href="/calendar" class="adClick">나의일정</a></li>
 	                        <li><a href="/updateMemberInfo" class="adClick">정보수정</a></li>
-	                        <li><a href="/mypage/review_list" class="adClick">회원탈퇴</a></li>
+	                        <li><a href="/withdrawal" class="adClick">회원탈퇴</a></li>
 	                    </ul>
 	                </div>
 	            </li>

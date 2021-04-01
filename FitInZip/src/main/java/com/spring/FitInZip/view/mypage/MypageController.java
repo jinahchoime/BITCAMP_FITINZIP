@@ -21,8 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
+import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
+import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
@@ -31,6 +35,7 @@ import com.spring.FitInZip.back.member.vo.MemberVO;
 @Controller
 public class MypageController {
 	
+	//마이페이지 서비스
 	@Autowired
 	private MypageService mypageService;
 	
@@ -77,6 +82,7 @@ public class MypageController {
 	// 캘린더 끝
 	
 	
+	/*마이페이지로*/
 	@RequestMapping("/mypage")
 	public String mypage(HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
@@ -88,21 +94,120 @@ public class MypageController {
 		return "mypage/mypage";
 	}
 	
+	/*클래스 내역 페이지로*/
 	@RequestMapping("/clsHistory")
 	public String clsHistory() {
 		return "mypage/clsHistory";
 	}
 	
-	@RequestMapping("/clsdata") 
+	/*현재 클래스 history 내역 ajax로 뿌리기*/
+	@RequestMapping("/nowClsdata") 
 	@ResponseBody
-	public List<UserClsDTO> clsData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		
-		return mypageService.getUserCls(dto);
+		return mypageService.nowGetUserCls(dto);
 		
 	}
 	
+	/*종료 클래스 history 내역 ajax로 뿌리기*/
+	@RequestMapping("/endClsdata") 
+	@ResponseBody
+	public List<UserClsDTO> endClsData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.endGetUserCls(dto);
+		
+	}
+	
+	/*클래스 입장시 체크인하기*/
+	@RequestMapping("/insertCheckIn") 
+	@ResponseBody
+	public String insertCheckIn(UserClsDTO dto, HttpSession session, HttpServletRequest request) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		dto.setClsCode(request.getParameter("clsCode"));
+		mypageService.insertCheckIn(dto);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		return mapper.writeValueAsString(null);
+		
+	}
+	
+	/*찜한내역 페이지로*/
+	@RequestMapping("/clsHeart")
+	public String clsHeart() {
+		return "mypage/clsHeart";
+	}
+	
+	/*찜한내역 ajax로 뿌리기*/
+	@RequestMapping("/clsHeartData") 
+	@ResponseBody
+	public List<UserClsDTO> clsHeartData(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.getUserWishCls(dto);
+		
+	}
+	
+	/*찜한 내역 지우기*/
+	@RequestMapping("/noHeart")
+	@ResponseBody
+	public String checkMap(UserClsDTO dto, HttpSession session) throws JsonProcessingException {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		mypageService.deleteWishCls(dto);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		return mapper.writeValueAsString(null);
+	}
+	
+	/*쿠폰내역 페이지로*/
+	@RequestMapping("/couponHistory")
+	public String couponHistory() {
+		return "mypage/couponHistory";
+	}
+	
+	/*쿠폰내역 데이터 뿌리기*/
+	@RequestMapping("/couponData")
+	@ResponseBody
+	public List<UserCouponDTO> getcouponData(UserCouponDTO dto, HttpSession session) throws JsonProcessingException {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.getcouponData(dto);
+	}
+	
+	/*주문조회 페이지로*/
+	@RequestMapping("/productHistory")
+	public String productHistory() {
+		return "mypage/productHistory";
+	}
+	
+	/*주문조회 내역 데이터 뿌리기*/
+	@RequestMapping("/productData")
+	@ResponseBody
+	public List<UserProductDTO> getProductList(UserProductDTO dto, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		dto.setMemId(member.getId());
+		
+		return mypageService.getproductList(dto);
+	}
+	
+	/*회원수정 페이지로*/
+	@RequestMapping("/updateMemberInfo")
+	public String getMember() {
+		return "mypage/updateMemberInfo";
+	}
+	
+	/*회원수정 처리*/
 	@RequestMapping("/UpdateMypage") 
 	public String updateMember(MemberVO vo, HttpServletRequest request, HttpSession session) {
 		System.out.println("updateMember 실행");
@@ -135,11 +240,34 @@ public class MypageController {
 	}
 	
 	
-	@RequestMapping("/updateMemberInfo")
-	public String getMember() {
-		return "mypage/updateMemberInfo";
+	
+	/*회원탈퇴 페이지로*/
+	@RequestMapping("/withdrawal")
+	public String withdrawal() {
+		return "mypage/withdrawal";
 	}
 	
-	
+	/*회원탈퇴 하기*/
+	@RequestMapping("/deleteUser")
+	@ResponseBody
+	public String deleteUser(HttpSession session, HttpServletRequest request, UserWithdrawalDTO dto) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		dto.setId(member.getId());
+		String wantSay = (String) request.getAttribute("wantSay");
+		
+		if(wantSay == null) {
+			System.out.println("wantSay null : " + wantSay);
+			mypageService.deleteUserNoReason(dto);
+			
+		}else {
+			System.out.println("wantSay !null : " + wantSay);
+			mypageService.deleteUserIsReason(dto);
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		return mapper.writeValueAsString(null);
+	}
 	
 }

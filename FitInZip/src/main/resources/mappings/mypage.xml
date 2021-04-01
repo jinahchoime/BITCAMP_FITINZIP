@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="MypageDAO">
+		<!-- 회원정보 수정하기  -->
 		<update id="updateMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
 			UPDATE MEMBER SET 
 			PHONE = #{phone}, GENDER = #{gender},
@@ -12,14 +13,125 @@
 			WHERE ID = #{id}
 		</update> 
 		
-		<select id="selectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+		<!-- 현재 클래스 내역 가져오기 -->
+		<select id="nowSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
-			SELECT F.*, C.COMMON_NAME
-			FROM FIT_CLASS F 
-			    INNER JOIN PAYMENT P
-			ON P.CLS_CODE = F.CLS_CODE
-			    INNER JOIN COMMON C
-			ON F.CLS_CATEGORY = C.COMMON_CODE
-			WHERE P.MEM_ID = #{memId}
+			SELECT R.*
+		    FROM(SELECT M.*, ROWNUM AS RNUM
+		        FROM(SELECT F.*, C.COMMON_NAME
+		                    FROM FIT_CLASS F 
+		                        INNER JOIN PAYMENT P
+		                    ON P.CLS_CODE = F.CLS_CODE
+		                        INNER JOIN COMMON C
+		                    ON F.CLS_CATEGORY = C.COMMON_CODE
+		                    WHERE P.MEM_ID = #{memId}
+		                    AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
+		                ) M           
+		        )R
+			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
 		</select>
+		
+		<!-- 종료된 클래스 내역 가져오기 -->
+		<select id="endSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			<![CDATA[SELECT R.*
+		    FROM(SELECT M.*, ROWNUM AS RNUM
+		        FROM(SELECT F.*, C.COMMON_NAME
+		                    FROM FIT_CLASS F 
+		                        INNER JOIN PAYMENT P
+		                    ON P.CLS_CODE = F.CLS_CODE
+		                        INNER JOIN COMMON C
+		                    ON F.CLS_CATEGORY = C.COMMON_CODE
+		                    WHERE P.MEM_ID = #{memId}
+		                    AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
+		                ) M           
+		        )R
+			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}]]>
+		</select>
+		
+		<!-- 클래스 입장시 체크인 하기 -->
+		<insert id="insertCheckIn" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			INSERT INTO CHECK_IN(CLS_CODE, MEM_ID)
+			VALUES(#{clsCode}, #{memId})
+		</insert>
+		
+		<!-- 찜하기 클래스 내역 가지고 오기  -->
+		<select id="selectWhishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
+			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			 SELECT H.* FROM (
+				SELECT ROWNUM AS RNUM, P.*
+				    FROM(SELECT F.*, C.COMMON_NAME
+							FROM FIT_CLASS F
+						     	INNER JOIN WISH_CLASS W 
+						     ON W.CLASS_CODE = F.CLS_CODE
+				                INNER JOIN COMMON C
+				             ON F.CLS_CATEGORY = C.COMMON_CODE
+							     WHERE W.MEM_ID = #{memId}
+				        ) P
+					)H
+				WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
+		</select>
+		
+		<!-- 찜하기 클래스 없애기  -->
+		<delete id="deleteWishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
+			DELETE FROM WISH_CLASS
+			WHERE CLASS_CODE = #{clsCode}
+			AND MEM_ID = #{memId}
+		</delete>
+		
+		<!-- 쿠폰내역 불러오기  -->
+		<select id="couponHistory" parameterType="com.spring.FitInZip.back.mypage.vo.UserCouponDTO"
+			resultType="com.spring.FitInZip.back.mypage.vo.UserCouponDTO">
+			SELECT C.COUPON_NAME, C.COUPON_CODE, C.DISCOUNT_PRICE, 
+			C.COUPON_START_DATE, C.COUPON_END_DATE, O.COMMON_NAME, 
+			    (SELECT COUNT(*) 
+			        FROM  mem_coupon M
+                    INNER JOIN COUPON_INFO C
+                    ON C.COUPON_CODE = M.COUPON_CODE
+			        WHERE M.MEM_ID = #{memId}
+                    AND TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
+                    OR C.COUPON_END_DATE IS NULL
+                    ) AS "UNUSED_COUNT"
+			FROM MEM_COUPON M 
+			    INNER JOIN COUPON_INFO C
+			    ON C.COUPON_CODE = M.COUPON_CODE
+			    INNER JOIN COMMON O
+			    ON M.COUPON_STATUS = O.COMMON_CODE
+			    WHERE M.MEM_ID = #{memId} 
+                AND O.COMMON_CODE = 'CPU01'
+                AND TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
+                OR C.COUPON_END_DATE IS NULL
+		</select>
+		
+		<!-- 주문조회 불러오기  -->
+		<select id="productHistory" parameterType="com.spring.FitInZip.back.mypage.vo.UserProductDTO"
+			resultType="com.spring.FitInZip.back.mypage.vo.UserProductDTO">
+			SELECT R.*
+				FROM(SELECT ROWNUM AS RNUM, M.*
+				        FROM (SELECT D.ORDER_NUM, D.AMOUNT, D.PRO_NUM, E.PAID_PRICE, E.PAY_DATE, P.PRO_NAME, P.PRO_IMG
+				            FROM ORDER_DETAIL D
+				            INNER JOIN PRODUCT P
+				            ON D.PRO_NUM = P.PRO_NUM
+				            INNER JOIN PAYMENT E
+				            ON D.ORDER_NUM = E.ORDER_NUM
+				        WHERE E.MEM_ID = #{memId}
+				        ) M
+				    )R
+				WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
+		</select>
+		
+		<!-- 회원탈퇴시 회원정보 수정 01 - 탈퇴사유가 없는 경우 -->
+		<update id="deleteUserNoReason" parameterType="com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO">
+			UPDATE MEMBER
+			SET WITHDRAWAL = 'WD01' WITHDRAWAL_REASON = #{withdrawalReason}
+			WHERE ID = #{id}
+		</update>
+		
+		<!-- 회원탈퇴시 회원정보 수정 02 - 탈퇴사유가 있 경우 -->
+		<update id="deleteUserIsReason" parameterType="com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO">
+			UPDATE MEMBER
+			SET WITHDRAWAL = 'WD01', WITHDRAWAL_REASON = #{withdrawalReason}
+			, WANT_SAY = #{wantSay}
+			WHERE ID = #{id}
+		</update>
 	</mapper>

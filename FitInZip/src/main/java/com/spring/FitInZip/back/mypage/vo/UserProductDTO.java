@@ -15,21 +15,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class UserClsDTO {
-	private String clsCode;
-	private String clsCategory;
-	private String clsName;
-	private Date startDate;
-	private Date endDate;
-	private String yoil;
-	private Date startTime;
-	private Date endTime;
+public class UserProductDTO {
+	private String orderNum;
+	private Integer amount;
+	private String proNum;
+	private Integer paidPrice;
+	private Date payDate;
+	private String proName;
+	private String proImg;
+	
+	/*조건에 들어갈 아이디명*/
 	private String memId;
-	private String commonName;
 	
 	/*시작번호 끝번호*/
 	private Integer startIndex;
 	private Integer endIndex;
-	
-	
 }
