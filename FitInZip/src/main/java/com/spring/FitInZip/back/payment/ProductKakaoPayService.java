@@ -24,6 +24,7 @@ public class ProductKakaoPayService {
 	private static final String HOST = "https://kapi.kakao.com";
 	
 	private ProductKakaoPayVO productKakaoPayVO;
+	private ProductKakaoPayApprovalVO productKakoPayApprovalVO;
 	
 	public String productKakaoPay() {
 		
@@ -79,7 +80,18 @@ public class ProductKakaoPayService {
 		headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
 		headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 		
+		//서버로 요청할 Body
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("cid", "TC0ONETIME");
+		params.add("tid", productKakaoPayVO.getTid());
+		params.add("partner_order_id", "jinah");
+		params.add("partner_user_id", "jinah");
+		params.add("pg_token", pg_token);
+		params.add("total_amount", "2000");
 		
+		HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String,String>>(params, headers);
+		
+		//productKakaoPayApprovalVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, ProductKakaoPayApprovalVO.class);
 		return null;
 		
 	}
