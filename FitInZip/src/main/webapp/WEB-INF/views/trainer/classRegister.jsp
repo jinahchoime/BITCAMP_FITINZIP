@@ -42,9 +42,55 @@
 			actionForm.submit();
 		});
 		
+		$("#thumbnailUpload").on('change', function(){
+			thumbnailURL(this);
+        });
+		
+		$("#titleUpload").on('change', function(){
+			titleURL(this);
+        });
+		
+		$("#deleteThumbnail").on('click', function(){
+			$('#deleteThumbnail').css('display', 'none');
+			$('#thumbnailImg').attr('src', "${path }/resources/classRegister/imgs/default/default_img.png");
+			$('#thumbnailUpload').val("");
+		});
+		
+		$("#deleteTitle").on('click', function(){
+			$('#deleteTitle').css('display', 'none');
+			$('#titleImg').attr('src', "${path }/resources/classRegister/imgs/default/default_img.png");
+			$('#titleUpload').val("");
+		});
+		
 	});
 	
+	function thumbnailURL(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+               $('#thumbnailImg').attr('src', e.target.result);
+            }
+            $("#deleteThumbnail").css('display', 'block');
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
+	
+	function titleURL(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+               $('#titleImg').attr('src', e.target.result);
+            }
+            $("#deleteTitle").css('display', 'block');
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
+	
 </script>
+<style type="text/css">
+	
+	
+</style>
 </head>
 <body>
 	
@@ -193,10 +239,10 @@
 							<td>
 								<select name="clsCategory">
 									<option>카테고리 선택</option>
-									<option value="ct_wt">웨이트</option>
-									<option value="ct_ft">피트니스</option>
-									<option value="ct_yg">요가</option>
-									<option value="ct_fl">필라테스</option>
+									<option value="CT_WT">웨이트</option>
+									<option value="CT_FT">피트니스</option>
+									<option value="CT_YG">요가</option>
+									<option value="CT_FL">필라테스</option>
 								</select>
 							</td>
 							<td colspan="5">
@@ -225,7 +271,7 @@
 						<th>요일</th>
 						<td colspan="2" style="text-align: center;">
 							<!-- validation 시 %/% 조건 확인할 것 -->
-							<input type="text" name="yoil" placeholder="ex)월/수/금">
+							<input type="text" name="yoil" placeholder="ex)월,수,금">
 						</td>
 					</tr>
 					<tr>
@@ -289,12 +335,33 @@
 								</td>
 							</tr>
 							
+							<!-- 이미지 표시 row -->
 							<tr>
-								<td colspan="4" style="text-align: center;">
-									썸네일 이미지 : <input type="file" name="thumbnail" placeholder="파일 선택">
-									타이틀 이미지 : <input type="file" name="title" placeholder="파일 선택">
-									강의 주소 : <input type="text" name="meetUrl">
+								<th rowspan="2" style="vertical-align: middle;">썸네일 이미지</th>
+								<td class="thumbnailPreview">
+									<!-- 썸네일 미리보기 -->
+									<a class="btn btn-danger btn-circle btn-sm" id="deleteThumbnail" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
+									<img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
 								</td>
+								<th rowspan="2" style="vertical-align: middle;">타이틀 이미지</th>
+								<td>	
+									<!-- 타이틀 이미지 미리보기 -->
+									<a class="btn btn-danger btn-circle btn-sm" id="deleteTitle" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
+									<img id="titleImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
+								</td>
+							</tr>
+							
+							<tr>
+								<td style="text-align: center;">
+									<input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택">
+								</td>
+								<td>	
+									<input type="file" id="titleUpload" name="title" placeholder="파일 선택">
+								</td>
+							</tr>
+							<tr>
+								<th>강의 주소</th>
+								<td colspan="3"><input type="text" name="meetUrl" style="width: 100%;"></td>
 							</tr>
 						</table>
 						

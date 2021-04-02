@@ -182,10 +182,10 @@
 								<select name="clsCategory">
 									<option>카테고리 선택</option>
 									<!-- db 저장 시 대소문자 구분 명확히 할 것 -->
-									<option value="ct_wt" <c:if test="${cls.clsCategory=='ct_wt' || cls.clsCategory=='CT_WT' }">selected</c:if>>웨이트</option>
-									<option value="ct_ft" <c:if test="${cls.clsCategory=='ct_ft' || cls.clsCategory=='CT_FT' }">selected</c:if>>피트니스</option>
-									<option value="ct_yg" <c:if test="${cls.clsCategory=='ct_yg' || cls.clsCategory=='CT_YG' }">selected</c:if>>요가</option>
-									<option value="ct_fl" <c:if test="${cls.clsCategory=='ct_fl' || cls.clsCategory=='CT_FL' }">selected</c:if>>필라테스</option>
+									<option value="CT_WT" <c:if test="${cls.clsCategory=='ct_wt' || cls.clsCategory=='CT_WT' }">selected</c:if>>웨이트</option>
+									<option value="CT_FT" <c:if test="${cls.clsCategory=='ct_ft' || cls.clsCategory=='CT_FT' }">selected</c:if>>피트니스</option>
+									<option value="CT_YG" <c:if test="${cls.clsCategory=='ct_yg' || cls.clsCategory=='CT_YG' }">selected</c:if>>요가</option>
+									<option value="CT_FL" <c:if test="${cls.clsCategory=='ct_fl' || cls.clsCategory=='CT_FL' }">selected</c:if>>필라테스</option>
 								</select>
 							</td>
 							<td colspan="5">
@@ -214,7 +214,7 @@
 							<th>요일</th>
 							<td colspan="2" style="text-align: center;">
 								<!-- validation 시 %/% 조건 확인할 것 -->
-								<input type="text" name="yoil" placeholder="ex)월/수/금" value="${cls.yoil }">
+								<input type="text" name="yoil" placeholder="ex)월,수,금" value="${cls.yoil }">
 							</td>
 						</tr>
 						<tr>
@@ -276,13 +276,29 @@
 							</td>
 						</tr>
 						
+						<!-- 이미지 표시 row -->
+						<tr>
+							<th rowspan="2" style="vertical-align: middle;">썸네일 이미지</th>
+							<td class="thumbnailPreview">
+								<!-- 썸네일 미리보기 -->
+								<a class="btn btn-danger btn-circle btn-sm" id="deleteThumbnail" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
+								<img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
+							</td>
+							<th rowspan="2" style="vertical-align: middle;">타이틀 이미지</th>
+							<td>	
+								<!-- 타이틀 이미지 미리보기 -->
+								<a class="btn btn-danger btn-circle btn-sm" id="deleteTitle" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
+								<img id="titleImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
+							</td>
+						</tr>
+						
 						<tr>
 							<th rowspan="2">기존 업로드 한 이미지</th>
-							<td colspan="3">
+							<td colspan="1">
 								썸네일 이미지 : <c:if test="${cls.thumbnailOriName != null }"><img src='<c:out value="${thumbnailSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
 										<c:if test="${cls.thumbnailOriName == null }">없음</c:if>
 							</td>
-							<td colspan="3">
+							<td colspan="1">
 								타이틀 이미지 : <c:if test="${cls.titleOriName != null }"><img src='<c:out value="${titleSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
 									<c:if test="${cls.titleOriName == null }">없음</c:if>
 							</td>

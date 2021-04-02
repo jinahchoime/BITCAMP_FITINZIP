@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -268,6 +270,11 @@ public class TrainerController {
 		String wdate = vans.format(now);
 
 		String classKey = clsStatusService.getClassSeq();
+		
+		if(Integer.parseInt(classKey) < 10) {
+			classKey = "0" + classKey;
+		}
+		
 		String classCode = "C" + wdate + "_" + classKey;
 
 		// 파일명 중복 시 uuid를 무작위 생성하여 붙여주기 때문에 별도 저장 가능
@@ -289,22 +296,28 @@ public class TrainerController {
 			uuid = UUID.randomUUID();
 			filename = thumbnail.getOriginalFilename();
 			vo.setThumbnailOriName(filename);
-			filename = uuid + "_" + filename;
-			vo.setThumbnailFileName(filename);
 			
-			classUploadFile = thumbnail;
-			classUploadFile.transferTo(new File(filePath + "thumbnail/" + filename));
+			if(filename != null && !filename.equals("")) {
+				filename = uuid + "_" + filename;
+				vo.setThumbnailFileName(filename);
+				classUploadFile = thumbnail;
+				classUploadFile.transferTo(new File(filePath + "thumbnail/" + filename));
+			}
+			
 		}
 		
 		if(title != null) {
 			uuid = UUID.randomUUID();
 			filename = title.getOriginalFilename();
 			vo.setTitleOriName(filename);
-			filename = uuid + "_" + filename;
-			vo.setTitleFileName(filename);
 			
-			classUploadFile = title;
-			classUploadFile.transferTo(new File(filePath + "title/" + filename));
+			if(filename != null && !filename.equals("")) {
+				filename = uuid + "_" + filename;
+				vo.setTitleFileName(filename);
+				classUploadFile = title;
+				classUploadFile.transferTo(new File(filePath + "title/" + filename));
+			}
+			
 		}
 
 		// 시작, 끝 시간 입력을 위한 가공
@@ -364,17 +377,21 @@ public class TrainerController {
 		startTime = startTime.substring(11, 16);
 		endTime = endTime.substring(11, 16);
 		
+		// 파일 처리
+		ResponseEntity<Byte[]> entity = null;
+		HttpHeaders headers = new HttpHeaders();
+		
 		String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
-		filePath = filePath.replace('\\', '/');
+		filePath = filePath.replace('/', '\\');
 		
 		String thumbnail = "";
 		String title = "";
 		if(getCls.getThumbnailFileName() != null) {
-			thumbnail = filePath + "thumbnail/" + getCls.getThumbnailFileName();
-		}
+			thumbnail = filePath + "thumbnail\\" + getCls.getThumbnailFileName();
+		}	
 		
 		if(getCls.getTitleFileName() != null) {
-			title = filePath + "title/" + getCls.getTitleFileName();
+			title = filePath + "title\\" + getCls.getTitleFileName();
 		}
 		
 		
