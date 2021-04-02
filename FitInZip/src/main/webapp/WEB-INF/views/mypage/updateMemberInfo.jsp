@@ -10,6 +10,11 @@
 <link href="../resources/mypage/css/mypage.css" rel="stylesheet"></link>
 <link href="../resources/mypage/css/updateForm.css" rel="stylesheet"></link>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+	})
+</script>
 <script>
     function search_post() {
         new daum.Postcode({
@@ -64,14 +69,6 @@
 		var nickname = document.getElementById('nickname').value;
 		var phone = document.getElementById('phone').value;
 		var post = document.getElementById('post').value;
-		
-		/* if(nickname.length == 0 && phone.length == 0 && post.length == 0){
-			document.getElementById('nick_p').innerHTML = "닉네임을 입력해 주세요";
-			document.getElementById('phone_p').innerHTML = "연락처를 입력해 주세요";
-			document.getElementById('post_p').innerHTML = "우편번호를 입력해 주세요";
-			
-			return false;
-		} */
 		
 		
 		if(nickname.length == 0 &&
@@ -273,18 +270,6 @@
 			                </div>
 			            </dd>
 			        </dl>
-			        <!-- <dl>
-			            <dt>프로필 사진</dt>
-			            <dd>
-			                <div class="profile_box"><input type="file" name="uploadImage" id="uploadImage">
-			                    <div class="profile_img"><label for="uploadImage">
-			                            <div class="preload_box"><img src="" style="display: none;"><span class="btn">
-			                                    <em>프로필 등록</em>
-			                                </span></div>
-			                        </label></div>
-			                </div>
-			            </dd>
-			        </dl> -->
 			       </c:if>
 			    </div>
 		    </form>

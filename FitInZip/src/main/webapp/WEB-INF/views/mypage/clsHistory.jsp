@@ -16,6 +16,9 @@
 		var _endIndexes = 3;
 		var searchStep = 3;//3개씩 로딩 
 		
+		
+		var weekName = new Array('일','월','화','수','목','금','토');
+		
 		//첫 로딩시 현재 클래스 로딩
 		clsView(startIndex, "now", _endIndex);
 		$('#btn').html('<button id="searchMoreNotify" class="btn_basic type5 adClick mt50" style="display:inherit; margin: 0 auto;">더보기</button>');
@@ -106,6 +109,45 @@
 					}
 					
 					for(var i =0; i<returnValue.length; i++){
+						/*요일 구하기*/
+						var getYo = new Date().getDay();
+						var todayYo = weekName[getYo];
+						var yoil = (returnValue[i].yoil).split(',');
+						
+						for(var j=0; j<(returnValue[i].yoil).split(',').length; j++){
+							var yo = yoil[j];
+							
+							var year = new Date().getFullYear();
+							var month = new Date().getMonth();
+							var date = new Date().getDate();
+							
+							var hours = new Date(returnValue[i].startTime).getHours(); //시작시간
+							var miunutes = new Date(returnValue[i].startTime).getMinutes(); //시작 분
+							
+							var endhours = new Date(returnValue[i].endTime).getHours(); //끝시간
+							var endmiunutes = new Date(returnValue[i].endTime).getMinutes(); //끝 분 
+							
+							if(todayYo == yo){
+								var compareTime = new Date(year, month, date, hours, miunutes); // 시작 시간 date 객체
+								var endcompareTime = new Date(year, month, date, endhours, endmiunutes); // 끝 시간 date 객체
+								
+								//시작시간에서 10분 전
+								var cm = compareTime.setMinutes(compareTime.getMinutes() - 10);
+								
+								
+								if((cm <= new Date().getTime()) && (new Date().getTime() < endcompareTime.getTime())){
+									//지금 시간이 시작시간 10분 전과 같으면서 시작시간이 더 앞서가고  지금 시간이 끝시간 전이면 입장버튼 활성화
+									button = '<input type="button" class="maincolor1" value="입장">';
+								}else{
+									button = '<input type="button" class="maincolor1" value="입장" disabled>';
+								}
+								
+							}else{
+								button = '<input type="button" class="maincolor1" value="입장" disabled>';
+							}
+						}
+						
+						
 						dispHtml = text(returnValue[i], dispHtml, button);
 					}
 					
