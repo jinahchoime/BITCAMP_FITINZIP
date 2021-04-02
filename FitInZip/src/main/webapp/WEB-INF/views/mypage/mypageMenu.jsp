@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <div id="menuView" class="column_left mt200">
-   	<div class="nav_wrap">
+   	<div class="nav_wrap" style="border-radius: 5px;">
 	    <div class="nav_tit">
 	        <p><img src="https://img.ficle.io/www/play/profile.png"></p> <span style="font-size:inherit; line-height: 21px;">æ»≥Á«œººø‰!<br>${member.nickname }¥‘</span>
 	    </div>

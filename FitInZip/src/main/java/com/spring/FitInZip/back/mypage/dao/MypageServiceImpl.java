@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCountDTO;
 import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
 import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
@@ -31,10 +32,23 @@ public class MypageServiceImpl implements MypageService{
 
 
 	@Override
-	public MemberVO getMember(MemberVO vo) {
-		return mypageDAO.selectMember(vo);
+	public MemberVO getMember(String id) {
+		return mypageDAO.selectMember(id);
+	}
+	
+	/*마이페이 클래스 참여수*/
+	@Override
+	public Integer getCountCls(String id) {
+		return mypageDAO.getCountCls(id);
 	}
 
+	@Override
+	public List<UserCountDTO> getParticipationRate(String id) {
+		return mypageDAO.getParticipationRate(id);
+	}
+	
+	
+	/*회원 클래스 내역*/
 	@Override
 	public List<UserClsDTO> nowGetUserCls(UserClsDTO dto) {
 		return mypageDAO.nowGetUserCls(dto);

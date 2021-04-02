@@ -3,6 +3,47 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="MypageDAO">
+		<!-- 마이페이지 총 갯수 - 총 클래스 신청수  -->
+		<select id="mypageInCountCls" parameterType="String" resultType="Integer">
+			SELECT COUNT(*) FROM PAYMENT
+			WHERE MEM_ID = #{memId}
+			AND ORDER_NUM IS NULL
+		</select>
+		
+		<!-- 마이페이지 총 갯수 - 참여 성공률 -->
+		<select id="mypageInParticipationRate" parameterType="String" resultType="com.spring.FitInZip.back.mypage.vo.UserCountDTO">
+			SELECT START_TIME, END_TIME, CALORIE, LAPSE, (SELECT COUNT(*)
+                FROM(SELECT DISTINCT *
+                        FROM CHECK_IN
+                        WHERE MEM_ID = #{memId})
+                ) AS CHECKIN_COUNT
+                , (SELECT COUNT(*) FROM PAYMENT
+                    WHERE MEM_ID = #{memId}
+                    and ORDER_NUM IS NULL) AS CLSCOUNT
+				    FROM FIT_CLASS 
+				        WHERE CLS_CODE IN(SELECT F.CLS_CODE
+				            FROM PAYMENT P
+				                INNER JOIN FIT_CLASS F
+				                ON p.cls_code = f.cls_code
+				                INNER JOIN CHECK_IN C
+				                ON P.CLS_CODE = c.cls_code
+				            WHERE P.MEM_ID = #{memId}
+				        )
+		</select>
+		
+		<!-- 마이페이지 총 갯수 - 운동시간 -->
+		<select id="mypageInExerciseTime" parameterType="String" resultType="Integer">
+
+		</select>
+		
+		<!-- 마이페이지 총 갯수 - 소모 칼로리 -->
+		<select id="mypageInCountCalorie" parameterType="String" resultType="Integer">
+
+		</select>
+		
+		
+		
+	
 		<!-- 회원정보 수정하기  -->
 		<update id="updateMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
 			UPDATE MEMBER SET 
@@ -26,15 +67,17 @@
 					                WHERE P.MEM_ID = #{memId}
 					                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
 					        FROM(SELECT M.*, ROWNUM AS RNUM
-					                FROM(SELECT F.*, C.COMMON_NAME
-					                            FROM FIT_CLASS F 
-					                                INNER JOIN PAYMENT P
+					                FROM(SELECT F.*, P.PAID_PRICE, TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD') AS PAYDATE, C.COMMON_NAME AS METHOD, B.COMMON_NAME AS CATE
+					                            FROM PAYMENT P
+					                                INNER JOIN FIT_CLASS F 
 					                            ON P.CLS_CODE = F.CLS_CODE
 					                                INNER JOIN COMMON C
-					                            ON F.CLS_CATEGORY = C.COMMON_CODE
+					                            ON p.pay_method = C.COMMON_CODE
+					                                INNER JOIN COMMON B
+					                            ON f.cls_category = B.COMMON_CODE
 					                            WHERE P.MEM_ID = #{memId}
 					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
-					                        ) M           
+					                        ) M         
 					            )R
 					WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
 				</when>
@@ -48,47 +91,23 @@
 						                WHERE P.MEM_ID = #{memId}
 						                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
 						        FROM(SELECT M.*, ROWNUM AS RNUM
-						                FROM(SELECT F.*, C.COMMON_NAME
-						                            FROM FIT_CLASS F 
-						                                INNER JOIN PAYMENT P
-						                            ON P.CLS_CODE = F.CLS_CODE
-						                                INNER JOIN COMMON C
-						                            ON F.CLS_CATEGORY = C.COMMON_CODE
-						                            WHERE P.MEM_ID = #{memId}
-						                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
-						                        ) M           
-						            )R
+					                FROM(SELECT F.*, P.PAID_PRICE, TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD') AS PAYDATE, C.COMMON_NAME AS METHOD, B.COMMON_NAME AS CATE
+					                            FROM PAYMENT P
+					                                INNER JOIN FIT_CLASS F 
+					                            ON P.CLS_CODE = F.CLS_CODE
+					                                INNER JOIN COMMON C
+					                            ON P.PAY_METHOD = C.COMMON_CODE
+					                                INNER JOIN COMMON B
+					                            ON F.CLS_CATEGORY = B.COMMON_CODE
+					                            WHERE P.MEM_ID = #{memId}
+					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
+					                        ) M         
+					            )R
 						WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
 						]]>
 				</when>
 			</choose>
 		</select>
-		
-		<!-- 종료된 클래스 내역 가져오기 -->
-		<!-- <select id="endSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
-			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
-			<![CDATA[
-			SELECT R.*, (SELECT COUNT(*) FROM FIT_CLASS F 
-			                    INNER JOIN PAYMENT P
-			                ON P.CLS_CODE = F.CLS_CODE
-			                    INNER JOIN COMMON C
-			                ON F.CLS_CATEGORY = C.COMMON_CODE
-			                WHERE P.MEM_ID = #{memId}
-			                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
-			        FROM(SELECT M.*, ROWNUM AS RNUM
-			                FROM(SELECT F.*, C.COMMON_NAME
-			                            FROM FIT_CLASS F 
-			                                INNER JOIN PAYMENT P
-			                            ON P.CLS_CODE = F.CLS_CODE
-			                                INNER JOIN COMMON C
-			                            ON F.CLS_CATEGORY = C.COMMON_CODE
-			                            WHERE P.MEM_ID = #{memId}
-			                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
-			                        ) M           
-			            )R
-			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
-			]]>
-		</select> -->
 		
 		
 		<!-- 클래스 입장시 체크인 하기 -->

@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCountDTO;
 import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
 import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
@@ -91,7 +93,18 @@ public class MypageController {
 			return "redirect:/loginMain";
 		}
 		
+		
 		return "mypage/mypage";
+	}
+	
+	/*마이페이지 유저의 참여수 데이터 뿌리기*/
+	@RequestMapping("/userExerciseData")
+	@ResponseBody
+	public List<UserCountDTO> userExerciseData(HttpSession session) throws JsonProcessingException {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String id = member.getId();
+		
+		return mypageService.getParticipationRate(id);
 	}
 	
 	/*클래스 내역 페이지로*/
@@ -194,7 +207,16 @@ public class MypageController {
 	
 	/*회원수정 페이지로*/
 	@RequestMapping("/updateMemberInfo")
-	public String getMember() {
+	public String getMember(MemberVO vo, HttpSession session, Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");		
+		member = mypageService.getMember(member.getId());
+		
+		System.out.println("member : " + member);
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		return "mypage/updateMemberInfo";
 	}
 	

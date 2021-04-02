@@ -64,6 +64,7 @@
             }
 		}) 
 		
+		//현재클래스에서 더보기 버튼
 		$('#searchMoreNotify').click(function(e){
             e.stopPropagation();
             e.preventDefault();
@@ -77,6 +78,7 @@
             }
 		}); 
 		
+		//종료클래스에서 더보기 버튼
 		$('#endsearchMoreNotify').click(function(e){
             e.stopPropagation();
             e.preventDefault();
@@ -89,6 +91,7 @@
             	$('#btn').html('');
             }
 		}); 
+		
 		
 		/* ajax 포함된 기능  */
 		function clsView(index, clsStatus,  _endIndex){
@@ -137,7 +140,7 @@
 								
 								if((cm <= new Date().getTime()) && (new Date().getTime() < endcompareTime.getTime())){
 									//지금 시간이 시작시간 10분 전과 같으면서 시작시간이 더 앞서가고  지금 시간이 끝시간 전이면 입장버튼 활성화
-									button = '<input type="button" class="maincolor1" value="입장">';
+									button = '<input type="button" class="maincolor1" value="입장" onclick="meet(' + returnValue[i].clsCode + ')">';
 								}else{
 									button = '<input type="button" class="maincolor1" value="입장" disabled>';
 								}
@@ -167,7 +170,7 @@
 			dispHtml += '<img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-03-08/1615190947042146270.png" alt="클래스썸네일"></div>';
 			dispHtml += '<a href="/getClassDetail?clsCode='+value.clsCode+'" target="_blank"><div class="list_txt full"><dl class="prod_infor"><dt>';
 			dispHtml += '<div class="play_tch"><span>';
-			dispHtml +=  value.commonName;
+			dispHtml +=  value.cate;
 			dispHtml += '</span></div>';
 			dispHtml +=  value.clsName;
 			dispHtml +=  '</dt><dd class="mt5"><div>';
@@ -178,6 +181,9 @@
 			dispHtml +=  new Date(value.startDate).getFullYear() + "년 " + (new Date(value.startDate).getMonth() + 1) + "월 " + new Date(value.startDate).getDate()+ "일";
 			dispHtml +=  '~' + new Date(value.endDate).getFullYear() + "년 " + (new Date(value.endDate).getMonth() + 1) + "월 " + new Date(value.endDate).getDate()+ "일";
 			dispHtml +=  '</dd></dl></div></a></td>';
+			dispHtml +=  '<td style="font-size: 12px; line-height: 15px; color: #bbb;">';
+			dispHtml +=  value.method+'<br>'+value.paidPrice+'<br>'+value.paydate;
+			dispHtml += '</td>';
 			dispHtml +=  '<td class="black"><b>';
 			dispHtml +=  button;
 			dispHtml +=  '</b>';
@@ -187,6 +193,22 @@
 		}
 		
 	})
+</script>
+<script>
+	function meet(code){
+		$.ajax("/insertCheckIn",{
+			type: "get",
+			dataType: "json",
+			data : {clsCode : code},
+			success : function(returnValue){
+				alert("입장합니다~");
+				self.location.href="https://meet.google.com/qki-gwea-hex";
+			},
+			error : function () {
+				alert("실패");
+			}
+		})
+	}
 </script>
 </head>
 <body>

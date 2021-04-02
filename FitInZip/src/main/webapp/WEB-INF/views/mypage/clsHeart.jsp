@@ -69,7 +69,7 @@
 						dispHtml += btn;
 						dispHtml +='" onclick="noHeart(';
 						dispHtml += value.clsCode
-						dispHtml += ')"><span class="awsome" style="color:red">';
+						dispHtml += ')"><span class="awsome" style="color:#FF0066">';
 						dispHtml += '<i class="fas fa-heart fa-2x"></i></span></a></td></tr>';
 						
 						return dispHtml;

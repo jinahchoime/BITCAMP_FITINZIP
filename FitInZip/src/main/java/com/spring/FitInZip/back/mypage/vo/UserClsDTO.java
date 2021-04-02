@@ -37,5 +37,13 @@ public class UserClsDTO {
 	/*클래스 상태*/
 	private String clsTimeStatus;
 	
+	/*클래스 결제날짜, 결제금액, 결제방법*/
+	private Integer paidPrice;
+	private String method;
+	private String paydate;
+	
+	/*클래스 카테고리 - 클래스내역에서 사용됨*/
+	private String cate;
+	
 	
 }
