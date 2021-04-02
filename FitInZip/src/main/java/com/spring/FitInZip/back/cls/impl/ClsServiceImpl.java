@@ -43,4 +43,13 @@ public class ClsServiceImpl implements ClsService {
 	public List<ReviewDTO> getReview(String clsCode) {
 		return clsDAO.getReview(clsCode);
 	}
+
+	@Override
+	public void insertReview(ReviewDTO dto) {
+		clsDAO.insertReview(dto);
+		
+	}
+	
+	
+	
 }

@@ -17,7 +17,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class ReviewDTO {
 	
-	private String nickName;
+	private String trainerId;
+	private String clsCode;
+	private String memId;
 	private Integer star;
 	private String reviewContent;
+	private String nickName;
 }

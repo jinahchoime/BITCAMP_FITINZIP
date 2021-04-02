@@ -122,7 +122,14 @@
 		FROM REVIEW R, MEMBER M
 		WHERE R.MEM_ID = M.ID 
 		AND  CLS_CODE = #{clsCode}
+		ORDER BY REG_DATE DESC
 	</select>
-
+	
+	
+	<insert id="insertReview" parameterType="com.spring.FitInZip.back.review.dto.ReviewDTO">
+		INSERT INTO REVIEW(TRAINER_ID, CLS_CODE, REVIEW_CONTENT, MEM_ID, STAR)
+		VALUES (#{trainerId}, #{clsCode}, #{reviewContent}, #{memId}, #{star})
+	</insert>
+	
 	
 </mapper>

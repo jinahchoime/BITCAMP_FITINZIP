@@ -32,6 +32,11 @@ public class ClsDAO {
 	public List<ReviewDTO> getReview(String clsCode) {
 		return mybatis.selectList("ClsDAO.getReview", clsCode);
 	}
+	
+	// 리뷰  쓰기
+	public void insertReview(ReviewDTO dto) {
+		mybatis.insert("ClsDAO.insertReview", dto);
+	}
 
 	
 }

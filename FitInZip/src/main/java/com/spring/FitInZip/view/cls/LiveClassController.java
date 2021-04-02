@@ -8,19 +8,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 import com.spring.FitInZip.back.cls.service.ClsService;
-import com.spring.FitInZip.back.member.dao.MemberDAO;
-import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.review.dto.ReviewDTO;
-import com.spring.FitInZip.back.review.vo.ReviewVO;
 
 @Controller
 public class LiveClassController {
@@ -63,5 +58,19 @@ public class LiveClassController {
 		
 		return "class/classDetail";
 	}
+	
+	// 댓글쓰기
+	@RequestMapping("/insertReview")
+	@ResponseBody
+	public String insertReview(ReviewDTO dto) {
+		
+		System.out.println("dto : " + dto);
+		
+		clsService.insertReview(dto);
+		
+		return "true";
+	}
+	
+	
 	
 }

@@ -14,4 +14,5 @@ public interface ClsService {
 	List<ClsListDTO> getClassList(String clsCategory);
 	ClsDetailDTO getClassDetail(String clsCode);
 	List<ReviewDTO> getReview(String clsCode);
+	void insertReview(ReviewDTO dto);
 }

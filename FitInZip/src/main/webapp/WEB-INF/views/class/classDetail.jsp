@@ -13,13 +13,22 @@
 <script src="/resources/class/js/toastr.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/resources/class/css/classDetail.css">
+<link rel="stylesheet" type="text/css" href="/resources/class/css/reviewModal.css">
 <script>
+
+	$(function(){
+		$(".close").click(function(){
+			$(".modal").fadeOut();
+		});
+
+	});
 
 	function reviewRrite(id){
 		if (id == "") {
 			toastr.show('수강후기를 작성하려면 로그인이 필요합니다.');
-		} else {
-			alert(id);
+		} else {			
+			$(".modal").fadeIn();
+			
 		}
 	};
 	
@@ -29,12 +38,31 @@
 		timeout: 2500
 	});
 	
-	
-	
-	
+</script>
+
+<script>
+	$(function(){
+		$("#review_btn").on("click", function() {
+			alert("클릭");
+			let formData = new FormData(this.form);
+			let options = {
+				method: "POST",
+				body: new URLSearchParams(formData) 	
+			}
+			
+			fetch("/insertReview", options)
+			  .then(async function (response) {
+				  let result = await response.json();
+				  alert("리뷰가 작성되었습니다.");
+				  location.href="/getClassDetail?clsCode=" + ${detail.clsCode};
+			  })
+			  .catch(err => alert("오류가 발생 : " + err));
+		})
+	});
 
 
 </script>
+
 </head>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
@@ -223,7 +251,57 @@
 										<div id="area03" class="content_area">
 											<div class="maintxt2">
 												수강후기
-												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" onclick='reviewRrite("${member.id}")'>리뷰쓰기</a>
+												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" id="modal_btn" onclick='reviewRrite("${member.id}")'>리뷰쓰기</a>
+												
+												<!-- 여기부터 모달모달~~ -->
+												<div class="modal">					
+													<div class="layout_popup pop_w660">
+														<div class="pop_wrap">
+															<div data-adarea="피클_팝업닫기" class="close adClick">
+																<a href="javascript:;">
+																	<img src="https://img.ficle.io/www/common/icon/btn_pop_close.png" alt="닫기">
+																</a>
+															</div>
+															<div class="contents_w">
+																<div class="pop_cont_wrap">
+																	<div class="layout_w100">
+																		<div class="tit">리뷰작성</div>
+																	</div>
+																	<div class="layout_w100">
+																		<form>
+																			<div class="write_area">
+																				<p class="maintxt" style="margin: 0;">${detail.clsName}</p>
+																				<span class="subtxt1">with. ${detail.name}</span>
+																			</div>
+																			<div class="write_area" style="position: relative; top: -33px";>
+																				<span class="subtxt2">클래스는 어떠셨나요?</span>
+																				<div class="star_group big ">
+																					<input type="radio" id="rating-5" name="star" value="5" /><label for="rating-5">5</label>
+																				    <input type="radio" id="rating-4" name="star" value="4" /><label for="rating-4">4</label>
+																				    <input type="radio" id="rating-3" name="star" value="3" /><label for="rating-3">3</label>
+																				    <input type="radio" id="rating-2" name="star" value="2" /><label for="rating-2">2</label>
+																				    <input type="radio" id="rating-1" name="star" value="1" /><label for="rating-1">1</label>
+																				</div>
+																			</div>
+																			<div class="btn_search cont" style="position: relative; top: -30px;">
+																				<textarea id="contents" name="reviewContent" placeholder="클래스를 참여하며 느꼈던 점들을 작성해주세요. 다른분들께 큰 도움이 됩니다 :)" style="resize: none;"></textarea>
+																			</div>
+																			<div class="btn_wrap flat mt40">
+																				<input type="hidden" name="trainerId" value="${detail.trainerId}">
+																				<input type="hidden" name="clsCode" value="${detail.clsCode}">
+																				<input type="hidden" name="memId" value="${member.id}">
+																			
+																				<input type="button" id="review_btn" class="adClick review_btn type4" value="리뷰등록">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<!-- 모달 끝 -->
 											</div>
 											<div class="table_basic_list list3 review_wrap">
 												<c:if test="${empty review }">
@@ -254,7 +332,7 @@
 															</li>
 														</c:forEach>
 													</ul>
-												</c:if>
+												</c:if>																				
 											</div>
 										</div>
 									</div>
