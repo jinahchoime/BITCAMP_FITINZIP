@@ -1,6 +1,5 @@
 package com.spring.FitInZip.view.trainer;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -16,11 +15,11 @@ import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -260,7 +258,11 @@ public class TrainerController {
 		
 		MultipartFile classUploadFile = null;
 		String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
+		File getPath = new File(".");
+		String filePath2 = this.getClass().getResource("").getPath();
+		filePath2 = filePath2.substring(1, filePath2.indexOf(".metadata")) + "FitInZip/bin";
 		System.out.println("경로명 : " + filePath);
+		System.out.println("file 경로  : " + filePath2);
 		
 		System.out.println(vo.getStartDate());
 
@@ -343,7 +345,7 @@ public class TrainerController {
 
 		System.out.println("vo: " + vo.toString());
 
-		clsStatusService.insertClass(vo);
+		//clsStatusService.insertClass(vo);
 
 		rttr.addAttribute("pageNum", crt.getPageNum());
 		rttr.addAttribute("amount", crt.getAmount());

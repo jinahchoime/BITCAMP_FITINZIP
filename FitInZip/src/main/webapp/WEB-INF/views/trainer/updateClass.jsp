@@ -293,13 +293,13 @@
 						</tr>
 						
 						<tr>
-							<th rowspan="2">기존 업로드 한 이미지</th>
+							<th>기존 업로드 한 이미지</th>
 							<td colspan="1">
 								썸네일 이미지 : <c:if test="${cls.thumbnailOriName != null }"><img src='<c:out value="${thumbnailSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
 										<c:if test="${cls.thumbnailOriName == null }">없음</c:if>
 							</td>
 							<td colspan="1">
-								타이틀 이미지 : <c:if test="${cls.titleOriName != null }"><img src='<c:out value="${titleSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
+								타이틀 이미지 : <c:if test="${cls.titleOriName != null }"><img src='<c:out value="${path }/resources/classRegister/imgs/title/${cls.titleFileName }"></c:out>' style="width: 50px; height: 50px;"></c:if>
 									<c:if test="${cls.titleOriName == null }">없음</c:if>
 							</td>
 						</tr>
