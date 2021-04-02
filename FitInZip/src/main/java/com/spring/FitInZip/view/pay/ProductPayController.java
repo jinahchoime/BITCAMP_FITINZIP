@@ -63,11 +63,11 @@ public class ProductPayController {
 		return "redirect:" + productKakaoPayService.productKakaoPay();
 	}
 	
-	@GetMapping("/mypage")
-	public void kakoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
-		log.info("kakaoPaySuccess get......mypage");
-		log.info("kakaoPaySuccess pg_token : " + pg_token);
-	}
+//	@GetMapping("/mypage")
+//	public void kakoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+//		log.info("kakaoPaySuccess get......mypage");
+//		log.info("kakaoPaySuccess pg_token : " + pg_token);
+//	}
 	
 }
 

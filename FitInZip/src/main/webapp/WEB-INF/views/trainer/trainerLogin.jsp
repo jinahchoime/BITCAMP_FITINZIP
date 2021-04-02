@@ -116,7 +116,7 @@
 							location.href = "/trainerMainPage";
 						} else if(data.role === 'RL02') {
 							alert("관리자로 가르아~");
-							location.href = "/registerTrainerMainPage";
+							location.href = "/adminMain";
 					
 						}
 						else {

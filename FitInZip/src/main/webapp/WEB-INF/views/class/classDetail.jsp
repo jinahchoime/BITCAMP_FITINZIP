@@ -15,12 +15,11 @@
 <link rel="stylesheet" type="text/css" href="/resources/class/css/classDetail.css">
 <script>
 
-	function reviewRrite(){
-		alert(sessionStorage.getItem("member"));
-		if (getItem(member.id) == "") {
+	function reviewRrite(id){
+		if (id == "") {
 			toastr.show('수강후기를 작성하려면 로그인이 필요합니다.');
 		} else {
-			alert(getItem(member.id));
+			alert(id);
 		}
 	};
 	
@@ -224,7 +223,7 @@
 										<div id="area03" class="content_area">
 											<div class="maintxt2">
 												수강후기
-												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" onclick="reviewRrite()">리뷰쓰기</a>
+												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" onclick='reviewRrite("${member.id}")'>리뷰쓰기</a>
 											</div>
 											<div class="table_basic_list list3 review_wrap">
 												<c:if test="${empty review }">
