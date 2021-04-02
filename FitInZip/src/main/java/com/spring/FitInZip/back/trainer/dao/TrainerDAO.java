@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
+import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
@@ -29,9 +31,8 @@ public class TrainerDAO {
 	
 	public RegisterTrainerDTO loginTrainer(RegisterTrainerDTO dto) {
 		System.out.println("TrainerDAO 넘어왔다~");
-
 		RegisterTrainerDTO mdto = mybatis.selectOne("trainer.loginTrainer", dto);
-		System.out.println("dto: " + mdto);
+		//System.out.println("dto: " + mdto);
 		return mdto;
 	}
 	
@@ -40,8 +41,7 @@ public class TrainerDAO {
 		//System.out.println("DTO dto: " + dto);
 		String reqClass = mybatis.selectOne("trainer.TrainerMain1", dto);
 		System.out.println("DAO reqClass: " + reqClass);
-		return reqClass;
-		
+		return reqClass;	
 	}
 	
 	public String mainpage2(RegisterTrainerDTO dto) {
@@ -50,7 +50,6 @@ public class TrainerDAO {
 		String ingClass = mybatis.selectOne("trainer.TrainerMain2", dto);
 		System.out.println("DAO ingClass: " + ingClass);
 		return ingClass;
-		
 	}
 	
 	public String mainpage3(RegisterTrainerDTO dto) {
@@ -59,12 +58,11 @@ public class TrainerDAO {
 		String totalCal = mybatis.selectOne("trainer.TrainerMain3", dto);
 		System.out.println("DAO totalCal: " + totalCal);
 		return totalCal;
-		
 	}
 	
 	public void insertTrainer(RegisterTrainerDTO dto) {
 		 System.out.println("강사 등록하기 폼 요청~"); 
-		 System.out.println("dao dto: " + dto); 
+		// System.out.println("dao dto: " + dto); 
 		 int result = mybatis.insert("trainer.insertTrainer", dto);
 		 System.out.println("등록결과: " + result);
 	}
@@ -110,5 +108,12 @@ public class TrainerDAO {
 		System.out.println("정산금 인출 결과: " + result);
 	}
 	
+	public List<ClsTrainerDTO> myPage1(RegisterTrainerDTO dto) {
+		return mybatis.selectList("trainer.ingClass", dto);
+	}
+	
+	public List<ClsTrainerDTO> myPage2(RegisterTrainerDTO dto) {
+		return mybatis.selectList("trainer.edClass", dto);
+	}
 
 }

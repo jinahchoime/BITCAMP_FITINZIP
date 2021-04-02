@@ -51,7 +51,7 @@
 				alert("계좌번호는 숫자만 입력해주세요");
 				return false;
 			} else {
-				alert("성공!");
+				alert("출금 신청이 완료되었습니다. 은행 입금은 신청일 기준 다음 날 처리됩니다.");
 			}
 			document.getElementById("insert_form").submit();
 		});

@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.cls.clsStatus.Criteria;
 import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
 import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
+import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
@@ -42,7 +43,7 @@ import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Controller
-@SessionAttributes({"admin", "member", "reqClass", "ingClass", "totalCal", "trainerInfo", "reviewList", "calList"})
+@SessionAttributes({"admin", "member", "reviewList", "calList", "ingCls"})
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -126,7 +127,13 @@ public class TrainerController {
     }
     //마이클래스
     @RequestMapping("/myClass") 
-    public String myPage(MemberVO vo) {
+    public String myPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	List<ClsTrainerDTO> cvo1 = trainerService.myPage1(dto);
+    	System.out.println("cvo1: " + cvo1);
+    	model.addAttribute("ingCls", cvo1);
+    	List<ClsTrainerDTO> cvo2 = trainerService.myPage2(dto);
+    	System.out.println("cvo2: " + cvo2);
+    	model.addAttribute("edCls", cvo2);
     	return "trainer/myClass";
 	}
     
@@ -262,12 +269,12 @@ public class TrainerController {
 		
 		// MultipartResolver -> FileName, OriginName
 		
-		MultipartFile classUploadFile = vo.getClsFileName();
-		if (classUploadFile != null) {
-			fileName += classUploadFile.getOriginalFilename();
-			classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
-		}
-
+		/*
+		 * MultipartFile classUploadFile = vo.getClsFileName(); if (classUploadFile !=
+		 * null) { fileName += classUploadFile.getOriginalFilename();
+		 * classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" +
+		 * fileName)); }
+		 */
 		// 시작, 끝 시간 입력을 위한 가공
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -347,7 +354,9 @@ public class TrainerController {
 			@RequestParam(value = "clsFileName", required = false) MultipartFile clsFileName) throws Exception {
 		
 		System.out.println("헤으응 vo : " + vo.toString());
-		System.out.println("파일명 헤으응 : " + vo.getClsFileName().getOriginalFilename());
+		/*
+		 * System.out.println("파일명 헤으응 : " + vo.getClsFileName().getOriginalFilename());
+		 */
 		
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -364,21 +373,18 @@ public class TrainerController {
 		vo.setEndTime(endTime);
 		
 		// 파일을 업로드 하지 않은 경우 처리
-		if (vo.getClsFileName().getOriginalFilename() == "") {
-			vo.setClsOriName(request.getParameter("originClsFileName"));
-		} else {
-			UUID uuid = UUID.randomUUID();
-
-			String fileName = "" + uuid + "_";
-
-			MultipartFile classUploadFile = vo.getClsFileName();
-			if (classUploadFile != null) {
-				fileName += classUploadFile.getOriginalFilename();
-				classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
-			}
-			vo.setClsOriName(fileName);
-		}
-
+		/*
+		 * if (vo.getClsFileName().getOriginalFilename() == "") {
+		 * vo.setClsOriName(request.getParameter("originClsFileName")); } else { UUID
+		 * uuid = UUID.randomUUID();
+		 * 
+		 * String fileName = "" + uuid + "_";
+		 * 
+		 * MultipartFile classUploadFile = vo.getClsFileName(); if (classUploadFile !=
+		 * null) { fileName += classUploadFile.getOriginalFilename();
+		 * classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" +
+		 * fileName)); } vo.setClsOriName(fileName); }
+		 */
 		System.out.println("ClsVO : " + vo.toString());
 
 		clsStatusService.updateClass(vo);

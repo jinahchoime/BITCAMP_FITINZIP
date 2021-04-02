@@ -2,6 +2,7 @@
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
  
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +26,122 @@
     <!-- Custom styles for this template-->
     <link href="../resources/trainer/css/TrainerMain-sb-admin-2.min.css" rel="stylesheet">
 
+<style>
+	button: disabled { background: #fee; border: 0;}
+</style>
+	<script type="text/javascript"></script>
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	var Now = new Date(); // 현재 날짜 및 시간
+	var nowYear = Now.getFullYear();
+	var nowMonth = Now.getMonth() + 1; // 월
+	var nowDay = Now.getDate(); // 일
+	var nowHour = Now.getHours(); // 시
+	var nowMins = Now.getMinutes(); // 분
+
+	 var today = new Date(년, 월, 일, 시, 분);
+	
+	var week = new Array('일', '월', '화', '수', '목', '금', '토'); //요일
+	var yoil = week[Now.getDay()];
+	
+	function pluszero(time){
+	    var time = time.toString(); // 시간을 숫자에서 문자로 바꿈
+	    if(time.length < 2){ //2자리 보다 작다면
+	        time = '0' + time; //숫자앞 0을 붙여줌
+	        return time; //값을 내보냄
+	}else{
+	    return time; //2자리라면 값을 내보냄
+	}
+	}
+	nowMonth = pluszero(nowMonth); //만들었던 함수 적용
+	nowDay = pluszero(nowDay);
+	nowHour = pluszero(nowHour);
+	nowMins = pluszero(nowMins);
+	
+	var nowDate = nowYear + '-' + nowMonth + '-' + nowDay
+	var nowTime = nowHour + ':' + nowMins; // 
+	
+	document.write('올해연도:' + nowYear + '<br>');
+	document.write('오늘 요일: ' + week[Now.getDay()] + '요일' + '<br>');
+	
+	document.write('nowDate: ' + nowDate + '<br>');
+	document.write('nowTime: ' + nowTime + '<br>');
+	
+	
+	//10분 뒤
+	Now.setMinutes(Now.getMinutes() + 10);
+	console.log(nowHour + ':' + Now.getMinutes());
+	
+	document.write('10분 후 : ' + Now + '<br>');
+	
+
+	 var ingClass = new Array();
+	 <c:forEach items="${ingCls}" var="ingClass">
+	 ingClass.push("${ingClass.yoil }");
+	 </c:forEach> 
+	
+	 var ingSTime = new Array();
+	 <c:forEach items="${ingCls}" var="ingSTime">
+	 ingSTime.push("${ingSTime.startTime }");
+	 ingSTime.push("${ingSTime.startTime }");
+
+	 </c:forEach>
+	 for(var i = 0; i < ingSTime.length; i++) {
+		 console.log(ingSTime[i]);
+		
+	 }
+
+	 
+	 /* var class1 = new Array();
+	 <c:forEach items="${ingCls}" var="class1">
+	 class1.push("${class1.yoil }");
+	 class1.push("${class1.startDate }");
+	 class1.push("${class1.endDate }");
+	 class1.push("${class1.startTime }");
+	 </c:forEach> */
+	 
+	 
+	var result = $.each(ingClass, function(index, value) {
+		console.log("index:" + index);
+		console.log("value: " + value);
+		if(value == yoil) {
+			console.log("같은요일이다");
+			$.each(ingSTime, function(index1, value1) {
+				console.log("수업시작시간:" + ingSTime);
+				console.log(value1);
+				Date newTime = new Date(value1);
+				console.log("수업시간:" + newTime.getHours());
+				
+				if(value1 >= Now.getHours() + ':' + Now.getMinutes()) {
+					console.log("수업 10분전이다");
+					$('#cls_button').attr('disabled', false);
+				} else if (value1 < Now.getHours() + ':' + Now.getMinutes()) {
+						$('#cls_button').attr('disabled', true);
+				} else {
+					console.log("시간이 아님");
+				}
+			});
+	} else if (value !== yoil) {
+		console.log("다른요일이다");
+	}
+		
+	}); 
+	
+	
+	 
+	
+	 
+	 
+	
+				
+		
+		
+		
+		
+	
+
+</script>
 </head>
 
 <body id="page-top">
@@ -161,17 +278,122 @@
                 <div class="container-fluid">
 
                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">나의 클래스</h1>
-                    
-                    <div>
-                    
-                    </div>
-                   
-					<hr>
-                    
-                    <h1 class="h3 mb-4 text-gray-800">지난 클래스</h1>
+					<div id="viewArea" class="column_right">
+				    <div>
+				        <p class="tit_area big mb10">나의 클래스</p>
+				        <div class="table_basic_board board1">
+				            <table style="width: 1024px;">
+				                <colgroup>
+				                    <col width="*">
+				                    <col width="110px">
+				                </colgroup>
+				                <thead>
+				                    <tr>
+				                        <th>클래스</th>
+				                        <th>진행상태</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                    <c:if test="${empty ingCls }">
+				                        <tr>
+				                            <td colspan="2" class="none">종료된 클래스가 없습니다.</td>
+				                        </tr>
+				                    </c:if>
+				                    <c:if test="${not empty ingCls }">
+				                        <c:forEach var="ingClass" items="${ingCls }">
+				                            <tr>
+				                                <td class="type_diff">
+				                                    <div class="list_img">
+				                                        <img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">${ingClass.clsOriName }
+				                                    </div>
+				                                    <a href="/play/play_apply/298" target="_blank">
+				                                        <div class="list_txt full">
+				                                            <dl class="prod_infor">
+				                                                <dt>
+				                                                    <div class="play_tch">
+				                                                        <span>${ingClass.clsCategory }</span>	
+				                                                    </div>
+				                                                    ${ingClass.clsName }
+				                                                </dt>
+				                                                <dd class="mt5">
+				                                                    <div>${ingClass.startDate }~${ingClass.endDate }</div>
+				                                                    ${ingClass.yoil } 
+				                                       
+				                                                    <fmt:formatDate value="${ingClass.startTime }" pattern="HH:mm" />
+				                                                    ~ <fmt:formatDate value="${ingClass.endTime }" pattern="HH:mm" />
+				                                                 
+				                                                </dd>				                                               
+				                                            </dl>
+				                                        </div>
+				                                    </a>
+				                                </td>
+				                                <td>
+									            	<button class="btn btn-primary" onsubmit="/구글미트주소" id="cls_button" disabled>시작</button>
+				                                </td>
+				                            </tr>
+				                        </c:forEach>
+				                    </c:if>
+				                </tbody>
+				            </table>
+				        </div>
+				        
+				        <p class="tit_area big mb10">종료된 클래스</p>
+				        <div class="table_basic_board board1">
+				            <table style="width: 1024px;">
+				                <colgroup>
+				                    <col width="*">
+				                    <col width="110px">
+				                </colgroup>
+				                <thead>
+				                    <tr>
+				                        <th>클래스</th>
+				                        <th>상태</th>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				                    <c:if test="${empty edCls }">
+				                        <tr>
+				                            <td colspan="2" class="none">종료된 클래스가 없습니다.</td>
+				                        </tr>
+				                    </c:if>
+				                    <c:if test="${not empty edCls }">
+				                        <c:forEach var="edClass" items="${edCls }">
+				                            <tr>
+				                                <td class="type_diff">
+				                                    <div class="list_img">
+				                                        <img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">${edClass.clsOriName }
+				                                    </div>
+				                                    <a href="/play/play_apply/298" target="_blank">
+				                                        <div class="list_txt full">
+				                                            <dl class="prod_infor">
+				                                                <dt>
+				                                                    <div class="play_tch">
+				                                                        <span>${edClass.clsCategory }</span>
+				
+				                                                    </div>
+				                                                    ${edClass.clsName }
+				                                                </dt>
+				                                                <dd class="mt5">
+				                                                    <div>${edClass.startDate }~${edClass.endDate }</div>
+				                                                    <fmt:formatDate value="${edClass.startTime }" pattern="HH:mm" />
+				                                                    ~ <fmt:formatDate value="${edClass.endTime }" pattern="HH:mm" />
+				                                                 
+				                                                </dd>
+				                                            </dl>
+				                                        </div>
+				                                    </a>
+				                                </td>
+				                                <td>
+				                                    	<button class="btn btn-primary" onsubmit="/구글미트주소" disabled>종료</button>
+				                                </td>
+				                            </tr>
+				                        </c:forEach>
+				                    </c:if>
+				                </tbody>
+				            </table>
+				        </div>
+				    </div>
 					
-					<div>
 					
 					</div>
 					
@@ -229,15 +451,6 @@
     <!-- Core plugin JavaScript-->
     <script src="../resources/trainer/trainermainvendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-   <!--  <script src="js/sb-admin-2.min.js"></script> -->
-
-    <!-- Page level plugins -->
-    <!-- <script src="resources/vendor/chart.js/Chart.min.js"></script> -->
-
-    <!-- Page level custom scripts -->
-  <!--   <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script> -->
 
 </body>
 

@@ -3,6 +3,8 @@ package com.spring.FitInZip.back.trainer;
 import java.util.HashMap;
 import java.util.List;
 
+import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
+import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
@@ -22,7 +24,8 @@ public interface TrainerService {
 	String mainPage3(RegisterTrainerDTO dto);
 	
 	//마이페이지
-	RegisterTrainerDTO myPage(RegisterTrainerDTO dto);
+	List<ClsTrainerDTO> myPage1(RegisterTrainerDTO dto);
+	List<ClsTrainerDTO> myPage2(RegisterTrainerDTO dto);
 	
 	//강사 등록하기
 	public void insertTrainer(RegisterTrainerDTO dto);
@@ -44,5 +47,7 @@ public interface TrainerService {
 	
 	//정산금 출금 신청
 	public void updateCal(RegisterTrainerDTO dto);
+	
+	
 	
 }

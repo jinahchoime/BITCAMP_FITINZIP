@@ -40,10 +40,15 @@ public class ClsVO {
 	private Integer perPrice;
 	private String clsInfo;
 	private String curriculum;
-	private String clsOriName;	
-	private MultipartFile clsFileName;
+	
 	private String clsStatus;
 	private Integer maxMem;
 	private Integer calorie;
 	private String meetUrl;
+	
+	private String thumbnailOriName;
+	private MultipartFile thumbnailFileName;
+	private String titleOriName;	
+	private MultipartFile titleFileName;
+	
 }
