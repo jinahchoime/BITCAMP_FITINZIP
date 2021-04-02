@@ -9,13 +9,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
 <script>
- 
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
         window.setTimeout(callback, 1000 / 60);
     };
 })();
- 
+
 function newGraph() {
     var now = Date.now();
     var last = now,
@@ -30,13 +29,12 @@ function newGraph() {
     	console.log("v??"+v);
         var data = {
             color: v,
-            amount: 1 + 10
+            amount: 1 + ~~ (Math.random() * 20)
         }
-        console.log(data);
+        console.log(data)
 
         if (Math.random() > 0.5) {
             dataset.push(data);
-            console.log("dataset.push(data)"+dataset.push(data))
         } else {
             dataset.unshift(data);
         }
