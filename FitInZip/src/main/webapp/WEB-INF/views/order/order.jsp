@@ -99,29 +99,33 @@
 					<div class="order-tab">
 						<div class="header">
 							<h5 class="tit">주문고객</h5>
-							<div class="body view">
-								${sessionScope.member.id }<br>
-								${sessionScope.member.name }<br>
-								${sessionScope.member.phone }
+							<div class="body view" style="padding-top:20px;">
+								<p>${sessionScope.member.id }</p>
+								<p>${sessionScope.member.name }</p>
+								<p>${sessionScope.member.phone }</p>
 							</div>
-							<h5 class="tit">배송지 정보</h5>
 						</div>
 						<div class="address">
-							<input type="text" name="postcode" id="postcode" placeholder="우편번호">
-							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" name="address" id="address" placeholder="주소"><br>
-							<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-							<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
-						</div>
+							<div class="header">
+								<h5 class="tit">배송지 정보</h5>
+							</div>	
+							
+							<div class="padding">
+								<input type="text" name="postcode" id="postcode" placeholder="우편번호">
+								<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+								<input type="text" name="address" id="address" placeholder="주소"><br>
+								<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+								<input type="text" name="extraAddress" id="extraAddress" placeholder="참고주소">
 						
-						<select class="delivery-message" id="deliMsg" onchange="deli(this)">
-							<option class="deli-msg-default" value="none">배송 메모를 선택해주세요.</option>
-							<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
-							<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
-							<option value="directMsg">직접 입력</option>
-						</select><br>
-						<input type="text" name="direct" placeholder="직접 입력">
-						<!-- 직접입력 클릭하면  input type text 나타난다 -->
+								<select class="delivery-message" id="deliMsg" onchange="deli(this)">
+									<option class="deli-msg-default" value="none">배송 메모를 선택해주세요.</option>
+									<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
+									<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
+									<option value="directMsg">직접 입력</option>
+								</select><br>
+								<input type="text" class="direct" name="direct" placeholder="직접 입력">
+							</div>
+						</div>
 						
 						<div class="delivery-info">
 							<h6></h6>
@@ -139,7 +143,7 @@
 						<button type="submit" class="button xlarge width-max">다음 단계 진행</button> 
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
-						<div class="order-tab product-checkout checkout">
+						<div class="order-tab product-checkout checkout border">
 							<div class="header mini-box">
 								<h5 class="tit"><strong>주문내역</strong></h5>
 							</div>
@@ -153,7 +157,7 @@
 											<img style="width:120px; height:120px;" src="${cartList.proImg }" alt="상품이미지">
 										</div>
 										<div class="order-info">
-											<a class="tit" href="">${cartList.proName }</a>
+											<a class="tit" href="/product">${cartList.proName }</a>
 											<div class='current-option-wrap'>
 												<!-- <input type="hidden" name="옵션넣어" value="옵션밸류"> -->
 												<span class="opt">1kg...</span>
@@ -170,7 +174,7 @@
 							</div>	
 							</c:forEach>
 
-								<div class="uk-width-1-1 info-price">
+								<div class="info-price uk-width-1-1">
 									<span class="item-price">
 										<span class="label">상품 금액</span>
 										<span class="price">
@@ -196,8 +200,6 @@
 											</c:forEach>
 											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
-										
-										
 									</div>
 								</div>
 								

@@ -12,7 +12,7 @@
 </head>
 
 <script>
-		$("#check_module").on(click, function(){
+		$("#check_module").click(function(){
 			alert("ddddddd");
 			IMP.init('imp09300600');
 			IMP.request_pay({
@@ -41,8 +41,8 @@
 				}
 				alert(msg);
 			}); 
-		});
 		
+		});
 	
 	
 	

@@ -171,7 +171,7 @@
   display: inline-block;
   float: right;
   border-top: 1px solid #d1d1d1;
-  
+  border-radius: 5px;
   /* background-color: green; */
 }
 
@@ -183,11 +183,13 @@
   font-size: 16px;
   font-weight: bold;
   background-color: #e5e5e5;
+  border-radius: 5px;
 }
 
 .product-checkout {
 	border: 1px solid #e5e5e5;
     height: 333px;
+	border-radius: 5px;
 }
 
 .product-checkout .label {
@@ -231,6 +233,7 @@
   line-height: 100%;
   width: 542px;
   margin: 20px;
+  border-radius: 5px;
 }
 
 .product-checkout .btn-order:hover {
