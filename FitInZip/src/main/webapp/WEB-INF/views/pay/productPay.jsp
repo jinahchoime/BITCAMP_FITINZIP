@@ -6,9 +6,47 @@
 <head>
 <meta charset="UTF-8">
 <title>FITINZIP | 결제</title>
-<link rel="stylesheet" type="text/css"
-	href="../resources/product/css/productPay.css" />
+<link rel="stylesheet" type="text/css" href="../resources/product/css/productPay.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
+
+<script>
+		$("#check_module").on(click, function(){
+			alert("ddddddd");
+			IMP.init('imp09300600');
+			IMP.request_pay({
+				pg : 'kakao',
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : 'FITINZIP 용품 결제',
+				amount : 100,
+				buyer_email : '구매자 이메일',
+				buyer_name : 'ddd',
+				buyer_tel : 'hhhh',
+				buyer_addr : 'jjjjj',
+				buyer_postcode : 'ooooooo',
+			}, function (rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					var msg = '결제 완료';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+					
+				} else {
+					var msg = '결제 실패';
+					msg += '에러 내용 : ' + rsp.error_msg;
+				}
+				alert(msg);
+			}); 
+		});
+		
+	
+	
+	
+</script>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
@@ -68,12 +106,14 @@
 									<li class="order-field-list uk-width-small-1-1 uk-width-medium-1-1">
 										<div class="payment-method-list">
 											<div class="payment-method-item">
-												<form action="/kakaoPay" method="post">
+												<!-- <form action="/kakaoPay" method="post"> -->
 												<h6 class="payment-method-item-title">
-													<img style="width:60px; " src="../resources/product/img/icon_kakaopay_100.jpg" alt="카카오페이">
+													<button id="kakaoPay"><img style="width:60px; " src="../resources/product/img/icon_kakaopay_100.jpg" alt="카카오페이">
 													카카오페이
+													</button>
 												</h6>
-												</form>
+												<!-- </form> -->
+												<button id="check_module">되라되라</button>
 											</div>
 											<div class="payment-method-item">
 												<h6 class="payment-method-item-title">신용카드</h6>

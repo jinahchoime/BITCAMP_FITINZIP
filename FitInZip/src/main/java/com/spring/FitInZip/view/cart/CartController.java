@@ -30,7 +30,10 @@ public class CartController {
 	public String getCartList(Model model, CartVO vo, CartDTO dto, HttpSession session) {
 		
 		String mem_id =((MemberVO)session.getAttribute("member")).getId();
-		
+	
+		if (mem_id == null) {
+			return "redirect:/loginForm";
+		} 
 		List<CartDTO> cartList = cartService.getCartList(mem_id);
 		
 		model.addAttribute("cartList", cartList);
