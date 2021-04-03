@@ -282,7 +282,8 @@
 							<td class="thumbnailPreview">
 								<!-- 썸네일 미리보기 -->
 								<a class="btn btn-danger btn-circle btn-sm" id="deleteThumbnail" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-								<img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
+								<c:if test="${cls.thumbnailOriName == null || empty cls.thumbnailOriName }"><img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;"></c:if>
+								<c:if test="${cls.thumbnailOriName != null || !empty cls.thumbnailOriName }"><img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/${cls.thumbnailFileName }" style="width:250px; height:250px;"></c:if>
 							</td>
 							<th rowspan="2" style="vertical-align: middle;">타이틀 이미지</th>
 							<td>	

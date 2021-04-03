@@ -257,12 +257,12 @@ public class TrainerController {
 			throws IllegalStateException, IIOException, Exception {
 		
 		MultipartFile classUploadFile = null;
-		String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
-		File getPath = new File(".");
-		String filePath2 = this.getClass().getResource("").getPath();
-		filePath2 = filePath2.substring(1, filePath2.indexOf(".metadata")) + "FitInZip/bin";
-		System.out.println("경로명 : " + filePath);
-		System.out.println("file 경로  : " + filePath2);
+		// .metadata 아래의 서버가 사용하는 경로에 저장. -> jsp단에서 접근하지 못함
+		// String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
+		String filePath = this.getClass().getResource("").getPath();
+		filePath = filePath.substring(1, filePath.indexOf(".metadata")) + "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		//System.out.println("경로명 : " + filePath);
+		//System.out.println("file 경로  : " + filePath);
 		
 		System.out.println(vo.getStartDate());
 
@@ -345,7 +345,7 @@ public class TrainerController {
 
 		System.out.println("vo: " + vo.toString());
 
-		//clsStatusService.insertClass(vo);
+		clsStatusService.insertClass(vo);
 
 		rttr.addAttribute("pageNum", crt.getPageNum());
 		rttr.addAttribute("amount", crt.getAmount());
