@@ -26,6 +26,7 @@ public class UserClsDTO {
 	private Date endTime;
 	private String memId;
 	private String commonName;
+	private String meetUrl;
 	
 	/*시작번호 끝번호*/
 	private Integer startIndex;

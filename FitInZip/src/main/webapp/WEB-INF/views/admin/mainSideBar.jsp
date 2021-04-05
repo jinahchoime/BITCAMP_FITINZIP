@@ -34,7 +34,7 @@
 		<li><a href="#admin" data-toggle="collapse" aria-expanded="false"
 			class="dropdown-toggle">관리 </a></li>
 		<ul class="collapse list-unstyled" id="admin">
-			<li><a href="#">주소추가</a></li>
+			<li><a href="/searchMap">주소추가</a></li>
 			<li><a href="#">Home 2</a></li>
 			<li><a href="#">Home 3</a></li>
 		</ul>

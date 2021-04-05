@@ -12,23 +12,23 @@
 		
 		<!-- 마이페이지 총 갯수 - 참여 성공률 -->
 		<select id="mypageInParticipationRate" parameterType="String" resultType="com.spring.FitInZip.back.mypage.vo.UserCountDTO">
-			SELECT START_TIME, END_TIME, CALORIE, LAPSE, (SELECT COUNT(*)
-                FROM(SELECT DISTINCT *
-                        FROM CHECK_IN
-                        WHERE MEM_ID = #{memId})
-                ) AS CHECKIN_COUNT
-                , (SELECT COUNT(*) FROM PAYMENT
-                    WHERE MEM_ID = #{memId}
-                    and ORDER_NUM IS NULL) AS CLSCOUNT
-				    FROM FIT_CLASS 
-				        WHERE CLS_CODE IN(SELECT F.CLS_CODE
-				            FROM PAYMENT P
-				                INNER JOIN FIT_CLASS F
-				                ON p.cls_code = f.cls_code
-				                INNER JOIN CHECK_IN C
-				                ON P.CLS_CODE = c.cls_code
-				            WHERE P.MEM_ID = #{memId}
-				        )
+			SELECT
+	        (SELECT SUM((SYSDATE+(END_TIME - START_TIME)-SYSDATE)) 
+	                FROM FIT_CLASS F
+	                INNER JOIN(SELECT DISTINCT * FROM CHECK_IN  WHERE MEM_ID = #{memId}) C
+	                ON F.CLS_CODE = C.CLS_CODE)
+	                AS TIME_COUNT,
+	        (SELECT SUM(CALORIE) FROM fit_class F INNER JOIN(SELECT DISTINCT * FROM CHECK_IN  WHERE MEM_ID = #{memId})C
+	        ON f.CLS_CODE = C.CLS_CODE) AS CALORIE_COUNT,
+	       (SELECT SUM(LAPSE) FROM fit_class F INNER JOIN(SELECT DISTINCT * FROM CHECK_IN WHERE MEM_ID = #{memId})C
+	        ON f.CLS_CODE = C.CLS_CODE) AS LAPSE_COUNT,
+	       (SELECT COUNT(*) FROM(SELECT DISTINCT * FROM CHECK_IN WHERE MEM_ID = #{memId})) AS CHECKIN_COUNT,
+	       (SELECT COUNT(*) FROM PAYMENT WHERE MEM_ID = #{memId} and ORDER_NUM IS NULL) AS CLSCOUNT
+	        FROM FIT_CLASS 
+				WHERE CLS_CODE IN(SELECT F.CLS_CODE FROM PAYMENT P
+					                INNER JOIN FIT_CLASS F ON p.cls_code = f.cls_code
+					                INNER JOIN CHECK_IN C ON P.CLS_CODE = c.cls_code
+	                                WHERE P.MEM_ID = #{memId})
 		</select>
 		
 		<!-- 마이페이지 총 갯수 - 운동시간 -->
@@ -124,7 +124,7 @@
 				    FROM(SELECT F.*, C.COMMON_NAME
 							FROM FIT_CLASS F
 						     	INNER JOIN WISH_CLASS W 
-						     ON W.CLASS_CODE = F.CLS_CODE
+						     ON W.CLS_CODE = F.CLS_CODE
 				                INNER JOIN COMMON C
 				             ON F.CLS_CATEGORY = C.COMMON_CODE
 							     WHERE W.MEM_ID = #{memId}
@@ -136,7 +136,7 @@
 		<!-- 찜하기 클래스 없애기  -->
 		<delete id="deleteWishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
 			DELETE FROM WISH_CLASS
-			WHERE CLASS_CODE = #{clsCode}
+			WHERE CLS_CODE = #{clsCode}
 			AND MEM_ID = #{memId}
 		</delete>
 		

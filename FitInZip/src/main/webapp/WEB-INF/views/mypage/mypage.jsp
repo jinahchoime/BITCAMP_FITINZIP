@@ -16,47 +16,12 @@
 			type: "get",
 			dataType : "json",
 			success : function(returnValue){
-				var clsCount = returnValue[0].clscount;
-				var checkinCount = returnValue[0].checkinCount;
-				let clsParticipation = 0;
-				let clsCalorie = 0;
-				let time = 0;
-				
-				let year = new Date().getFullYear();
-				let month = new Date().getMonth();
-				let date = new 	Date().getDate();
-				
-				for(let i=0; i<returnValue.length; i++){
-					let start = returnValue[i].startTime;
-					
-					let starthour = new Date(start).getHours();
-					let startminute = new Date(start).getMinutes();
-					
-					let end = returnValue[i].endTime;
-					
-					let endhour = new Date(end).getHours();
-					let endminute = new Date(end).getMinutes();
-					
-					let lapse = returnValue[i].lapse;
-					let calorie = returnValue[i].calorie;
-					
-					let startTime = new Date(year, month, date, starthour, startminute);
-					let endTime = new Date(year, month, date, endhour, endminute);
-					
-					let compareTime = endTime - startTime;
-					
-					time += compareTime;
-					clsParticipation += lapse;
-					clsCalorie += calorie;
-				}
-				
-				var real = (checkinCount / (clsCount * clsParticipation)) * 100;
-				var realCalorie = (checkinCount * clsCalorie)
-				
-				$('#clsCount').text(clsCount + "회");
-				$('#clsParticipation').text(parseInt(real) + "%");
-				$('#clsTime').text(new Date(time).getHours() + "시간"); //이거 한번 확인하기
-				$('#clsCalorie').text(realCalorie + "kcal");
+				console.log(returnValue);
+				var clsParticipation = (returnValue[0].checkinCount / (returnValue[0].clscount * returnValue[0].lapseCount)) * 100;
+				$('#clsCount').text(returnValue[0].clscount + "회");
+				$('#clsParticipation').text(parseInt(clsParticipation)+"%");
+				$('#clsTime').text(returnValue[0].timeCount + "시간"); //이거 한번 확인하기
+				$('#clsCalorie').text(returnValue[0].calorieCount + "kcal");
 			},
 			error : function(){
 				alert("실패!");

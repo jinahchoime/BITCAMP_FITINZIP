@@ -48,7 +48,7 @@
             <a class="nav-link" href="/mypage">마이페이지</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/searchMap">1:1 컨설팅</a>
+            <a class="nav-link" href="/consulting">1:1 컨설팅</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="cart"><i class="fas fa-shopping-cart"></i></a>

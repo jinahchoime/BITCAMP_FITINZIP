@@ -140,7 +140,11 @@
 								
 								if((cm <= new Date().getTime()) && (new Date().getTime() < endcompareTime.getTime())){
 									//지금 시간이 시작시간 10분 전과 같으면서 시작시간이 더 앞서가고  지금 시간이 끝시간 전이면 입장버튼 활성화
-									button = '<input type="button" class="maincolor1" value="입장" onclick="meet(' + returnValue[i].clsCode + ')">';
+									let code = returnValue[i].clsCode;
+									let url = returnValue[i].meetUrl;
+									//console.log(iam);
+									button = '<input type="button" class="maincolor1" value="입장" onclick="meet(\''+ url +'\'' + ', ' + code+')">';
+									break;
 								}else{
 									button = '<input type="button" class="maincolor1" value="입장" disabled>';
 								}
@@ -193,21 +197,22 @@
 		}
 		
 	})
+
 </script>
 <script>
-	function meet(code){
+	function meet(url, code){
 		$.ajax("/insertCheckIn",{
 			type: "get",
 			dataType: "json",
 			data : {clsCode : code},
 			success : function(returnValue){
 				alert("입장합니다~");
-				self.location.href="https://meet.google.com/qki-gwea-hex";
+				self.location.href=url;
 			},
 			error : function () {
 				alert("실패");
 			}
-		})
+		}) 
 	}
 </script>
 </head>
