@@ -1,5 +1,6 @@
 package com.spring.FitInZip.view.member;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,20 +44,17 @@ public class EmailController {
 		System.out.println("이메일가입 정보 입력 후 vo : " + vo);
 		
 		emailService.emailJoin(vo);
+		
 		return "true";
 	}
 	
 	@RequestMapping("/emailLoginCheck")
 	@ResponseBody
-	public boolean emailLogin(MemberVO vo, Model model) {
+	public boolean emailLogin(MemberVO vo, Model model, HttpSession session) {
 		
 		boolean isJoin = false;
 		
-		System.out.println("emailLogin 실행중");
-		System.out.println("입력한 이메일 정보 : " + vo);
-	
 		MemberVO member = emailService.emailLogin(vo);
-		System.out.println("로그인 후 받아온 정보 : " + member);
 		
 		if (member != null && member.getWithdrawal().equals("WD00") && member.getRole().equals("RL00")) {
 			isJoin = true;

@@ -1,6 +1,8 @@
 package com.spring.FitInZip.view.cls;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 import com.spring.FitInZip.back.cls.service.ClsService;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.review.dto.ReviewDTO;
 
 @Controller
@@ -29,6 +33,9 @@ public class LiveClassController {
 		List<ClsListDTO> classList = clsService.getClassList(clsCategory);
 		model.addAttribute("classList", classList);
 		
+		List<ClsListDTO> ingList = clsService.getIngList(clsCategory);
+		model.addAttribute("ingList", ingList);
+		
 		return "class/liveClass";
 	}
 	
@@ -37,6 +44,9 @@ public class LiveClassController {
 	public String getClassCategory(String clsCategory, Model model) {
 		List<ClsListDTO> classList = clsService.getClassList(clsCategory);
 		model.addAttribute("classList", classList);
+		
+		List<ClsListDTO> ingList = clsService.getIngList(clsCategory);
+		model.addAttribute("ingList", ingList);
 		
 		return "class/liveClassContent";
 	}
@@ -49,12 +59,29 @@ public class LiveClassController {
 		ClsDetailDTO classDetail = clsService.getClassDetail(clsCode);
 		model.addAttribute("detail", classDetail);
 		
+		/*우선 유저 정보 가져와야함*/
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		int isWish = 0;
+		
+		if (member != null) {
+			// 좋아요 눌렀는지 아닌지도 가져와야해 로그인 했다면
+			Map<String, String> isWishMap = new HashMap<>();
+			isWishMap.put("clsCode", clsCode);
+			isWishMap.put("memId", member.getId());
+			
+			isWish = clsService.isWish(isWishMap);
+		}
+		
+		System.out.println("isWish : " + isWish);
+		
+		model.addAttribute("isWish", isWish);
+		
 		// 댓글 가져올거임
 		List<ReviewDTO> review = clsService.getReview(clsCode);
 		model.addAttribute("review", review);
 		
 		// 댓글쓰기 때문에 아이디도 필요
-		session.getAttribute("member");	
 		
 		return "class/classDetail";
 	}
@@ -71,6 +98,35 @@ public class LiveClassController {
 		return "true";
 	}
 	
-	
-	
+	// 좋아요 하트 눌렀을 때!!
+	@RequestMapping("/clickWish")
+    @ResponseBody
+	public int clickWish(@RequestParam Map<String, String> map) {
+        int isWish = 0;
+        int resultWish = 0;
+        System.out.println("map : " + map);
+        // 좋아유가 눌러져있는지 아닌지
+//        Map<String, String> isWishMap = new HashMap<>();
+//		isWishMap.put("clsCode", clsCode);
+//		isWishMap.put("memId", member.getId());
+//		isWish = clsService.isWish(isWishMap);
+        
+        isWish = clsService.isWish(map);
+        
+        System.out.println("컨트롤러에서 isWish : " + isWish);
+       
+        if(isWish == 0) {
+        	// 좋아요가 안눌린 상태이기 때문에
+        	System.out.println("결과값 0");
+        	clsService.insertWish(map); 
+        	resultWish = 1; // 좋아유 눌림
+        } else {
+        	System.out.println("결과값 1");
+        	clsService.deleteWish(map);
+        }
+        
+        System.out.println("resultWish : " + resultWish);
+        
+        return resultWish;
+	}
 }

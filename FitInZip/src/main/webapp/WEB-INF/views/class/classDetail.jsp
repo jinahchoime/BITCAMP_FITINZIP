@@ -13,6 +13,7 @@
 <script src="/resources/class/js/toastr.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/resources/class/css/classDetail.css">
+<link rel="stylesheet" type="text/css" href="/resources/class/css/review.css">
 <link rel="stylesheet" type="text/css" href="/resources/class/css/reviewModal.css">
 <script>
 
@@ -38,9 +39,10 @@
 		timeout: 2500
 	});
 	
-</script>
+	// 모르겠다 자바스크립트랑 제이쿼리란... 
+	
+	
 
-<script>
 	$(function(){
 		$("#review_btn").on("click", function() {
 			alert("클릭");
@@ -57,8 +59,61 @@
 				  location.href="/getClassDetail?clsCode=" + ${detail.clsCode};
 			  })
 			  .catch(err => alert("오류가 발생 : " + err));
-		})
+		});
+		
+		
+		/* $("#wish_btn").on("click", function() {
+			changeHeart();
+		});	 */	
+		
 	});
+	
+	
+	
+	function changeHeart(id) {
+		if (id == "") {
+			toastr.show('위시클래스에 추가하려면 로그인이 필요합니다');
+		} else {		
+			
+			var data = {};
+			data["clsCode"] = "6";
+			  data["memId"] = "potato@naver.com";
+			  
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "/clickWish",
+				dataType: "json",
+				data: data,
+				error : function(){
+	                Rnd.alert("통신 에러","error","확인",function(){});
+	            },
+	            success : function(result) {
+	                if (result == -1){
+	                    Rnd.alert("좋아요 오류","error","확인",function(){});
+	                }
+	                else {
+	                    if (result == 1){
+	                    	// 좋아요 누름
+	                    	alert("result = 1");
+	                        $("#btn_like").attr("style","color: #FF0066");
+	                        
+	                        toastr.show('위시클래스에 추가되었습니다.');
+	                    }
+	                    else if (result == 0){
+	                    	// 좋아요 취소
+	                    	alert("result = 0")
+	                        $("#btn_like").attr("style","color: gray");
+	                    }
+	                }
+	            }
+			})
+			
+		}
+		
+		
+	};
 
 
 </script>
@@ -107,9 +162,18 @@
 													<div class="ct_cost">(회당 ${detail.perPrice}원/${detail.lapse}회)</div>
 												</div>
 												<div class="price right">
-												<span class="middle">
-													<a href="javascript:;" data-adarea="피클_공유하기" class="btn_share ml10 adClick">
-														<i class="fas fa-heart fa-2x"  style="color:#FF0066"></i>
+												<span class="middle" id="wish_btn" style="cursor: pointer;" onclick='changeHeart("${member.id}")'>
+													<a class="btn_share ml10 adClick">
+													
+														<c:choose>
+															<c:when test="${isWish == 1}"> <!-- isWish가 1이면 빨간 하트-->
+														        <i id="btn_like" class="fas fa-heart fa-2x" style="color: #FF0066"></i>
+														    </c:when>
+															<c:otherwise> <!-- isWish가 0이면 빈하트-->
+														        <i id="btn_like" class="fas fa-heart fa-2x" style="color: gray"></i>
+														    </c:otherwise>
+														</c:choose>		
+														
 													</a>
 													<p class="font13 black" style="margin-bottom: 0px;">wish</p>
 												</span>
@@ -118,7 +182,7 @@
 											<div>
 											
 											<c:if test="${detail.reminder > 0}">
-												<a href="javascript:;" data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick">
+												<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;">
 												클래스 신청하기
 												</a>
 											</c:if>
@@ -248,93 +312,9 @@
 												</div>
 											</div>
 										</div>
-										<div id="area03" class="content_area">
-											<div class="maintxt2">
-												수강후기
-												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" id="modal_btn" onclick='reviewRrite("${member.id}")'>리뷰쓰기</a>
-												
-												<!-- 여기부터 모달모달~~ -->
-												<div class="modal">					
-													<div class="layout_popup pop_w660">
-														<div class="pop_wrap">
-															<div data-adarea="피클_팝업닫기" class="close adClick">
-																<a href="javascript:;">
-																	<img src="https://img.ficle.io/www/common/icon/btn_pop_close.png" alt="닫기">
-																</a>
-															</div>
-															<div class="contents_w">
-																<div class="pop_cont_wrap">
-																	<div class="layout_w100">
-																		<div class="tit">리뷰작성</div>
-																	</div>
-																	<div class="layout_w100">
-																		<form>
-																			<div class="write_area">
-																				<p class="maintxt" style="margin: 0;">${detail.clsName}</p>
-																				<span class="subtxt1">with. ${detail.name}</span>
-																			</div>
-																			<div class="write_area" style="position: relative; top: -33px";>
-																				<span class="subtxt2">클래스는 어떠셨나요?</span>
-																				<div class="star_group big ">
-																					<input type="radio" id="rating-5" name="star" value="5" /><label for="rating-5">5</label>
-																				    <input type="radio" id="rating-4" name="star" value="4" /><label for="rating-4">4</label>
-																				    <input type="radio" id="rating-3" name="star" value="3" /><label for="rating-3">3</label>
-																				    <input type="radio" id="rating-2" name="star" value="2" /><label for="rating-2">2</label>
-																				    <input type="radio" id="rating-1" name="star" value="1" /><label for="rating-1">1</label>
-																				</div>
-																			</div>
-																			<div class="btn_search cont" style="position: relative; top: -30px;">
-																				<textarea id="contents" name="reviewContent" placeholder="클래스를 참여하며 느꼈던 점들을 작성해주세요. 다른분들께 큰 도움이 됩니다 :)" style="resize: none;"></textarea>
-																			</div>
-																			<div class="btn_wrap flat mt40">
-																				<input type="hidden" name="trainerId" value="${detail.trainerId}">
-																				<input type="hidden" name="clsCode" value="${detail.clsCode}">
-																				<input type="hidden" name="memId" value="${member.id}">
-																			
-																				<input type="button" id="review_btn" class="adClick review_btn type4" value="리뷰등록">
-																			</div>
-																		</form>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												
-												<!-- 모달 끝 -->
-											</div>
-											<div class="table_basic_list list3 review_wrap">
-												<c:if test="${empty review }">
-													<span>작성된 후기가 없습니다.</span>
-												</c:if>
-												<c:if test="${not empty review }">
-													<ul>
-														<c:forEach var="review" items="${review }">
-															<li>
-																<div class="leftbox">
-																	<div class="review_nm">
-																		<div class="login_thum middle">
-																			<span>
-																				<!---->
-																			</span>
-																		</div>
-																		<span class="middle">${review.nickName}</span>
-																		<div class="star_group small ml5">
-																			<c:forEach begin="1" end="${review.star}">
-																			    <span class="on">1</span>
-																			</c:forEach>
-																		</div>
-																	</div>
-																	<div class="review_txt">
-																		${review.reviewContent}
-																	</div>
-																</div>
-															</li>
-														</c:forEach>
-													</ul>
-												</c:if>																				
-											</div>
-										</div>
+										<!-- 리뷰 -->
+										<%@ include file="review.jsp"%>
+										
 									</div>
 								</div>
 							</div>
