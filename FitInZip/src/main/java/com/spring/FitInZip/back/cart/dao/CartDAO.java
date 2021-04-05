@@ -39,4 +39,8 @@ public class CartDAO {
 	public void updateAmount(CartVO vo) {
 		mybatis.update("CartDAO.updateAmount", vo);
 	}
+	
+	public void downAmount(CartVO vo) {
+		mybatis.update("CartDAO.downAmount", vo);
+	}
 }

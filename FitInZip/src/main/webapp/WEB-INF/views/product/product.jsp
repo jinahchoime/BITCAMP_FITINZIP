@@ -37,29 +37,39 @@
 					body : new URLSearchParams(formData)
 			}
 			
-			fetch("/insertCart", options) //일단 들어가고 confirm도 물어봄
+			fetch("/insertCart", options) 
 				.then(async function (response) {
 					let result = await response.json();
-					/*
-					if (${sessionScope.isExist == true } ) {
-						 var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
+					
+					/* if (${sessionScope.isExist.equals("true") } ) {
+						var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
 						 if(cart) {
 							 location.href="/cart";
 						 } else {
 							 location.href="/product";
-						 }
+						 } 
 					} else {
 						alert("장바구니 담기 성공");
-					} 
-					*/
+					}  
+					 */
 					//alert("장바구니 담기 성공");
 					//location.href="/product"; 
 				})
-				.catch(err => alert("오류 발생: " + err)); 
+				.catch(err => {
+					//alert("오류 발생: " + err);
+					var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
+					 if(cart) {
+						 location.href="/cart";
+					 } else {
+						 location.href="/product";
+					 } 
+					
+				}); 
+			
 				
 		})
 	})
-	
+	//alert("오류 발생: " + err)
 	//console.log($("#dumbbell option:selected").val());
 	
 	
