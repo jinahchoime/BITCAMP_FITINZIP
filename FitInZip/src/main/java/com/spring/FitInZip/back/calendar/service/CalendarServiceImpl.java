@@ -1,6 +1,7 @@
 package com.spring.FitInZip.back.calendar.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,6 +44,10 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarDAO.insertAttendance(mem_id);
 		
 	}
-	
+
+	@Override
+	public int countDayOfMonth(Map<String, String> map) {
+		return calendarDAO.countDayOfMonth(map);
+	}
 	
 }

@@ -58,4 +58,8 @@ public class CalendarDAO {
 		return result;
 	}
 	
+	public int countDayOfMonth(Map<String, String> map) {
+		return mybatis.selectOne("calendar.countDayOfMonth", map);
+	}
+	
 }

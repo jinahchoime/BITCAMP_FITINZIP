@@ -23,6 +23,13 @@
 		values(#{mem_id}, to_char(sysdate,'yyyy-mm-dd'))
 	</insert>
 	
+	<!-- 쿠폰 발급을 위해 해당 달의 출석일 수 검색 -->
+	<select id="countDayOfMonth" parameterType="Map" resultType="Integer">
+		select count(*)
+		from calendar
+		where mem_id = #{mem_id} and attend_date like #{attend_date}
+	</select>
+	
 </mapper>
 
 

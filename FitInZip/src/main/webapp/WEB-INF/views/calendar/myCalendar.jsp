@@ -14,6 +14,7 @@
 <link href="../resources/mypage/css/mypage.css" rel="stylesheet"></link>
 <link href="../resources/mypage/css/cls.css" rel="stylesheet"></link>
 <script type="text/javascript">
+	
 
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
@@ -25,14 +26,34 @@ document.addEventListener('DOMContentLoaded', function() {
             myCustomButton: {
               text: '출석하기',
               click: function() {
+				var date    = new Date();
+				var year    = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day     = date.getDate();
+				
+				var last   = new Date( year, month ); 
+				last   = new Date( last - 1 ); 
+				var lastD = last.getDate();
+				var thisMonth = {"lastday" : lastD}; 
+            	console.log("마지막 날 : " + lastD);
+            	console.log("마지막 날 : " + JSON.stringify(thisMonth));
+            	
                 $.ajax({
                 	url: 'setAttendance',
                 	dataType: 'json',
+                	data: thisMonth,
+                	type: 'POST',
                 	success:function(result) {
+                		alert(JSON.stringify(result));
                 		if(result.result == 'overlap'){
                 			alert("이미 출석하셨습니다");
                 		}else{
                 			alert("출석체크 완료!");
+                			
+                			if(result.coupon == 'issue'){
+                				alert("출석을 완료하여 쿠폰이 발행되었습니다!");
+                			}
+                			
                 			calendar.refetchEvents();
                 		}
 					}

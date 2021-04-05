@@ -29,7 +29,50 @@
 		$("#goBack").on("click", function(){
 			actionForm.submit();
 		});
+		
+		$("#thumbnailUpload").on('change', function(){
+			thumbnailURL(this);
+        });
+		
+		$("#titleUpload").on('change', function(){
+			titleURL(this);
+        });
+		
+		$("#deleteThumbnail").on('click', function(){
+			$('#deleteThumbnail').css('display', 'none');
+			$('#thumbnailImg').attr('src', "${cls.thumbnailFileName }");
+			$('#thumbnailUpload').val("");
+		});
+		
+		$("#deleteTitle").on('click', function(){
+			$('#deleteTitle').css('display', 'none');
+			$('#titleImg').attr('src', "${cls.titleFileName }");
+			$('#titleUpload').val("");
+		});
+		
 	});
+	
+	function thumbnailURL(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+               $('#thumbnailImg').attr('src', e.target.result);
+            }
+            $("#deleteThumbnail").css('display', 'block');
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
+	
+	function titleURL(input) {
+		if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+               $('#titleImg').attr('src', e.target.result);
+            }
+            $("#deleteTitle").css('display', 'block');
+            reader.readAsDataURL(input.files[0]);
+        }
+	}
 	
 </script>
 <body>
@@ -282,34 +325,27 @@
 							<td class="thumbnailPreview">
 								<!-- 썸네일 미리보기 -->
 								<a class="btn btn-danger btn-circle btn-sm" id="deleteThumbnail" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-								<c:if test="${cls.thumbnailOriName == null || empty cls.thumbnailOriName }"><img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;"></c:if>
-								<c:if test="${cls.thumbnailOriName != null || !empty cls.thumbnailOriName }"><img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/${cls.thumbnailFileName }" style="width:250px; height:250px;"></c:if>
+								<%-- <c:if test="${cls.thumbnailOriName == null || empty cls.thumbnailOriName }"><img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;"></c:if> --%>
+								<img id="thumbnailImg" src="${cls.thumbnailFileName }" style="width:250px; height:250px;">>
 							</td>
 							<th rowspan="2" style="vertical-align: middle;">타이틀 이미지</th>
 							<td>	
 								<!-- 타이틀 이미지 미리보기 -->
 								<a class="btn btn-danger btn-circle btn-sm" id="deleteTitle" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-								<img id="titleImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
-							</td>
+								<%-- <c:if test="${cls.titleOriName == null || empty cls.titleOriName }"><img id="titleImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;"></c:if> --%>
+									<img id="titleImg" src="${cls.titleFileName }" style="width:250px; height:250px;">
+								</td>
 						</tr>
 						
 						<tr>
-							<th>기존 업로드 한 이미지</th>
-							<td colspan="1">
-								썸네일 이미지 : <c:if test="${cls.thumbnailOriName != null }"><img src='<c:out value="${thumbnailSrc }"></c:out>' style="width: 50px; height: 50px;"></c:if>
-										<c:if test="${cls.thumbnailOriName == null }">없음</c:if>
-							</td>
-							<td colspan="1">
-								타이틀 이미지 : <c:if test="${cls.titleOriName != null }"><img src='<c:out value="${path }/resources/classRegister/imgs/title/${cls.titleFileName }"></c:out>' style="width: 50px; height: 50px;"></c:if>
-									<c:if test="${cls.titleOriName == null }">없음</c:if>
-							</td>
+							<td><input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택"></td>
+							<td><input type="file" id="titleUpload" name="title" placeholder="파일 선택"></td>
 						</tr>
 						
 						<tr>
-							<td colspan="4" style="text-align: center;">
-								썸네일 이미지 : <input type="file" name="thumbnail" placeholder="파일 선택">
-								타이틀 이미지 : <input type="file" name="title" placeholder="파일 선택">
-								강의 주소 : <input type="text" name="meetUrl" value="${cls.meetUrl }">
+							<th>강의 주소</th>
+							<td colspan="3" style="text-align: center;">
+								<input type="text" name="meetUrl" value="${cls.meetUrl }" style="width: 100%;">
 							</td>
 						</tr>
 						
@@ -326,6 +362,11 @@
 				<input type="hidden" name="originEndDate" value="${cls.endDate }">
 				<input type="hidden" name="originStartTime" value="${cls.startTime }">
 				<input type="hidden" name="originEndTime" value="${cls.endTime }">
+				
+				<input type="hidden" name="thumbnailOriName" value="${cls.thumbnailOriName }">
+				<input type="hidden" name="thumbnailFileName" value="${cls.thumbnailFileName }">
+				<input type="hidden" name="titleOriName" value="${cls.titleOriName }">
+				<input type="hidden" name="titleFileName" value="${cls.titleFileName }">
 				
 				<input type="hidden" name="pageNum" value='<c:out value="${crt.pageNum }"/>'>
 				<input type="hidden" name="amount" value='<c:out value="${crt.amount }"/>'>

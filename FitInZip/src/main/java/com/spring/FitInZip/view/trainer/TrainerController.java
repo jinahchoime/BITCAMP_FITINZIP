@@ -259,8 +259,11 @@ public class TrainerController {
 		MultipartFile classUploadFile = null;
 		// .metadata 아래의 서버가 사용하는 경로에 저장. -> jsp단에서 접근하지 못함
 		// String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
-		String filePath = this.getClass().getResource("").getPath();
-		filePath = filePath.substring(1, filePath.indexOf(".metadata")) + "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		/*
+		 * String filePath = this.getClass().getResource("").getPath(); filePath =
+		 * filePath.substring(1, filePath.indexOf(".metadata")) +
+		 * "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		 */
 		//System.out.println("경로명 : " + filePath);
 		//System.out.println("file 경로  : " + filePath);
 		
@@ -294,16 +297,19 @@ public class TrainerController {
 		 */
 		UUID uuid = null;
 		String filename = "";
+		String filePath = "";
+		filePath = "C:/FitInZip_Images/";
+		
 		if(thumbnail != null) {
 			uuid = UUID.randomUUID();
 			filename = thumbnail.getOriginalFilename();
 			vo.setThumbnailOriName(filename);
 			
 			if(filename != null && !filename.equals("")) {
-				filename = uuid + "_" + filename;
+				filename = filePath + "thumbnail/" + uuid + "_" + filename;
 				vo.setThumbnailFileName(filename);
 				classUploadFile = thumbnail;
-				classUploadFile.transferTo(new File(filePath + "thumbnail/" + filename));
+				classUploadFile.transferTo(new File(filename));
 			}
 			
 		}
@@ -314,10 +320,10 @@ public class TrainerController {
 			vo.setTitleOriName(filename);
 			
 			if(filename != null && !filename.equals("")) {
-				filename = uuid + "_" + filename;
+				filename = filePath + "title/" + uuid + "_" + filename;
 				vo.setTitleFileName(filename);
 				classUploadFile = title;
-				classUploadFile.transferTo(new File(filePath + "title/" + filename));
+				classUploadFile.transferTo(new File(filename));
 			}
 			
 		}
@@ -379,33 +385,14 @@ public class TrainerController {
 		startTime = startTime.substring(11, 16);
 		endTime = endTime.substring(11, 16);
 		
-		// 파일 처리
-		ResponseEntity<Byte[]> entity = null;
-		HttpHeaders headers = new HttpHeaders();
-		
-		String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
-		filePath = filePath.replace('/', '\\');
-		
-		String thumbnail = "";
-		String title = "";
-		if(getCls.getThumbnailFileName() != null) {
-			thumbnail = filePath + "thumbnail\\" + getCls.getThumbnailFileName();
-		}	
-		
-		if(getCls.getTitleFileName() != null) {
-			title = filePath + "title\\" + getCls.getTitleFileName();
-		}
-		
-		
+		getCls.setThumbnailFileName(getCls.getThumbnailFileName().substring(2));
+		getCls.setTitleFileName(getCls.getTitleFileName().substring(2));
 
 		model.addAttribute("cls", getCls);
 		model.addAttribute("startDate", start);
 		model.addAttribute("endDate", end);
 		model.addAttribute("startTime", startTime);
 		model.addAttribute("endTime", endTime);
-		
-		model.addAttribute("thumbnailSrc", thumbnail);
-		model.addAttribute("titleSrc", title);
 		
 		model.addAttribute("pageNum", crt.getPageNum());
 		model.addAttribute("amount", crt.getAmount());
@@ -421,12 +408,9 @@ public class TrainerController {
 			// 날짜와 시간이 비는 경우, 기존 값 유지
 			@RequestParam(value = "clsTag", required = false) String clsTag,
 			@RequestParam(value = "equip", required = false) String equip,
-			@RequestParam(value = "clsFileName", required = false) MultipartFile clsFileName) throws Exception {
+			MultipartFile thumbnail, MultipartFile title) throws Exception {
 		
-		System.out.println("헤으응 vo : " + vo.toString());
-		/*
-		 * System.out.println("파일명 헤으응 : " + vo.getClsFileName().getOriginalFilename());
-		 */
+		//System.out.println("thumbnail : " + thumbnail);
 		
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -442,19 +426,45 @@ public class TrainerController {
 		vo.setStartTime(startTime);
 		vo.setEndTime(endTime);
 		
-		// 파일을 업로드 하지 않은 경우 처리
-		/*
-		 * if (vo.getClsFileName().getOriginalFilename() == "") {
-		 * vo.setClsOriName(request.getParameter("originClsFileName")); } else { UUID
-		 * uuid = UUID.randomUUID();
-		 * 
-		 * String fileName = "" + uuid + "_";
-		 * 
-		 * MultipartFile classUploadFile = vo.getClsFileName(); if (classUploadFile !=
-		 * null) { fileName += classUploadFile.getOriginalFilename();
-		 * classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" +
-		 * fileName)); } vo.setClsOriName(fileName); }
-		 */
+		// 파일 처리
+		String filePath = "C:/FitInZip_Images/";
+		
+		if(thumbnail.getOriginalFilename().equals("")) {
+			String oriFileName = request.getParameter("thumbnailOriName");
+			String uploadedFileName = request.getParameter("thumbnailFileName");
+			vo.setThumbnailOriName(oriFileName);
+			vo.setThumbnailFileName("C:" + uploadedFileName);
+		} else {
+			MultipartFile uploadFile = thumbnail;
+			UUID uuid = UUID.randomUUID();
+			String fileName = thumbnail.getOriginalFilename();
+			vo.setThumbnailOriName(fileName);
+			fileName = filePath + "thumbnail/" + uuid + "_" + fileName;
+			vo.setThumbnailFileName(fileName);
+			uploadFile.transferTo(new File(fileName));
+			
+			File file = new File("C:" + request.getParameter("thumbnailFileName"));
+			file.delete();
+		}
+		
+		if(title.getOriginalFilename().equals("")) {
+			String oriFileName = request.getParameter("titleOriName");
+			String uploadedFileName = request.getParameter("titleFileName");
+			vo.setTitleOriName(oriFileName);
+			vo.setTitleFileName("C:" + uploadedFileName);
+		} else {
+			MultipartFile uploadFile = title;
+			UUID uuid = UUID.randomUUID();
+			String fileName = title.getOriginalFilename();
+			vo.setTitleOriName(fileName);
+			fileName = filePath + "title/" + uuid + "_" + fileName;
+			vo.setTitleFileName(fileName);
+			uploadFile.transferTo(new File(fileName));
+			
+			File file = new File("C:" + request.getParameter("titleFileName"));
+			file.delete();
+		}
+		// 파일 처리 끝
 
 		System.out.println("ClsVO : " + vo.toString());
 
