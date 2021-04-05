@@ -18,6 +18,10 @@
 
 <!-- percent bar -->
 <link rel="stylesheet" href="../resources/admin/css/percent.css">
+<!-- progress bar -->
+<link rel="stylesheet" href="../resources/admin/css/progress.css">
+<script src="https://rendro.github.io/easy-pie-chart/javascripts/jquery.easy-pie-chart.js"></script>
+
 
 <!-- MainSidebar -->
 <link rel="stylesheet" href="../resources/admin/css/style5.css">
@@ -90,6 +94,17 @@
 	color: #fff;
 	text-transform: uppercase;
 }
+.easyPieChart{
+	width: 220px !important; 
+    height: 220px !important;
+    margin : -15px !important;
+    line-height: 215px !importan;
+    padding-top: 30px !importan;
+}
+
+canvas{
+	width: 100% !important;
+}
 </style>
 
 
@@ -117,15 +132,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
-						<h3 style="text-align: center; padding-bottom: 10px;"
-							id="chartOnePrice">이달의 매출 현황</h3>
+						<h5 style="text-align: center; padding-bottom: 10px;"
+							id="chartOnePrice">이달의 매출 현황</h5>
 					</div>
 					<div class="col-md-6">
-						<h3 style="text-align: center; padding-bottom: 10px;"
-							id="chartTwoPrice">지난달 매출 현황</h3>
+						<h5 style="text-align: center; padding-bottom: 10px;"
+							id="chartTwoPrice">지난달 매출 현황</h5>
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-md-6">
 						<canvas id="myChartOne"></canvas>
@@ -134,46 +148,68 @@
 						<canvas id="myChartTwo"></canvas>
 					</div>
 				</div>
-				<div class="row" style="padding-top:50px;">
-					<div class="col-md-9">
-						<div class="skillbar clearfix " data-percent="100%">
-							<div class="skillbar-title" style="background: #d35400;">
+
+				<div class="line"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<h5 style="text-align: center; padding-bottom: 10px;"
+							id="chartOnePrice">지난달 대비 매출 달성률</h5>
+					</div>
+				</div>
+
+				<div class="row" style="padding-top: 50px;">
+					<div class="col-md-8">
+						<div class="skillbar clearfix " id="weightData" data-percent="30%">
+							<div class="skillbar-title"
+								style="background: rgba(247, 67, 54, 0.7);">
 								<span>웨이트</span>
 							</div>
-							<div class="skillbar-bar" style="background: #e67e22;"></div>
-							<div class="skill-bar-percent">120%</div>
+							<div class="skillbar-bar"
+								style="background: rgba(247, 67, 54, 0.7)"></div>
+							<div class="skill-bar-percent" id="weightPer">120%</div>
 						</div>
 						<!-- End Skill Bar -->
 
-						<div class="skillbar clearfix " data-percent="25%">
-							<div class="skillbar-title" style="background: #2980b9;">
+						<div class="skillbar clearfix " id="fitnessData"
+							data-percent="25%">
+							<div class="skillbar-title"
+								style="background: rgba(33, 150, 243, 0.7);">
 								<span>피트니스</span>
 							</div>
-							<div class="skillbar-bar" style="background: #3498db;"></div>
-							<div class="skill-bar-percent">25%</div>
+							<div class="skillbar-bar"
+								style="background: rgba(33, 150, 243, 0.7);"></div>
+							<div class="skill-bar-percent" id="fitnessPer">25%</div>
 						</div>
 						<!-- End Skill Bar -->
 
-						<div class="skillbar clearfix " data-percent="50%">
-							<div class="skillbar-title" style="background: #2c3e50;">
+						<div class="skillbar clearfix " id="yogaData" data-percent="50%">
+							<div class="skillbar-title"
+								style="background: rgba(255, 152, 0, 0.7);">
 								<span>요가</span>
 							</div>
-							<div class="skillbar-bar" style="background: #2c3e50;"></div>
-							<div class="skill-bar-percent" id ="yogaPer">50%</div>
+							<div class="skillbar-bar"
+								style="background: rgba(255, 152, 0, 0.7);"></div>
+							<div class="skill-bar-percent" id="yogaPer">50%</div>
 						</div>
 						<!-- End Skill Bar -->
 
-						<div class="skillbar clearfix " data-percent="40%">
-							<div class="skillbar-title" style="background: #46465e;">
+						<div class="skillbar clearfix " id="pilatesData"
+							data-percent="40%">
+							<div class="skillbar-title"
+								style="background: rgba(233, 30, 99, 0.7);">
 								<span>필라테스</span>
 							</div>
-							<div class="skillbar-bar" style="background: #5a68a5;"></div>
-							<div class="skill-bar-percent">40%</div>
+							<div class="skillbar-bar"
+								style="background: rgba(233, 30, 99, 0.7);"></div>
+							<div class="skill-bar-percent" id="pilatesPer">40%</div>
 						</div>
+					</div>
+					<div class="col-md-4">
+							 <div class="chart" id="progress" data-percent="10">HTML5</div>
 					</div>
 				</div>
 			</div>
-					<div class="col-md-3"></div>
+	
 
 			<div class="line"></div>
 
@@ -194,30 +230,94 @@
 
 	<script type="text/javascript">
         $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
-            });
-            chartOneStart();
-            chartTwoStart();
-           /*  initChart().then(function () {
-            	console.log("yogaPrice : " + yogaPrice);
-                console.log("yogaPrice2 : " + yogaPriceTwo);
-                console.log("yogaPriceSum : " + (yogaPrice + yogaPriceTwo));            	
-            }); */
+
+            var dataOne = new Array();
+            var dataTwo = new Array();
+            dataOne = chartOneStart();
+            dataTwo = chartTwoStart();
             
+            <!-- 차트 차이 계산하기  소숫점 첫째자리까지-->
+            let weightPer = (dataTwo[0] / dataOne[0] * 100).toFixed(1);
+            let fitnessPer = (dataTwo[1] / dataOne[1] * 100).toFixed(1);
+            let yogaPer = (dataTwo[2] / dataOne[2] * 100).toFixed(1);
+            let pilatesPer = (dataTwo[3] / dataOne[3] * 100).toFixed(1);
+            
+            <!-- 차트 차이 계산하기  없애기-->
+            let weightP = (dataTwo[0] / dataOne[0] * 100).toFixed(0);
+            let fitnessP = (dataTwo[1] / dataOne[1] * 100).toFixed(0);
+            let yogaP = (dataTwo[2] / dataOne[2] * 100).toFixed(0);
+            let pilatesP = (dataTwo[3] / dataOne[3] * 100).toFixed(0);
+            
+            console.log("호호호호호" + weightP+fitnessP+yogaP+pilatesP);
+ 
+            document.getElementById('weightPer').innerHTML = weightPer+'%';
+            document.getElementById('fitnessPer').innerHTML = fitnessPer+'%';
+            document.getElementById('yogaPer').innerHTML = yogaPer+'%';
+            document.getElementById('pilatesPer').innerHTML = pilatesPer+'%';
+            
+            <!-- 그래프 값넣기 -->
+            if(weightP<=99){
+            	document.getElementById('weightData').setAttribute('data-percent',weightP+'%');
+            }else if(weightP>=100){
+            	document.getElementById('weightData').setAttribute('data-percent','100%');	
+            }
+            
+            if(fitnessP<=99){
+            	document.getElementById('fitnessData').setAttribute('data-percent',fitnessP+'%');
+            }else if(fitnessP>=100){
+            	document.getElementById('fitnessData').setAttribute('data-percent','100%');
+            }
+            
+            if(yogaP<=99){
+            	document.getElementById('yogaData').setAttribute('data-percent',yogaP+'%');
+            }else if(yogaP>=100){
+            	document.getElementById('yogaData').setAttribute('data-percent','100%');	
+            }
+            
+            if(pilatesP<=99){
+            	document.getElementById('pilatesData').setAttribute('data-percent',pilatesP+'%');
+            }else if(pilatesP>=100){
+            	 let e4 = document.getElementById('pilatesData').setAttribute('data-percent','100%');	
+            }
+            
+            <!-- progress 값넣기 -->
+            var one = dataOne[0] + dataOne[1] +dataOne[2] +dataOne[3];
+            var two = dataTwo[0] + dataTwo[1] +dataTwo[2] +dataTwo[3];
+            
+            var avgOneTwo = (one / two *100).toFixed(1);
+            console.log("가즈아~"+avgOneTwo);
+            document.getElementById('progress').setAttribute('data-percent',avgOneTwo);
+            document.getElementById('progress').innerHTML = avgOneTwo+'%';
+           
+            
+           /* 
+            let e1 = document.getElementById('weightData').setAttribute('data-percent',weightPer);
+            let e2 = document.getElementById('fitnessData').setAttribute('data-percent',fitnessPer);
+            let e3 = document.getElementById('yogaData').setAttribute('data-percent',yogaPer);
+            let e4 = document.getElementById('pilatesData').setAttribute('data-percent',pilatesPer);
+
+ */            
             <!-- 퍼센트바 -->
         	jQuery('.skillbar').each(function(){
         		jQuery(this).find('.skillbar-bar').animate({
         			width:jQuery(this).attr('data-percent')
         		},6000);
         	});
+        	
+        	<!-- 실험중 -->
+       	 $('.chart').easyPieChart({
+       		    scaleColor: "#ecf0f1",
+       		    lineWidth: 20,
+       		    lineCap: 'butt',
+       		    barColor: 'rgba(11,156,49,0.5)',
+       		    trackColor:	"#ecf0f1",
+       		    size: 160,
+       		    animate: 500
+       		  });
+       	
+        	
         });
-        
-     /*    async function initChart() {
-        	await chartOneStart();
-            await chartTwoStart();
-        } */
+
     </script>
 	<script>
 	<!--강사가입 승인 modal승인 클릭 부분 -->
@@ -384,20 +484,6 @@
 	
 </script>
 	<script>
-/* 	var weightPrice = 0;
-	var fitnessPrice = 0;
-	var yogaPrice = 0;
-	var pilatesPrice = 0; */
-	
-	var weightPriceTwo = 0;
-	var fitnessPriceTwo = 0;
-	var yogaPriceTwo = 0;
-	var pilatesPriceTwo = 0;
-
-	/* console.log("오냐 : " + weightPrice + " fitnessPrice" + fitnessPrice + " yogaPrice" + yogaPrice + " pilatesPrice" + pilatesPrice); */
-	
-	/* yogaPercent = (yogaPriceTwo/yogaPrice*100).toFixed(1); */
-	/* document.getElementById('yogaPer').innerHTML=(yogaPriceTwo/yogaPrice*100).toFixed(1) +'%'; */
 	
 	function addComma(num) {
 	  var regexp = /\B(?=(\d{3})+(?!\d))/g;
@@ -405,7 +491,7 @@
 	}
 	<!-- 메인1번차트 이번달매출 -->
 	function chartOneStart(){
-		var chartOne 
+		var dataOne = new Array();
 		
 		$.ajax({
 			url: "chartOne",
@@ -413,13 +499,14 @@
 			async:false,
 			dataType: "json",
 			success: function(data){
-				getchartOneData(data)	
+				dataOne = getchartOneData(data)	
 			},
 			error: function (){
 				alert("짜쓰~"+error);
 				}
 		});
-		
+	
+		return dataOne;
 	}
 	
 	
@@ -429,6 +516,7 @@
 		var yogaPrice = 0;
 		var pilatesPrice = 0;
 
+		var dateOne = new Array(); 
 		data.forEach(function(element){
 			switch (element.commonName){
 				case '웨이트':
@@ -446,7 +534,14 @@
 			}
 		})
 		
+		dateOne[0] = weightPrice;
+		dateOne[1] = fitnessPrice;
+		dateOne[2] = yogaPrice;
+		dateOne[3] = pilatesPrice;
+		console.log("히이이익? : " + dateOne[0],dateOne[1] ,dateOne[2] ,dateOne[3] );
+		
 		crateChartOne(weightPrice,fitnessPrice,yogaPrice,pilatesPrice);
+		return dateOne;
 	}
 		function crateChartOne(weightPrice,fitnessPrice,yogaPrice,pilatesPrice){
 			console.log("weightPrice : " + weightPrice + " fitnessPrice" + fitnessPrice + " yogaPrice" + yogaPrice + " pilatesPrice" + pilatesPrice);
@@ -518,6 +613,7 @@
 
 		<!-- 메인2번차트 지난달매출 -->
 		function chartTwoStart(){
+			var dataTwo = new Array(); 
 			
 			$.ajax({
 				url: "chartTwo",
@@ -525,22 +621,24 @@
 				async:false,
 				dataType: "json",
 				success: function(data){
-					getchartTwoData(data)	
+					dataTwo = getchartTwoData(data)	
 					
 				},
 				error: function (){
 					alert("짜쓰~"+error);
 					}
 			});
-			
+			return dataTwo;
 		}
 		
 		
 		function getchartTwoData(data){
-	/* 		var weightPriceTwo = 0;
+			var weightPriceTwo = 0;
 			var fitnessPriceTwo = 0;
 			var yogaPriceTwo = 0;
-			var pilatesPriceTwo = 0; */
+			var pilatesPriceTwo = 0;
+			
+			var dataTwo = new Array(); 
 			
 			data.forEach(function(element){
 				switch (element.commonName){
@@ -557,10 +655,16 @@
 						pilatesPriceTwo += element.originPrice;
 					break;
 				}
-			
 			})
+				dataTwo[0] = weightPriceTwo;
+				dataTwo[1] = fitnessPriceTwo;
+				dataTwo[2] = yogaPriceTwo;
+				dataTwo[3] = pilatesPriceTwo;
+				console.log("한방에좀가자 ~" + dataTwo[3]);
 			
 			crateChartTwo(weightPriceTwo,fitnessPriceTwo,yogaPriceTwo,pilatesPriceTwo);
+			
+			return dataTwo;
 		}
 			function crateChartTwo(weightPriceTwo,fitnessPriceTwo,yogaPriceTwo,pilatesPriceTwo){
 				console.log("cartTwo weightPriceTwo : " + weightPriceTwo + " fitnessPriceTwo" + fitnessPriceTwo + " yogaPriceTwo" + yogaPriceTwo + " pilatesPriceTwo" + pilatesPriceTwo);
@@ -569,7 +673,7 @@
 				var sumPriceTwo = weightPriceTwo+fitnessPriceTwo+yogaPriceTwo+pilatesPriceTwo;
 				console.log(addComma(sumPriceTwo));
 				//$('#chartOnePrice').html('이달의 총 매출 : ' + sumPrice);
-				document.getElementById('chartTwoPrice').innerHTML = '저번달 총 매출 : ' + addComma(sumPriceTwo)  + ' 원';
+				document.getElementById('chartTwoPrice').innerHTML = '지난달 총 매출 : ' + addComma(sumPriceTwo)  + ' 원';
 				
 				let barChartTwo = new Chart(myChartTwo, {
 					type : 'bar', //pie, line, doughnut, palarArea, bar
@@ -632,10 +736,6 @@
 /* 	function per(){
 		document.getElementById('yogaPer').innerHTML=(yogaPriceTwo/yogaPrice*100).toFixed(1) +'%';
 	} */
-	
-
-		
-	console.log("weightPriceTwo1"+ weightPriceTwo + fitnessPriceTwo +  yogaPriceTwo+ pilatesPriceTwo);
 </script>
 
 
