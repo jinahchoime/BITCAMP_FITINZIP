@@ -23,6 +23,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
@@ -69,6 +70,8 @@ public class AdminController {
 		/* 클래스 가입승인*/
 		List<GetClsCheckDTO> list1 = adminService.getClsCheck();
 		model.addAttribute("bbsCls",list1);
+		
+	
 		
 		System.out.println("bbs1 : "+list);
 		System.out.println("bbsCls : "+list1);
@@ -189,11 +192,37 @@ public class AdminController {
 		return "admin/classMasterPart";
 	}
 	
+	@RequestMapping("/chartOne")
+	@ResponseBody
+	public List<MonthPaymentChartDTO> chartOne(){
+		/* 통계1번 */
+		List<MonthPaymentChartDTO> list = adminService.monthPaymentChart();
+		System.out.println("chartOne"+ list);
+		return list;
+	}
+	@RequestMapping("/chartTwo")
+	@ResponseBody
+	public List<MonthPaymentChartDTO> chartTwo(){
+		/* 통계2번 */
+		List<MonthPaymentChartDTO> list = adminService.lastMonthPaymentChart();
+		System.out.println("chartTwo"+ list);
+		return list;
+	}
+	
+	
+	
+	
 	@RequestMapping("/test")
 	public String test() {
 		System.out.println("test 시작");
 
 		return "admin/amountTest";
+	}
+	@RequestMapping("/test11")
+	public String test11() {
+		System.out.println("test11 시작");
+
+		return "admin/test11";
 	}
 
 }

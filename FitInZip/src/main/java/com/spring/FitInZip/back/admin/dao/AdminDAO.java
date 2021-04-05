@@ -14,6 +14,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 
 @Repository
@@ -92,5 +93,13 @@ public class AdminDAO {
 	public List<GetClsCheckDTO> allListCM(String key){
 		System.out.println("DAO key" + key);
 		return mybatis.selectList("AdminDAO.allListCM",key);
+	}
+	
+	public List<MonthPaymentChartDTO> monthPaymentChart(){
+		return mybatis.selectList("AdminDAO.monthPaymentChart");
+	}
+	
+	public List<MonthPaymentChartDTO> lastMonthPaymentChart(){
+		return mybatis.selectList("AdminDAO.lastMonthPaymentChart");
 	}
 }

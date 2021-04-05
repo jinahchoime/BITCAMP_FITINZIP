@@ -12,6 +12,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 
 @Service
@@ -137,6 +138,15 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 		}
 
+	@Override
+	public List<MonthPaymentChartDTO> monthPaymentChart() {
+		return adminDAO.monthPaymentChart();
+	}
+	
+	@Override
+	public List<MonthPaymentChartDTO> lastMonthPaymentChart() {
+		return adminDAO.lastMonthPaymentChart();
+	}
 
 
 
