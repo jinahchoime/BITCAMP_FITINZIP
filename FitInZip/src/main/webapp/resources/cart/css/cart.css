@@ -60,7 +60,7 @@
 }
 
 .product-opt_cart .item-detail .item-info {
-  width: 68%;
+  width: 800px;
 }
 
 .product-opt_cart .item-detail .item-info .img-wrap {
@@ -74,18 +74,21 @@
 .product-opt_cart .item-detail .item-info .info-wrap {
   display: inline-block;
   box-sizing: border-box;
-  padding-left: 158px;
   line-height: 18px;
   vertical-align: top;
+  margin-left: 50px;
+  width: 500px;
+  margin-top: 12px;
 }
 
 .opt.quantity {
   display: block;
+  padding-top: 10px;
 }
 
 .retail-price {
 	color: #FA5400;
-	padding-left: 400px;
+	float: right;
 }
 
 .mypage-cart .product-opt_cart .item-detail .total-price strong {

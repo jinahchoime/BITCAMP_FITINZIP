@@ -11,42 +11,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
-<script>
-		$("#check_module").click(function(){
-			alert("ddddddd");
-			IMP.init('imp09300600');
-			IMP.request_pay({
-				pg : 'kakao',
-				pay_method : 'card',
-				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : 'FITINZIP 용품 결제',
-				amount : 100,
-				buyer_email : '구매자 이메일',
-				buyer_name : 'ddd',
-				buyer_tel : 'hhhh',
-				buyer_addr : 'jjjjj',
-				buyer_postcode : 'ooooooo',
-			}, function (rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-					var msg = '결제 완료';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-					
-				} else {
-					var msg = '결제 실패';
-					msg += '에러 내용 : ' + rsp.error_msg;
-				}
-				alert(msg);
-			}); 
-		
-		});
-	
-	
-	
-</script>
+
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
@@ -108,12 +73,10 @@
 											<div class="payment-method-item">
 												<!-- <form action="/kakaoPay" method="post"> -->
 												<h6 class="payment-method-item-title">
-													<button id="kakaoPay"><img style="width:60px; " src="../resources/product/img/icon_kakaopay_100.jpg" alt="카카오페이">
+													<button id="kakaoPay" class="kakaoPay-btn"><img style="width:60px; " src="../resources/product/img/icon_kakaopay_100.jpg" alt="카카오페이">
 													카카오페이
 													</button>
 												</h6>
-												<!-- </form> -->
-												<button id="check_module">되라되라</button>
 											</div>
 											<div class="payment-method-item">
 												<h6 class="payment-method-item-title">신용카드</h6>
@@ -163,7 +126,7 @@
 									<div class="">옵션 </div>
 									<div class="current-option-wrap">
 										<input type="hidden" name="옵션">
-										<span class="qty">수량 : ${cartList.amount }</span>
+										<span class="qty" id="amount">수량 : ${cartList.amount }</span>
 									</div>
 									<span class="price-wrap">
 										<strong class="retail-price">${cartList.proPrice } 원</strong>
@@ -192,7 +155,7 @@
 								<c:forEach var="cartList" items="${cartList }">
 									<c:set var="sum" value="${sum + cartList.proPrice }"/>
 								</c:forEach>
-								<span class="price sale total"><strong><c:out value="${sum }"/> 원</strong></span>
+								<span class="price sale total" id="pay"><strong><c:out value="${sum }"/> 원</strong></span>
 							</div>
 						</div>
 					</div>
@@ -211,5 +174,44 @@
 	
 	<!-- Footer -->
   	<jsp:include page="../footer.jsp"></jsp:include>
+  	
+  	<script>
+	$(function(){
+		$("#kakaoPay").click(function(){
+			alert("dddd");
+			IMP.init('imp09300600');
+			IMP.request_pay({
+				pg : 'kakao',
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : 'FITINZIP 용품 결제',
+				amount : document.getElementById("#pay"),
+				buyer_email : '',
+				buyer_name : '',
+				buyer_tel : '',
+				buyer_addr : '',
+				buyer_postcode : ''
+			}, function (rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					var msg = '결제 완료';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+					
+				} else {
+					var msg = '결제 실패';
+					msg += '에러 내용 : ' + rsp.error_msg;
+				}
+				alert(msg);
+			});  
+		
+		});
+	})
+	
+	
+	
+</script>
 </body>
 </html>

@@ -366,3 +366,10 @@ order-info .tit {
 .total-price strong {
 	font-size: 20px;
 }
+.kakaoPay-btn {
+	outline: none;
+	background-color: transparent;
+	border: none;
+	color: #606060;
+	font-weight: bold;
+}

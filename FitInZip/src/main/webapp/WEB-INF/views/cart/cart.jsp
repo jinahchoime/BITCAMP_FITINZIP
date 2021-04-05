@@ -28,8 +28,9 @@
 		$changeAmount.innerText = viewAmount;
 		
 		//let formData = $("form[name=form]").serialize();
-		let formData = new FormData(document.getElementById("thisform"));
-		
+		//let formData = new FormData(document.getElementById("thisform"));
+		//let formData = new FormData(this.form);
+		let formData = new FormData(form);
 		
 		let options = {
 				method: "POST",
@@ -57,9 +58,7 @@
 		$changeAmount.innerText = viewAmount;
 		
 		//let formData = $("form[name=form]").serialize();
-		
-		let formData = new FormData(this.form);
-		
+		let formData = new FormData(form);
 		
 		let options = {
 				method: "POST",
@@ -76,81 +75,6 @@
 			//location.href="/cart"
 		});  
 	}
-	
-
-	/*
-	$(function(){
-		/*
-		var viewAmount = document.getElementById("viewAmount").innerText;
-		var changeAmount = document.getElementById("changeAmount").innerText;
-		var amount = parseInt(viewAmount);
-		
-		 $(".up").on('click', function(){
-			amount += 1;
-			$('#viewAmount').text(amount);
-			$('#changeAmount').text(amount);
-			
-			update();
-		})
-		*/
-		
-		
-		//수량 더하기
-			/* function update(){
-				let formData = $("form[name=form]").serialize();
-				
-				let options = {
-						method: "POST",
-						body : new URLSearchParams(formData)
-				}
-				
-				fetch("/updateAmount", options) 
-					.then(async function (response) {
-						let result = await response.json();
-					})
-				 
-				
-				.catch(err => {
-					//alert("오류 발생: " + err)
-					//location.href="/cart"
-				});  
-			} */
-		
-		
-		//수량 빼기
-		/*
-		$(".down").on("click", function(){
-			amount -= 1;
-			$('#viewAmount').text(amount);
-			$('#changeAmount').text(amount);
-
-			down();
-		})
-		
-		
-		
-		function down() {
-			let formData = $("form[name=form]").serialize();
-			
-			let options = {
-					method: "POST",
-					body : new URLSearchParams(formData)
-			}
-			
-			fetch("/downAmount", options) 
-				.then(async function (response) {
-					let result = await response.json();
-				})
-			
-			.catch(err => {
-				//alert("오류 발생: " + err);
-				//location.href="/cart"
-			});  
-		}
-		
-	})
-	
-	*/
 	
 	
 	//장바구니 전체 삭제
@@ -256,7 +180,7 @@
 								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="reload()"></button>
 								      </div>
 								      <div class="modal-body updown">
-								        	<span>수량 :</span><span id="changeAmount">${cartList.amount }</span> &nbsp;
+								        	<span>수량 : </span><span id="changeAmount">${cartList.amount }</span> &nbsp;
 								        	<button type="button" onclick="up(this.form)">
 								        		<i class="fas fa-arrow-up arrow up"></i>
 								        	</button>
