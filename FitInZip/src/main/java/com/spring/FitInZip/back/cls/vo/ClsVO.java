@@ -48,4 +48,6 @@ public class ClsVO {
 	private Integer maxMem;
 	private Integer calorie;
 	private String meetUrl;
+	
+	
 }

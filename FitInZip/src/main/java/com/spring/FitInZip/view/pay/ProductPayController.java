@@ -14,7 +14,6 @@ import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.payment.ProductPayService;
 
-import lombok.extern.java.Log;
 
 @Controller
 public class ProductPayController {
