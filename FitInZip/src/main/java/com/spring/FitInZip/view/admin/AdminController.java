@@ -2,6 +2,7 @@ package com.spring.FitInZip.view.admin;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.service.AdminService;
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
@@ -210,11 +212,19 @@ public class AdminController {
 	}
 	@RequestMapping("/chartThree")
 	@ResponseBody
-	public List<MemberVO> chartThree(){
-		/* 통계2번 */
-		List<MemberVO> list = adminService.inputData();
-		System.out.println("chartThree"+ list);
-		return list;
+	public Map<String,String> chartThree(){
+		/* 통계3번 */
+		Map<String,String> mapOne = adminService.inputData();
+		Map<String,String> mapTwo = adminService.inputDataTwo();
+		
+		mapOne.putAll(mapTwo);
+		
+		for (String key : mapOne.keySet()) {
+			String value = mapOne.get(key);
+			System.out.print(key+" / "+value);
+		}
+		
+		return mapOne;
 	}
 	
 	

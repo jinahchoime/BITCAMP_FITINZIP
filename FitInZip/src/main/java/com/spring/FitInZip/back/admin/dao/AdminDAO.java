@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
@@ -101,7 +102,10 @@ public class AdminDAO {
 	public List<MonthPaymentChartDTO> lastMonthPaymentChart(){
 		return mybatis.selectList("AdminDAO.lastMonthPaymentChart");
 	}
-	public List<MemberVO> inputData(){
+	public List<GetInputData> inputData(){
 		return mybatis.selectList("AdminDAO.inputData");
+	}
+	public List<GetInputData> inputDataTwo(){
+		return mybatis.selectList("AdminDAO.inputDataTwo");
 	}
 }

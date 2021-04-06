@@ -1,7 +1,10 @@
 package com.spring.FitInZip.back.admin.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,7 @@ import com.spring.FitInZip.back.admin.dao.AdminDAO;
 import com.spring.FitInZip.back.admin.service.AdminService;
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
@@ -151,35 +155,40 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<MemberVO> inputData() {
-		List<MemberVO> list = adminDAO.inputData();
+	public Map<String,String> inputData() {
+		List<GetInputData> list = adminDAO.inputData();
 		System.out.println("증가추이"+list.toString());
 		
-		List<Integer> memberList = new ArrayList<Integer>();
-		for (int i = 0; i < 31; i++) {
-		/*	int 
-			memberList.add(0);*/
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("00","0"); map.put("01","0"); map.put("02","0"); map.put("03","0"); map.put("04","0"); map.put("05","0"); map.put("06","0"); map.put("07","0"); map.put("08","0"); map.put("09","0"); map.put("10","0"); map.put("11","0"); map.put("12","0"); map.put("13","0"); map.put("14","0"); map.put("15","0"); map.put("16","0"); map.put("17","0"); map.put("18","0"); map.put("19","0"); map.put("20","0"); map.put("21","0"); map.put("22","0"); map.put("23","0"); map.put("24","0"); map.put("25","0"); map.put("26","0"); map.put("27","0"); map.put("28","0"); map.put("29","0"); map.put("30","0"); map.put("31","0");
+		for (GetInputData vo : list) {
+			vo.setJoinDate(vo.getJoinDate().substring(8, 10)); 
 		}
-		for (Integer it : memberList) {
-			System.out.println(it);
+		for (GetInputData vo2 : list) {
+			map.put(vo2.getJoinDate(),vo2.getCount());
 		}
+	
 		
-		
-		for (MemberVO vo : list) {
-			/* vo.setJoinDate(String.valueOf(vo.getJoinDate()).substring(7)); */
-			if(vo.getRole().equals("RL01")) {
-				
-				
-			}else if(vo.getRole().equals("RL02")) {
-				
-			}
-		}
-		
-		
-		
-		return list;
+		return map;
 	}
-
+	
+	@Override
+	public Map<String,String> inputDataTwo() {
+		List<GetInputData> list = adminDAO.inputDataTwo();
+		System.out.println("증가추이 Two"+list.toString());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("-00","0"); map.put("-01","0"); map.put("-02","0"); map.put("-03","0"); map.put("-04","0"); map.put("-05","0"); map.put("-06","0"); map.put("-07","0"); map.put("-08","0"); map.put("-09","0"); map.put("-10","0"); map.put("-11","0"); map.put("-12","0"); map.put("-13","0"); map.put("-14","0"); map.put("-15","0"); map.put("-16","0"); map.put("-17","0"); map.put("-18","0"); map.put("-19","0"); map.put("-20","0"); map.put("-21","0"); map.put("-22","0"); map.put("-23","0"); map.put("-24","0"); map.put("-25","0"); map.put("-26","0"); map.put("-27","0"); map.put("-28","0"); map.put("-29","0"); map.put("-30","0"); map.put("-31","0");
+		for (GetInputData vo : list) {
+			vo.setJoinDate(vo.getJoinDate().substring(7, 10)); 
+		}
+		for (GetInputData vo2 : list) {
+			map.put(vo2.getJoinDate(),vo2.getCount());
+		}
+	
+		
+		return map;
+	}
 
 
 }

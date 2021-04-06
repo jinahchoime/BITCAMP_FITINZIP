@@ -108,10 +108,18 @@
 	WHERE P.CLS_CODE = F.CLS_CODE AND F.CLS_CATEGORY = C.COMMON_CODE  AND TO_CHAR(PAY_DATE,'YYYYMM') = TO_CHAR(ADD_MONTHS(SYSDATE,-1) ,'YYYYMM')
 	</select>
 	
-	<select id="inputData" resultType="com.spring.FitInZip.back.member.vo.MemberVO">
-	SELECT ID, NAME, GENDER, ROLE,JOIN_DATE 
+	<select id="inputData" resultType="com.spring.FitInZip.back.admin.vo.GetInputData">
+	SELECT TO_CHAR(JOIN_DATE,'YYYY-MM-DD') AS JOIN_DATE, COUNT(*) AS COUNT 
 	FROM MEMBER 
-	WHERE  WITHDRAWAL = 'WD00' AND TO_CHAR(JOIN_DATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')
+	WHERE  WITHDRAWAL = 'WD00' AND ROLE='RL00' AND TO_CHAR(JOIN_DATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')   
+	GROUP BY TO_CHAR(JOIN_DATE,'YYYY-MM-DD')
+	</select>
+	
+	<select id="inputDataTwo" resultType="com.spring.FitInZip.back.admin.vo.GetInputData">
+	SELECT TO_CHAR(JOIN_DATE,'YYYY-MM-DD')  AS JOIN_DATE, COUNT(*) AS COUNT 
+	FROM MEMBER 
+	WHERE  WITHDRAWAL = 'WD00' AND ROLE='RL01' AND TO_CHAR(JOIN_DATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM') 
+	GROUP BY TO_CHAR(JOIN_DATE,'YYYY-MM-DD')
 	</select>
 	
  </mapper>
