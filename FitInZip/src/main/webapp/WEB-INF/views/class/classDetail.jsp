@@ -76,8 +76,8 @@
 		} else {		
 			
 			var data = {};
-			data["clsCode"] = "6";
-			  data["memId"] = "potato@naver.com";
+	         data["clsCode"] = "${detail.clsCode}";
+	           data["memId"] = "${member.id}";
 			  
 			
 			
