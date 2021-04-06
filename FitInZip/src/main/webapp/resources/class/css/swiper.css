@@ -15,6 +15,7 @@
     font-weight: 100;
     color: white;
     text-align: center;
+    text-shadow: 1px 1px 5px #cc4c33;
 }
 .topbnr_subtitle {
     position: absolute;
@@ -29,7 +30,8 @@
 
 .main_txt_rolling li {
     font-weight: 600 !important;
-    color: DarkOrange;
+    color: white;
+    text-shadow: 1px 1px 5px #c23d33;
 }
 
 .swiper-container {

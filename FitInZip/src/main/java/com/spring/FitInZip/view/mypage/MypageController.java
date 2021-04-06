@@ -1,6 +1,8 @@
 package com.spring.FitInZip.view.mypage;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.annotation.SessionScope;
@@ -32,6 +36,8 @@ import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.common.service.MemCouponService;
+import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Controller
@@ -44,6 +50,10 @@ public class MypageController {
 	// 캘린더
 	@Autowired
 	private CalendarService calendarService;
+	
+	// 쿠폰 부여
+	@Autowired
+	private MemCouponService memCouponService;
 	
 	@RequestMapping(value="calendar")
 	public String goCalendar(HttpServletRequest request, Model model) {
@@ -63,20 +73,87 @@ public class MypageController {
 	
 	@RequestMapping(value = "setAttendance")
 	@ResponseBody
-	public Map<String, String> name(HttpSession session) {
+	public Map<String, String> name(HttpSession session, @RequestParam Map<String, Object>lastday ) {
 		String id = ((MemberVO)session.getAttribute("member")).getId();
 		
 		CalendarVO vo = calendarService.chkAttendance(id);
 		Map<String, String> map = new HashMap<String, String>();
 		
+		System.out.println("마지막 날 : " + lastday.get("lastday"));
+		
 		if(vo != null) {
 			map.put("result", "overlap");
+			//map.put("coupon", "issue");
 			return map;
 		}
 		
 		int result = calendarService.insertAttendance(id);
 		if(result == 1) {
 			map.put("result", "chk");
+			
+			  Calendar cal = java.util.Calendar.getInstance(); SimpleDateFormat format =
+			  new SimpleDateFormat("yyyy-MM"); 
+			  String from = format.format(cal.getTime()) + "%"; 
+			  System.out.println("날짜 : " + from);
+			  
+			  Map<String, String> user = new HashMap<String, String>();
+			  user.put("mem_id", id);
+			  user.put("attend_date", from);
+			  
+			  int count = calendarService.countDayOfMonth(user);
+			  
+			  if(count == Integer.parseInt((String)lastday.get("lastday"))) {
+				  map.put("coupon", "issue");
+				  
+				  from = from.substring(5, 7);
+				  
+				  System.out.println("from: " + from);
+				  
+				  int parsedMonth = Integer.parseInt(from);
+				  String couponMonth = "";
+				  MemCouponVO coupvo = new MemCouponVO();
+				  
+				  switch (parsedMonth) {
+					case 1:
+						break;
+					case 2:
+						couponMonth = "february";
+						break;
+					case 3:
+						couponMonth = "march";
+						break;
+					case 4:
+						couponMonth = "april";
+						break;
+					case 5:
+						break;
+					case 6:
+						break;
+					case 7:
+						break;
+					case 8:
+						break;
+					case 9:
+						break;
+					case 10:
+						break;
+					case 11:
+						break;
+					case 12:
+						break;
+				}
+				
+				coupvo.setMemId(id);
+				coupvo.setCouponCode(couponMonth);
+				coupvo.setCouponStatus("CPU01");
+				
+				System.out.println("coupvo : " + coupvo.toString());
+				
+				int insertReslt = memCouponService.memCouponInsert(coupvo);
+				System.out.println("쿠폰 발급 건수 : " + insertReslt);
+				
+			  }
+			  
 		}
 		return map;
 	}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="coupon">
+
+	<!-- 월 별 출석 쿠폰 증정 -->
+	<insert id="insertMemCoupon" parameterType="MemCouponVO">
+		insert into mem_coupon(COUPON_INDEX, MEM_ID, COUPON_CODE,COUPON_STATUS)
+		values(MEM_COUPON_SEQ.nextval, #{memId}, #{couponCode}, #{couponStatus})
+	</insert>
+
+
+
+</mapper>

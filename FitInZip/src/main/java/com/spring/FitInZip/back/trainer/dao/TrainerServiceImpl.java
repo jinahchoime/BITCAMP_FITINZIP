@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
+import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
@@ -45,12 +47,6 @@ public class TrainerServiceImpl implements TrainerService{
 	public String mainPage3(RegisterTrainerDTO dto) {
 		String totalCal = trainerDAO.mainpage3(dto);
 		return totalCal;
-	}
-
-	@Override
-	public RegisterTrainerDTO myPage(RegisterTrainerDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -101,6 +97,16 @@ public class TrainerServiceImpl implements TrainerService{
 	public void updateCal(RegisterTrainerDTO dto) {
 		trainerDAO.updateCal(dto);
 		
+	}
+
+	@Override
+	public List<ClsTrainerDTO> myPage1(RegisterTrainerDTO dto) {
+		return trainerDAO.myPage1(dto);
+	}
+
+	@Override
+	public List<ClsTrainerDTO> myPage2(RegisterTrainerDTO dto) {
+		return trainerDAO.myPage2(dto);
 	}
 
 	

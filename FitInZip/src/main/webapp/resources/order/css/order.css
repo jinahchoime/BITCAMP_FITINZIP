@@ -35,19 +35,20 @@
 
 .order-tab .header {
 	position: relative;
-	padding: 32px 25px;
+	padding: 20px;
 }
 
 .mini-box {
 	border: 1px solid #e5e5e5;
 	background-color: #e5e5e5;
-	
+	border-radius: 5px;
+	width: 380px;
+	height: 65px;
 }
 .order-tab .header .tit {
 	display: inline;
 	font-weight: bold;
 	font-size: 18px;
-	vertical-align: middle;
 }
 
 .order-wrap {
@@ -71,10 +72,10 @@
 
 .order_tab_wrap .order-tab {
 	float: none;
-	width: auto;
+	width: 380px;
 	display: block;
-	border: 0;
 	overflow: hidden;
+	border-radius: 5px;
 }
 
 .order_tab_wrap .order-tab.product-checkout .body {
@@ -85,9 +86,8 @@
 	height: 100%;
 }
 .order_tab_wrap .order-tab .body {
-	border: 1px solid #e5e5e5;
 	border-top: 0px;
-	margin
+	border-radius: 5px;
 }
 
 .order_tab_wrap .order-tab.product-checkout .order-list {
@@ -95,6 +95,7 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
+	border-bottom: 1px solid #d1d1d1;
 }
 
 .cart-order_list .order-list {
@@ -115,8 +116,11 @@
 	font-weight: bold;
 	margin: 0 0 15px 0;
 	line-height: 18px;
+	color: black;
 }
-
+.order-info {
+	padding-left: 20px;
+}
 .order-wrap .product-checkout .info-price {
 	padding-top : 15px;
 }
@@ -147,6 +151,7 @@
 	border-radius: 2px;
 	border: none;
 	width: 900px;
+	border-radius: 5px;
 }
 
 .button.xlarge:hover {
@@ -167,13 +172,13 @@
 }
 
 .address {
-	padding: 30px 0px;
+	padding: 0px 0px 20px 0px;
 	border-top: 1px solid #d1d1d1;
 }
 
 .address [type=text] {
 	padding: 9px 12px;
-	margin: 3px;
+	margin: 4px;
 }
 
 .address [type=button] {
@@ -185,22 +190,65 @@
 
 .delivery-message {
 	padding: 9px 12px;
-	margin: 0px 2px;
+	margin: 0px 4px;
 	padding-left: 0px;
 	padding-right: 292px;
 	color: #383838;
-	margin-bottom: 30px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
-
-.delivery-price .label {
-	float: left;
+.direct {
+	padding: 9px 12px;
+	color: #383838;
+	margin: 0 3px;
+	width: 494px;
+	height: 44px;
 }
-.delivery-price .price {
-	float: right;
-}
-
 .cart-order_list .price-wrap {
   display: inline-block;
   min-width: 100%;
   margin-top: 8px;
+}
+.uk-width-1-1 {
+	width: 100%;
+}
+.info-price > span {
+	width: 100%;
+}
+.info-price .item-price,
+.info-price .delivery-price,
+.info-price .total-price {
+	display: inline-block;
+	padding-left: 20px;
+}
+.info-price .item-price > .label, 
+.info-price .delivery-price > .label, 
+.info-price .total-price > .label {
+	float: left;
+}
+.info-price .item-price > .price , 
+.info-price .delivery-price > .price , 
+.info-price .total-price > .price {
+	float: right;
+	padding-right: 20px;
+}
+.product-checkout .price.total > strong {
+	font-size: 20px;
+	font-weight: bolder;
+	color: #fa5400;
+}
+
+.total-price {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.total-price .label {
+	font-size: 18px;
+	padding-right: 125px;
+}
+.padding {
+	padding-left: 20px;
+}
+.qty {
+	font-weight: bold;
 }

@@ -71,11 +71,17 @@
 	position: absolute;
 	z-index: -1;
 }
+<<<<<<< HEAD
 
 .theadWidth {
 	width: 100px;
 }
 
+=======
+.theadWidth {
+	width: 100px;
+}
+>>>>>>> 1c0b6435157934064c967972c78c275ffb3c54e4
 .title1 {
 	text-align: center;
 	font-weight: 800;

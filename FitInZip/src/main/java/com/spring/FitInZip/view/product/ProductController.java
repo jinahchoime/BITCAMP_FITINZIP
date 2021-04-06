@@ -19,10 +19,8 @@ public class ProductController {
 	
 	@RequestMapping("/product")
 	public String getProductList(Model model, ProductVO vo) {
-		//System.out.println(">>productService :" + productService);
 		
 		List<ProductVO> productList = productService.getProductList();
-		//System.out.println("productList : " + productList);
 		
 		model.addAttribute("productList", productList);
 		

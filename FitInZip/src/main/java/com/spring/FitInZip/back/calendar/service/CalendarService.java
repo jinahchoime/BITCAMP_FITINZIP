@@ -1,6 +1,7 @@
 package com.spring.FitInZip.back.calendar.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,4 +13,5 @@ public interface CalendarService {
 	List<CalendarVO> selectAttendList(String mem_id);
 	CalendarVO chkAttendance(String mem_id);
 	int insertAttendance(String mem_id);
+	int countDayOfMonth(Map<String, String> map);
 }

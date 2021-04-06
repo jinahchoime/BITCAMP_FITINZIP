@@ -18,7 +18,7 @@ import lombok.ToString;
 public class ReviewVO {
 
 	private String trainerId;
-	private String classCode;
+	private String clsCode;
 	private String reviewContent;
 	private String memId;
 	private Date regDate;

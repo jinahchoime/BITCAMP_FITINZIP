@@ -18,26 +18,10 @@ public class ProductDAO {
 		System.out.println(">> ProductDAO() 객체 생성 ");
 	}
 	
-	//상품 등록
-	public void insertProduct(ProductVO vo) {
-	}
-	
-	
-	//수정
-	public void updateProduct(ProductVO vo) {
-		
-	}
-	
-	//삭제
-	public void deleteProduct(ProductVO vo) {
-		
-	}
-	
 	//상품 전체
 	public List<ProductVO> getProductList() {
 		System.out.println(">> DAO에서 getProductList()실행");
 		
 		return mybatis.selectList("ProductDAO.getProductList");
-		
 	}
 }

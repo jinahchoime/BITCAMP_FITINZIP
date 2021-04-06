@@ -67,9 +67,16 @@
 						dispHtml += new Date(value.endDate).getHours() + ":" + new Date(value.endDate).getMinutes();
 						dispHtml += '</dd></dl></div></a></td><td class="black"><a style="cursor: pointer" id="';
 						dispHtml += btn;
+<<<<<<< HEAD
 						dispHtml +='" onclick="noHeart(';
 						dispHtml += value.clsCode
 						dispHtml += ')"><span class="awsome" style="color:#FF0066">';
+=======
+						dispHtml +='" onclick="noHeart('+'\'';
+						dispHtml += value.clsCode;
+						dispHtml += '\'';
+						dispHtml += ')"><span class="awsome" style="color:red">';
+>>>>>>> 1c0b6435157934064c967972c78c275ffb3c54e4
 						dispHtml += '<i class="fas fa-heart fa-2x"></i></span></a></td></tr>';
 						
 						return dispHtml;
@@ -86,6 +93,7 @@
 </script>
 <script type="text/javascript">
 	function noHeart(clsCode1){
+		alert(clsCode1);
 		alert("해당 클래스 찜하기를 취소합니다.");
 		$.ajax("/noHeart",{
 			type: "get",

@@ -7,7 +7,117 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Toastr -->
+<link href="/resources/class/css/toastr.css" rel="stylesheet">
+<script src="/resources/class/js/toastr.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/resources/class/css/classDetail.css">
+<link rel="stylesheet" type="text/css" href="/resources/class/css/review.css">
+<link rel="stylesheet" type="text/css" href="/resources/class/css/reviewModal.css">
+<script>
+
+	$(function(){
+		$(".close").click(function(){
+			$(".modal").fadeOut();
+		});
+
+	});
+
+	function reviewRrite(id){
+		if (id == "") {
+			toastr.show('수강후기를 작성하려면 로그인이 필요합니다.');
+		} else {			
+			$(".modal").fadeIn();
+			
+		}
+	};
+	
+	var toastr = new Toastr({
+		position:'topCenter',
+		animation:'slide',
+		timeout: 2500
+	});
+	
+	// 모르겠다 자바스크립트랑 제이쿼리란... 
+	
+	
+
+	$(function(){
+		$("#review_btn").on("click", function() {
+			alert("클릭");
+			let formData = new FormData(this.form);
+			let options = {
+				method: "POST",
+				body: new URLSearchParams(formData) 	
+			}
+			
+			fetch("/insertReview", options)
+			  .then(async function (response) {
+				  let result = await response.json();
+				  alert("리뷰가 작성되었습니다.");
+				  location.href="/getClassDetail?clsCode=" + ${detail.clsCode};
+			  })
+			  .catch(err => alert("오류가 발생 : " + err));
+		});
+		
+		
+		/* $("#wish_btn").on("click", function() {
+			changeHeart();
+		});	 */	
+		
+	});
+	
+	
+	
+	function changeHeart(id) {
+		if (id == "") {
+			toastr.show('위시클래스에 추가하려면 로그인이 필요합니다');
+		} else {		
+			
+			var data = {};
+	         data["clsCode"] = "${detail.clsCode}";
+	           data["memId"] = "${member.id}";
+			  
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "/clickWish",
+				dataType: "json",
+				data: data,
+				error : function(){
+	                Rnd.alert("통신 에러","error","확인",function(){});
+	            },
+	            success : function(result) {
+	                if (result == -1){
+	                    Rnd.alert("좋아요 오류","error","확인",function(){});
+	                }
+	                else {
+	                    if (result == 1){
+	                    	// 좋아요 누름
+	                    	alert("result = 1");
+	                        $("#btn_like").attr("style","color: #FF0066");
+	                        
+	                        toastr.show('위시클래스에 추가되었습니다.');
+	                    }
+	                    else if (result == 0){
+	                    	// 좋아요 취소
+	                    	alert("result = 0")
+	                        $("#btn_like").attr("style","color: gray");
+	                    }
+	                }
+	            }
+			})
+			
+		}
+		
+		
+	};
+
+
+</script>
+
 </head>
 <body>
 	<jsp:include page="../nav.jsp"></jsp:include>
@@ -52,9 +162,18 @@
 													<div class="ct_cost">(회당 ${detail.perPrice}원/${detail.lapse}회)</div>
 												</div>
 												<div class="price right">
-												<span class="middle">
-													<a href="javascript:;" data-adarea="피클_공유하기" class="btn_share ml10 adClick">
-														<i class="fas fa-heart fa-2x"  style="color:#FF0066"></i>
+												<span class="middle" id="wish_btn" style="cursor: pointer;" onclick='changeHeart("${member.id}")'>
+													<a class="btn_share ml10 adClick">
+													
+														<c:choose>
+															<c:when test="${isWish == 1}"> <!-- isWish가 1이면 빨간 하트-->
+														        <i id="btn_like" class="fas fa-heart fa-2x" style="color: #FF0066"></i>
+														    </c:when>
+															<c:otherwise> <!-- isWish가 0이면 빈하트-->
+														        <i id="btn_like" class="fas fa-heart fa-2x" style="color: gray"></i>
+														    </c:otherwise>
+														</c:choose>		
+														
 													</a>
 													<p class="font13 black" style="margin-bottom: 0px;">wish</p>
 												</span>
@@ -63,7 +182,7 @@
 											<div>
 											
 											<c:if test="${detail.reminder > 0}">
-												<a href="javascript:;" data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick">
+												<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;">
 												클래스 신청하기
 												</a>
 											</c:if>
@@ -144,8 +263,8 @@
 														<div class="homet_box">
 															<div class="center">
 																<div>
-																	<p>중급
-																		<small>(07:00 ~ 07:50)</small>
+																	<p>${detail.yoil}
+																		<small>(${detail.startTime} ~ ${detail.endTime})</small>
 																	</p>
 																</div>
 																<span>진행시간</span>
@@ -193,28 +312,9 @@
 												</div>
 											</div>
 										</div>
-										<div id="area03" class="content_area">
-											<div class="maintxt2">
-												수강후기
-												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10">리뷰쓰기</a>
-											</div>
-											<div class="table_basic_list list3 review_wrap">
-												<ul>
-													<li>
-														<div class="leftbox">
-															<div class="review_nm">
-																<div class="login_thum middle">
-																	<span>
-																		<!---->
-																	</span>
-																</div>
-																<span class="middle">혜원</span>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div>
+										<!-- 리뷰 -->
+										<%@ include file="review.jsp"%>
+										
 									</div>
 								</div>
 							</div>

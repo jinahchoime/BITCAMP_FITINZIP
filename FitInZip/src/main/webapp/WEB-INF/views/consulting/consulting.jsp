@@ -108,7 +108,6 @@
 		</c:forEach>
 	</script>
 	<script>
-
 	var mapContainer = document.getElementById('map'), // 지도의 중심좌표
     mapOption = { 
         center: new kakao.maps.LatLng(37.546602560578286, 126.96490619997053), // 지도의 중심좌표

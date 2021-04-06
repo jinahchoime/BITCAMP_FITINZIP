@@ -1,5 +1,6 @@
 package com.spring.FitInZip.view.trainer;
 
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,33 +8,37 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.imageio.IIOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.cls.clsStatus.Criteria;
 import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
 import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
+import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
@@ -42,7 +47,7 @@ import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Controller
-@SessionAttributes({"admin", "member", "reqClass", "ingClass", "totalCal", "trainerInfo", "reviewList", "calList"})
+@SessionAttributes({ "admin", "member"/* , "reviewList", "calList" */})
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -59,7 +64,8 @@ public class TrainerController {
 	// 강사 등록하기 페이지
 	@RequestMapping("/registerTrainerMainPage")
 	public String registerView() {
-		return "trainer/registerTrainerMainPage";
+		//return "trainer/registerTrainerMainPage";
+		return "pay/LivePTPay";
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
@@ -125,9 +131,34 @@ public class TrainerController {
     	 return "trainer/trainerMainPage";
     }
     //마이클래스
+	/*
+	 * @RequestMapping("/myClass") public String myPage(@ModelAttribute("member")
+	 * RegisterTrainerDTO dto, Model model) { List<ClsTrainerDTO> cvo1 =
+	 * trainerService.myPage1(dto); System.out.println("cvo1: " + cvo1);
+	 * model.addAttribute("ingCls", cvo1); List<ClsTrainerDTO> cvo2 =
+	 * trainerService.myPage2(dto); System.out.println("cvo2: " + cvo2);
+	 * model.addAttribute("edCls", cvo2); return "trainer/myClass"; }
+	 */
+    
     @RequestMapping("/myClass") 
-    public String myPage(MemberVO vo) {
+    public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
+    	System.out.println("edCls: " + edCls);
+    	model.addAttribute("edCls", edCls);
     	return "trainer/myClass";
+    }
+    
+    @RequestMapping("/classData") 
+    @ResponseBody
+    public List<ClsTrainerDTO> myPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	
+    	List<ClsTrainerDTO> ingCls = trainerService.myPage1(dto);
+    	System.out.println("ingCls: " + ingCls);
+    	model.addAttribute("ingCls", ingCls);
+    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
+    	System.out.println("edCls: " + edCls);
+    	model.addAttribute("edCls", edCls);
+    	return ingCls;
 	}
     
     //내 정보 수정
@@ -193,24 +224,17 @@ public class TrainerController {
     }
     
     @RequestMapping("/myWithdrawCheck")
-    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto) {
+    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto, RedirectAttributes rttr) {
 
     	System.out.println("dto:" + dto);
-		/*
-		 * Integer withdrawCal = dto.getTotalCal() 
-		 *  dto.getRequestCal();
-		 * dto.setTotalCal(withdrawCal); System.out.println("설정 후 dto: " + dto);
-		 */
     	
     	trainerService.updateCal(dto);
     	
     	System.out.println("정산금 인출 신청 성공!");
-    	return "redirect:/trainer/trainerMainPage";
+    	return "redirect:trainerMainPage";
     }
     
- 
-    
-    
+
     //로그아웃
     @RequestMapping("/logout")
 	public String logout(HttpSession session) {
@@ -220,7 +244,10 @@ public class TrainerController {
 
 		// 2. 화면 네비게이션(로그인페이지)
 		return "main";
+		
 	}
+    
+    
     
     
     //동현
@@ -229,7 +256,7 @@ public class TrainerController {
 		crt.setTrainerId(dto.getId());
 
 		List<ClsVO> list = clsStatusService.getList(crt);
-		System.out.println("list: " + list + " , list size: " + list.size());
+		//System.out.println("list: " + list + " , list size: " + list.size());
 		int count = clsStatusService.getTotal(dto.getId());
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new PageDTO(crt, count)); // 뒤 쪽 매개변수는 총 데이터 개수
@@ -247,11 +274,17 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "regCls")
-	public String regClsProc(ClsVO vo, @ModelAttribute("crt") Criteria crt, RedirectAttributes rttr,
+	public String regClsProc(@ModelAttribute("member") RegisterTrainerDTO dto, ClsVO vo, @ModelAttribute("crt") Criteria crt, RedirectAttributes rttr,
 			@RequestParam(value = "clsTag", required = false) String clsTag,
-			@RequestParam(value = "equip", required = false) String equip)
+			@RequestParam(value = "equip", required = false) String equip, MultipartFile thumbnail, MultipartFile title,
+			HttpServletRequest request)
 			throws IllegalStateException, IIOException, Exception {
-
+		
+		MultipartFile classUploadFile = null;
+	    String filePath = this.getClass().getResource("").getPath(); 
+	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		 
 		System.out.println(vo.getStartDate());
 
 		// 클래스 코드를 생성하기
@@ -260,21 +293,45 @@ public class TrainerController {
 		String wdate = vans.format(now);
 
 		String classKey = clsStatusService.getClassSeq();
-		String classCode = "C" + wdate + "_" + classKey;
-
-		// 파일명 중복 시 uuid를 무작위 생성하여 붙여주기 때문에 별도 저장 가능
-		UUID uuid = UUID.randomUUID();
-
-		String fileName = "" + uuid + "_";
 		
-		// MultipartResolver -> FileName, OriginName
-		
-		MultipartFile classUploadFile = vo.getClsFileName();
-		if (classUploadFile != null) {
-			fileName += classUploadFile.getOriginalFilename();
-			classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
+		if(Integer.parseInt(classKey) < 10) {
+			classKey = "0" + classKey;
 		}
-
+		
+		String classCode = "C" + wdate + "_" + classKey;
+		UUID uuid = null;
+		String filename = "";
+		/*
+		 * String filePath = ""; filePath = "C:/FitInZip_Images/";
+		 */
+		
+		if(thumbnail != null) {
+			uuid = UUID.randomUUID();
+			filename = thumbnail.getOriginalFilename();
+			vo.setThumbnailOriName(filename);
+			
+			if(filename != null && !filename.equals("")) {
+				filename = filePath + "thumbnail/" + uuid + "_" + filename;
+				vo.setThumbnailFileName(filename);
+				classUploadFile = thumbnail;
+				classUploadFile.transferTo(new File(filename));
+			}
+			
+		}
+		
+		if(title != null) {
+			uuid = UUID.randomUUID();
+			filename = title.getOriginalFilename();
+			vo.setTitleOriName(filename);
+			
+			if(filename != null && !filename.equals("")) {
+				filename = filePath + "title/" + uuid + "_" + filename;
+				vo.setTitleFileName(filename);
+				classUploadFile = title;
+				classUploadFile.transferTo(new File(filename));
+			}
+			
+		}
 		// 시작, 끝 시간 입력을 위한 가공
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -291,8 +348,9 @@ public class TrainerController {
 		vo.setEndTime(endTime);
 
 		System.out.println("starttime: " + startTime + ", endtime: " + endTime);
-
-		vo.setClsOriName(fileName);
+		
+		vo.setTrainerId(dto.getId());
+		/* vo.setClsOriName(fileName); */
 		vo.setClsCode(classCode);
 
 		System.out.println("vo: " + vo.toString());
@@ -330,6 +388,9 @@ public class TrainerController {
 
 		startTime = startTime.substring(11, 16);
 		endTime = endTime.substring(11, 16);
+		
+		getCls.setThumbnailFileName(getCls.getThumbnailFileName().substring(79));
+		getCls.setTitleFileName(getCls.getTitleFileName().substring(79));
 
 		model.addAttribute("cls", getCls);
 		model.addAttribute("startDate", start);
@@ -351,10 +412,7 @@ public class TrainerController {
 			// 날짜와 시간이 비는 경우, 기존 값 유지
 			@RequestParam(value = "clsTag", required = false) String clsTag,
 			@RequestParam(value = "equip", required = false) String equip,
-			@RequestParam(value = "clsFileName", required = false) MultipartFile clsFileName) throws Exception {
-		
-		System.out.println("헤으응 vo : " + vo.toString());
-		System.out.println("파일명 헤으응 : " + vo.getClsFileName().getOriginalFilename());
+			MultipartFile thumbnail, MultipartFile title) throws Exception {
 		
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -370,22 +428,45 @@ public class TrainerController {
 		vo.setStartTime(startTime);
 		vo.setEndTime(endTime);
 		
-		// 파일을 업로드 하지 않은 경우 처리
-		if (vo.getClsFileName().getOriginalFilename() == "") {
-			vo.setClsOriName(request.getParameter("originClsFileName"));
+		// 파일 처리
+		String filePath = "C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		
+		if(thumbnail.getOriginalFilename().equals("")) {
+			String oriFileName = request.getParameter("thumbnailOriName");
+			String uploadedFileName = request.getParameter("thumbnailFileName");
+			vo.setThumbnailOriName(oriFileName);
+			vo.setThumbnailFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
 		} else {
+			MultipartFile uploadFile = thumbnail;
 			UUID uuid = UUID.randomUUID();
-
-			String fileName = "" + uuid + "_";
-
-			MultipartFile classUploadFile = vo.getClsFileName();
-			if (classUploadFile != null) {
-				fileName += classUploadFile.getOriginalFilename();
-				classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" + fileName));
-			}
-			vo.setClsOriName(fileName);
+			String fileName = thumbnail.getOriginalFilename();
+			vo.setThumbnailOriName(fileName);
+			fileName = filePath + "thumbnail/" + uuid + "_" + fileName;
+			vo.setThumbnailFileName(fileName);
+			uploadFile.transferTo(new File(fileName));
+			
+			File file = new File("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + request.getParameter("thumbnailFileName"));
+			file.delete();
 		}
-
+		
+		if(title.getOriginalFilename().equals("")) {
+			String oriFileName = request.getParameter("titleOriName");
+			String uploadedFileName = request.getParameter("titleFileName");
+			vo.setTitleOriName(oriFileName);
+			vo.setTitleFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
+		} else {
+			MultipartFile uploadFile = title;
+			UUID uuid = UUID.randomUUID();
+			String fileName = title.getOriginalFilename();
+			vo.setTitleOriName(fileName);
+			fileName = filePath + "title/" + uuid + "_" + fileName;
+			vo.setTitleFileName(fileName);
+			uploadFile.transferTo(new File(fileName));
+			
+			File file = new File("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + request.getParameter("titleFileName"));
+			file.delete();
+		}
+		// 파일 처리 끝
 		System.out.println("ClsVO : " + vo.toString());
 
 		clsStatusService.updateClass(vo);

@@ -10,8 +10,8 @@
 			select *
 			from
 			    (select /*+INDEX_DESC(FIT_CLASS FIT_CLASS_PK) */ rownum rn, CLS_CODE, TRAINER_ID, CLS_CATEGORY, CLS_NAME, CLS_TAG, START_DATE,
-			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, CLS_ORI_NAME, CLS_FILE_NAME,
-			        CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
+			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, THUMBNAIL_ORI_NAME,
+			        THUMBNAIL_FILE_NAME, TITLE_ORI_NAME, TITLE_FILE_NAME, CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
 			    from fit_class
 			    where rownum <= #{pageNum} * #{amount} and trainer_id = #{trainerId})
 			where rn > (#{pageNum} -1) * #{amount} and trainer_id = #{trainerId}
@@ -35,7 +35,7 @@
 		insert into fit_class
 		values(#{clsCode}, #{trainerId}, #{clsCategory}, #{clsName}, 
 		#{clsTag}, #{startDate}, #{endDate}, #{yoil}, to_timestamp(#{startTime}, 'yyyy-MM-dd hh24:mi:ss'), to_timestamp(#{endTime}, 'yyyy-MM-dd hh24:mi:ss'), #{lapse}, #{clsLevel}, #{equip}, #{perPrice}, #{clsInfo},
-		#{curriculum}, #{clsOriName}, 'upload', 'CS00', #{maxMem}, #{calorie}, #{meetUrl})
+		#{curriculum}, 'CS00', #{maxMem}, #{calorie}, #{meetUrl}, #{thumbnailOriName}, #{thumbnailFileName}, #{titleOriName}, #{titleFileName})
 	</insert>
 	
 	<!-- 강의 수정 -->
@@ -55,8 +55,10 @@
 			PER_PRICE = #{perPrice},
 			CLS_INFO = #{clsInfo},
 			CURRICULUM = #{curriculum},
-			CLS_ORI_NAME = 'upload',
-			CLS_STATUS = #{clsStatus},
+			THUMBNAIL_ORI_NAME = #{thumbnailOriName},
+			THUMBNAIL_FILE_NAME = #{thumbnailFileName}, 
+			TITLE_ORI_NAME = #{titleOriName}, 
+			TITLE_FILE_NAME = #{titleFileName},
 			MAX_MEM = #{maxMem},
 			CALORIE = #{calorie},
 			MEET_URL = #{meetUrl}
@@ -70,52 +72,104 @@
 		where cls_code = #{clsCode} and trainer_id = #{trainerId}
 	</select>
 
+	<!-- 클래스 리스트 불러오기 -->
 	<select id="getClassList" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
 		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
-        TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
-        TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
-        TO_CHAR(START_TIME, 'PM') PM,
-        TO_CHAR(START_TIME, 'HH:MI') START_TIME,
-        MAX_MEM, LAPSE,
-        TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
-        TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
-        (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN
+		       TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
+		       TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+		       TO_CHAR(START_TIME, 'PM') PM,
+		       TO_CHAR(START_TIME, 'HH:MI') START_TIME,
+		       MAX_MEM, LAPSE,
+		       TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+		       TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
+		       (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN
        
 		FROM FIT_CLASS F, MEMBER M, COMMON C
 		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
 		AND CLS_STATUS = 'CS01' 
+		AND START_DATE > SYSDATE 
 		<if test="value != null">
 			AND CLS_CATEGORY = #{value}
 		</if>
 	</select>
 	
+	<!-- 진행중 클래스 -->
+	<select id="getIngList" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsListDTO">
+		<![CDATA[
+		SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
+		       TO_CHAR(START_DATE, 'FMMM.DD') START_DATE,
+		       TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+		       TO_CHAR(START_TIME, 'PM') PM,
+		       TO_CHAR(START_TIME, 'HH:MI') START_TIME,
+		       MAX_MEM, LAPSE,
+		       TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+		       TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
+		       (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN
+       
+		FROM FIT_CLASS F, MEMBER M, COMMON C
+		WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
+		AND CLS_STATUS = 'CS01' 
+		AND START_DATE <= SYSDATE AND END_DATE >= SYSDATE
+		]]>
+		<if test="value != null">
+			AND CLS_CATEGORY = #{value}
+		</if>
+		
+	</select>
+	
+	
+	
+	<!-- 클래스 상세내용 -->
 	<select id="getClassDetail" parameterType="string" resultType="com.spring.FitInZip.back.cls.dto.ClsDetailDTO">
 		SELECT *
-			FROM(SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
-				 TO_CHAR(START_DATE, 'YYYY') YEAR,
- 		         TO_CHAR(START_DATE, 'FMMM') START_MONTH,
- 		         TO_CHAR(START_DATE, 'FMDD') START_DAY,
- 		         TO_CHAR(END_DATE, 'FMMM.DD') END_DATE,
- 		         TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
- 		         TO_CHAR(START_TIME, 'PM') PM,
-		         TO_CHAR(START_TIME, 'HH:MI') START_TIME,
-		         TO_CHAR(END_TIME, 'HH:MI') END_TIME, CURRICULUM,
-		         MAX_MEM, LAPSE, CLS_LEVEL, EQUIP, CLS_INFO,
-		         TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
-		         TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
-		         CLS_TAG,
-		         TRUNC(TO_NUMBER(TO_DATE(TO_CHAR(END_DATE, 'YYYYMMDD'), 'YYYYMMDD') - TO_DATE(TO_CHAR(START_DATE, 'YYYYMMDD'), 'YYYYMMDD')) / 7) + 1 AS WEEK,
-		         (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN    
-       
-                 FROM FIT_CLASS F, MEMBER M, COMMON C 
-                 WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
-                 AND CLS_CODE = #{clsCode}),
-                 (SELECT TRAINER_INTRO, CAREER
-                 	 FROM TRAINER_REGISTER
-                     WHERE TRAINER_ID = (SELECT TRAINER_ID
-                                         FROM FIT_CLASS 
-                                         WHERE CLS_CODE = #{clsCode}))
+		FROM(SELECT CLS_CODE, NAME, TRAINER_ID, COMMON_NAME, CLS_NAME,
+			 TO_CHAR(START_DATE, 'YYYY') YEAR,
+		     TO_CHAR(START_DATE, 'FMMM') START_MONTH,
+		     TO_CHAR(START_DATE, 'FMDD') START_DAY,
+		     TO_CHAR(END_DATE, 'FMMM.DD') END_DATE,
+		     TO_CHAR(START_DATE, 'DY') START_YOIL, YOIL,
+		     TO_CHAR(START_TIME, 'PM') PM,
+	         TO_CHAR(START_TIME, 'HH:MI') START_TIME,
+	         TO_CHAR(END_TIME, 'HH:MI') END_TIME, CURRICULUM,
+	         MAX_MEM, LAPSE, CLS_LEVEL, EQUIP, CLS_INFO,
+	         TO_CHAR(PER_PRICE, '999,999,999') PER_PRICE,
+	         TO_CHAR(PER_PRICE * LAPSE, '999,999,999') TOTAL_PRICE,
+	         CLS_TAG,
+	         TRUNC(TO_NUMBER(TO_DATE(TO_CHAR(END_DATE, 'YYYYMMDD'), 'YYYYMMDD') - TO_DATE(TO_CHAR(START_DATE, 'YYYYMMDD'), 'YYYYMMDD')) / 7) + 1 AS WEEK,
+	         (SELECT COUNT(*) FROM PAYMENT WHERE CLS_CODE = F.CLS_CODE) AS JOIN    
+      
+                FROM FIT_CLASS F, MEMBER M, COMMON C 
+                WHERE F.TRAINER_ID = M.ID AND F.CLS_CATEGORY = C.COMMON_CODE  
+                AND CLS_CODE = #{clsCode}),
+                (SELECT TRAINER_INTRO, CAREER
+                	 FROM TRAINER_REGISTER
+                    WHERE TRAINER_ID = (SELECT TRAINER_ID
+                                        FROM FIT_CLASS 
+                                        WHERE CLS_CODE = #{clsCode}))
 	</select>
-
 	
+	
+	
+	<!-- 좋아요(wish) 눌렀는지 -->
+	<select id="isWish" parameterType="map" resultType="int">
+    	SELECT COUNT(*)
+    	  FROM WISH_CLASS
+    	 WHERE CLS_CODE = #{clsCode}
+      	   AND MEM_ID = #{memId}
+	</select>
+	
+	<!-- 찜하기 -->
+	<insert id="insertWish" parameterType="map">
+	INSERT INTO WISH_CLASS
+	VALUES (#{memId}, #{clsCode})
+	</insert>
+	
+	<!-- 찜 취소하기 -->
+	<delete id="deleteWish" parameterType="map">
+	DELETE FROM WISH_CLASS
+	 WHERE CLS_CODE = #{clsCode}
+       AND MEM_ID = #{memId}
+	</delete>	
+	
+
 </mapper>

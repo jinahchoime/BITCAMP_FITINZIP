@@ -297,10 +297,20 @@ html {
 							                 
 							                        <img src="" onerror="this.src='../resources/trainer/img/review_basic_img.png'" class="MuiAvatar-img" style="border-radius: 50%; width:40px; height:40px;">${review.memOriName }
 							                    </div>
-							                    <div class="MuiGrid-root css-r0bh7x-shortInformation MuiGrid-item" style="flex-flow: column nowrap; display: flex; -webkit-box-pack: center; justify-content: center; margin: 0;
+							          
+							                    <div class="MuiGrid-root css-r0bh7x-shortInformation MuiGrid-item" style=" display: flex; -webkit-box-pack: center; justify-content: center; margin: 0;
  												   justify-content: center; box-sizing: border-box; padding: 8px;">
+							                        <div style="flex-flow: column nowrap;">
 							                        <p class="MuiTypography-root css-9f72dd-caption-caption-medium MuiTypography-body1" style="margin: 0">${review.name }</p>
 							                        <p class="MuiTypography-root css-62lz7s-caption-caption-defaultWeight-dateText-dateText MuiTypography-body1" style="margin: 0">${review.regDate }</p>
+							                       </div>
+							                       <div class="star_group small ml5" style="margin-top: 3.5px;">
+								                        <c:forEach begin="1" end="${review.star}">
+														    <span class="on">1</span>
+														</c:forEach>
+													</div>
+													
+							                        
 							                    </div>
 							                </div>
 							                <div>

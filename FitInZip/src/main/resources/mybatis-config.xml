@@ -14,10 +14,11 @@
   		<typeAlias type="com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO" alias="trainerDTO"/>
   		<typeAlias type="com.spring.FitInZip.back.calendar.vo.CalendarVO" alias="CalendarVO"/>
   		<typeAlias type="com.spring.FitInZip.back.cls.vo.ClsVO" alias="ClsVO"/>
+  		<typeAlias type="com.spring.FitInZip.back.common.vo.MemCouponVO" alias="MemCouponVO"/>
   	</typeAliases> 
   	
   <mappers>
-   <mapper resource="mappings/cart.xml"/> 
+   	<mapper resource="mappings/cart.xml"/> 
     <mapper resource="mappings/product.xml"/>     
   	<mapper resource="mappings/mypage.xml"/>
   	<mapper resource="mappings/member.xml"/>  
@@ -27,6 +28,8 @@
     <mapper resource="mappings/admin.xml"/>   
     <mapper resource="mappings/order.xml"/> 
     <mapper resource="mappings/payment.xml"/> 
+    <mapper resource="mappings/coupon.xml"/>
+    <mapper resource="mappings/review.xml"/> 
   </mappers>
 
 </configuration>
