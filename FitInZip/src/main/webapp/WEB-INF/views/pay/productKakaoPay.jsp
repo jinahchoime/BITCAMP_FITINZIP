@@ -5,18 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../resources/product/css/productKakaoPay.css" />
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
-function pay(){
-	//가맹점 식별코드
+function kakaopay(){
+	
 	var phone = ${sessionScope.member.phone};
 	 IMP.init('imp09300600');
 	 IMP.request_pay({
-	     pg: 'kakao', // version 1.1.0부터 지원.
-	     pay_method: 'card',
+	     pay_method: 'kakao',
 	     merchant_uid: 'merchant_' + new Date().getTime(),
-	     name: '주문명:결제테스트',
-	     amount: 1400, //판매 가격
+	     name: 'FITINZIP',
+	     amount: 1400, 
 	     buyer_tel: phone
 	 }, function(rsp) {
 	     if (rsp.success) {
@@ -37,7 +37,7 @@ function pay(){
 	             }
 	         }).done(function (data) {
 	           // 가맹점 서버 결제 API 성공시 로직
-	           
+	           location.href="/mypage";
 	         })
 	        	
 	     } else {
@@ -47,10 +47,16 @@ function pay(){
 	     alert(msg);
 	 });
 }
+
+
+function go(){
+	location.href="/mypage";
+}
 </script>
 </head>
 <body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-	<input type="button" onclick="pay()">
+	<input type="button" value="카카오페이" onclick="kakaopay()">
+	
 </body>
 </html>

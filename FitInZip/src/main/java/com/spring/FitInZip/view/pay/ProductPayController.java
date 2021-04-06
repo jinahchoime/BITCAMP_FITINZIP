@@ -48,9 +48,14 @@ public class ProductPayController {
 		return "pay/productPay";
 	}
 	
-	@RequestMapping("/testtest")
-	public String pay() {
-		return "pay/test";
+	@RequestMapping("/kakaopay")
+	public String kakaoPay() {
+		return "pay/productKakaoPay";
+	}
+	
+	@RequestMapping("/card")
+	public String cardPay() {
+		return "pay/productCardPay";
 	}
 }
 

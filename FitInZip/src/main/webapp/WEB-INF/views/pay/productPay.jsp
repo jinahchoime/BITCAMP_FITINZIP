@@ -9,10 +9,7 @@
 <link rel="stylesheet" type="text/css"
 	href="../resources/product/css/productPay.css" />
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
-
 </head>
-
 <body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<jsp:include page="../nav.jsp"></jsp:include>
@@ -115,8 +112,7 @@
 							<div class="footer">
 								<form method="POST"
 									class="uk-width-small-1-1 uk-width-medium-1-1" action="">
-									<button type="submit" id="money" onclick="pay()"
-										class="button xlarge width-max">
+									<button type="submit" id="money" class="button xlarge width-max">
 										<c:set var="sum" value="0" />
 										<c:forEach var="cartList" items="${cartList }">
 											<c:set var="sum" value="${sum + cartList.proPrice }" />
@@ -186,10 +182,6 @@
 			</div>
 		</article>
 	</section>
-	
-	<a href="/testtest">으아아</a>
-
-
 
 	<!-- 임시 div -->
 	<div style="height: 600px;"></div>
@@ -198,98 +190,93 @@
 	<!-- Footer -->
 	<jsp:include page="../footer.jsp"></jsp:include>
 
-<script>
+
+<script type="text/javascript">
 	$(function(){
-		var click;
-		
+		var kakao;
+		var card;
 		$("#kakao").on("click", function(){
 			if($("#card").hasClass("active") === true) {
 				$("#card").removeClass("active");
 			}
 			$(this).addClass('active');
-			click = true;
+			kakao = true;
 		});
 		
 		$("#card").on("click", function(){
 			if($("#kakao").hasClass("active") === true) {
 				$("#kakao").removeClass("active");
 			}
-			
 			$(this).addClass('active');
+			card = true;
 		});
 		
 		
-		
-	});
-
-
-
-
-	
-</script>
-<script type="text/javascript">
- $(function(){
-		$("#pay").click(function(){
-			/* var check = $('#isCheckoutAgree').is(":checked");
-			if(click != true) {
+		$("#money").click(function(){
+			var check = $('#isCheckoutAgree').is(":checked");
+			if(kakao != true && card != true) {
 				alert("결제수단을 선택해주세요.");
 				return;
 			}
 			
-			if(click == true && check == true) {
+			if(kakao == true && check == true) {
 				alert("카카오페이 결제하기");
-				pay();
+				var openKakao = window.open("/kakaopay", '카카오페이결제창', 'width=500px,height=700px');
+			} else if(card == true && check == true) {
+				alert("카드 결제하기");
+				var openCard = window.open("/card", '카드결제창', 'width=500px,height=700px');
 			} else {
 				alert("상품, 가격, 할인, 배송정보에 동의해주세요");
-			} */
+			} 
 				 
-			pay();
 		});
-		
+			
 	}) 
 </script>
 
 <script type="text/javascript">
-function pay(){
-	//가맹점 식별코드
-	var phone = ${sessionScope.member.phone};
-	 IMP.init('imp09300600');
-	 IMP.request_pay({
-	     pg: 'kakao', // version 1.1.0부터 지원.
-	     pay_method: 'card',
-	     merchant_uid: 'merchant_' + new Date().getTime(),
-	     name: '주문명:결제테스트',
-	     amount: 1400, //판매 가격
-	     buyer_tel: phone,
-	 }, function(rsp) {
-	     if (rsp.success) {
-	         var msg = '결제가 완료되었습니다.';
-	         msg += '고유ID : ' + rsp.imp_uid;
-	         msg += '상점 거래ID : ' + rsp.merchant_uid;
-	         msg += '결제 금액 : ' + rsp.paid_amount;
-	         msg += '카드 승인번호 : ' + rsp.apply_num;
-	         //jQuery로 HTTP 요청
-	         jQuery.ajax({
-	        	url: "https://www.myservice.com/payments/complete", //가맹점서버
-	        	method: "POST",
-	        	headers: {"Content-Type": "application/json"},
-	        	data: {
-	        		 imp_uid: rsp.imp_uid,
-	                 merchant_uid: rsp.merchant_uid
-	                 //기타 필요한 데이터가 있으면 추가 전달
-	             }
-	         }).done(function (data) {
-	           // 가맹점 서버 결제 API 성공시 로직
-	           
-	         })
-	        	
-	     } else {
-	         var msg = '결제에 실패하였습니다.';
-	         msg += '에러내용 : ' + rsp.error_msg;
-	     }
-	     alert(msg);
-	 });
-}
+	/*
+	function pay(){
+		var phone = ${sessionScope.member.phone};
+		 IMP.init('imp09300600');
+		 IMP.request_pay({
+		     pg: 'kakao', 
+		     pay_method: 'card',
+		     merchant_uid: 'merchant_' + new Date().getTime(),
+		     name: 'FITINZIP',
+		     amount: 1400, //판매 가격
+		     buyer_tel: phone,
+		 }, function(rsp) {
+		     if (rsp.success) {
+		         var msg = '결제가 완료되었습니다.';
+		         msg += '고유ID : ' + rsp.imp_uid;
+		         msg += '상점 거래ID : ' + rsp.merchant_uid;
+		         msg += '결제 금액 : ' + rsp.paid_amount;
+		         msg += '카드 승인번호 : ' + rsp.apply_num;
+		         
+		         //jQuery로 HTTP 요청
+		         jQuery.ajax({
+		        	url: "https://www.myservice.com/payments/complete", //가맹점서버
+		        	method: "POST",
+		        	headers: {"Content-Type": "application/json"},
+		        	data: {
+		        		 imp_uid: rsp.imp_uid,
+		                 merchant_uid: rsp.merchant_uid
+		                 //기타 필요한 데이터가 있으면 추가 전달
+		             }
+		         }).done(function (data) {
+		           // 가맹점 서버 결제 API 성공시 로직
+		           
+		         })
+		        	
+		     } else {
+		         var msg = '결제에 실패하였습니다.';
+		         msg += '에러내용 : ' + rsp.error_msg;
+		     }
+		     alert(msg);
+		 });
+	}
+	*/
 </script>
 </body>
 </html>
