@@ -71,7 +71,7 @@
 
 <script>
 	$(function(){
-		$("#loginEmail").on("click", function() {
+		$("#loginBtn").on("click", function() {
 			alert("로그인버튼 클릭");
 			let formData = new FormData(this.form);
 			
@@ -88,9 +88,13 @@
 				  
 				  if (result == true) {
 					  alert("로그인 완료");
-					  location.href="/";
+					  /* alert("이전페이지 : " + document.referrer); */
+					  
+					  /* window.history.go(-1); */
+					  location.href=document.referrer;
+					  
 				  } else {
-					  alert("아이디, 비밀번호를 확인하삼");
+					  alert("아이디, 비밀번호를 확인해주세요.");
 				  }
 				  				  
 				  
@@ -186,7 +190,7 @@
 				                        <label class="error"><span class="msg-box error" v-show="error.name == 'userPassword'">{{ error.msg }}</span></label>
 				                    </div> -->
 				                </div>
-				                <input type="button" id="loginEmail" class="btn_basic full mt5 adClick" value="로그인">
+				                <input type="button" id="loginBtn" class="btn_basic full mt5 adClick" value="로그인">
 				                <!-- <a href="javascript:;" class="btn_basic full mt5 adClick" data-adarea="피클_로그인" id="loginEmail" :class="{ disabled: !isInputComplete}" @click="loginEmail">로그인</a> -->
 			                </form>
 

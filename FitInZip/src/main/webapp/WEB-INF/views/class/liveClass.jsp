@@ -80,10 +80,10 @@
 		</div>
 		
 		<%@ include file="category.jsp"%>
+		
 		<div id="live_list" class="contents_wrap pt80">
 		
 			<%@ include file="liveClassContent.jsp"%>
-
 		</div>
 	</div>
 </body>

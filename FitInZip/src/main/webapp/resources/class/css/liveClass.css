@@ -33,7 +33,7 @@ a > div {
     padding: 0 !important;
 }
 .content_area {
-	background-image: url('/resources/class/img/bg.png');
+	background-image: url('/resources/class/img/orangebg.png');
 	background-position: center;
 	height: 550px;
 	overflow: hidden;
@@ -246,8 +246,22 @@ b {
     clear: both;
 }
 
-
-
+.class_title {
+	margin-left: 7px;
+	font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 20px;
+}
+.subtxt {
+    font-size: 14px;
+    font-weight: 400;
+    color: #777 !important;
+}
+.ml5 {
+    margin-left: 5px !important;
+}
 
 
 

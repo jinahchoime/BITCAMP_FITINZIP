@@ -1,0 +1,230 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+.modal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.8);
+	top: 0;
+	left: 0;
+	display: none;
+}
+/* .layout_popup.pop_w660 {
+  width: 400px;
+  height: 200px;
+  background: #fff;
+  border-radius: 5px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -200px;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 74px 0;
+  line-height: 23px;
+  cursor: pointer;
+} */
+.layout_popup.pop_w660 {
+    width: 660px;
+    margin-left: -330px;
+}
+.layout_popup {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    z-index: 300;
+}
+.layout_popup .pop_wrap {
+    background: #fff;
+    padding: 40px 50px 35px 50px;
+    border-radius: 5px;
+}
+.layout_popup .close {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    width: 21px;
+    z-index: 100;
+}
+.layout_popup .close img {
+    width: 100%;
+}
+img, input {
+    border: 0;
+    vertical-align: middle;
+}
+.layout_popup .pop_wrap .contents_w {
+    display: inline-block;
+    background: #fff;
+    width: 100%;
+}
+.layout_popup .pop_cont_wrap .tit {
+    font-size: 24px;
+    line-height: 36px;
+    font-weight: 700;
+    color: #000;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #000;
+}
+.write_area {
+    padding: 16px 0;
+    /* border-bottom: 1px solid #ccc; */
+}
+.maintxt {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+}
+.subtxt1 {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #000;
+    top: -10px;
+    position: relative;
+}
+.subtxt2 {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #000;
+}
+.subtxt + .star_group {
+    margin: -5px auto auto 10px;
+}
+/* .star_group {
+	display: inline-block;
+	vertical-align: middle;
+}
+.star_group > span {
+	display: inline-block; 
+	float: left; 
+	width: 30px; 
+	height: 30px; 
+	margin-right: 2px; 
+	background: url('https://img.ficle.io/www/common/icon/icon_stargroup1.png'); 
+	background-size: 112px auto; 
+	background-position: 0 0; 
+	text-indent: -9999px; 
+	font-size: 0; 
+	cursor: pointer;
+}
+.star_group > span.hover, .star_group > span:hover {
+	background-position: -42px 0;
+}
+.star_group > span.on {
+	background-position: -82px 0;
+}
+ */
+ 
+ 
+
+
+/* 별점부분 */
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: DarkOrange;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #ffc14d;  } 
+
+
+
+.btn_search + .btn_search {
+    margin-top: 10px;
+}
+.btn_search.cont textarea {
+    width: 100%;
+    height: 150px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    box-sizing: border-box;
+    color: #000;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.571;
+    letter-spacing: 0;
+    outline-style: none;
+}
+.btn_wrap {
+    width: 100%;
+    text-align: center;
+}
+/* .mt40 {
+    margin-top: 40px !important;
+} */
+.flat {
+    font-size: 0;
+}
+.btn_basic.type4 {
+    width: 150px;
+}
+.btn_basic.line {
+    line-height: 48px;
+    color: #000;
+    border: 1px solid #000;
+    background: none;
+}
+.btn_basic:not(.full) + .btn_basic:not(.full) {
+    margin-left: 10px;
+}
+.btn_basic.type4 {
+    width: 150px;
+}
+.review_btn {
+    display: inline-block;
+    text-align: center;
+    min-width: 92px;
+    padding: 0 35px;
+    font-size: 14px;
+    line-height: 50px;
+    font-weight: 700;
+    color: #fff;
+    box-sizing: border-box;
+    background: #000;
+    border-radius: 5px;
+    outline-style: none;
+}
+
+
+
+
+
+
+
+
+
+

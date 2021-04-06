@@ -1,6 +1,4 @@
-package com.spring.FitInZip.back.review.vo;
-
-import java.sql.Date;
+package com.spring.FitInZip.back.cls.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,12 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class ReviewVO {
-
-	private String trainerId;
+public class WishDTO {
 	private String clsCode;
-	private String reviewContent;
 	private String memId;
-	private Date regDate;
-	private Integer star;
 }

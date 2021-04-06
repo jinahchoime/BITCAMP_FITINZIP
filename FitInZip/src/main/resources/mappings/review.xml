@@ -1,1 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewDAO">
+
+	<!-- 총 댓글 갯수 출력 -->
+	<select id="countReview" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		  FROM REVIEW 
+		 WHERE CLS_CODE = #{clsCode}
+	</select>
+
+	<!-- 리뷰 가져오기 -->
+	<select id="getReview" resultType="com.spring.FitInZip.back.review.dto.ReviewDTO">
+		SELECT *       
+          FROM (SELECT ROWNUM RN, NICKNAME, STAR, REVIEW_CONTENT
+		          FROM REVIEW R, MEMBER M
+		         WHERE R.MEM_ID = M.ID 
+		           AND CLS_CODE = #{clsCode}
+		          ORDER BY REG_DATE DESC)
+         WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="com.spring.FitInZip.back.review.dto.ReviewDTO">
+		INSERT INTO REVIEW(TRAINER_ID, CLS_CODE, REVIEW_CONTENT, MEM_ID, STAR)
+		VALUES (#{trainerId}, #{clsCode}, #{reviewContent}, #{memId}, #{star})
+	</insert>
+	
+	
+	
+	
+	
+	
+</mapper>

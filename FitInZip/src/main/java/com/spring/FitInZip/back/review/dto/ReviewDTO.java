@@ -1,6 +1,8 @@
-package com.spring.FitInZip.back.review.vo;
+package com.spring.FitInZip.back.review.dto;
 
-import java.sql.Date;
+
+
+import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,12 +17,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class ReviewVO {
-
+public class ReviewDTO {
+	
 	private String trainerId;
 	private String clsCode;
-	private String reviewContent;
 	private String memId;
-	private Date regDate;
 	private Integer star;
+	private String reviewContent;
+	private String nickName;
 }
