@@ -249,3 +249,6 @@
 .padding {
 	padding-left: 20px;
 }
+.qty {
+	font-weight: bold;
+}

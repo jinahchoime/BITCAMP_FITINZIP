@@ -109,7 +109,7 @@ li {
 	max-width: 100%;
 }
 
-.button {
+#money {
 	text-decoration: none;
 	outline: none;
 	display: inline-block;
@@ -366,10 +366,12 @@ order-info .tit {
 .total-price strong {
 	font-size: 20px;
 }
-.kakaoPay-btn {
-	outline: none;
-	background-color: transparent;
+.payMethod {
+	background: transparent;
 	border: none;
-	color: #606060;
-	font-weight: bold;
+	outline: none;
+	width: 480px;
+}
+.payMethod.active {
+	border: 2px solid black;
 }
