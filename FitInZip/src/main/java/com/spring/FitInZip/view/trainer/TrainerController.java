@@ -254,6 +254,11 @@ public class TrainerController {
 	@RequestMapping(value = "classStat")
 	public String goClassStat(@ModelAttribute("member") RegisterTrainerDTO dto, Criteria crt, Model model) {
 		crt.setTrainerId(dto.getId());
+		String filePath = this.getClass().getResource("").getPath(); 
+		filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+			    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
+		
+		System.out.println("path : " + filePath);
 
 		List<ClsVO> list = clsStatusService.getList(crt);
 		//System.out.println("list: " + list + " , list size: " + list.size());
