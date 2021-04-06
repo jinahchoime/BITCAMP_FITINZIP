@@ -62,6 +62,60 @@
 			$('#titleUpload').val("");
 		});
 		
+		// 등록 유효성 검사 시작
+		$("#class-info").submit(function(){
+			
+			// 카테고리 검사
+			if($("#category").val() == null || $("#category").val() == ""){
+				alert("카테고리를 선택해주세요");
+				$('#category').focus();
+				return false;
+			}
+			
+			// 제목 검사
+			if($("#clsTitle").val() == null || $("#clsTitle").val() == ""){
+				alert("제목을 입력해주세요");
+				$("#clsTitle").focus();
+				return false;
+			}
+			
+			// 진행 기간 검사
+			var today = getTimeStamp();
+			
+			if($("#clsStartDate").val() == null || $("#clsStartDate").val() == "" || $("#clsEndDate").val() == null || $("#clsEndDate").val() == ""){
+				alert("프로그램 진행 기간을 입력해주세요");
+				$("#clsStartDate").focus();
+				return false;
+			} else if(today >= $("#clsStartDate").val()){
+				alert("수업 시작 일자는 신청서 작성 당일보다 뒤에 있는 날짜여야 합니다");
+				$("#clsStartDate").focus();
+				return false;
+			} else if($("#clsStartDate").val() > $("#clsEndDate").val()){
+				alert("수업 종료 일자가 시작 일자보다 빠를 수 없습니다.");
+				$("#clsEndDate").focus();
+				return false;
+			}
+			
+			// 진행 시간 검사
+			if($("#clsStartTime").val() == null || $("#clsStartTime").val() == "" || $("#clsEndTime").val() == null || $("#clsEndTime").val() == ""){
+				alert("프로그램 진행 시간을 입력해주세요");
+				$("#clsStartTime").focus();
+				return false;
+			} else if($("#clsStartTime").val() > $("#clsEndTime").val()){
+				alert("수업 종료 시간이 시작 시간보다 빠를 수 없습니다");
+				$("#clsEndTime").focus();
+				return false;
+			}
+			
+			// 요일 검사
+			if($("#dayOfWeek").val() == null || $("#dayOfWeek").val() == ""){
+				alert("진행 요일을 입력해주세요");
+				$("#dayOfWeek").focus();
+				return false;
+			}
+			
+		});
+		
 	});
 	
 	function thumbnailURL(input) {
@@ -84,6 +138,29 @@
             $("#deleteTitle").css('display', 'block');
             reader.readAsDataURL(input.files[0]);
         }
+	}
+	
+	function getTimeStamp() {
+
+	    var d = new Date();
+	    var s =
+	        leadingZeros(d.getFullYear(), 4) + '-' +
+	        leadingZeros(d.getMonth() + 1, 2) + '-' +
+	        leadingZeros(d.getDate(), 2);
+
+	    return s;
+	}
+	
+	function leadingZeros(n, digits) {
+
+	    var zero = '';
+	    n = n.toString();
+
+	    if (n.length < digits) {
+	        for (i = 0; i < digits - n.length; i++)
+	            zero += '0';
+	    }
+	    return zero + n;
 	}
 	
 </script>
@@ -237,8 +314,8 @@
 					<table class="table table-bordered dataTable" style="table-layout: fixed;">
 						<tr>
 							<td>
-								<select name="clsCategory">
-									<option>카테고리 선택</option>
+								<select id="category" name="clsCategory">
+									<option value='' selected disabled>카테고리 선택</option>
 									<option value="CT_WT">웨이트</option>
 									<option value="CT_FT">피트니스</option>
 									<option value="CT_YG">요가</option>
@@ -246,7 +323,7 @@
 								</select>
 							</td>
 							<td colspan="5">
-								<input type="text" name="clsName" placeholder="제목을 입력해주세요" style="width: 100%;">
+								<input type="text" id="clsTitle" name="clsName" placeholder="제목을 입력해주세요" style="width: 100%;">
 							</td>
 						</tr>
 						<tr>
@@ -257,21 +334,21 @@
 							<th rowspan="2" style="vertical-align: middle;">프로그램 진행 기간</th>
 							<td rowspan="2" colspan="2" style="vertical-align: middle;">
 								<!-- 시스템적으로 처리할 수 있는 방법에 한계가 있는 것 같아, 끝 날짜까지 받아보려 함 -->
-								<input type="date" class="startDate" name="startDate"> ~
-								<input type="date" name="endDate">
+								<input type="date" id="clsStartDate" class="startDate" name="startDate"> ~
+								<input type="date" id="clsEndDate" name="endDate">
 							</td>
-							<th>시작 시간</th>
+							<th>프로그램 진행 시간</th>
 							<td colspan="2" style="text-align: center;">
 								<!-- 끝 시간은 시작에서 50분 더해 줌 -->
-								<input type="time" class="startTime" name="startTime" > ~
-								<input type="time" class="startTime" name="endTime">
+								<input type="time" id="clsStartTime" class="startTime" name="startTime" > ~
+								<input type="time" id="clsEndTime" class="startTime" name="endTime">
 							</td>
 					</tr>
 					<tr>
 						<th>요일</th>
 						<td colspan="2" style="text-align: center;">
 							<!-- validation 시 %/% 조건 확인할 것 -->
-							<input type="text" name="yoil" placeholder="ex)월,수,금">
+							<input type="text" id="dayOfWeek" name="yoil" placeholder="ex)월,수,금">
 						</td>
 					</tr>
 					<tr>
@@ -373,7 +450,7 @@
 					</div>
 					
 						<div style="width: 100%; text-align: center;">
-							<input type="submit" class="btn btn-primary btn-icon-split" value="등록" style="margin: auto; width: 100px; height: 40px;">
+							<input type="submit" id="submitClass" class="btn btn-primary btn-icon-split" value="등록" style="margin: auto; width: 100px; height: 40px;">
 							<input type="button" id="toList" class="btn btn-secondary btn-icon-split" value="취소" style="margin: auto; width: 100px; height: 40px;">
 						</div>
 						
@@ -408,6 +485,17 @@
 
     <!-- Core plugin JavaScript-->
     <script src="../resources/trainer/trainermainvendor/jquery-easing/jquery.easing.min.js"></script>
+    
+    <!-- validation -->
+    <script>
+    	
+    $(function(){
+    	
+		
+    	
+    });
+    
+    </script>
 	
 </body>
 </html>

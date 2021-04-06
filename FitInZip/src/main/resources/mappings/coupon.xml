@@ -6,8 +6,8 @@
 
 	<!-- 월 별 출석 쿠폰 증정 -->
 	<insert id="insertMemCoupon" parameterType="MemCouponVO">
-		insert into mem_coupon
-		values(MEM_COUPON_SEQ.nextval, #{memId}, #{couponCode}, #{couponStatus}, null)
+		insert into mem_coupon(COUPON_INDEX, MEM_ID, COUPON_CODE,COUPON_STATUS)
+		values(MEM_COUPON_SEQ.nextval, #{memId}, #{couponCode}, #{couponStatus})
 	</insert>
 
 

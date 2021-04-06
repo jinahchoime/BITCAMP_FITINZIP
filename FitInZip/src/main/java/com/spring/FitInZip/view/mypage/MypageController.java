@@ -34,6 +34,7 @@ import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.common.service.MemCouponService;
 import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
@@ -47,6 +48,10 @@ public class MypageController {
 	// 캘린더
 	@Autowired
 	private CalendarService calendarService;
+	
+	// 쿠폰 부여
+	@Autowired
+	private MemCouponService memCouponService;
 	
 	@RequestMapping(value="calendar")
 	public String goCalendar(HttpServletRequest request, Model model) {
@@ -98,25 +103,25 @@ public class MypageController {
 			  if(count == Integer.parseInt((String)lastday.get("lastday"))) {
 				  map.put("coupon", "issue");
 				  
-				  from = from.substring(5, 6);
+				  from = from.substring(5, 7);
+				  
+				  System.out.println("from: " + from);
+				  
 				  int parsedMonth = Integer.parseInt(from);
 				  String couponMonth = "";
-				  MemCouponVO coupvo = null;
+				  MemCouponVO coupvo = new MemCouponVO();
 				  
 				  switch (parsedMonth) {
 					case 1:
 						break;
 					case 2:
 						couponMonth = "february";
-						coupvo = makeUserCoupon(id, couponMonth);
 						break;
 					case 3:
 						couponMonth = "march";
-						coupvo = makeUserCoupon(id, couponMonth);
 						break;
 					case 4:
 						couponMonth = "april";
-						coupvo = makeUserCoupon(id, couponMonth);
 						break;
 					case 5:
 						break;
@@ -135,22 +140,20 @@ public class MypageController {
 					case 12:
 						break;
 				}
-				  
 				
-				  
+				coupvo.setMemId(id);
+				coupvo.setCouponCode(couponMonth);
+				coupvo.setCouponStatus("CPU01");
+				
+				System.out.println("coupvo : " + coupvo.toString());
+				
+				int insertReslt = memCouponService.memCouponInsert(coupvo);
+				System.out.println("쿠폰 발급 건수 : " + insertReslt);
+				
 			  }
 			  
 		}
 		return map;
-	}
-	
-	private MemCouponVO makeUserCoupon(String memId, String couponCode) {
-		MemCouponVO vo = new MemCouponVO();
-		vo.setMemId(memId);
-		vo.setCouponCode(couponCode);
-		vo.setCouponStatus("CPU01");
-		vo.setCouponUseDate(null);
-		return vo;
 	}
 	
 	// 캘린더 끝
