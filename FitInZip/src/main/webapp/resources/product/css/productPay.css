@@ -373,5 +373,6 @@ order-info .tit {
 	width: 480px;
 }
 .payMethod.active {
-	border: 2px solid black;
+	border: 3px solid black;
+	border-radius: 5px;
 }

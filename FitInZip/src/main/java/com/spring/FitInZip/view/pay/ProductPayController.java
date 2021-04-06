@@ -1,9 +1,5 @@
 package com.spring.FitInZip.view.pay;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
@@ -51,7 +48,10 @@ public class ProductPayController {
 		return "pay/productPay";
 	}
 	
-	
+	@RequestMapping("/testtest")
+	public String pay() {
+		return "pay/test";
+	}
 }
 
 
