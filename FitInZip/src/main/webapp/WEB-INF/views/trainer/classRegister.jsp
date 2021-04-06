@@ -62,6 +62,15 @@
 			$('#titleUpload').val("");
 		});
 		
+		 /* $("#testOnchange").on("propertychange change keyup paste input", function() {
+             
+             // 현재 변경된 데이터 셋팅
+             newValue = $(this).val();
+             
+             // 현재 실시간 데이터 표츌
+             alert("텍스트 :: " + newValue);
+          }); */
+		
 		// 등록 유효성 검사 시작
 		$("#class-info").submit(function(){
 			
