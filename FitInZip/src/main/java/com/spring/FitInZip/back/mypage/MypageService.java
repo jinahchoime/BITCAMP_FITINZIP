@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCountDTO;
 import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
 import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
@@ -11,7 +12,12 @@ import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 public interface MypageService {
 	void insertMember(MemberVO vo);
 	void updateMember(MemberVO vo);
-	MemberVO getMember(MemberVO vo);
+	MemberVO getMember(String id);
+	
+	/*마이페이지 총 클래스 신청수*/
+	Integer getCountCls(String id);
+	/*마이페이지 참여 성공률 LIST*/
+	List<UserCountDTO> getParticipationRate(String id);
 	
 	/*현재 클래스 내역*/
 	List<UserClsDTO> nowGetUserCls(UserClsDTO dto);

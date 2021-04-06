@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <div id="menuView" class="column_left mt200">
-   	<div class="nav_wrap">
+   	<div class="nav_wrap" style="border-radius: 5px;">
 	    <div class="nav_tit">
 	        <p><img src="https://img.ficle.io/www/play/profile.png"></p> <span style="font-size:inherit; line-height: 21px;">안녕하세요!<br>${member.nickname }님</span>
 	    </div>
@@ -11,7 +11,7 @@
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
 	                        <li><a href="/clsHistory" class="adClick">클래스내역</a></li>
-	                        <li><a href="/clsHeart" class="adClick">찜한클래스</a></li>
+	                        <li><a href="/clsHeart" class="adClick">위시클래스</a></li>
 	                        <li><a href="/couponHistory" class="adClick">쿠폰내역</a></li>
 	                    </ul>
 	                </div>

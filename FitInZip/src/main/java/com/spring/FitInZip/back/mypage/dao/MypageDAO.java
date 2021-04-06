@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.mypage.vo.UserClsDTO;
+import com.spring.FitInZip.back.mypage.vo.UserCountDTO;
 import com.spring.FitInZip.back.mypage.vo.UserCouponDTO;
 import com.spring.FitInZip.back.mypage.vo.UserProductDTO;
 import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
@@ -23,8 +24,17 @@ public class MypageDAO {
 		System.out.println("처리 결과 : " + result);
 	}
 	
-	public MemberVO selectMember(MemberVO vo) {
-		return mybatis.selectOne("MypageDAO.selectMember", vo);
+	public MemberVO selectMember(String id) {
+		return mybatis.selectOne("MemberDAO.kakaoIsfirst", id);
+	}
+	
+	/*마이페이지 참여수*/
+	public Integer getCountCls(String id){
+		return mybatis.selectOne("MypageDAO.mypageInCountCls", id);
+	}
+	
+	public List<UserCountDTO> getParticipationRate(String id){
+		return mybatis.selectList("MypageDAO.mypageInParticipationRate", id);
 	}
 	
 	/*현재 클래스 내역 가져오기*/

@@ -3,6 +3,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="MypageDAO">
+		<!-- 마이페이지 총 갯수 - 총 클래스 신청수  -->
+		<select id="mypageInCountCls" parameterType="String" resultType="Integer">
+			SELECT COUNT(*) FROM PAYMENT
+			WHERE MEM_ID = #{memId}
+			AND ORDER_NUM IS NULL
+		</select>
+		
+		<!-- 마이페이지 총 갯수 - 참여 성공률 -->
+		<select id="mypageInParticipationRate" parameterType="String" resultType="com.spring.FitInZip.back.mypage.vo.UserCountDTO">
+			SELECT
+	        (SELECT SUM((SYSDATE+(END_TIME - START_TIME)-SYSDATE)) 
+	                FROM FIT_CLASS F
+	                INNER JOIN(SELECT DISTINCT * FROM CHECK_IN  WHERE MEM_ID = #{memId}) C
+	                ON F.CLS_CODE = C.CLS_CODE)
+	                AS TIME_COUNT,
+	        (SELECT SUM(CALORIE) FROM fit_class F INNER JOIN(SELECT DISTINCT * FROM CHECK_IN  WHERE MEM_ID = #{memId})C
+	        ON f.CLS_CODE = C.CLS_CODE) AS CALORIE_COUNT,
+	       (SELECT SUM(LAPSE) FROM fit_class F INNER JOIN(SELECT DISTINCT * FROM CHECK_IN WHERE MEM_ID = #{memId})C
+	        ON f.CLS_CODE = C.CLS_CODE) AS LAPSE_COUNT,
+	       (SELECT COUNT(*) FROM(SELECT DISTINCT * FROM CHECK_IN WHERE MEM_ID = #{memId})) AS CHECKIN_COUNT,
+	       (SELECT COUNT(*) FROM PAYMENT WHERE MEM_ID = #{memId} and ORDER_NUM IS NULL) AS CLSCOUNT
+	        FROM FIT_CLASS 
+				WHERE CLS_CODE IN(SELECT F.CLS_CODE FROM PAYMENT P
+					                INNER JOIN FIT_CLASS F ON p.cls_code = f.cls_code
+					                INNER JOIN CHECK_IN C ON P.CLS_CODE = c.cls_code
+	                                WHERE P.MEM_ID = #{memId})
+		</select>
+		
+	
 		<!-- 회원정보 수정하기  -->
 		<update id="updateMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
 			UPDATE MEMBER SET 
@@ -16,38 +45,64 @@
 		<!-- 현재 클래스 내역 가져오기 -->
 		<select id="nowSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
-			SELECT R.*
-		    FROM(SELECT M.*, ROWNUM AS RNUM
-		        FROM(SELECT F.*, C.COMMON_NAME
-		                    FROM FIT_CLASS F 
-		                        INNER JOIN PAYMENT P
-		                    ON P.CLS_CODE = F.CLS_CODE
-		                        INNER JOIN COMMON C
-		                    ON F.CLS_CATEGORY = C.COMMON_CODE
-		                    WHERE P.MEM_ID = #{memId}
-		                    AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
-		                ) M           
-		        )R
-			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
+			<choose>
+				<when test='clsTimeStatus.equals("now")'>
+					SELECT R.*, (SELECT COUNT(*) FROM FIT_CLASS F 
+					                    INNER JOIN PAYMENT P
+					                ON P.CLS_CODE = F.CLS_CODE
+					                    INNER JOIN COMMON C
+					                ON F.CLS_CATEGORY = C.COMMON_CODE
+					                WHERE P.MEM_ID = #{memId}
+					                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
+					        FROM(SELECT M.*, ROWNUM AS RNUM
+					                FROM(SELECT F.*, P.PAID_PRICE, TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD') AS PAYDATE, C.COMMON_NAME AS METHOD, B.COMMON_NAME AS CATE
+					                      ,S.NAME      
+                                                FROM PAYMENT P
+					                                INNER JOIN FIT_CLASS F 
+					                            ON P.CLS_CODE = F.CLS_CODE
+					                                INNER JOIN COMMON C
+					                            ON p.pay_method = C.COMMON_CODE
+					                                INNER JOIN COMMON B
+					                            ON f.cls_category = B.COMMON_CODE
+                                                    INNER JOIN MEMBER S
+                                                        ON F.TRAINER_ID = S.ID
+					                            WHERE P.MEM_ID = #{memId}
+					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
+					                        ) M         
+					            )R
+					WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
+				</when>
+				<when test='clsTimeStatus.equals("end")'>
+					<![CDATA[
+						SELECT R.*, (SELECT COUNT(*) FROM FIT_CLASS F 
+						                    INNER JOIN PAYMENT P
+						                ON P.CLS_CODE = F.CLS_CODE
+						                    INNER JOIN COMMON C
+						                ON F.CLS_CATEGORY = C.COMMON_CODE
+						                WHERE P.MEM_ID = #{memId}
+						                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
+						        FROM(SELECT M.*, ROWNUM AS RNUM
+					                FROM(SELECT F.*, P.PAID_PRICE, TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD') AS PAYDATE, C.COMMON_NAME AS METHOD, B.COMMON_NAME AS CATE
+					                      ,S.NAME      
+                                                FROM PAYMENT P
+					                                INNER JOIN FIT_CLASS F 
+					                            ON P.CLS_CODE = F.CLS_CODE
+					                                INNER JOIN COMMON C
+					                            ON p.pay_method = C.COMMON_CODE
+					                                INNER JOIN COMMON B
+					                            ON f.cls_category = B.COMMON_CODE
+                                                    INNER JOIN MEMBER S
+                                                        ON F.TRAINER_ID = S.ID
+					                            WHERE P.MEM_ID = #{memId}
+					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
+					                        ) M         
+					            )R
+						WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
+						]]>
+				</when>
+			</choose>
 		</select>
 		
-		<!-- 종료된 클래스 내역 가져오기 -->
-		<select id="endSelectCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO" 
-			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
-			<![CDATA[SELECT R.*
-		    FROM(SELECT M.*, ROWNUM AS RNUM
-		        FROM(SELECT F.*, C.COMMON_NAME
-		                    FROM FIT_CLASS F 
-		                        INNER JOIN PAYMENT P
-		                    ON P.CLS_CODE = F.CLS_CODE
-		                        INNER JOIN COMMON C
-		                    ON F.CLS_CATEGORY = C.COMMON_CODE
-		                    WHERE P.MEM_ID = #{memId}
-		                    AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
-		                ) M           
-		        )R
-			WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}]]>
-		</select>
 		
 		<!-- 클래스 입장시 체크인 하기 -->
 		<insert id="insertCheckIn" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
@@ -60,12 +115,14 @@
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
 			 SELECT H.* FROM (
 				SELECT ROWNUM AS RNUM, P.*
-				    FROM(SELECT F.*, C.COMMON_NAME
+				    FROM(SELECT F.*, C.COMMON_NAME, M.NAME
 							FROM FIT_CLASS F
 						     	INNER JOIN WISH_CLASS W 
 						     ON W.CLS_CODE = F.CLS_CODE
 				                INNER JOIN COMMON C
 				             ON F.CLS_CATEGORY = C.COMMON_CODE
+                                INNER JOIN MEMBER M
+				             ON F.TRAINER_ID = M.ID
 							     WHERE W.MEM_ID = #{memId}
 				        ) P
 					)H

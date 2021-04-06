@@ -43,7 +43,7 @@
 					}
 					$('#content').append(dispHtml1);
 					
-					if( _endIndex > returnValue.length){
+					if( _endIndex > returnValue.length || returnValue.length < 4){
 						$('#searchMoreNotify').remove();
 					}
 					
@@ -53,25 +53,26 @@
 						dispHtml += '<tr><td class="type_diff"><div class="list_img"><img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-03-08/1615190947042146270.png" alt="클래스썸네일"></div> <a href="/play/play_apply/293" target="_blank">';
 						dispHtml += '<div class="list_txt full"><dl class="prod_infor"><dt>';
 						dispHtml += '<div class="play_tch"><span>';
-						dispHtml += value.commonName;
+						dispHtml += value.commonName + " · " + value.name;
 						dispHtml += '</span></div>';
 						dispHtml +=  value.clsName;
 						dispHtml += '</dt><dd class="mt5"><div>';
 						dispHtml += new Date(value.startDate).getFullYear() + "년 " + (new Date(value.startDate).getMonth() + 1) + "월 " + new Date(value.startDate).getDate()+ "일";
-						dispHtml +="~";
+						dispHtml += "~";
 						dispHtml += new Date(value.endDate).getFullYear() + "년 " + (new Date(value.endDate).getMonth() + 1) + "월 " + new Date(value.endDate).getDate()+ "일";
 						dispHtml += '</div>';
 						dispHtml += value.yoil + "요일  ";
 						dispHtml += new Date(value.startTime).getHours() + ":" + new Date(value.startTime).getMinutes();
 						dispHtml += "~";
-						dispHtml += new Date(value.endDate).getHours() + ":" + new Date(value.endDate).getMinutes();
+						dispHtml += new Date(value.endTime).getHours() + ":" + new Date(value.endTime).getMinutes();
 						dispHtml += '</dd></dl></div></a></td><td class="black"><a style="cursor: pointer" id="';
 						dispHtml += btn;
 						dispHtml +='" onclick="noHeart('+'\'';
 						dispHtml += value.clsCode;
 						dispHtml += '\'';
-						dispHtml += ')"><span class="awsome" style="color:red">';
+						dispHtml += ')"><span class="awsome" style="color:#FF0066">';
 						dispHtml += '<i class="fas fa-heart fa-2x"></i></span></a></td></tr>';
+						
 						
 						return dispHtml;
 					}

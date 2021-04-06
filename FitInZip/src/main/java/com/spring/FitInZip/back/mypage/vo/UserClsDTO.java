@@ -26,10 +26,27 @@ public class UserClsDTO {
 	private Date endTime;
 	private String memId;
 	private String commonName;
+	private String meetUrl;
+	
+	private String name; //강사이름
 	
 	/*시작번호 끝번호*/
 	private Integer startIndex;
 	private Integer endIndex;
+	
+	/*총 게시물 수*/
+	private Integer count;
+	
+	/*클래스 상태*/
+	private String clsTimeStatus;
+	
+	/*클래스 결제날짜, 결제금액, 결제방법*/
+	private Integer paidPrice;
+	private String method;
+	private String paydate;
+	
+	/*클래스 카테고리 - 클래스내역에서 사용됨*/
+	private String cate;
 	
 	
 }
