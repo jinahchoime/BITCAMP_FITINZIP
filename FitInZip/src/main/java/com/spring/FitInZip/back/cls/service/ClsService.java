@@ -14,8 +14,7 @@ public interface ClsService {
 	List<ClsListDTO> getClassList(String clsCategory);
 	List<ClsListDTO> getIngList(String clsCategory);
 	ClsDetailDTO getClassDetail(String clsCode);
-	List<ReviewDTO> getReview(String clsCode);
-	void insertReview(ReviewDTO dto);
+	
 	int isWish(Map<String, String> map);
 	
 	void insertWish(Map<String, String> map);

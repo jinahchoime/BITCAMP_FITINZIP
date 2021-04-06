@@ -53,16 +53,7 @@ public class ClsServiceImpl implements ClsService {
 		
 	}
 
-	@Override
-	public List<ReviewDTO> getReview(String clsCode) {
-		return clsDAO.getReview(clsCode);
-	}
-
-	@Override
-	public void insertReview(ReviewDTO dto) {
-		clsDAO.insertReview(dto);
-		
-	}
+	
 
 	@Override
 	public int isWish(Map<String, String> map) {

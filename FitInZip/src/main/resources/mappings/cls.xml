@@ -146,20 +146,7 @@
                                         WHERE CLS_CODE = #{clsCode}))
 	</select>
 	
-	<!-- 리뷰 가져오기 -->
-	<select id="getReview" parameterType="string" resultType="com.spring.FitInZip.back.review.dto.ReviewDTO">
-		SELECT NICKNAME, STAR, REVIEW_CONTENT
-		  FROM REVIEW R, MEMBER M
-		 WHERE R.MEM_ID = M.ID 
-		   AND CLS_CODE = #{clsCode}
-		 ORDER BY REG_DATE DESC
-	</select>
 	
-	<!-- 리뷰 등록 -->
-	<insert id="insertReview" parameterType="com.spring.FitInZip.back.review.dto.ReviewDTO">
-		INSERT INTO REVIEW(TRAINER_ID, CLS_CODE, REVIEW_CONTENT, MEM_ID, STAR)
-		VALUES (#{trainerId}, #{clsCode}, #{reviewContent}, #{memId}, #{star})
-	</insert>
 	
 	<!-- 좋아요(wish) 눌렀는지 -->
 	<select id="isWish" parameterType="map" resultType="int">

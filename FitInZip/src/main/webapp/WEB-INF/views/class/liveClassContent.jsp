@@ -71,7 +71,10 @@
 			</div>
 			
 			
-			<div class="class_title">진행중 클래스</div>
+			<div class="class_title">진행중 클래스
+				<span class="subtxt gray5 ml5 mt-3 middle">현재 진행중인 클래스입니다.</span>
+			</div>
+			
 			
 			<div class="play_list_type1">
 				<c:if test="${empty ingList }">

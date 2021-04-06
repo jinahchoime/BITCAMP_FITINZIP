@@ -18,14 +18,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.cls.dto.ClsListDTO;
 import com.spring.FitInZip.back.cls.service.ClsService;
+import com.spring.FitInZip.back.cls.vo.PagingVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.review.dto.ReviewDTO;
+import com.spring.FitInZip.back.review.service.ReviewService;
 
 @Controller
 public class LiveClassController {
 	
 	@Autowired
 	private ClsService clsService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	// 원데이PT 클래스 화면
 	@RequestMapping(value="/liveClassMain", method=RequestMethod.GET)
@@ -53,15 +58,19 @@ public class LiveClassController {
 	
 	// 클래스 상세글
 	@RequestMapping("/getClassDetail")
-	public String getClassDetail(HttpServletRequest request, Model model, HttpSession session) {
+	public String getClassDetail(HttpServletRequest request, Model model, HttpSession session, PagingVO vo
+								, @RequestParam(value="nowPage", required=false)String nowPage
+								, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		
 		String clsCode = request.getParameter("clsCode");
 		// 우선 클레스 상세글 가져오고
 		ClsDetailDTO classDetail = clsService.getClassDetail(clsCode);
 		model.addAttribute("detail", classDetail);
 		
-		/*우선 유저 정보 가져와야함*/
+		// 우선 유저 정보 가져와야함
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		
+		// 위시클래스 눌렀는지 아닌지 판별 하고 --------------------------
 		int isWish = 0;
 		
 		if (member != null) {
@@ -72,19 +81,49 @@ public class LiveClassController {
 			
 			isWish = clsService.isWish(isWishMap);
 		}
-		
-		System.out.println("isWish : " + isWish);
-		
 		model.addAttribute("isWish", isWish);
 		
+		// --------------------------------------------------
+		
+		// 댓글 페이징처리 후 가져오기---------------------------------
+		int total = reviewService.countReview(clsCode);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "3";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "3";
+		}
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("start", vo.getStart());
+		map.put("end", vo.getEnd());
+		map.put("clsCode", clsCode);
+		
+		model.addAttribute("review", reviewService.getReview(map));
+		
 		// 댓글 가져올거임
-		List<ReviewDTO> review = clsService.getReview(clsCode);
-		model.addAttribute("review", review);
+		/*
+		 * List<ReviewDTO> review = reviewService.getReview(map);
+		 * model.addAttribute("review", review);
+		 */
 		
 		// 댓글쓰기 때문에 아이디도 필요
 		
 		return "class/classDetail";
 	}
+	
+	
+	
+	// 댓글 페이징 할때..?
+	
+	
+	
+	
 	
 	// 댓글쓰기
 	@RequestMapping("/insertReview")
@@ -93,7 +132,7 @@ public class LiveClassController {
 		
 		System.out.println("dto : " + dto);
 		
-		clsService.insertReview(dto);
+		reviewService.insertReview(dto);
 		
 		return "true";
 	}
@@ -106,11 +145,7 @@ public class LiveClassController {
         int resultWish = 0;
         System.out.println("map : " + map);
         // 좋아유가 눌러져있는지 아닌지
-//        Map<String, String> isWishMap = new HashMap<>();
-//		isWishMap.put("clsCode", clsCode);
-//		isWishMap.put("memId", member.getId());
-//		isWish = clsService.isWish(isWishMap);
-        
+
         isWish = clsService.isWish(map);
         
         System.out.println("컨트롤러에서 isWish : " + isWish);

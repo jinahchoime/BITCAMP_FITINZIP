@@ -30,11 +30,11 @@
 									<div class="write_area">
 										<span class="subtxt2" style="position: relative; top: -52px;">클래스는 어떠셨나요?</span>
 										<div class="rating" style='display: inline-block; position: relative; top: -27px;'>
-											<input type="radio" id="star5" name="star" value="1"/><label class = "full" for="star5"></label>
-										    <input type="radio" id="star4" name="star" value="2"/><label class = "full" for="star4"></label>
+											<input type="radio" id="star5" name="star" value="5"/><label class = "full" for="star5"></label>
+										    <input type="radio" id="star4" name="star" value="4"/><label class = "full" for="star4"></label>
 										    <input type="radio" id="star3" name="star" value="3"/><label class = "full" for="star3"></label>
-										    <input type="radio" id="star2" name="star" value="4"/><label class = "full" for="star2"></label>
-										    <input type="radio" id="star1" name="star" value="5"/><label class = "full" for="star1"></label>
+										    <input type="radio" id="star2" name="star" value="2"/><label class = "full" for="star2"></label>
+										    <input type="radio" id="star1" name="star" value="1"/><label class = "full" for="star1"></label>
 										</div>
 									</div>
 									<div class="btn_search cont" style="position: relative; top: -50px;">
@@ -86,6 +86,29 @@
 					</li>
 				</c:forEach>
 			</ul>
-		</c:if>																				
+		</c:if>	
+		
+		
+		<div style="display: block; text-align: center;">		
+			<c:if test="${paging.startPage != 1 }">
+				<a href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			</c:if>
+			<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+				<c:choose>
+					<c:when test="${p == paging.nowPage }">
+						<b>${p }</b>
+					</c:when>
+					<c:when test="${p != paging.nowPage }">
+						<a href="/getClassDetail?clsCode=${detail.clsCode}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${paging.endPage != paging.lastPage}">
+				<a href="/getClassDetail?clsCode=${detail.clsCode}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			</c:if>
+		</div>
+		
+		
+																					
 	</div>
 </div>
