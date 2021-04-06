@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 			alert("출석체크 완료!");
                 			
                 			if(result.coupon == 'issue'){
-                				alert("출석을 완료하여 쿠폰이 발행되었습니다!");
+                				alert("이번 달 출석을 완료하여 쿠폰이 발행되었습니다!");
                 			}
                 			
                 			calendar.refetchEvents();

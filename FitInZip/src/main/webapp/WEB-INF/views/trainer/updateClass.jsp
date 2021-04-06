@@ -50,6 +50,133 @@
 			$('#titleUpload').val("");
 		});
 		
+		// 등록 유효성 검사 시작
+		$("#class-info").submit(function(){
+			
+			// 카테고리 검사
+			if($("#category").val() == null || $("#category").val() == ""){
+				alert("카테고리를 선택해주세요");
+				$('#category').focus();
+				return false;
+			}
+			
+			// 제목 검사
+			if($("#clsTitle").val() == null || $("#clsTitle").val() == ""){
+				alert("제목을 입력해주세요");
+				$("#clsTitle").focus();
+				return false;
+			}
+			
+			// 진행 기간 검사
+			var today = getTimeStamp();
+			
+			if($("#clsStartDate").val() == null || $("#clsStartDate").val() == "" || $("#clsEndDate").val() == null || $("#clsEndDate").val() == ""){
+				alert("프로그램 진행 기간을 입력해주세요");
+				$("#clsStartDate").focus();
+				return false;
+			} else if(today >= $("#clsStartDate").val()){
+				alert("수업 시작 일자는 신청서 작성 당일보다 뒤에 있는 날짜여야 합니다");
+				$("#clsStartDate").focus();
+				return false;
+			} else if($("#clsStartDate").val() > $("#clsEndDate").val()){
+				alert("수업 종료 일자가 시작 일자보다 빠를 수 없습니다.");
+				$("#clsEndDate").focus();
+				return false;
+			}
+			
+			// 진행 시간 검사
+			if($("#clsStartTime").val() == null || $("#clsStartTime").val() == "" || $("#clsEndTime").val() == null || $("#clsEndTime").val() == ""){
+				alert("프로그램 진행 시간을 입력해주세요");
+				$("#clsStartTime").focus();
+				return false;
+			} else if($("#clsStartTime").val() > $("#clsEndTime").val()){
+				alert("수업 종료 시간이 시작 시간보다 빠를 수 없습니다");
+				$("#clsEndTime").focus();
+				return false;
+			}
+			
+			// 요일 검사
+			if($("#dayOfWeek").val() == null || $("#dayOfWeek").val() == ""){
+				alert("진행 요일을 입력해주세요");
+				$("#dayOfWeek").focus();
+				return false;
+			} else if($("#dayOfWeek").val().indexOf(",") == 0 || $("#dayOfWeek").val().charAt($("#dayOfWeek").val().length - 1) == ","){
+				alert("요일의 맨 앞이나 뒤에 ,(콤마)를 입력할 수 없습니다");
+				$("#dayOfWeek").focus();
+				return false;
+			}
+			
+			// 수업 횟수 검사
+			if($("#clsLapse").val() == null || $("#clsLapse").val() == ""){
+				alert("수업 횟수를 입력해주세요");
+				$("#clsLapse").focus();
+				return false;
+			} else if($("#clsLapse").val() < 1){
+				alert("수업 횟수는 1회보다 적을 수 없습니다");
+				$("#clsLapse").focus();
+				return false;
+			}
+			
+			// 회당 가격 검사
+			if($("#clsPerPrice").val() == null || $("#clsPerPrice").val() == ""){
+				alert("회당 가격을 입력해주세요");
+				$("#clsPerPrice").focus();
+				return false;
+			}
+			
+			// 인원 수 검사
+			if($("#persons").val() == null || $("#persons").val() == ""){
+				alert("최대 인원 수를 입력해주세요");
+				$("#persons").focus();
+				return false;
+			}
+			
+			// 난이도 검사
+			if($("#clsDifficulty").val() == null || $("#clsDifficulty").val() == ""){
+				alert("난이도를 입력해주세요");
+				$("#clsDifficulty").focus();
+				return false;
+			}
+			
+			// 칼로리 검사
+			if($("#clsPerCalories").val() == null || $("#clsPerCalories").val() == ""){
+				alert("소모 칼로리량을 입력해주세요");
+				$("#clsPerCalories").focus();
+				return false;
+			} else if($("#clsPerCalories").val() < 0){
+				alert("소모 칼로리량은 0보다 작을 수 없습니다");
+				$("#clsPerCalories").focus();
+				return false;
+			}
+			
+			// 강의 내용 소개 검사
+			if(CKEDITOR.instances.clsInformation.getData() == null || CKEDITOR.instances.clsInformation.getData() == ''){
+				alert("강의 내용 소개를 입력해주세요");
+				$("#clsInformation").focus();
+				return false;
+			}
+			
+			// 커리큘럼 상세 정보 검사
+			if(CKEDITOR.instances.clsCurriculum.getData() == null || CKEDITOR.instances.clsCurriculum.getData() == ''){
+				alert("커리큘럼의 상세 정보를 입력해주세요");
+				$("#clsCurriculum").focus();
+				return false;
+			}
+			
+			// 수업 주소 검사
+			if($("#clsUrl").val() == null || $("#clsUrl").val() == ""){
+				alert("강의를 진행할 주소를 입력해주세요(Google meet)");
+				$("#clsUrl").focus();
+				return false;
+			} else if($("#clsUrl").val().indexOf("http://") == -1 && $("#clsUrl").val().indexOf("https://") == -1){
+				alert("주소에 http:// 혹은 https:// 부분을 반드시 포함시켜주세요");
+				$("#clsUrl").focus();
+				return false;
+			}
+			
+			
+		});
+		
 	});
 	
 	function thumbnailURL(input) {
@@ -72,6 +199,29 @@
             $("#deleteTitle").css('display', 'block');
             reader.readAsDataURL(input.files[0]);
         }
+	}
+	
+	function getTimeStamp() {
+
+	    var d = new Date();
+	    var s =
+	        leadingZeros(d.getFullYear(), 4) + '-' +
+	        leadingZeros(d.getMonth() + 1, 2) + '-' +
+	        leadingZeros(d.getDate(), 2);
+
+	    return s;
+	}
+	
+	function leadingZeros(n, digits) {
+
+	    var zero = '';
+	    n = n.toString();
+
+	    if (n.length < digits) {
+	        for (i = 0; i < digits - n.length; i++)
+	            zero += '0';
+	    }
+	    return zero + n;
 	}
 	
 </script>
@@ -222,8 +372,8 @@
 					<table class="table table-bordered dataTable" style="table-layout: fixed;">
 						<tr>
 							<td>
-								<select name="clsCategory">
-									<option>카테고리 선택</option>
+								<select id="category" name="clsCategory">
+									<option disabled>카테고리 선택</option>
 									<!-- db 저장 시 대소문자 구분 명확히 할 것 -->
 									<option value="CT_WT" <c:if test="${cls.clsCategory=='ct_wt' || cls.clsCategory=='CT_WT' }">selected</c:if>>웨이트</option>
 									<option value="CT_FT" <c:if test="${cls.clsCategory=='ct_ft' || cls.clsCategory=='CT_FT' }">selected</c:if>>피트니스</option>
@@ -232,7 +382,7 @@
 								</select>
 							</td>
 							<td colspan="5">
-								<input type="text" name="clsName" placeholder="제목을 입력해주세요" value="${cls.clsName }" style="width: 100%;">
+								<input type="text" id="clsTitle" name="clsName" placeholder="제목을 입력해주세요" value="${cls.clsName }" style="width: 100%;">
 							</td>
 						</tr>
 						<tr>
@@ -242,39 +392,37 @@
 						<tr>
 							<th rowspan="2" style="vertical-align: middle;">프로그램 진행 기간</th>
 							<td rowspan="2" colspan="2" style="vertical-align: middle;">
-								<input type="date" class="startDate" name="startDate" value="${startDate }"> ~
-								<input type="date" name="endDate" value="${endDate }">
+								<input type="date" id="clsStartDate" name="startDate" value="${startDate }"> ~
+								<input type="date" id="clsEndDate" name="endDate" value="${endDate }">
 							</td>
 							
 							<th>시작 시간</th>
 							<td colspan="2" style="text-align: center;">
 								<!-- 끝 시간은 시작에서 50분 더해 줌 -->
-								<input type="time" class="startTime" name="startTime" value="${startTime }"> ~
-								<input type="time" class="startTime" name="endTime" value="${endTime }">
+								<input type="time" id="clsStartTime" class="startTime" name="startTime" value="${startTime }"> ~
+								<input type="time" id="clsEndTime" class="startTime" name="endTime" value="${endTime }">
 							</td>
 						</tr>
 						<tr>
 							<th>요일</th>
 							<td colspan="2" style="text-align: center;">
 								<!-- validation 시 %/% 조건 확인할 것 -->
-								<input type="text" name="yoil" placeholder="ex)월,수,금" value="${cls.yoil }">
+								<input type="text" id="dayOfWeek" name="yoil" placeholder="ex)월,수,금" value="${cls.yoil }" oninput="this.value = this.value.replace(/[^ㄱ-힣,]/g, '').replace(/(\..*)\./g, '$1');">
 							</td>
 						</tr>
 						<tr>
 							<th>수업 횟수</th>
-							<td><input type="number" name="lapse" value="${cls.lapse }" style="width: 100%;"></td>
+							<td><input type="number" id="clsLapse" name="lapse" value="${cls.lapse }" style="width: 100%;"></td>
 							<th>회당 가격</th>
-							<td><input type="number" name="perPrice" value="${cls.perPrice }" style="width: 100%;"></td>
+							<td><input type="number" id="clsPerPrice" name="perPrice" value="${cls.perPrice }" style="width: 100%;"></td>
 							<th>인원 수</th>
 							<td>
-								<select name="maxMem">
-									<option>인원 수</option>
+								<select id="persons" name="maxMem">
+									<option value="" disabled>인원 수</option>
 									<option value="5" <c:if test="${cls.maxMem==5 }">selected</c:if>>5</option>
 									<option value="6" <c:if test="${cls.maxMem==6 }">selected</c:if>>6</option>
 									<option value="7" <c:if test="${cls.maxMem==7 }">selected</c:if>>7</option>
 									<option value="8" <c:if test="${cls.maxMem==8 }">selected</c:if>>8</option>
-									<option value="9" <c:if test="${cls.maxMem==9 }">selected</c:if>>9</option>
-									<option value="10" <c:if test="${cls.maxMem==10 }">selected</c:if>>10</option>
 								</select>
 							</td>
 						</tr>
@@ -289,7 +437,8 @@
 						<tr>
 							<th>난이도</th>
 							<td style="text-align: center;">
-								<select name="clsLevel" style="width: 30%;">
+								<select id="clsDifficulty" name="clsLevel" style="width: 30%;">
+									<option value="" disabled>난이도</option>
 									<option value="상" <c:if test="${cls.clsLevel=='상' }">selected</c:if>>상</option>
 									<option value="중" <c:if test="${cls.clsLevel=='중' }">selected</c:if>>중</option>
 									<option value="하" <c:if test="${cls.clsLevel=='하' }">selected</c:if>>하</option>
@@ -297,7 +446,7 @@
 							</td>
 							<th>소모 칼로리</th>
 							<td>
-								<input type="number" name="calorie" value="${cls.calorie }"> kcal
+								<input type="number" id="clsPerCalories" name="calorie" value="${cls.calorie }"> kcal
 							</td>
 						</tr>
 						<tr>
@@ -307,14 +456,14 @@
 						<tr>
 							<th style="vertical-align: middle;">강의 내용 소개</th>
 							<td colspan="3">
-								<textarea id="clsInfo" name="clsInfo">${cls.clsInfo }</textarea>
+								<textarea id="clsInformation" name="clsInfo">${cls.clsInfo }</textarea>
 								<script type="text/javascript">CKEDITOR.replace("clsInfo")</script>
 							</td>
 						</tr>
 						<tr>
 							<th style="vertical-align: middle;">커리큘럼 상세 정보</th>
 							<td colspan="3">
-								<textarea id="curriculum" name="curriculum">${cls.curriculum }</textarea>
+								<textarea id="clsCurriculum" name="curriculum">${cls.curriculum }</textarea>
 								<script type="text/javascript">CKEDITOR.replace("curriculum")</script>
 							</td>
 						</tr>
@@ -345,7 +494,7 @@
 						<tr>
 							<th>강의 주소</th>
 							<td colspan="3" style="text-align: center;">
-								<input type="text" name="meetUrl" value="${cls.meetUrl }" style="width: 100%;">
+								<input type="text" id="clsUrl" name="meetUrl" value="${cls.meetUrl }" style="width: 100%;">
 							</td>
 						</tr>
 						
