@@ -32,116 +32,136 @@
 	<script type="text/javascript"></script>
 	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script>
-	var Now = new Date(); // 현재 날짜 및 시간
-	var nowYear = Now.getFullYear();
-	var nowMonth = Now.getMonth() + 1; // 월
-	var nowDay = Now.getDate(); // 일
-	var nowHour = Now.getHours(); // 시
-	var nowMins = Now.getMinutes(); // 분
+  	<script>	
 
-	 var today = new Date(년, 월, 일, 시, 분);
-	
-	var week = new Array('일', '월', '화', '수', '목', '금', '토'); //요일
-	var yoil = week[Now.getDay()];
-	
-	function pluszero(time){
-	    var time = time.toString(); // 시간을 숫자에서 문자로 바꿈
-	    if(time.length < 2){ //2자리 보다 작다면
-	        time = '0' + time; //숫자앞 0을 붙여줌
-	        return time; //값을 내보냄
-	}else{
-	    return time; //2자리라면 값을 내보냄
-	}
-	}
-	nowMonth = pluszero(nowMonth); //만들었던 함수 적용
-	nowDay = pluszero(nowDay);
-	nowHour = pluszero(nowHour);
-	nowMins = pluszero(nowMins);
-	
-	var nowDate = nowYear + '-' + nowMonth + '-' + nowDay
-	var nowTime = nowHour + ':' + nowMins; // 
-	
-	document.write('올해연도:' + nowYear + '<br>');
-	document.write('오늘 요일: ' + week[Now.getDay()] + '요일' + '<br>');
-	
-	document.write('nowDate: ' + nowDate + '<br>');
-	document.write('nowTime: ' + nowTime + '<br>');
-	
-	
-	//10분 뒤
-	Now.setMinutes(Now.getMinutes() + 10);
-	console.log(nowHour + ':' + Now.getMinutes());
-	
-	document.write('10분 후 : ' + Now + '<br>');
-	
-
-	 var ingClass = new Array();
-	 <c:forEach items="${ingCls}" var="ingClass">
-	 ingClass.push("${ingClass.yoil }");
-	 </c:forEach> 
-	
-	 var ingSTime = new Array();
-	 <c:forEach items="${ingCls}" var="ingSTime">
-	 ingSTime.push("${ingSTime.startTime }");
-	 ingSTime.push("${ingSTime.startTime }");
-
-	 </c:forEach>
-	 for(var i = 0; i < ingSTime.length; i++) {
-		 console.log(ingSTime[i]);
-		
-	 }
-
-	 
-	 /* var class1 = new Array();
-	 <c:forEach items="${ingCls}" var="class1">
-	 class1.push("${class1.yoil }");
-	 class1.push("${class1.startDate }");
-	 class1.push("${class1.endDate }");
-	 class1.push("${class1.startTime }");
-	 </c:forEach> */
-	 
-	 
-	var result = $.each(ingClass, function(index, value) {
-		console.log("index:" + index);
-		console.log("value: " + value);
-		if(value == yoil) {
-			console.log("같은요일이다");
-			$.each(ingSTime, function(index1, value1) {
-				console.log("수업시작시간:" + ingSTime);
-				console.log(value1);
-				Date newTime = new Date(value1);
-				console.log("수업시간:" + newTime.getHours());
+	 $(function() {
+		$.ajax("/classData", {
+			contentType: "application/json; charset=UTF-8;",
+			
+			success: function(data) {
+				//alert("성공");
+				var html = "";
+				var button = "";
+				console.log(data);
 				
-				if(value1 >= Now.getHours() + ':' + Now.getMinutes()) {
-					console.log("수업 10분전이다");
-					$('#cls_button').attr('disabled', false);
-				} else if (value1 < Now.getHours() + ':' + Now.getMinutes()) {
-						$('#cls_button').attr('disabled', true);
-				} else {
-					console.log("시간이 아님");
+				if(data.length == 0) {
+					alert("데이터가 없습니다.");
+					html  += '<tr> <td colspan="2" class="none">진행중인 클래스가 없습니다.</td></tr>';
+					$('#tableList').html(html);
 				}
-			});
-	} else if (value !== yoil) {
-		console.log("다른요일이다");
-	}
-		
-	}); 
-	
-	
-	 
-	
-	 
-	 
-	
 				
+				
+				
+				for(var i = 0; i < data.length; i++) {
+					var Now = new Date();
+					var nowYear = Now.getFullYear();
+					var nowMonth = Now.getMonth(); // 월
+					var nowDay = Now.getDate(); // 일
+					var nowHour = Now.getHours(); // 시
+					var nowMins = Now.getMinutes(); // 분
+					
+					var week = new Array('일', '월', '화', '수', '목', '금', '토'); //요일
+					var days = week[Now.getDay()]; //오늘 요일
+					
+					var yoil = (data[i].yoil).split(','); //클래스 요일
+					console.log("요일: " + yoil);
+					
+					for(var j = 0; j < (data[i].yoil).split(',').length; j++) {
+						var clsYoil = yoil[j]; //클래스 요일
+						/* var clsStartYear = new Date(data[i].startDate).getFullYear();//클래스 시작 년
+						var clsEndYear = new Date(data[i].endDate).getFullYear(); //클래스 끝 년
+						var clsStartMonth = new Date(data[i].startDate).getMonth(); //클래스 시작 달
+						var clsEndMonth = new Date(data[i].endDate).getMonth(); //클래스 끝 달
+						var clsStartDate = new Date(data[i].startTime).getDate(); //클래스 시작일
+						var clsEndDate = new Date(data[i].endDate).getDate(); //클래스 종료일 */
+						var clsStartHour = new Date(data[i].startTime).getHours(); //클래스 시작시간
+						var clsEndHour = new Date(data[i].endTime).getHours(); //클래스 끝 시간
+						var clsStartMin = new Date(data[i].startTime).getMinutes(); //클래스 시작 분
+						var clsEndMin = new Date(data[i].endTime).getMinutes(); //클래스 끝 분
+						console.log("clsStartHour: " + clsStartHour);
+						console.log("clsEndHour: " + clsEndHour);
+						console.log("clsStartMin: " + clsStartMin);
+						console.log("clsEndMin: " + clsEndMin);
+						console.log("nowMonth: " + nowMonth);
+						
+						
+						function pluszero(time){
+						    var time = time.toString(); // 시간을 숫자에서 문자로 바꿈
+						    if(time.length < 2){ //2자리 보다 작다면
+						        time = '0' + time; //숫자앞 0을 붙여줌
+						        return time; //값을 내보냄
+							} else {
+						    return time; //2자리라면 값을 내보냄
+							}
+						}
+						/* clsStartYear = pluszero(clsStartYear);
+						clsEndYear = pluszero(clsEndYear);
+						clsStartMonth = pluszero(clsStartMonth); //만들었던 함수 적용
+						clsEndMonth = pluszero(clsEndMonth);
+						clsStartDate = pluszero(clsStartDate);
+						clsEndDate = pluszero(clsEndDate); */
+						nowYear = pluszero(nowYear);
+						nowMonth = pluszero(nowMonth);
+						nowDay = pluszero(nowDay);
+						clsStartHour = pluszero(clsStartHour);
+						clsEndHour = pluszero(clsEndHour);
+						clsStartMin = pluszero(clsStartMin);
+						clsEndMin = pluszero(clsEndMin); 
+					
+						
+						
+						if(clsYoil == days) {
+							var compareTime = new Date(nowYear, nowMonth, nowDay, clsStartHour, clsStartMin); //시작시간
+							var endCompareTime = new Date(nowYear, nowMonth, nowDay, clsEndHour, clsEndMin); // 끝나는시간
+							console.log("endCompareTime: " + endCompareTime);
+							//시작시간 15분 전
+							var finalTime = compareTime.setMinutes(compareTime.getMinutes() - 15);
+			
+							//지금 시간이 시작시간 15분 전보다 덜남거나 끝나는 시간이 지금 시간보다 이전일 때
+							if((finalTime <= new Date().getTime()) && (new Date().getTime() < endCompareTime.getTime())) {
+								console.log("new Date().getTime(): " + new Date().getTime());
+								console.log("endCompareTime.getTime(): " + endCompareTime.getTime());
+								//버튼 활성화
+								button = '<button type="button" class="btn btn-primary" id="cls_button" onclick="meet(\'' + data[i].meetUrl + '\')">시작</button>';
+								console.log("url1:" + data[i].meetUrl);
+								break;
+							} else {
+								//버튼 비활성화
+								button = '<button type="button" class="btn btn-primary" onclick="meet(\'' + data[i].meetUrl + '\')" id="cls_button" disabled>시작 </button>';
+								
+							}
+							
+						} else {
+							button = '<button type="button" class="btn btn-primary" onclick="meet(\'' + data[i].meetUrl + '\')" id="cls_button" disabled>시작 </button>';
+							
+						}
+					
+					}
+					html += '<tr><td class="type_diff"><div class="list_img"><img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">';
+ 					html += '</div> <a href="/play/play_apply/298" target="_blank"> <div class="list_txt full"> <dl class="prod_infor"> <dt> <div class="play_tch">';
+ 					html += '<span>' + data[i].clsCategory + '</span> <div>';
+ 					html += '</div>' + data[i].clsName + '</dt> <dd class="mt5"> <div>' + data[i].startDate;
+ 					html += '~' + data[i].endDate + '</div>' + data[i].yoil;
+ 					html += clsStartHour + ':' + clsStartMin + '~' + clsEndHour + ':' + clsEndMin + '</dd></dl></div></a></td><td>';
+ 					html += button;
+ 					html += '</td> </tr>'; 					
+				}
+				$('#tableList').html(html);
+				
+			}, error: function() {
+				alert("에러 발생");
+			}
+		});
 		
 		
-		
-		
-	
-
+	});
+	  
+	function meet(url){
+		location.href = url;
+	}
 </script>
+
+
 </head>
 
 <body id="page-top">
@@ -281,6 +301,7 @@
 					<div id="viewArea" class="column_right">
 				    <div>
 				        <p class="tit_area big mb10">나의 클래스</p>
+				        
 				        <div class="table_basic_board board1">
 				            <table style="width: 1024px;">
 				                <colgroup>
@@ -290,13 +311,13 @@
 				                <thead>
 				                    <tr>
 				                        <th>클래스</th>
-				                        <th>진행상태</th>
+				                        <th>입장</th>
 				                    </tr>
 				                </thead>
-				                <tbody>
-				                    <c:if test="${empty ingCls }">
+				                <tbody id = "tableList">
+				                  <%--   <c:if test="${empty ingCls }">
 				                        <tr>
-				                            <td colspan="2" class="none">종료된 클래스가 없습니다.</td>
+				                            <td colspan="2" class="none">진행중인 클래스가 없습니다.</td>
 				                        </tr>
 				                    </c:if>
 				                    <c:if test="${not empty ingCls }">
@@ -328,11 +349,14 @@
 				                                    </a>
 				                                </td>
 				                                <td>
-									            	<button class="btn btn-primary" onsubmit="/구글미트주소" id="cls_button" disabled>시작</button>
+				                                <div id="btn">
+				                                	<button class="btn btn-primary" onsubmit="/구글미트주소" id="cls_button" disabled>시작</button>
+				                                </div>
+									            	
 				                                </td>
 				                            </tr>
 				                        </c:forEach>
-				                    </c:if>
+				                    </c:if> --%>
 				                </tbody>
 				            </table>
 				        </div>
@@ -384,7 +408,7 @@
 				                                    </a>
 				                                </td>
 				                                <td>
-				                                    	<button class="btn btn-primary" onsubmit="/구글미트주소" disabled>종료</button>
+				                                    	<button class="btn btn-primary" disabled>종료</button>
 				                                </td>
 				                            </tr>
 				                        </c:forEach>

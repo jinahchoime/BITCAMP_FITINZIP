@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,7 +44,7 @@ import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Controller
-@SessionAttributes({"admin", "member", "reviewList", "calList", "ingCls"})
+@SessionAttributes({ "admin", "member"/* , "reviewList", "calList" */})
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -60,7 +61,8 @@ public class TrainerController {
 	// 강사 등록하기 페이지
 	@RequestMapping("/registerTrainerMainPage")
 	public String registerView() {
-		return "trainer/registerTrainerMainPage";
+		//return "trainer/registerTrainerMainPage";
+		return "pay/LivePTPay";
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
@@ -126,15 +128,34 @@ public class TrainerController {
     	 return "trainer/trainerMainPage";
     }
     //마이클래스
+	/*
+	 * @RequestMapping("/myClass") public String myPage(@ModelAttribute("member")
+	 * RegisterTrainerDTO dto, Model model) { List<ClsTrainerDTO> cvo1 =
+	 * trainerService.myPage1(dto); System.out.println("cvo1: " + cvo1);
+	 * model.addAttribute("ingCls", cvo1); List<ClsTrainerDTO> cvo2 =
+	 * trainerService.myPage2(dto); System.out.println("cvo2: " + cvo2);
+	 * model.addAttribute("edCls", cvo2); return "trainer/myClass"; }
+	 */
+    
     @RequestMapping("/myClass") 
-    public String myPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
-    	List<ClsTrainerDTO> cvo1 = trainerService.myPage1(dto);
-    	System.out.println("cvo1: " + cvo1);
-    	model.addAttribute("ingCls", cvo1);
-    	List<ClsTrainerDTO> cvo2 = trainerService.myPage2(dto);
-    	System.out.println("cvo2: " + cvo2);
-    	model.addAttribute("edCls", cvo2);
+    public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
+    	System.out.println("edCls: " + edCls);
+    	model.addAttribute("edCls", edCls);
     	return "trainer/myClass";
+    }
+    
+    @RequestMapping("/classData") 
+    @ResponseBody
+    public List<ClsTrainerDTO> myPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	
+    	List<ClsTrainerDTO> ingCls = trainerService.myPage1(dto);
+    	System.out.println("ingCls: " + ingCls);
+    	model.addAttribute("ingCls", ingCls);
+    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
+    	System.out.println("edCls: " + edCls);
+    	model.addAttribute("edCls", edCls);
+    	return ingCls;
 	}
     
     //내 정보 수정
@@ -220,7 +241,10 @@ public class TrainerController {
 
 		// 2. 화면 네비게이션(로그인페이지)
 		return "main";
+		
 	}
+    
+    
     
     
     //동현

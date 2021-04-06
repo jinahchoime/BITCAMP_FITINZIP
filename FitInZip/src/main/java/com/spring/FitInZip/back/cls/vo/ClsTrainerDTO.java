@@ -30,6 +30,7 @@ public class ClsTrainerDTO {
 	
 	private Date startTime;
 	private Date endTime;
+	private String meetUrl;
 	
 	private String clsOriName;	
 	

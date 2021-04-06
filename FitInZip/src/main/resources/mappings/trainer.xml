@@ -123,7 +123,7 @@
 	
 	<!-- 강사 클래스(나의 클래스) -->
 	<select id="ingClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.vo.ClsTrainerDTO">
-		SELECT f.THUMBNAIL_ORI_NAME AS thumbnailOriName, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime  
+		SELECT f.THUMBNAIL_ORI_NAME AS thumbnailOriName, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime, f.MEET_URL as meetUrl  
 	    FROM FIT_CLASS f, COMMON c
 	    WHERE f.CLS_CATEGORY = c.COMMON_CODE 
 	    AND f.TRAINER_ID = #{id}
