@@ -205,23 +205,24 @@ canvas{
 						</div>
 					</div>
 					<div class="col-md-4">
-							 <div class="chart" id="progress" data-percent="10">HTML5</div>
+						<div class="chart" id="progress" data-percent="10"
+							style="padding-top: 30px; padding-left: 10px;">HTML5</div>
+					</div>
+				</div>
+			<div class="line"></div>
+			<div class="row">
+				<div class="col-md-12">
+					<h5 style="text-align: center; padding-bottom: 10px;"
+						id="chartOnePrice">회원 증감 추이</h5>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<canvas id="myChartThree"></canvas>
 					</div>
 				</div>
 			</div>
-	
-
-			<div class="line"></div>
-
-			<h3>Lorem Ipsum Dolor</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-				do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-				enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-				ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-				reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-				pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-				culpa qui officia deserunt mollit anim id est laborum.</p>
-
+			
+			</div>
 		</div>
 	</div>
 
@@ -235,6 +236,7 @@ canvas{
             var dataTwo = new Array();
             dataOne = chartOneStart();
             dataTwo = chartTwoStart();
+            chartThreeStart();
             
             <!-- 차트 차이 계산하기  소숫점 첫째자리까지-->
             let weightPer = (dataTwo[0] / dataOne[0] * 100).toFixed(1);
@@ -288,8 +290,7 @@ canvas{
             console.log("가즈아~"+avgOneTwo);
             document.getElementById('progress').setAttribute('data-percent',avgOneTwo);
             document.getElementById('progress').innerHTML = avgOneTwo+'%';
-           
-            
+
            /* 
             let e1 = document.getElementById('weightData').setAttribute('data-percent',weightPer);
             let e2 = document.getElementById('fitnessData').setAttribute('data-percent',fitnessPer);
@@ -604,7 +605,10 @@ canvas{
 		            },
 		            legend :{
 		            	display: false
-		            }
+		            },
+		            animation: {
+		                duration: 8000,
+		            },
 			
 				   }// option의 끝
 			}); // 차트 메인 콜백함수
@@ -660,19 +664,15 @@ canvas{
 				dataTwo[1] = fitnessPriceTwo;
 				dataTwo[2] = yogaPriceTwo;
 				dataTwo[3] = pilatesPriceTwo;
-				console.log("한방에좀가자 ~" + dataTwo[3]);
 			
 			crateChartTwo(weightPriceTwo,fitnessPriceTwo,yogaPriceTwo,pilatesPriceTwo);
 			
 			return dataTwo;
 		}
-			function crateChartTwo(weightPriceTwo,fitnessPriceTwo,yogaPriceTwo,pilatesPriceTwo){
-				console.log("cartTwo weightPriceTwo : " + weightPriceTwo + " fitnessPriceTwo" + fitnessPriceTwo + " yogaPriceTwo" + yogaPriceTwo + " pilatesPriceTwo" + pilatesPriceTwo);
-				
+			function crateChartTwo(weightPriceTwo,fitnessPriceTwo,yogaPriceTwo,pilatesPriceTwo){				
 				let myChartTwo = document.getElementById('myChartTwo').getContext('2d');
 				var sumPriceTwo = weightPriceTwo+fitnessPriceTwo+yogaPriceTwo+pilatesPriceTwo;
 				console.log(addComma(sumPriceTwo));
-				//$('#chartOnePrice').html('이달의 총 매출 : ' + sumPrice);
 				document.getElementById('chartTwoPrice').innerHTML = '지난달 총 매출 : ' + addComma(sumPriceTwo)  + ' 원';
 				
 				let barChartTwo = new Chart(myChartTwo, {
@@ -687,12 +687,6 @@ canvas{
 						} ],
 					},
 					options: {
-					/* 	title : {
-							display : true,
-							text : '이달의 매출 현황 : '+addComma(sumPrice) + " 원",
-							fontSize : 20,
-							fontColor : 'black'
-						}, */
 						tooltips: {
 						      callbacks: {
 						        label: function(tooltipItem, data) {
@@ -727,15 +721,98 @@ canvas{
 			            },
 			            legend :{
 			            	display: false
-			            }
+			            },
+			            animation: {
+			                duration: 8000,
+			            },
 				
 					   }// option의 끝
 				}); // 차트 메인 콜백함수
 					
 			}// 차트 funtion의 끝
-/* 	function per(){
-		document.getElementById('yogaPer').innerHTML=(yogaPriceTwo/yogaPrice*100).toFixed(1) +'%';
-	} */
+			
+			<!-- 메인3번차트 지난달매출 -->
+			function chartThreeStart(){
+				var dataThree = new Array(); 
+				
+				$.ajax({
+					url: "chartThree",
+					type: "POST",
+					async:false,
+					dataType: "json",
+					success: function(data){
+						getchartThreeData(data)	
+						
+					},
+					error: function (){
+						alert("짜쓰~"+error);
+						}
+				});
+				return dataThree;
+			}
+			
+			
+			function getchartThreeData(data){
+		
+				crateChartThree();
+				
+			
+			}
+				function crateChartThree(){				
+					let myChartThree = document.getElementById('myChartThree').getContext('2d');
+					
+					let barChartThree = new Chart(myChartThree, {
+						type : 'line', //pie, line, doughnut, palarArea, bar
+						data : {
+							labels : ['1일' ,'2일', '3일' , '4일','5일','6일','7일','8일','9일','10일','11일','12일','13일','14일','15일','16일','17일','18일','19일','20일','21일','22일','23일','24일','25일','26일','27일','28일','29일','30일','31일',],
+							datasets : [ {
+								label : '',
+								data : [ ],
+								backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)' ],
+								borderWidth : 3
+							} ],
+						},
+						options: {
+							tooltips: {
+							      callbacks: {
+							        label: function(tooltipItem, data) {
+							          var dataLabel = data.labels[tooltipItem.index];
+							          var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString()+'원';
+
+							          if (Chart.helpers.isArray(dataLabel)) {
+
+							            dataLabel = dataLabel.slice();
+							            dataLabel[0] += value;
+							          } else {
+							            dataLabel += value;
+							          }
+
+							          return dataLabel;
+							        }
+							      }
+						   },
+						   scales: {
+				                yAxes: [{
+				                    ticks: {
+				                        beginAtZero:true,
+				                        callback: function(value, index, values) {
+				                       
+				                               return value+'명';
+				                            }
+				                       }                         
+				                }]
+				            },
+				            legend :{
+				            	display: false
+				            },
+				            animation: {
+				                duration: 8000,
+				            },
+					
+						   }// option의 끝
+					}); // 차트 메인 콜백함수
+						
+				}// 차트 funtion의 끝
 </script>
 
 

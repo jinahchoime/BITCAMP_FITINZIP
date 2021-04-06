@@ -208,6 +208,14 @@ public class AdminController {
 		System.out.println("chartTwo"+ list);
 		return list;
 	}
+	@RequestMapping("/chartThree")
+	@ResponseBody
+	public List<MemberVO> chartThree(){
+		/* 통계2번 */
+		List<MemberVO> list = adminService.inputData();
+		System.out.println("chartThree"+ list);
+		return list;
+	}
 	
 	
 	
