@@ -63,7 +63,7 @@
 				    FROM(SELECT F.*, C.COMMON_NAME
 							FROM FIT_CLASS F
 						     	INNER JOIN WISH_CLASS W 
-						     ON W.CLASS_CODE = F.CLS_CODE
+						     ON W.CLS_CODE = F.CLS_CODE
 				                INNER JOIN COMMON C
 				             ON F.CLS_CATEGORY = C.COMMON_CODE
 							     WHERE W.MEM_ID = #{memId}
@@ -75,7 +75,7 @@
 		<!-- 찜하기 클래스 없애기  -->
 		<delete id="deleteWishCls" parameterType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
 			DELETE FROM WISH_CLASS
-			WHERE CLASS_CODE = #{clsCode}
+			WHERE CLS_CODE = #{clsCode}
 			AND MEM_ID = #{memId}
 		</delete>
 		
