@@ -1,5 +1,6 @@
 package com.spring.FitInZip.back.admin.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -137,6 +140,45 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 		}
 
+	@Override
+	public List<MonthPaymentChartDTO> monthPaymentChart() {
+		return adminDAO.monthPaymentChart();
+	}
+	
+	@Override
+	public List<MonthPaymentChartDTO> lastMonthPaymentChart() {
+		return adminDAO.lastMonthPaymentChart();
+	}
+
+	@Override
+	public List<MemberVO> inputData() {
+		List<MemberVO> list = adminDAO.inputData();
+		System.out.println("증가추이"+list.toString());
+		
+		List<Integer> memberList = new ArrayList<Integer>();
+		for (int i = 0; i < 31; i++) {
+		/*	int 
+			memberList.add(0);*/
+		}
+		for (Integer it : memberList) {
+			System.out.println(it);
+		}
+		
+		
+		for (MemberVO vo : list) {
+			/* vo.setJoinDate(String.valueOf(vo.getJoinDate()).substring(7)); */
+			if(vo.getRole().equals("RL01")) {
+				
+				
+			}else if(vo.getRole().equals("RL02")) {
+				
+			}
+		}
+		
+		
+		
+		return list;
+	}
 
 
 

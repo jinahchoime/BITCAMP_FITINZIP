@@ -10,12 +10,11 @@
 
 </head>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
@@ -60,9 +59,6 @@
         }).open();
     }
     
-
-
-    
     
     //배송메모
   	function deli(val) {
@@ -78,6 +74,30 @@
     	}
     }
   
+    //배송지 정보 안 적을 시 '다음 단계 진행' 버튼 비활성화
+    $(function(){
+    	$("#nextBtn").click(function(){
+    		
+    		if (document.getElementById("postcode").value == "") {
+    			alert("주소를 입력해주세요.");
+    			document.getElementById('postBtn').focus();
+    			return false;
+    		}
+    		
+    		if (document.getElementById("address").value == "") {
+    			alert("주소를 입력해주세요.");
+    			return false;
+    		}
+    		
+    		if (document.getElementById("detailAddress").value == "") {
+    			alert("상세주소를 입력해주세요.");
+    			return false;
+    		}
+    		
+    	})
+    })
+    
+   
  
 </script>
 <body>
@@ -87,7 +107,7 @@
 		<!-- <form action="/productPay"> -->
 		<section class="order-checkout">
 			<article class="contents">
-				<form action="productPay" method="post">
+				<form action="productPay" method="post" id="form">
 				<div class="order-wrap">
 					<h2 class="contents-title">
 						<span class="title">주문결제</span>
@@ -99,29 +119,33 @@
 					<div class="order-tab">
 						<div class="header">
 							<h5 class="tit">주문고객</h5>
-							<div class="body view">
-								${sessionScope.member.id }<br>
-								${sessionScope.member.name }<br>
-								${sessionScope.member.phone }
+							<div class="body view" style="padding-top:20px;">
+								<p>${sessionScope.member.id }</p>
+								<p>${sessionScope.member.name }</p>
+								<p>${sessionScope.member.phone }</p>
 							</div>
-							<h5 class="tit">배송지 정보</h5>
 						</div>
 						<div class="address">
-							<input type="text" name="postcode" id="postcode" placeholder="우편번호">
-							<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" name="address" id="address" placeholder="주소"><br>
-							<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-							<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
-						</div>
+							<div class="header">
+								<h5 class="tit">배송지 정보</h5>
+							</div>	
+							
+							<div class="padding">
+								<input type="text" name="postcode" id="postcode" placeholder="우편번호">
+								<input type="button" onclick="execDaumPostcode()" id="postBtn" value="우편번호 찾기"><br>
+								<input type="text" name="address" id="address" placeholder="주소"><br>
+								<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+								<input type="text" name="extraAddress" id="extraAddress" placeholder="참고주소">
 						
-						<select class="delivery-message" id="deliMsg" onchange="deli(this)">
-							<option class="deli-msg-default" value="none">배송 메모를 선택해주세요.</option>
-							<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
-							<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
-							<option value="directMsg">직접 입력</option>
-						</select><br>
-						<input type="text" name="direct" placeholder="직접 입력">
-						<!-- 직접입력 클릭하면  input type text 나타난다 -->
+								<select class="delivery-message" id="deliMsg" onchange="deli(this)">
+									<option class="deli-msg-default" value="none" selected>배송 메모를 선택해주세요.</option>
+									<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
+									<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
+									<option value="directMsg">직접 입력</option>
+								</select><br>
+								<input type="text" class="direct" name="direct" placeholder="직접 입력">
+							</div>
+						</div>
 						
 						<div class="delivery-info">
 							<h6></h6>
@@ -136,10 +160,10 @@
 							<a href="cart" class="link">장바구니 바로가기</a>
 						</div>
 						
-						<button type="submit" class="button xlarge width-max">다음 단계 진행</button> 
+						<button type="submit" class="button xlarge width-max" id="nextBtn">다음 단계 진행</button> 
 					</div>	
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
-						<div class="order-tab product-checkout checkout">
+						<div class="order-tab product-checkout checkout border">
 							<div class="header mini-box">
 								<h5 class="tit"><strong>주문내역</strong></h5>
 							</div>
@@ -153,10 +177,10 @@
 											<img style="width:120px; height:120px;" src="${cartList.proImg }" alt="상품이미지">
 										</div>
 										<div class="order-info">
-											<a class="tit" href="">${cartList.proName }</a>
+											<a class="tit" href="/product">${cartList.proName }</a>
 											<div class='current-option-wrap'>
 												<!-- <input type="hidden" name="옵션넣어" value="옵션밸류"> -->
-												<span class="opt">1kg...</span>
+												<span class="opt"></span>
 												<span class="qty">수량 : ${cartList.amount }</span>
 												<span class="price-wrap">
 													<strong class="retail-price">${cartList.proPrice } 원</strong>
@@ -170,7 +194,7 @@
 							</div>	
 							</c:forEach>
 
-								<div class="uk-width-1-1 info-price">
+								<div class="info-price uk-width-1-1">
 									<span class="item-price">
 										<span class="label">상품 금액</span>
 										<span class="price">
@@ -196,8 +220,6 @@
 											</c:forEach>
 											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
-										
-										
 									</div>
 								</div>
 								

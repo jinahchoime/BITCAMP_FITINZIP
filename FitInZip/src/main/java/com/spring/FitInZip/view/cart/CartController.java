@@ -1,7 +1,5 @@
 package com.spring.FitInZip.view.cart;
 
-import java.lang.ProcessBuilder.Redirect;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,12 +27,18 @@ public class CartController {
 	@RequestMapping("/cart")
 	public String getCartList(Model model, CartVO vo, CartDTO dto, HttpSession session) {
 		
+	
+		if (session.getAttribute("member") == null) {
+			return "redirect:/loginMain";
+		} 
+
 		String mem_id =((MemberVO)session.getAttribute("member")).getId();
 		
 		List<CartDTO> cartList = cartService.getCartList(mem_id);
 		
 		model.addAttribute("cartList", cartList);
 		
+		//session.setAttribute("cartList", cartList);
 		return "cart/cart";
 	}
 	
@@ -48,17 +52,16 @@ public class CartController {
 		vo.setMemId(mem_id);
 		
 		boolean isExist = findProduct(request.getParameter("proNum"), session);
-		//session.setAttribute("isExist", isExist);
 		
 		//같은 상품 있으면 수량변경 해주기 
 		if (isExist == true) {
+			System.out.println("장바구니 중복");
 			return "redirect:/product";
 		} else {
 			cartService.insertCart(vo);
 		}
-		
-		
 		return "true";
+		
 	}
 	
 	//장바구니에 상품 있는지 확인 //중복 담기 처리용
@@ -70,6 +73,7 @@ public class CartController {
 		
 		boolean isExist = false;
 		
+		
 		for (CartDTO cartList : list) {
 			//System.out.println("cartList:" + cartList);
 			if(cartList.getProNum().equals(proNum)) {
@@ -78,17 +82,13 @@ public class CartController {
 		}
 		
 		return isExist;
-		
 	}
 	
 	//장바구니에서 상품 선택 삭제
-	@RequestMapping(value="/deleteCart", method= RequestMethod.GET)
+	@RequestMapping(value="/deleteCart", method= RequestMethod.POST)
 	public String deleteCart(Model model, CartVO vo, HttpServletRequest request) {
 		
 		System.out.println("dddd :" + request.getParameter("cartCode"));
-		//System.out.println(">>" +request.getParameter("proNum"));
-		//System.out.println("proNum:" + vo.getProNum());
-		//System.out.println("vo:" + vo);
 		
 		cartService.deleteCart(vo);
 		
@@ -106,9 +106,21 @@ public class CartController {
 	}
 	
 	//상품 수량 변경
+	@ResponseBody
 	@RequestMapping(value="/updateAmount", method= RequestMethod.POST)
 	public String updateAmount(CartVO vo) {
+		
+		System.out.println("vo:" + vo.toString());
+		
 		cartService.updateAmount(vo);
+		
+		return "redirect:/cart";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/downAmount", method= RequestMethod.POST)
+	public String downAmount(CartVO vo) {
+		cartService.downAmount(vo);
 		return "redirect:/cart";
 	}
 }

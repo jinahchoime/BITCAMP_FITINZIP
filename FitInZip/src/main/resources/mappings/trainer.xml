@@ -92,7 +92,7 @@
 		SELECT m.NAME, f.CLS_NAME, r.REVIEW_CONTENT, r.REG_DATE, r.STAR, m.MEM_ORI_NAME
 		FROM MEMBER m, REVIEW r, FIT_CLASS f
 		WHERE r.MEM_ID = m.ID
-		AND f.CLS_CODE = r.CLASS_CODE
+		AND f.CLS_CODE = r.CLS_CODE
 		AND r.TRAINER_ID = #{id}
 	</select>
 	
@@ -120,5 +120,26 @@
 	    SET BANK_ACCOUNT = #{bankAccount}, BANK_NAME = #{bankName}, TOTAL_CAL = #{totalCal} - #{requestCal}
     	WHERE TRAINER_ID = #{id}
 	</update>
+	
+	<!-- 강사 클래스(나의 클래스) -->
+	<select id="ingClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.vo.ClsTrainerDTO">
+		SELECT f.THUMBNAIL_ORI_NAME AS thumbnailOriName, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime, f.MEET_URL as meetUrl  
+	    FROM FIT_CLASS f, COMMON c
+	    WHERE f.CLS_CATEGORY = c.COMMON_CODE 
+	    AND f.TRAINER_ID = #{id}
+	    AND f.END_DATE <![CDATA[ > ]]> SYSDATE
+	    AND CLS_STATUS = 'CS01'
+	</select>
+	
+	<!-- 강사 클래스(종료된 클래스) -->
+	<select id="edClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.vo.ClsTrainerDTO">
+		SELECT f.THUMBNAIL_ORI_NAME AS thumbnailOriName, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime 
+	    FROM FIT_CLASS f, COMMON c
+	    WHERE f.CLS_CATEGORY = c.COMMON_CODE 
+	    AND f.TRAINER_ID = #{id}
+	    AND f.END_DATE <![CDATA[ < ]]> SYSDATE
+	    AND CLS_STATUS = 'CS01'
+	</select>
+	
 	
 </mapper>

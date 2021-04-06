@@ -12,4 +12,5 @@ public interface CartService {
 	void deleteCart(CartVO vo);
 	void deleteAllCart(String mem_id);
 	void updateAmount(CartVO vo);
+	void downAmount(CartVO vo);
 }

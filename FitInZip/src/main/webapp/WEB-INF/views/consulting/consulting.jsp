@@ -35,16 +35,20 @@
     <jsp:include page="../nav.jsp"></jsp:include>
     
     <!-- Content  -->
-    <div id="content" style="height: 1800px; margin: 70px auto; width: 1200px">
+   
 	  	<div id="box_img">
-	  		<img alt="이미지" src="https://res.cloudinary.com/peloton-cycle/image/fetch/dpr_1.0,f_auto,h_380,q_auto:best/https://images.ctfassets.net/6jnflt57iyzx/13jQUcX99wbQZBfW0pbeLg/677fa0b75c9af8c878f92275b882de62/ShowroomBanner_2020.jpg"
-	  		style="width: 1200px;">
-	  		<h3 style="z-index: 100; display: inline-block; position: absolute; top: 203px; left: 800px; color: white">1:1 CONSULTING</h3>
+	  		<img alt="이미지" src="../resources/consulting/img/consulting_top.jpg" style="width: 100%">
+	  		<p style="z-index: 100;display: inline-block;position: absolute; top: 20%;left: 25%;color: white;font-family: 'Noto Sans KR', sans-serif;letter-spacing: 5px;font-size: 55px; font-weight: normal; line-height: 68px;">
+	  				1:1
+	  			<br>
+  				<strong style="color:DarkOrange; letter-spacing: 1px;">CONSULTING</strong>
+  			</p>
+  			<p style="z-index: 101;display: inline-block;position: absolute; top: 35%;left: 25%; color:white;">쇼룸에 방문하셔서 더욱더 체계적으로 스포츠에 다가가세요!</p>
 	  	</div>
-  		
+  	 <div id="content" style="width:1200px; height: 1300px; margin: 0 auto;">
 	  	<h2 style="text-align: center; margin-top:120px; margin-bottom: 55px; padding-bottom: 30px; width: 100%; border-bottom: 1px solid #ccc;">LOCATION</h2>
+		<p style="text-align: center; margin-bottom: 35px;"  font-weight: normal;">여러분 가까이에 피트인집이 있습니다.<br> 가까운 곳에 가서 피트인집의 체계적인 스포츠 커리큘럼을 경험해보세요!<br><span style="color:#ccc; font-weight:100px">지방분점은 현재 준비중입니다.</span></p>
 		<div id="map" style="width:100%; height:350px;"></div>
-		
 		<h2 style="text-align: center; margin-top: 120px; margin-bottom: 110px; padding: 25px; width: 100%; border-bottom: 1px solid #ccc;">NOTICE</h2>
 		<div id="notice" style="display: flex; margin: 0 auto; width: 1000px;">
 			<div id="notice_txt" style="margin-right: 200px;">
@@ -104,12 +108,11 @@
 		</c:forEach>
 	</script>
 	<script>
-
 	var mapContainer = document.getElementById('map'), // 지도의 중심좌표
-	    mapOption = { 
-	        center: new kakao.maps.LatLng(37.546602560578286, 126.96490619997053), // 지도의 중심좌표
-	        level: 9 // 지도의 확대 레벨
-	    }; 
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.546602560578286, 126.96490619997053), // 지도의 중심좌표
+        level: 9 // 지도의 확대 레벨
+    }; 
 	
 	/* var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다 */
 	
@@ -118,6 +121,7 @@
 	
 	var markers = new Array(arr.length);
 	var contents = new Array(arr.length);
+	var overlays = new Array(arr.length);
 	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
@@ -136,19 +140,18 @@
 		
 		var content = '<div class="wrap">' + 
 	        '    <div class="info">' + 
-	        '        <div class="title">' + 
-	        '            피트인.zip' + 
+	        '        <div class="title" style="font-size:13px;">' + 
+	        '            피트인집' + 
 	        '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 	        '        </div>' + 
 	        '        <div class="body">' + 
-	        '            <div class="img">' +
-	        '                <img src="https://res.cloudinary.com/peloton-cycle/image/fetch/dpr_1.0,f_auto,q_auto:best,w_800/https://images.ctfassets.net/6jnflt57iyzx/6t5BLoYNeBd0ewmFUKl7GZ/a954095d1ff4db368673f59691390a71/Tread_Plus_Mobile.png" width="73" height="70">' +
+	        '            <div class="img" style="width:85px; height:70px; display:inline-block;">' +
+	        '                <img src="../resources/consulting/img/fitinzip_logo.png" width="90" height="70">' +
 	        '           </div>' + 
-	        '            <div class="desc">' + 
-	        '                <div class="ellipsis">' +
+	        '            <div class="desc" style="right:-15px;">' + 
+	        '                <div class="ellipsis">(지번) ' +
 	        				arr[i].addr +
 	        				'</div>' + 
-	        '                <div class="jibun ellipsis">(우) 06611 (지번) 강남대로 459</div>' + 
 	        '                <div><a href="http://localhost:8080/" target="_blank" class="link">홈페이지 바로가기</a></div>' + 
 	        '            </div>' + 
 	        '        </div>' + 
@@ -162,20 +165,23 @@
 		var overlay = new kakao.maps.CustomOverlay({
 		    content: contents[i],
 		    map: map,
-		    position: markers[i].getPosition()       
+		    position: markers[i].getPosition()
 		});
+		
+		overlays[i] = overlay;
 		
 		// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
 		kakao.maps.event.addListener(markers[i], 'click', function() {
-		    overlay.setMap(map);
+			overlays[i].setMap(map);
 		});
+		
+		// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+		function closeOverlay() {
+			overlays[i].setMap(null);     
+		}
+		
 	}
 	
-	
-	// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-	function closeOverlay() {
-	    overlay.setMap(null);     
-	}
 	</script>
 </body>
 </html>

@@ -18,7 +18,7 @@
   	</typeAliases> 
   	
   <mappers>
-   <mapper resource="mappings/cart.xml"/> 
+   	<mapper resource="mappings/cart.xml"/> 
     <mapper resource="mappings/product.xml"/>     
   	<mapper resource="mappings/mypage.xml"/>
   	<mapper resource="mappings/member.xml"/>  
@@ -29,6 +29,7 @@
     <mapper resource="mappings/order.xml"/> 
     <mapper resource="mappings/payment.xml"/> 
     <mapper resource="mappings/coupon.xml"/>
+    <mapper resource="mappings/review.xml"/> 
   </mappers>
 
 </configuration>

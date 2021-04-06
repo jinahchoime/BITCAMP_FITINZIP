@@ -4,7 +4,7 @@ button {
 }
 
 .addcart-btn-div {
-	border: 3px solid #181A1D; 
+	border: 2px solid #181A1D; 
 	padding: 15px;
 	background-color: transparent;
 	text-align: center;
@@ -19,17 +19,20 @@ button {
 
 .addcart-btn-div:hover {
 	background-color: black;
+	color: white;
 }
 
 .foreach-cart-btn {
 	margin-top: 136px;
 	margin-bottom: 80px;
 	cursor: pointer;
+	border-radius: 5px;
 }
 
 .dumbbell-cart-btn, .rubberband-cart-btn {
 	margin-top: 25px;
 	cursor: pointer;
+	border-radius: 5px;
 }
 
 .product-title {
@@ -40,14 +43,11 @@ button {
 	font-size: 28px;
 	margin-top: 150px;
 	line-height: 24px;
-	font-weight: bold;
 	letter-spacing: -0.2px;
 	color: #111111;
-	padding-bottom: 20px;
+	padding-bottom: 40px;
 	
-	border-bottom-style : solid;
-	border-bottom-color: black;
-	border-bottom-width: 2px;
+	border-bottom: 1px solid #d1d1d1;
 	width: 1700px;
 	
 }
@@ -80,6 +80,7 @@ button {
 	height: 60px;
 	width: 478px;
 	font-size: 18px;
+	border-radius: 5px;
 }
 
 .rubberband-option {
@@ -87,6 +88,7 @@ button {
 	height: 60px;
 	width: 451px;
 	font-size: 18px;
+	border-radius: 5px;
 }
 
 .col:nth-child(3n+2) {

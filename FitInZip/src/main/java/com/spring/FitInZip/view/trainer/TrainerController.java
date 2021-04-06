@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.cls.clsStatus.Criteria;
 import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
 import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
+import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
@@ -45,7 +47,7 @@ import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Controller
-@SessionAttributes({"admin", "member", "reqClass", "ingClass", "totalCal", "trainerInfo", "reviewList", "calList"})
+@SessionAttributes({ "admin", "member"/* , "reviewList", "calList" */})
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -62,7 +64,8 @@ public class TrainerController {
 	// 강사 등록하기 페이지
 	@RequestMapping("/registerTrainerMainPage")
 	public String registerView() {
-		return "trainer/registerTrainerMainPage";
+		//return "trainer/registerTrainerMainPage";
+		return "pay/LivePTPay";
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
@@ -128,9 +131,34 @@ public class TrainerController {
     	 return "trainer/trainerMainPage";
     }
     //마이클래스
+	/*
+	 * @RequestMapping("/myClass") public String myPage(@ModelAttribute("member")
+	 * RegisterTrainerDTO dto, Model model) { List<ClsTrainerDTO> cvo1 =
+	 * trainerService.myPage1(dto); System.out.println("cvo1: " + cvo1);
+	 * model.addAttribute("ingCls", cvo1); List<ClsTrainerDTO> cvo2 =
+	 * trainerService.myPage2(dto); System.out.println("cvo2: " + cvo2);
+	 * model.addAttribute("edCls", cvo2); return "trainer/myClass"; }
+	 */
+    
     @RequestMapping("/myClass") 
-    public String myPage(MemberVO vo) {
+    public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
+    	System.out.println("edCls: " + edCls);
+    	model.addAttribute("edCls", edCls);
     	return "trainer/myClass";
+    }
+    
+    @RequestMapping("/classData") 
+    @ResponseBody
+    public List<ClsTrainerDTO> myPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	
+    	List<ClsTrainerDTO> ingCls = trainerService.myPage1(dto);
+    	System.out.println("ingCls: " + ingCls);
+    	model.addAttribute("ingCls", ingCls);
+    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
+    	System.out.println("edCls: " + edCls);
+    	model.addAttribute("edCls", edCls);
+    	return ingCls;
 	}
     
     //내 정보 수정
@@ -196,24 +224,17 @@ public class TrainerController {
     }
     
     @RequestMapping("/myWithdrawCheck")
-    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto) {
+    public String myWithdraw(@ModelAttribute("member") RegisterTrainerDTO dto, RedirectAttributes rttr) {
 
     	System.out.println("dto:" + dto);
-		/*
-		 * Integer withdrawCal = dto.getTotalCal() 
-		 *  dto.getRequestCal();
-		 * dto.setTotalCal(withdrawCal); System.out.println("설정 후 dto: " + dto);
-		 */
     	
     	trainerService.updateCal(dto);
     	
     	System.out.println("정산금 인출 신청 성공!");
-    	return "redirect:/trainer/trainerMainPage";
+    	return "redirect:trainerMainPage";
     }
     
- 
-    
-    
+
     //로그아웃
     @RequestMapping("/logout")
 	public String logout(HttpSession session) {
@@ -223,7 +244,10 @@ public class TrainerController {
 
 		// 2. 화면 네비게이션(로그인페이지)
 		return "main";
+		
 	}
+    
+    
     
     
     //동현
@@ -257,16 +281,10 @@ public class TrainerController {
 			throws IllegalStateException, IIOException, Exception {
 		
 		MultipartFile classUploadFile = null;
-		// .metadata 아래의 서버가 사용하는 경로에 저장. -> jsp단에서 접근하지 못함
-		// String filePath = request.getSession().getServletContext().getRealPath("/resources/classRegister/imgs/");
-		
-		  String filePath = this.getClass().getResource("").getPath(); 
-		  filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
-		  "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+	    String filePath = this.getClass().getResource("").getPath(); 
+	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
 		 
-		//System.out.println("경로명 : " + filePath);
-		//System.out.println("file 경로  : " + filePath);
-		
 		System.out.println(vo.getStartDate());
 
 		// 클래스 코드를 생성하기
@@ -281,20 +299,6 @@ public class TrainerController {
 		}
 		
 		String classCode = "C" + wdate + "_" + classKey;
-
-		// 파일명 중복 시 uuid를 무작위 생성하여 붙여주기 때문에 별도 저장 가능
-		//UUID uuid = UUID.randomUUID();
-
-		//String fileName = "" + uuid + "_";
-		
-		// MultipartResolver -> FileName, OriginName
-		
-		/*
-		 * MultipartFile classUploadFile = vo.getClsFileName(); if (classUploadFile !=
-		 * null) { fileName += classUploadFile.getOriginalFilename();
-		 * classUploadFile.transferTo(new File("c:/Temp/FitInZip/ClassFile/" +
-		 * fileName)); }
-		 */
 		UUID uuid = null;
 		String filename = "";
 		/*
@@ -328,7 +332,6 @@ public class TrainerController {
 			}
 			
 		}
-
 		// 시작, 끝 시간 입력을 위한 가공
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -411,8 +414,6 @@ public class TrainerController {
 			@RequestParam(value = "equip", required = false) String equip,
 			MultipartFile thumbnail, MultipartFile title) throws Exception {
 		
-		//System.out.println("thumbnail : " + thumbnail);
-		
 		SimpleDateFormat converter = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Date start = vo.getStartDate();
@@ -466,7 +467,6 @@ public class TrainerController {
 			file.delete();
 		}
 		// 파일 처리 끝
-
 		System.out.println("ClsVO : " + vo.toString());
 
 		clsStatusService.updateClass(vo);
