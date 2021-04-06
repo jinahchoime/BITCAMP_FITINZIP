@@ -288,7 +288,7 @@ public class TrainerController {
 		MultipartFile classUploadFile = null;
 	    String filePath = this.getClass().getResource("").getPath(); 
 	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
-	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+	    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
 		 
 		System.out.println(vo.getStartDate());
 
@@ -440,7 +440,7 @@ public class TrainerController {
 		//String filePath = "C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
 		String filePath = this.getClass().getResource("").getPath(); 
 	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
-	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+	    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
 		
 		
 		if(thumbnail.getOriginalFilename().equals("")) {
