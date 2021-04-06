@@ -125,6 +125,22 @@
 			}
 			
 			// 수업 횟수 검사
+			if($("#clsLapse").val() == null || $("#clsLapse").val() == ""){
+				alert("수업 횟수를 입력해주세요");
+				$("#clsLapse").focus();
+				return false;
+			} else if($("#clsLapse").val() < 1){
+				alert("수업 횟수는 1회보다 적을 수 없습니다");
+				$("#clsLapse").focus();
+				return false;
+			}
+			
+			// 회당 가격 검사
+			if($("#clsPerPrice").val() == null || $("#clsPerPrice").val() == ""){
+				alert("회당 가격을 입력해주세요");
+				$("#clsPerPrice").focus();
+				return false;
+			}
 			
 		});
 		
@@ -365,9 +381,9 @@
 					</tr>
 					<tr>
 						<th>수업 횟수</th>
-						<td><input type="number" name="lapse" style="width: 100%;"></td>
+						<td><input type="number" id="clsLapse" name="lapse" style="width: 100%;"></td>
 						<th>회당 가격</th>
-						<td><input type="number" name="perPrice" style="width: 100%;"></td>
+						<td><input type="number" id="clsPerPrice" name="perPrice" style="width: 100%;"></td>
 						<th>인원 수</th>
 						<td>
 							<select name="maxMem">
