@@ -24,7 +24,6 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void insertCart(CartVO vo) {
 		cartDAO.insertCart(vo);
-		
 	}
 
 	//장바구니 상품 선택 삭제
@@ -33,14 +32,21 @@ public class CartServiceImpl implements CartService {
 		cartDAO.deleteCart(vo);
 	}
 
+	//장바구니 상품 전체 삭제
 	@Override
 	public void deleteAllCart(String mem_id) {
 		cartDAO.deleteAllCart(mem_id);
 	}
 
+	//장바구니 상품 수량 변경
 	@Override
 	public void updateAmount(CartVO vo) {
 		cartDAO.updateAmount(vo);
+	}
+
+	@Override
+	public void downAmount(CartVO vo) {
+		cartDAO.downAmount(vo);
 	}
 
 

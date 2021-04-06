@@ -50,14 +50,14 @@
 			    	addr = data.address; // 최종 주소 변수
 			    	
 			        // 주소 정보를 해당 필드에 넣는다.
-			        document.getElementById("sample5_address").value = addr;
+			        document.getElementById("").value = addr;
 			        // 주소로 상세 정보를 검색
 			        geocoder.addressSearch(data.address, function(results, status) {
 			            // 정상적으로 검색이 완료됐으면
 			            if (status === daum.maps.services.Status.OK) {
 							
 			                var result = results[0]; //첫번째 결과의 값을 활용
-			
+							alert("오냐???");
 			                // 해당 주소에 대한 좌표를 받아서
 			                coords = new daum.maps.LatLng(result.y, result.x);
 			                // 지도를 보여준다.

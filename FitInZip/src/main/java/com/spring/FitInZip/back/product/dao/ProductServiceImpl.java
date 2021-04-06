@@ -19,21 +19,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public void insertProduct(ProductVO vo) {
-		productDAO.insertProduct(vo);
-	}
-
-	@Override
-	public void updateProduct(ProductVO vo) {
-		productDAO.updateProduct(vo);
-	}
-
-	@Override
-	public void deleteProduct(ProductVO vo) {
-		productDAO.deleteProduct(vo);
-	}
-
-	@Override
 	public ProductVO getProduct(ProductVO vo) {
 		return null;
 	}

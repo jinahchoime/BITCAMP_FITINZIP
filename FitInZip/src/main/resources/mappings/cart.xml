@@ -36,9 +36,14 @@
 	<!-- 장바구니 상품 수량 변경 -->
 	<update id="updateAmount" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
 	UPDATE CART 
-	SET AMOUNT = #{amount} + 1
+	SET AMOUNT = AMOUNT + 1
 	WHERE CART_CODE = #{cartCode}
 	</update>
 	
+	<update id="downAmount" parameterType="com.spring.FitInZip.back.cart.vo.CartVO">
+	UPDATE CART 
+	SET AMOUNT = AMOUNT - 1
+	WHERE CART_CODE = #{cartCode}
+	</update>
 	
 </mapper>

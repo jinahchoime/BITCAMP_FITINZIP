@@ -20,7 +20,6 @@
 	crossorigin="anonymous"></script>
 
 <script>
-	//장바구니 버튼 누르면 미니 장바구니가 같은 화면 오른쪽에 사이드바로 뜨면서 동시에 장바구니 테이블에 데이터가 들어가야 함
 	$(function(){
 		$(".addcart-btn").on("click", function(){
 			alert("장바구니 담기 ajax 실행");
@@ -37,31 +36,26 @@
 					body : new URLSearchParams(formData)
 			}
 			
-			fetch("/insertCart", options) //일단 들어가고 confirm도 물어봄
+			fetch("/insertCart", options) 
 				.then(async function (response) {
 					let result = await response.json();
-					/*
-					if (${sessionScope.isExist == true } ) {
-						 var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
-						 if(cart) {
-							 location.href="/cart";
-						 } else {
-							 location.href="/product";
-						 }
-					} else {
-						alert("장바구니 담기 성공");
-					} 
-					*/
-					//alert("장바구니 담기 성공");
-					//location.href="/product"; 
+			
 				})
-				.catch(err => alert("오류 발생: " + err)); 
-				
+				.catch(err => {
+					//alert("오류 발생: " + err);
+					var cart = confirm("이미 들어있는 상품입니다. 장바구니로 이동하시겠습니까?");
+					 if(cart) {
+						 location.href="/cart";
+					 } else {
+						 location.href="/product";
+					 } 
+					
+				}); 
+			
 		})
 	})
 	
-	//console.log($("#dumbbell option:selected").val());
-	
+
 	
 </script>
 </head>
@@ -97,7 +91,7 @@
 							<c:if test="${productList.proName eq '덤벨 1kg~10kg'}">
 								<select class="dumbbell-option" id="dumbbell">
 									<option value="none">[필수]옵션을 선택하세요</option>
-									<option value="210326001">1kg</option>
+									<option value="1kg">1kg</option>
 									<option value="2kg">2kg(+2,400원)</option>
 									<option value="3kg">3kg(+4,800원)</option>
 									<option value="4kg">4kg(+7,200원)</option>
