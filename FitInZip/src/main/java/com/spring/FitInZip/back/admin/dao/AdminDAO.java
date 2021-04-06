@@ -1,6 +1,5 @@
 package com.spring.FitInZip.back.admin.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,8 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
-import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 
 @Repository
 public class AdminDAO {
@@ -92,5 +92,16 @@ public class AdminDAO {
 	public List<GetClsCheckDTO> allListCM(String key){
 		System.out.println("DAO key" + key);
 		return mybatis.selectList("AdminDAO.allListCM",key);
+	}
+	
+	public List<MonthPaymentChartDTO> monthPaymentChart(){
+		return mybatis.selectList("AdminDAO.monthPaymentChart");
+	}
+	
+	public List<MonthPaymentChartDTO> lastMonthPaymentChart(){
+		return mybatis.selectList("AdminDAO.lastMonthPaymentChart");
+	}
+	public List<MemberVO> inputData(){
+		return mybatis.selectList("AdminDAO.inputData");
 	}
 }

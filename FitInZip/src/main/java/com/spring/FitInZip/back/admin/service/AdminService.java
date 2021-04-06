@@ -7,7 +7,9 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 
 
 public interface AdminService {
@@ -23,6 +25,9 @@ public interface AdminService {
 	Integer approveClsTrainer(String id, String btnId);
 	List<GetClsCheckDTO> getClsList();
 	List<GetClsCheckDTO> allListCM(String key);
+	List<MonthPaymentChartDTO> monthPaymentChart();
+	List<MonthPaymentChartDTO> lastMonthPaymentChart();
+	List<MemberVO> inputData();
 	
 	/*다슬*/
 	void insertMap(MapVO vo);

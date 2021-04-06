@@ -1,5 +1,7 @@
 package com.spring.FitInZip.back.member.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,5 +32,6 @@ public class MemberVO {
 	private String memFileName;
 	private String role;
 	private String withdrawal;
+	private Date joinDate;
 	
 }

@@ -17,6 +17,10 @@
 					</button>
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div class="loginDivWrap" style="display: inline-block; width: 100%;">
+					<h5 id ="loginName" style="float: right;">${vo.name } 관리자님 반갑습니다.</h5>
+					</div>
+					<!-- 
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="#">Page</a>
 							</li>
@@ -24,6 +28,7 @@
 							<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">Page</a></li>
 						</ul>
+						 -->
 					</div>
 				</div>
 			</nav>
