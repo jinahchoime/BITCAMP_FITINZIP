@@ -62,6 +62,7 @@
 			$('#titleUpload').val("");
 		});
 		
+		// 요일 검사 시 사용할 수도 있음(실시간 입력 검사)
 		 /* $("#testOnchange").on("propertychange change keyup paste input", function() {
              
              // 현재 변경된 데이터 셋팅
@@ -122,6 +123,8 @@
 				$("#dayOfWeek").focus();
 				return false;
 			}
+			
+			// 수업 횟수 검사
 			
 		});
 		

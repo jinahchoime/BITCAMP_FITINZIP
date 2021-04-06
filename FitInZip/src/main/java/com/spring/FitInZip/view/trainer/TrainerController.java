@@ -389,8 +389,11 @@ public class TrainerController {
 		startTime = startTime.substring(11, 16);
 		endTime = endTime.substring(11, 16);
 		
-		getCls.setThumbnailFileName(getCls.getThumbnailFileName().substring(79));
-		getCls.setTitleFileName(getCls.getTitleFileName().substring(79));
+		String thumbnailPath = getCls.getThumbnailFileName();
+		String titlePath = getCls.getTitleFileName();
+		
+		getCls.setThumbnailFileName(getCls.getThumbnailFileName().substring(thumbnailPath.indexOf("resources")));
+		getCls.setTitleFileName(getCls.getTitleFileName().substring(titlePath.indexOf("resources")));
 
 		model.addAttribute("cls", getCls);
 		model.addAttribute("startDate", start);
@@ -429,13 +432,18 @@ public class TrainerController {
 		vo.setEndTime(endTime);
 		
 		// 파일 처리
-		String filePath = "C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		//String filePath = "C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		String filePath = this.getClass().getResource("").getPath(); 
+	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		
 		
 		if(thumbnail.getOriginalFilename().equals("")) {
 			String oriFileName = request.getParameter("thumbnailOriName");
 			String uploadedFileName = request.getParameter("thumbnailFileName");
 			vo.setThumbnailOriName(oriFileName);
-			vo.setThumbnailFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
+			//vo.setThumbnailFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
+			vo.setThumbnailFileName(filePath.substring(0, filePath.indexOf("webapp/")) + uploadedFileName);
 		} else {
 			MultipartFile uploadFile = thumbnail;
 			UUID uuid = UUID.randomUUID();
@@ -445,7 +453,7 @@ public class TrainerController {
 			vo.setThumbnailFileName(fileName);
 			uploadFile.transferTo(new File(fileName));
 			
-			File file = new File("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + request.getParameter("thumbnailFileName"));
+			File file = new File(filePath.substring(0, filePath.indexOf("resources")) + request.getParameter("thumbnailFileName"));
 			file.delete();
 		}
 		
@@ -453,7 +461,8 @@ public class TrainerController {
 			String oriFileName = request.getParameter("titleOriName");
 			String uploadedFileName = request.getParameter("titleFileName");
 			vo.setTitleOriName(oriFileName);
-			vo.setTitleFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
+			//vo.setTitleFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
+			vo.setTitleFileName(filePath.substring(0, filePath.indexOf("webapp/")) + uploadedFileName);
 		} else {
 			MultipartFile uploadFile = title;
 			UUID uuid = UUID.randomUUID();
@@ -463,7 +472,7 @@ public class TrainerController {
 			vo.setTitleFileName(fileName);
 			uploadFile.transferTo(new File(fileName));
 			
-			File file = new File("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + request.getParameter("titleFileName"));
+			File file = new File(filePath.substring(0, filePath.indexOf("resources")) + request.getParameter("titleFileName"));
 			file.delete();
 		}
 		// 파일 처리 끝
