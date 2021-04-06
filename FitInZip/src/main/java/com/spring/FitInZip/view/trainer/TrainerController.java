@@ -281,7 +281,10 @@ public class TrainerController {
 			throws IllegalStateException, IIOException, Exception {
 		
 		MultipartFile classUploadFile = null;
-		
+	    String filePath = this.getClass().getResource("").getPath(); 
+	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+		 
 		System.out.println(vo.getStartDate());
 
 		// 클래스 코드를 생성하기
@@ -298,8 +301,9 @@ public class TrainerController {
 		String classCode = "C" + wdate + "_" + classKey;
 		UUID uuid = null;
 		String filename = "";
-		String filePath = "";
-		filePath = "C:/FitInZip_Images/";
+		/*
+		 * String filePath = ""; filePath = "C:/FitInZip_Images/";
+		 */
 		
 		if(thumbnail != null) {
 			uuid = UUID.randomUUID();
@@ -385,8 +389,8 @@ public class TrainerController {
 		startTime = startTime.substring(11, 16);
 		endTime = endTime.substring(11, 16);
 		
-		getCls.setThumbnailFileName(getCls.getThumbnailFileName().substring(2));
-		getCls.setTitleFileName(getCls.getTitleFileName().substring(2));
+		getCls.setThumbnailFileName(getCls.getThumbnailFileName().substring(79));
+		getCls.setTitleFileName(getCls.getTitleFileName().substring(79));
 
 		model.addAttribute("cls", getCls);
 		model.addAttribute("startDate", start);
@@ -425,13 +429,13 @@ public class TrainerController {
 		vo.setEndTime(endTime);
 		
 		// 파일 처리
-		String filePath = "C:/FitInZip_Images/";
+		String filePath = "C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
 		
 		if(thumbnail.getOriginalFilename().equals("")) {
 			String oriFileName = request.getParameter("thumbnailOriName");
 			String uploadedFileName = request.getParameter("thumbnailFileName");
 			vo.setThumbnailOriName(oriFileName);
-			vo.setThumbnailFileName("C:" + uploadedFileName);
+			vo.setThumbnailFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
 		} else {
 			MultipartFile uploadFile = thumbnail;
 			UUID uuid = UUID.randomUUID();
@@ -441,7 +445,7 @@ public class TrainerController {
 			vo.setThumbnailFileName(fileName);
 			uploadFile.transferTo(new File(fileName));
 			
-			File file = new File("C:" + request.getParameter("thumbnailFileName"));
+			File file = new File("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + request.getParameter("thumbnailFileName"));
 			file.delete();
 		}
 		
@@ -449,7 +453,7 @@ public class TrainerController {
 			String oriFileName = request.getParameter("titleOriName");
 			String uploadedFileName = request.getParameter("titleFileName");
 			vo.setTitleOriName(oriFileName);
-			vo.setTitleFileName("C:" + uploadedFileName);
+			vo.setTitleFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
 		} else {
 			MultipartFile uploadFile = title;
 			UUID uuid = UUID.randomUUID();
@@ -459,7 +463,7 @@ public class TrainerController {
 			vo.setTitleFileName(fileName);
 			uploadFile.transferTo(new File(fileName));
 			
-			File file = new File("C:" + request.getParameter("titleFileName"));
+			File file = new File("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + request.getParameter("titleFileName"));
 			file.delete();
 		}
 		// 파일 처리 끝
