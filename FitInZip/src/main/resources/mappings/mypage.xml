@@ -31,18 +31,6 @@
 	                                WHERE P.MEM_ID = #{memId})
 		</select>
 		
-		<!-- 마이페이지 총 갯수 - 운동시간 -->
-		<select id="mypageInExerciseTime" parameterType="String" resultType="Integer">
-
-		</select>
-		
-		<!-- 마이페이지 총 갯수 - 소모 칼로리 -->
-		<select id="mypageInCountCalorie" parameterType="String" resultType="Integer">
-
-		</select>
-		
-		
-		
 	
 		<!-- 회원정보 수정하기  -->
 		<update id="updateMember" parameterType="com.spring.FitInZip.back.member.vo.MemberVO">
@@ -68,13 +56,16 @@
 					                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
 					        FROM(SELECT M.*, ROWNUM AS RNUM
 					                FROM(SELECT F.*, P.PAID_PRICE, TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD') AS PAYDATE, C.COMMON_NAME AS METHOD, B.COMMON_NAME AS CATE
-					                            FROM PAYMENT P
+					                      ,S.NAME      
+                                                FROM PAYMENT P
 					                                INNER JOIN FIT_CLASS F 
 					                            ON P.CLS_CODE = F.CLS_CODE
 					                                INNER JOIN COMMON C
 					                            ON p.pay_method = C.COMMON_CODE
 					                                INNER JOIN COMMON B
 					                            ON f.cls_category = B.COMMON_CODE
+                                                    INNER JOIN MEMBER S
+                                                        ON F.TRAINER_ID = S.ID
 					                            WHERE P.MEM_ID = #{memId}
 					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
 					                        ) M         
@@ -92,15 +83,18 @@
 						                AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')) AS COUNT
 						        FROM(SELECT M.*, ROWNUM AS RNUM
 					                FROM(SELECT F.*, P.PAID_PRICE, TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD') AS PAYDATE, C.COMMON_NAME AS METHOD, B.COMMON_NAME AS CATE
-					                            FROM PAYMENT P
+					                      ,S.NAME      
+                                                FROM PAYMENT P
 					                                INNER JOIN FIT_CLASS F 
 					                            ON P.CLS_CODE = F.CLS_CODE
 					                                INNER JOIN COMMON C
-					                            ON P.PAY_METHOD = C.COMMON_CODE
+					                            ON p.pay_method = C.COMMON_CODE
 					                                INNER JOIN COMMON B
-					                            ON F.CLS_CATEGORY = B.COMMON_CODE
+					                            ON f.cls_category = B.COMMON_CODE
+                                                    INNER JOIN MEMBER S
+                                                        ON F.TRAINER_ID = S.ID
 					                            WHERE P.MEM_ID = #{memId}
-					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
+					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
 					                        ) M         
 					            )R
 						WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
@@ -121,12 +115,14 @@
 			resultType="com.spring.FitInZip.back.mypage.vo.UserClsDTO">
 			 SELECT H.* FROM (
 				SELECT ROWNUM AS RNUM, P.*
-				    FROM(SELECT F.*, C.COMMON_NAME
+				    FROM(SELECT F.*, C.COMMON_NAME, M.NAME
 							FROM FIT_CLASS F
 						     	INNER JOIN WISH_CLASS W 
 						     ON W.CLS_CODE = F.CLS_CODE
 				                INNER JOIN COMMON C
 				             ON F.CLS_CATEGORY = C.COMMON_CODE
+                                INNER JOIN MEMBER M
+				             ON F.TRAINER_ID = M.ID
 							     WHERE W.MEM_ID = #{memId}
 				        ) P
 					)H

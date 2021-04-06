@@ -174,7 +174,7 @@
 			dispHtml += '<img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-03-08/1615190947042146270.png" alt="클래스썸네일"></div>';
 			dispHtml += '<a href="/getClassDetail?clsCode='+value.clsCode+'" target="_blank"><div class="list_txt full"><dl class="prod_infor"><dt>';
 			dispHtml += '<div class="play_tch"><span>';
-			dispHtml +=  value.cate;
+			dispHtml +=  value.cate + " · " + value.name;
 			dispHtml += '</span></div>';
 			dispHtml +=  value.clsName;
 			dispHtml +=  '</dt><dd class="mt5"><div>';

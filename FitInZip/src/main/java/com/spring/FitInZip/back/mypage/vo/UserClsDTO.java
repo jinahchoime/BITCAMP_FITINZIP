@@ -28,6 +28,8 @@ public class UserClsDTO {
 	private String commonName;
 	private String meetUrl;
 	
+	private String name; //강사이름
+	
 	/*시작번호 끝번호*/
 	private Integer startIndex;
 	private Integer endIndex;
