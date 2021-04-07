@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -157,7 +158,7 @@
 												<div class="price bottom">
 													<!---->
 													<span class="fns_price">
-														<b>${detail.totalPrice}</b>원
+														<b><fmt:formatNumber value="${detail.totalPrice}"/></b>원
 													</span>
 													<div class="ct_cost">(회당 ${detail.perPrice}원/${detail.lapse}회)</div>
 												</div>
@@ -182,7 +183,7 @@
 											<div>
 											
 											<c:if test="${detail.reminder > 0}">
-												<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;">
+												<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;" href="/livePTPay">
 												클래스 신청하기
 												</a>
 											</c:if>

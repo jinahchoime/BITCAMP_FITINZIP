@@ -64,8 +64,7 @@ public class TrainerController {
 	// 강사 등록하기 페이지
 	@RequestMapping("/registerTrainerMainPage")
 	public String registerView() {
-		//return "trainer/registerTrainerMainPage";
-		return "pay/LivePTPay";
+		return "trainer/registerTrainerMainPage";
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
@@ -130,15 +129,7 @@ public class TrainerController {
     	 
     	 return "trainer/trainerMainPage";
     }
-    //마이클래스
-	/*
-	 * @RequestMapping("/myClass") public String myPage(@ModelAttribute("member")
-	 * RegisterTrainerDTO dto, Model model) { List<ClsTrainerDTO> cvo1 =
-	 * trainerService.myPage1(dto); System.out.println("cvo1: " + cvo1);
-	 * model.addAttribute("ingCls", cvo1); List<ClsTrainerDTO> cvo2 =
-	 * trainerService.myPage2(dto); System.out.println("cvo2: " + cvo2);
-	 * model.addAttribute("edCls", cvo2); return "trainer/myClass"; }
-	 */
+   
     
     @RequestMapping("/myClass") 
     public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {

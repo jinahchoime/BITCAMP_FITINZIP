@@ -15,8 +15,22 @@
 	WHERE M.ID = #{memId}
 	</select>	
 
-
-
+	<!-- 클래스 결제 시 보유한 쿠폰 검색 -->
+	<select id="clsPayment" parameterType="memberVO" resultType="com.spring.FitInZip.back.common.vo.PaymentDTO">
+		SELECT c.COUPON_CODE, TO_CHAR(NVL(i.COUPON_START_DATE, ''), 'YYYY-MM-DD') as couponStartDate, TO_CHAR(NVL(i.COUPON_END_DATE, '9999-12-31'), 'YYYY-MM-DD') as couponEndDate, i.DISCOUNT_PRICE, i.COUPON_NAME 
+ 		FROM MEMBER m, MEM_COUPON c, COUPON_INFO i 
+ 		WHERE m.ID = c.MEM_ID 
+        AND c.COUPON_CODE = i.COUPON_CODE 
+        AND m.ID = #{id} 
+        AND ((SYSDATE <![CDATA[ >= ]]> i.COUPON_START_DATE AND SYSDATE <![CDATA[ <= ]]> i.COUPON_END_DATE) OR COUPON_START_DATE IS NULL OR COUPON_END_DATE IS NULL)
+	</select>
+	
+	<!-- 보유한 쿠폰 정보 검색 -->
+	<select id="couponDetail" parameterType="String" resultType="com.spring.FitInZip.back.common.vo.CouponDetailDTO">
+		SELECT COUPON_NAME, COUPON_CODE, DISCOUNT_PRICE, TO_CHAR(NVL(COUPON_START_DATE, ''), 'YYYY-MM-DD') as couponStartDate, TO_CHAR(NVL(COUPON_END_DATE, '9999-12-31'), 'YYYY-MM-DD') as couponEndDate
+		FROM COUPON_INFO
+		WHERE COUPON_CODE = #{couponCode}
+	</select>
 
 
 </mapper>
