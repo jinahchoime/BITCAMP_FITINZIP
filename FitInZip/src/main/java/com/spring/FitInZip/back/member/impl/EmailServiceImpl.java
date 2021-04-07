@@ -13,6 +13,12 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	
+	@Override
+	public int emailCheck(String id) {
+		return memberDAO.emailCheck(id);
+	}
+	
 	@Override
 	public void emailJoin(MemberVO vo) {
 		memberDAO.emailJoin(vo);
@@ -22,6 +28,13 @@ public class EmailServiceImpl implements EmailService {
 	public MemberVO emailLogin(MemberVO vo) {
 		return memberDAO.emailLogin(vo);
 	}
+
+	@Override
+	public void welcomeCoupon(MemberVO vo) {
+		memberDAO.welcomeCoupon(vo);
+	}
+
+	
 	
 
 }

@@ -30,7 +30,12 @@ public class KakaoServiceImpl implements KakaoService{
 	@Override
 	public void kakaoJoin(MemberVO vo) {
 		memberDAO.kakaoJoin(vo);
-		
 	}
+	
+	@Override
+	public void welcomeCoupon(MemberVO vo) {
+		memberDAO.welcomeCoupon(vo);
+	}
+
 	
 }

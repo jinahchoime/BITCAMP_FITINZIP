@@ -8,6 +8,9 @@
 a:link, a:visited, a:hover, a:active, a:focus {
     text-decoration: none;
 }
+body {
+	background-color: #222529 !important;
+}
 div {
     display: block;
 }
@@ -33,14 +36,14 @@ section {
     font-size: 24px;
     line-height: 30px;
     font-weight: 700;
-    color: #000;
+    color: white;
     margin-bottom: 11px;
 }
 .page_title p {
     font-size: 15px;
     line-height: 24px;
     font-weight: 400;
-    color: #777;
+    color: LightGray;
     margin-bottom: 28px;
 }
 .btn_text {
@@ -50,7 +53,7 @@ section {
 .form-box-input {
     position: relative;
     width: 100%;
-    margin-bottom: 12px;
+    margin-top: 12px;
 	height: 50px;
 }
 input[type="text"], select {
@@ -63,11 +66,13 @@ input[type="text"], select {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    color: #000;
-    background: #fff;
+    color: white;
+    border: none;
+    background: #393b3f;
     outline: 0;
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
+    border-radius: 5px;
 }
 
 .fl {
@@ -76,7 +81,7 @@ input[type="text"], select {
 
 select {-webkit-appearance: none; -moz-appearance: none; appearance: none;}
 
-select { background: url('https://img.hamggae.com/www/common/icon/icn_gnb_arrow.png') calc(100% - 8px) center no-repeat; background-size: 20px 20px; } 
+select { background: url('/resources/login/img/arrow.png') calc(100% - 8px) center no-repeat; background-size: 20px 20px;}
 
 option {
     font-weight: normal;
@@ -84,6 +89,7 @@ option {
     white-space: nowrap;
     min-height: 1.2em;
     padding: 0px 2px 1px;
+    background-color: #222529;
 }
 
 .btn_search.type5 {
@@ -94,6 +100,7 @@ option {
 .btn_basic.full {
     width: 100%;
     border: none;
+    cursor: pointer;
     outline: 0;
 }
 .btn_basic {
@@ -106,9 +113,13 @@ option {
     font-weight: 700;
     color: #fff;
     box-sizing: border-box;
-    background: #000;
+    background: DarkOrange;
+    border-radius: 5px;
 }
-
+.btn_search {
+	border: 1px solid #585b5f;
+	border-radius: 5px;
+}
 .gray7 {
     color: #777 !important;
     font-size: 14px;
@@ -134,8 +145,29 @@ option {
 .mb20 {
 	margin-bottom: 20px !important;
 }
-.black {
-    color: #000 !important;
+.white {
+    color: white !important;
+}
+.agree-txt {
+	color: white;
+}
+.btn_text {
+	color: Orange;
+}
+.btn_text:hover {
+	color: Orange;
 }
 
+.error_next_box {
+    color: Orange;
+    font-size: 13px;
+    margin-left: 15px;
+}
+.orange_border {
+	border: 1px solid orange !important; 
+}
+.btn_disabled {
+	background-color: #393b3f !important;
+	cursor: Default !important;
+}
 

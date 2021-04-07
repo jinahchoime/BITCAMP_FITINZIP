@@ -6,5 +6,5 @@ public interface KakaoService {
 
 	MemberVO kakaoIsFirst(String id);
 	void kakaoJoin(MemberVO vo);
-	
+	void welcomeCoupon(MemberVO vo);
 }

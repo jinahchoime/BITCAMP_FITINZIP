@@ -17,62 +17,12 @@
 <script type="text/javascript" src="/resources/login/js/common.js?2021032610"></script>
 <script type="text/babel" src="/resources/login/js/vue.common.js?20210326101"></script> -->
 
-<script>
-	/* new Vue({
-		loginEmail: function() {
-            var self = this;
 
-            firebase.auth().signInWithEmailAndPassword(self.userEmail, self.userPassword).then(function(res) {
-                self.goLogin(1, res.user['uid']);
-
-            }).catch(function(error) {
-                //console.log(error);
-                if(error.code == 'auth/wrong-password') {
-                    self.showErrorMsg('userPassword', '비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.');
-                } else if(error.code == 'auth/user-not-found') {
-                    self.showErrorMsg('userEmail', '가입된 아이디가 없습니다. 다시 확인해주세요.');
-                } else if(error.code == 'auth/invalid-email') {
-                    self.showErrorMsg('userEmail', '잘못된 이메일입니다. 다시 확인해주세요.');
-                }
-            });
-        },
-        goLogin: function(snsType, snsKey) {
-            var self = this;
-
-            var formData = new FormData();
-            formData.append('snsType', snsType);
-            formData.append('snsKey', snsKey.toString());
-            formData.append('autoLogin', self.$refs.autoLogin && self.$refs.autoLogin.checked ? 'Y' : 'N');
-
-            axios({
-                method: 'POST',
-                url: "/emailLoginCheck",
-                data: formData,
-                responseType: 'json'
-            })
-            .then(function(res) {
-                if(res.data['resultCode'] == 1) {
-                    if ($('input[name=ret_url]').val()) {
-                        location.href = $('input[name=ret_url]').val();
-                        return;
-                    }
-                    location.href="/";
-                } else {
-                    BsJs_toastPopup('가입된 정보가 없습니다.', 'error', function() {});
-                    setTimeout("location.href='/member/join'",2000);
-                }
-            })
-            .catch(function(error) {
-                //console.log(error);
-            });
-        }
-	}); */
-</script>
 
 <script>
 	$(function(){
 		$("#loginBtn").on("click", function() {
-			alert("로그인버튼 클릭");
+
 			let formData = new FormData(this.form);
 			
 			let options = {
@@ -89,7 +39,6 @@
 				  if (result == true) {
 					  alert("로그인 완료");
 					  /* alert("이전페이지 : " + document.referrer); */
-					  
 					  /* window.history.go(-1); */
 					  location.href=document.referrer;
 					  
@@ -173,7 +122,7 @@
 						<article>
 							<form>
 								<div class="form-box-input adClick" data-adarea="피클_이메일입력">
-				                    <input type="text" name="id" v-model="userEmail" ref="userEmail" required="required" placeholder="이메일 입력" :class="{ error: error.name == 'userEmail'}" @keyup="{error.name == 'userEmail' ? error.name = '': ''}">
+				                    <input type="text" name="id" v-model="id" ref="userEmail" required="required" placeholder="이메일 입력" :class="{ error: error.name == 'userEmail'}" @keyup="{error.name == 'userEmail' ? error.name = '': ''}">
 				                    <!-- <div class="myform_box">
 				                        <span class="clear"></span>
 				                    </div>
@@ -190,7 +139,7 @@
 				                        <label class="error"><span class="msg-box error" v-show="error.name == 'userPassword'">{{ error.msg }}</span></label>
 				                    </div> -->
 				                </div>
-				                <input type="button" id="loginBtn" class="btn_basic full mt5 adClick" value="로그인">
+				                <input type="button" id="loginBtn" class="btn_basic full mt15 adClick" value="로그인">
 				                <!-- <a href="javascript:;" class="btn_basic full mt5 adClick" data-adarea="피클_로그인" id="loginEmail" :class="{ disabled: !isInputComplete}" @click="loginEmail">로그인</a> -->
 			                </form>
 
@@ -199,7 +148,7 @@
 						<div class="last-box mt40">
 							<div class="gray7 mt30">
 								아직 계정이 없으신가요?
-								<a href="emailJoinForm" data-adarea="피클_가입하기"class="ml10 black bold adClick">이메일로 회원가입</a>
+								<a href="emailJoinForm" data-adarea="피클_가입하기" class="ml10 white bold adClick">이메일로 회원가입</a>
 							</div>
 						</div>
 					</div>

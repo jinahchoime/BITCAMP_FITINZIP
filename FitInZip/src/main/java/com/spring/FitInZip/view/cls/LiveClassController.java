@@ -120,7 +120,43 @@ public class LiveClassController {
 	
 	
 	// 댓글 페이징 할때..?
-	
+	// 클래스 상세글
+	@RequestMapping("/reviewPaging")
+	public String reviewPaging(String clsCode, Model model, PagingVO vo
+								, @RequestParam(value="nowPage", required=false)String nowPage
+								, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+				
+		// 댓글 페이징처리 후 가져오기---------------------------------
+		int total = reviewService.countReview(clsCode);
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "3";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "3";
+		}
+		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", vo);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("start", vo.getStart());
+		map.put("end", vo.getEnd());
+		map.put("clsCode", clsCode);
+		
+		model.addAttribute("review", reviewService.getReview(map));
+		
+		// 댓글 가져올거임
+		/*
+		 * List<ReviewDTO> review = reviewService.getReview(map);
+		 * model.addAttribute("review", review);
+		 */
+		
+		// 댓글쓰기 때문에 아이디도 필요
+		
+		return "class/review";
+	}
 	
 	
 	
