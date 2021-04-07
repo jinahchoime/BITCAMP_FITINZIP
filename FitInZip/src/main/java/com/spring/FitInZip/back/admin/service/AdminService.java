@@ -8,6 +8,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
@@ -31,6 +32,7 @@ public interface AdminService {
 	List<MonthPaymentChartDTO> lastMonthPaymentChart();
 	Map<String,String> inputData();
 	Map<String,String> inputDataTwo();
+	List<GetSubChartDataDTO> getSubChartData(String btnParam);
 	
 	/*다슬*/
 	void insertMap(MapVO vo);

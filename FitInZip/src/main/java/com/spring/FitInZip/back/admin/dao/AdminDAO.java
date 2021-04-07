@@ -13,6 +13,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
@@ -107,5 +108,9 @@ public class AdminDAO {
 	}
 	public List<GetInputData> inputDataTwo(){
 		return mybatis.selectList("AdminDAO.inputDataTwo");
+	}
+	public List<GetSubChartDataDTO> getSubChartData(String btnParam){
+		System.out.println("dao btnParam : " + btnParam);
+		return mybatis.selectList("AdminDAO.getChageChartData",btnParam);
 	}
 }

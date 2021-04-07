@@ -24,6 +24,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
@@ -226,7 +227,23 @@ public class AdminController {
 		
 		return mapOne;
 	}
-	
+	@RequestMapping("/subMainPrice")
+	public String subMainPrice(HttpSession session, Model model) {
+		System.out.println("subMainPrice go!");
+			MemberVO vo = (MemberVO) session.getAttribute("admin");
+			model.addAttribute("vo",vo);
+			
+		return "admin/subMainPrice";
+	}
+	@RequestMapping("/chageChartData")
+	@ResponseBody
+	public List<GetSubChartDataDTO> getChageChartData(String btnParam){
+		System.out.println(">>id : " +btnParam);
+		List<GetSubChartDataDTO> list = adminService.getSubChartData(btnParam);
+		System.out.println(">>modalReturn : " + list);
+		
+		return list;
+	}
 	
 	
 	

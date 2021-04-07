@@ -77,9 +77,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
 <style type="text/css">
+/* 
 *{
 	font-family: 'Noto Sans KR', sans-serif;
 }
+ */
 .modal-backdrop {
 	background-color: transparent !important;
 	position: absolute;
@@ -237,6 +239,7 @@ h5{
 
 	<script type="text/javascript">
         $(document).ready(function () {
+        	
 
             var dataOne = new Array();
             var dataTwo = new Array();
