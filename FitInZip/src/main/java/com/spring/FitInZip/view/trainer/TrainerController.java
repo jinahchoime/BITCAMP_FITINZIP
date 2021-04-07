@@ -306,9 +306,6 @@ public class TrainerController {
 		String classCode = "C" + wdate + "_" + classKey;
 		UUID uuid = null;
 		String filename = "";
-		/*
-		 * String filePath = ""; filePath = "C:/FitInZip_Images/";
-		 */
 		
 		if(thumbnail != null) {
 			uuid = UUID.randomUUID();
@@ -466,7 +463,6 @@ public class TrainerController {
 			String oriFileName = request.getParameter("titleOriName");
 			String uploadedFileName = request.getParameter("titleFileName");
 			vo.setTitleOriName(oriFileName);
-			//vo.setTitleFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
 			vo.setTitleFileName(filePath.substring(0, filePath.indexOf("webapp/")) + uploadedFileName);
 		} else {
 			MultipartFile uploadFile = title;

@@ -10,11 +10,6 @@
 <link href="../resources/mypage/css/mypage.css" rel="stylesheet"></link>
 <link href="../resources/mypage/css/updateForm.css" rel="stylesheet"></link>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript">
-	$(function(){
-		
-	})
-</script>
 <script>
     function search_post() {
         new daum.Postcode({
@@ -116,6 +111,28 @@
 		return true
     };
 	
+</script>
+<script type="text/javascript">
+function addimage(event) {
+	//리더객체
+	var reader = new FileReader();
+	//이미지 태그 생성
+	var img = document.createElement("img");
+	//현재 이미지 태그 속성 변수에 담기
+	var $originimg = document.getElementById('img');
+	
+	reader.onload = function(event){
+	//프로필 수정 텍스트 없애기
+	$('#imgtitle').remove();
+	 //생성한 이미지 태그의 src에 파일선택 버튼 처리시 결과값을 저장함
+	  img.setAttribute("src", event.target.result);
+	 //기존 이미지 src를 불러온 파일 src 로 변경함
+	  $originimg.src = img.src; 
+	}
+	//업로드 파일 url을 읽어옴
+	reader.readAsDataURL(event.target.files[0]);
+
+}
 </script>
 </head>
 <body>
@@ -255,6 +272,27 @@
 			                </div>
 			            </dd>
 			        </dl>
+			        <dl>
+					    <dt>프로필 사진</dt>
+					    <dd>
+					        <div class="profile_box" style="display: inline-block;">
+					            <div class="profile_img" style="width: 500px;">
+					            	<div for="uploadImage" style="width: 220px;height: 220px;margin-top: 15px;border: 1px solid;display: inline-block">
+					                    <div class="preload_box" style="width: 220px; height: 220px; ">
+					                    	<img src="../resources/mypage/img/profile_img.jpg" id="img">
+					                    </div>
+					                </div>
+					            	<div id="imgtitle" style="padding: 6px 25px;color: black;cursor: pointer;display: inline-block;position: absolute;top: 98px;left: 47px;text-align: center;font-weight: bold;">
+					            		+
+					            		<br>
+					            		프로필 수정
+					            	</div>
+					            	<input type="file" id="txtimg" name="profile_img1" onchange="addimage(event);" 
+					            	style="display: inline-block;width: 220px;top: 104px;width: 94px;height: 53px;left: 65px;">
+					            </div>
+					        </div>
+					    </dd>
+					</dl>
 			        <dl>
 			            <dt>주소</dt>
 			            <dd>

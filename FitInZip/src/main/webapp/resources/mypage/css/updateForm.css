@@ -1,4 +1,4 @@
-/* »∏ø¯¡§∫∏ºˆ¡§ */
+/* »∏ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ */
 .myaccount {margin:20px 0}
 .myaccount p {font-size: 14px; line-height: 22px; margin-bottom: 10px; color: #000;}
 .myaccount dl {display:table; width: 100%; margin-bottom:10px; color:#000}
@@ -7,3 +7,15 @@
 .myaccount dl dd {display:table-cell; vertical-align: top; position:relative}
 .myaccount.type2 dl {margin-bottom:0; margin-top: 24px;}
 .myaccount.type2 dl:first-child {margin-top: 0;}
+
+/*ÌöåÏõêÏ†ïÎ≥¥ÏàòÏ†ï*/
+.profile_box {width:214px;}
+.profile_box .profile_img {position: relative;}
+.profile_box .profile_img img {position: absolute; width: 100%; height: 100%; z-index: -1;}
+.profile_box .profile_img .preload_box {position: relative; display: table; width: 100%; height: 214px; cursor: pointer;}
+.profile_box .profile_img .preload_box span {display: table-cell; vertical-align: middle; text-align: center; border: 1px solid #ccc;}
+.profile_box .profile_img .preload_box span em {position:relative; display: block; font-size: 14px; line-height: 24px; font-weight: 700; color: #000; text-align: center; margin-top: 20px;}
+.profile_box .profile_img .preload_box span em:before {content: ""; position: absolute; bottom: 37px; left: 50%; margin-left: -8px; display: block; width: 16px;  height: 4px; background: #000;}
+.profile_box .profile_img .preload_box span em:after {content: ""; position: absolute; bottom: 31px; left: 50%; margin-left: -2px; display: block; width: 4px; height: 16px;  background: #000;}
+.profile_box .profile_img .preload_box span i.btn_edit {font-size: 12px; background: #000; color: #fff; font-weight: 700; font-style: normal; padding: 5px 20px; position: absolute; top: 15px; right: 15px;}
+

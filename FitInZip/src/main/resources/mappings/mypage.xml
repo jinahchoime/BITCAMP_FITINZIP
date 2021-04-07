@@ -94,7 +94,7 @@
                                                     INNER JOIN MEMBER S
                                                         ON F.TRAINER_ID = S.ID
 					                            WHERE P.MEM_ID = #{memId}
-					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 > TO_CHAR(SYSDATE, 'YYYYMMDD')
+					                            AND TO_CHAR(F.END_DATE, 'YYYYMMDD') + 1 < TO_CHAR(SYSDATE, 'YYYYMMDD')
 					                        ) M         
 					            )R
 						WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}
@@ -145,9 +145,9 @@
 			        FROM  mem_coupon M
                     INNER JOIN COUPON_INFO C
                     ON C.COUPON_CODE = M.COUPON_CODE
-			        WHERE M.MEM_ID = #{memId}
-                    AND TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
-                    OR C.COUPON_END_DATE IS NULL
+			        WHERE M.MEM_ID = #{memId} 
+                    AND (TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
+                    OR C.COUPON_END_DATE IS NULL)
                     ) AS "UNUSED_COUNT"
 			FROM MEM_COUPON M 
 			    INNER JOIN COUPON_INFO C
@@ -155,9 +155,9 @@
 			    INNER JOIN COMMON O
 			    ON M.COUPON_STATUS = O.COMMON_CODE
 			    WHERE M.MEM_ID = #{memId} 
-                AND O.COMMON_CODE = 'CPU01'
-                AND TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
-                OR C.COUPON_END_DATE IS NULL
+                    AND O.COMMON_CODE = 'CPU01'
+                    AND (TO_CHAR(C.COUPON_END_DATE,'YYYYMMDD') + 1 > TO_CHAR(SYSDATE,'YYYYMMDD')
+                    OR C.COUPON_END_DATE IS NULL)
 		</select>
 		
 		<!-- 주문조회 불러오기  -->
@@ -166,11 +166,14 @@
 			SELECT R.*
 				FROM(SELECT ROWNUM AS RNUM, M.*
 				        FROM (SELECT D.ORDER_NUM, D.AMOUNT, D.PRO_NUM, E.PAID_PRICE, E.PAY_DATE, P.PRO_NAME, P.PRO_IMG
+                        , C.COMMON_NAME AS PAYMETHOD
 				            FROM ORDER_DETAIL D
 				            INNER JOIN PRODUCT P
 				            ON D.PRO_NUM = P.PRO_NUM
 				            INNER JOIN PAYMENT E
 				            ON D.ORDER_NUM = E.ORDER_NUM
+                            INNER JOIN COMMON C
+                            ON C.COMMON_CODE = E.PAY_METHOD
 				        WHERE E.MEM_ID = #{memId}
 				        ) M
 				    )R

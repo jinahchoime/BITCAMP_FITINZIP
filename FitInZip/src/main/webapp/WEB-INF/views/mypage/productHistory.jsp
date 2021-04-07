@@ -46,20 +46,20 @@
 						 dispHtml += '<b style="color:black">';
 						 dispHtml += this.orderNum;
 						 dispHtml +='</b></span></td></tr>';
-						 dispHtml += '<tr><td style="text-align: left; padding-left: 20px;"><a href="#">';
-						 dispHtml += '<span style="display: inline-block; width: 100px; height: 100px; margin-bottom: 20px">';
+						 dispHtml += '<tr><td style="text-align: left; padding: 0 0 0 20px;">';
+						 dispHtml += '<span style="display: inline-block; width: 100px; height: 100px; margin-bottom: 20px; margin-left: 10px;">';
 						 dispHtml += '<img alt="이미지" src="';
 						 dispHtml += this.proImg;
 						 dispHtml += '" style="width: 100%;"></span>';
-						 dispHtml += '<span style="display: inline-block;padding-left: 50px;vertical-align: middle;font-size: 17px;line-height: 25px;">';
+						 dispHtml += '<span style="display: inline-block;padding-left: 85px;vertical-align: middle;font-size: 15px;line-height: 20px;">';
 						 dispHtml += this.proName;
 						 dispHtml += '<br>';
-						 dispHtml += '카테고리 넣어라~';
+						 dispHtml += '수량 : ' + this.amount;
+						 dispHtml += '</span></td><td style="font-size: 15px;">';
+						 dispHtml += this.paymethod;
 						 dispHtml += '<br>';
-						 dispHtml += '수량 ' + this.amount + '개';
-						 dispHtml += '</span></a></td><td style="font-size: 20px;">';
 						 dispHtml += this.paidPrice;
-						 dispHtml += '</td><td style="font-size: 20px;">';
+						 dispHtml += '</td><td style="font-size: 15px;">';
 						 dispHtml += '주문완료';
 						 dispHtml += '</td></tr>';
 					})
