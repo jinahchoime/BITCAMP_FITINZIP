@@ -526,10 +526,10 @@
 							
 							<tr>
 								<td style="text-align: center;">
-									<input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택">
+									<input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택" accept="image/*">
 								</td>
 								<td>	
-									<input type="file" id="titleUpload" name="title" placeholder="파일 선택">
+									<input type="file" id="titleUpload" name="title" placeholder="파일 선택" accept="image/*">
 								</td>
 							</tr>
 							<tr>

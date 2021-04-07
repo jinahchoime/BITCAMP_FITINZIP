@@ -15,6 +15,7 @@
   		<typeAlias type="com.spring.FitInZip.back.calendar.vo.CalendarVO" alias="CalendarVO"/>
   		<typeAlias type="com.spring.FitInZip.back.cls.vo.ClsVO" alias="ClsVO"/>
   		<typeAlias type="com.spring.FitInZip.back.common.vo.MemCouponVO" alias="MemCouponVO"/>
+  		<typeAlias type="com.spring.FitInZip.back.calendar.dto.CalendarClassDTO" alias="CalendarClassDTO"/>
   	</typeAliases> 
   	
   <mappers>

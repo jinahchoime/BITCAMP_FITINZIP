@@ -487,8 +487,8 @@
 						</tr>
 						
 						<tr>
-							<td><input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택"></td>
-							<td><input type="file" id="titleUpload" name="title" placeholder="파일 선택"></td>
+							<td><input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택" accept="image/*"></td>
+							<td><input type="file" id="titleUpload" name="title" placeholder="파일 선택" accept="image/*"></td>
 						</tr>
 						
 						<tr>
