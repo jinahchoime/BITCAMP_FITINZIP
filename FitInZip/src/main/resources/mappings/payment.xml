@@ -15,8 +15,27 @@
 	WHERE M.ID = #{memId}
 	</select>	
 
+	<!-- payment 테이블에 주문완료정보 insert -->
+	<insert id="insertPayment" parameterType="com.spring.FitInZip.back.payment.vo.PaymentVO">
+	INSERT INTO PAYMENT (PAY_INDEX, ORDER_NUM, MEM_ID, ORIGIN_PRICE, PAID_PRICE, PAY_METHOD,PAY_DATE)
+	VALUES (PAYMENT_SEQ.nextval , #{orderNum}, #{memId} , #{originPrice}, #{paidPrice}, #{payMethod}, SYSDATE)
+	</insert>
 
+	<!-- 주문번호 시퀀스  -->
+	<select id="propaySequence" resultType="String">
+	SELECT PROPAY.NEXTVAL FROM DUAL
+	</select>
 
-
-
+	<!-- pro_order 테이블에 주문완료정보 insert -->
+	<insert id="insertProOrder" parameterType="com.spring.FitInZip.back.order.vo.OrderVO">
+	INSERT INTO PRO_ORDER (ORDER_NUM, MEM_ID, TOTAL_PRICE, ORDER_DATE, POSTCODE, ADDRESS, DETAIL_ADDRESS, DIRECT_MSG)
+	VALUES ( #{orderNum}, #{memId}, #{totalPrice}, SYSDATE, #{postcode}, #{address}, #{detailAddress}, #{directMsg})
+	</insert>
+	
+	<!-- order_detail 테이블에 주문완료정보 insert -->
+	<insert id="insertOrderDetail" parameterType="com.spring.FitInZip.back.order.vo.OrderDetailVO">
+	INSERT INTO ORDER_DETAIL (ORDER_NUM, PRO_NUM, AMOUNT)
+	VALUES ( #{orderNum}, #{proNum} , #{amount})
+	</insert>
+	
 </mapper>

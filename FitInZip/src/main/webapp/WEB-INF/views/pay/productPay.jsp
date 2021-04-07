@@ -115,7 +115,7 @@
 									<button type="submit" id="money" class="button xlarge width-max">
 										<c:set var="sum" value="0" />
 										<c:forEach var="cartList" items="${cartList }">
-											<c:set var="sum" value="${sum + cartList.proPrice }" />
+											<c:set var="sum" value="${sum + (cartList.proPrice * cartList.amount) }" />
 										</c:forEach>
 										<span class="price sale total" id="pay"><strong
 											style="font-size: 17px;"><c:out value="${sum }" /> 원
@@ -153,16 +153,17 @@
 											</span>
 										</dd>
 									</dl>
+									<c:set var="proNum" value="${cartList.proNum }" scope="session"/>
+									<c:set var="amount" value="${cartList.amount }" scope="session"/>
 								</div>
 							</c:forEach>
 
 							<div class="uk-width-1-1 info-price">
-								<span class="item-price"> <span class="label">상품
-										금액</span> <c:set var="sum" value="0" /> <c:forEach var="cartList"
-										items="${cartList }">
+								<span class="item-price"> <span class="label">상품금액</span> 
+									<c:set var="sum" value="0" /> 
+									<c:forEach var="cartList" items="${cartList }">
 										<c:set var="sum" value="${sum + cartList.proPrice }" />
-									</c:forEach> <span class="price"><strong><c:out
-												value="${sum }" /> 원</strong></span>
+									</c:forEach> <span class="price"><strong><c:out value="${sum }" /> 원</strong></span>
 								</span> <span class="delivery-price"> <span class="label">배송비</span>
 									<span class="price"><strong>0 원</strong></span>
 								</span>
@@ -170,10 +171,10 @@
 									<span class="label">총 결제 예정 금액</span>
 									<c:set var="sum" value="0" />
 									<c:forEach var="cartList" items="${cartList }">
-										<c:set var="sum" value="${sum + cartList.proPrice }" />
+										<c:set var="sum" value="${sum + (cartList.proPrice * cartList.amount) }" />
 									</c:forEach>
-									<span class="price sale total"><strong><c:out
-												value="${sum }" /> 원</strong></span>
+									<span class="price sale total"><strong><c:out value="${sum }" /> 원</strong></span>
+									<c:set var="totalPrice" value="${sum }" scope="session"/>
 								</div>
 							</div>
 						</div>
@@ -182,7 +183,7 @@
 			</div>
 		</article>
 	</section>
-
+	
 	<!-- 임시 div -->
 	<div style="height: 600px;"></div>
 
@@ -192,6 +193,8 @@
 
 
 <script type="text/javascript">
+
+	
 	$(function(){
 		var kakao;
 		var card;
@@ -214,6 +217,10 @@
 		
 		$("#money").click(function(){
 			var check = $('#isCheckoutAgree').is(":checked");
+			
+			var _left = (screen.availWidth-660)/2;
+			var _top = (screen.availHeight-430)/2;
+			
 			if(kakao != true && card != true) {
 				alert("결제수단을 선택해주세요.");
 				return;
@@ -221,19 +228,23 @@
 			
 			if(kakao == true && check == true) {
 				alert("카카오페이 결제하기");
-				var openKakao = window.open("/kakaopay", '카카오페이결제창', 'width=500px,height=700px');
+				var openKakao = window.open("/kakaopay", '카카오페이결제창', 'left='+ _left + ',top=' + _top  + ',width=520px,height=480px' );
+				
 			} else if(card == true && check == true) {
 				alert("카드 결제하기");
 				var openCard = window.open("/card", '카드결제창', 'width=500px,height=700px');
 			} else {
 				alert("상품, 가격, 할인, 배송정보에 동의해주세요");
-			} 
+			}
+			
 				 
 		});
 			
 	}) 
 </script>
+<script>
 
+</script>
 <script type="text/javascript">
 	/*
 	function pay(){
