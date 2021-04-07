@@ -32,7 +32,7 @@ public class ClsDetailDTO {
 	private Integer lapse;			// 회차
 	private String clsLevel;		// 난이도
 	private String perPrice;		// 회당 가격	
-	private String totalPrice;		// 전체 가격	
+	private Integer totalPrice;		// 전체 가격	
 	private Integer maxMem;			// 최대인원
 	private Integer join;			// 신청인원
 	private String clsTag;

@@ -315,48 +315,7 @@
 				                    </tr>
 				                </thead>
 				                <tbody id = "tableList">
-				                  <%--   <c:if test="${empty ingCls }">
-				                        <tr>
-				                            <td colspan="2" class="none">진행중인 클래스가 없습니다.</td>
-				                        </tr>
-				                    </c:if>
-				                    <c:if test="${not empty ingCls }">
-				                        <c:forEach var="ingClass" items="${ingCls }">
-				                            <tr>
-				                                <td class="type_diff">
-				                                    <div class="list_img">
-				                                        <img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">${ingClass.clsOriName }
-				                                    </div>
-				                                    <a href="/play/play_apply/298" target="_blank">
-				                                        <div class="list_txt full">
-				                                            <dl class="prod_infor">
-				                                                <dt>
-				                                                    <div class="play_tch">
-				                                                        <span>${ingClass.clsCategory }</span>	
-				                                                    </div>
-				                                                    ${ingClass.clsName }
-				                                                </dt>
-				                                                <dd class="mt5">
-				                                                    <div>${ingClass.startDate }~${ingClass.endDate }</div>
-				                                                    ${ingClass.yoil } 
-				                                       
-				                                                    <fmt:formatDate value="${ingClass.startTime }" pattern="HH:mm" />
-				                                                    ~ <fmt:formatDate value="${ingClass.endTime }" pattern="HH:mm" />
-				                                                 
-				                                                </dd>				                                               
-				                                            </dl>
-				                                        </div>
-				                                    </a>
-				                                </td>
-				                                <td>
-				                                <div id="btn">
-				                                	<button class="btn btn-primary" onsubmit="/구글미트주소" id="cls_button" disabled>시작</button>
-				                                </div>
-									            	
-				                                </td>
-				                            </tr>
-				                        </c:forEach>
-				                    </c:if> --%>
+				                
 				                </tbody>
 				            </table>
 				        </div>
