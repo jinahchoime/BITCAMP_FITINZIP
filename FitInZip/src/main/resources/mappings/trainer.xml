@@ -53,7 +53,7 @@
 	<!-- 강사 등록하기 -->
 	<insert id="insertTrainer" parameterType="trainerDTO">
 		INSERT ALL
-	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD00', #{nickname}, null, null)
+	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD00', #{nickname}, null, null, SYSDATE)
 	    INTO TRAINER_REGISTER VALUES(#{id}, #{trainerIntro}, #{career}, #{question1}, #{question2}, 0, 'RS00', null, null, SYSDATE)
 	    SELECT *
 	    FROM DUAL

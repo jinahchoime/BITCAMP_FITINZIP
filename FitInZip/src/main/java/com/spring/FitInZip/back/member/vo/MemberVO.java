@@ -34,4 +34,9 @@ public class MemberVO {
 	private String withdrawal;
 	private Date joinDate;
 	
+	/*파일이름*/
+	private String profileImgOriginName;
+	private String profileImgFileName;
+	
+	
 }

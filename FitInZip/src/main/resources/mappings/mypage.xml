@@ -38,7 +38,8 @@
 			PHONE = #{phone}, GENDER = #{gender},
 			BIRTH = #{birth}, NICKNAME = #{nickname},
 			POST = #{post}, ADDR = #{addr}, 
-			DETAIL_ADDR = #{detailAddr}, EXTRA_ADDR = #{extraAddr}	
+			DETAIL_ADDR = #{detailAddr}, EXTRA_ADDR = #{extraAddr},
+			MEM_ORI_NAME = #{profileImgOriginName}, MEM_FILE_NAME = #{profileImgFileName}
 			WHERE ID = #{id}
 		</update> 
 		

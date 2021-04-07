@@ -3,7 +3,7 @@
 <div id="menuView" class="column_left mt200">
    	<div class="nav_wrap" style="border-radius: 5px;">
 	    <div class="nav_tit">
-	        <p><img src="https://img.ficle.io/www/play/profile.png"></p> <span style="font-size:inherit; line-height: 21px;">æ»≥Á«œººø‰!<br>${member.nickname }¥‘</span>
+	        <p><img src="${member.profileImgFileName}" onerror="this.src='../resources/mypage/imgs/profile_img.jpg'"></p> <span style="font-size:inherit; line-height: 21px;">æ»≥Á«œººø‰!<br>${member.nickname }¥‘</span>
 	    </div>
 	    <div class="submenu">
 	        <ul class="clearfix pl20">
