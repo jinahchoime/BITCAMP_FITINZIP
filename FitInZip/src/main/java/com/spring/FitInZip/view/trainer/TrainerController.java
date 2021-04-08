@@ -2,6 +2,7 @@ package com.spring.FitInZip.view.trainer;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
@@ -64,8 +65,7 @@ public class TrainerController {
 	// 강사 등록하기 페이지
 	@RequestMapping("/registerTrainerMainPage")
 	public String registerView() {
-		//return "trainer/registerTrainerMainPage";
-		return "pay/LivePTPay";
+		return "trainer/registerTrainerMainPage";
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
@@ -82,9 +82,36 @@ public class TrainerController {
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.POST)
-	public String registerForm(RegisterTrainerDTO dto) throws Exception {
+	public String registerForm(RegisterTrainerDTO dto, MultipartFile memberOriName) throws Exception {
 		System.out.println(">>>>>>>>>>registerForm dto : " + dto);
+		
+		MultipartFile classUploadFile = null;
+	    String filePath = this.getClass().getResource("").getPath(); 
+	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+	    "FitInZip/src/main/webapp/resources/trainer/img/";
+		
+	    UUID uuid = null;
+		String filename = "";
+		/*
+		 * String filePath = ""; filePath = "C:/FitInZip_Images/";
+		 */
+		
+		if(memberOriName != null) {
+			uuid = UUID.randomUUID();
+			filename = memberOriName.getOriginalFilename();
+			dto.setMemOriName(filename);
+			
+			if(filename != null && !filename.equals("")) {
+				filename = filePath + "memberOriName/" + uuid + "_" + filename;
+				dto.setMemFileName(filename);
+				classUploadFile = memberOriName;
+				classUploadFile.transferTo(new File(filename));
+			}
+			
+		}
+	    
 		trainerService.insertTrainer(dto);
+		System.out.println("dto.filename: " + dto.getMemFileName());
 		System.out.println("강사 등록하기 성공!");
 		return "main";
     }
@@ -113,8 +140,18 @@ public class TrainerController {
     	System.out.println("mvo 타입: " + vo.getRole()); 
     	dto.setId(vo.getId());
     	dto.setPassword(vo.getPassword());
+    	
     	RegisterTrainerDTO member = trainerService.loginTrainer(dto);
-    	 
+    	System.out.println("member: " + member.getRegStatus());
+    	if(member.getRegStatus().equals("RS00")) {
+    		return "trainer/errorLogin";
+    	}
+    	String profileImg = member.getMemFileName();
+    	
+    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
+    	model.addAttribute("profileImg", profileImg);
+    		
+    	
     	String reqClass = trainerService.mainPage1(member);
      	System.out.println("Controller reqClass: " + reqClass);
      	model.addAttribute("reqClass", reqClass);
@@ -130,15 +167,7 @@ public class TrainerController {
     	 
     	 return "trainer/trainerMainPage";
     }
-    //마이클래스
-	/*
-	 * @RequestMapping("/myClass") public String myPage(@ModelAttribute("member")
-	 * RegisterTrainerDTO dto, Model model) { List<ClsTrainerDTO> cvo1 =
-	 * trainerService.myPage1(dto); System.out.println("cvo1: " + cvo1);
-	 * model.addAttribute("ingCls", cvo1); List<ClsTrainerDTO> cvo2 =
-	 * trainerService.myPage2(dto); System.out.println("cvo2: " + cvo2);
-	 * model.addAttribute("edCls", cvo2); return "trainer/myClass"; }
-	 */
+   
     
     @RequestMapping("/myClass") 
     public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
@@ -166,20 +195,57 @@ public class TrainerController {
     public String changeInfoView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
     	RegisterTrainerDTO info = trainerService.trainerInfo(dto);
     	System.out.println("trainerINFO: " + info);
+    	String profileImg = info.getMemFileName();
+    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
+    	model.addAttribute("profileImg", profileImg);
+    	
     	model.addAttribute("trainerInfo", info);
+    	
+    	System.out.println("멤버.파일네임 : " + dto.getMemFileName());
     	
     	return "trainer/changeInfo";
 	}
     
     @RequestMapping(value = "/changeInfo", method = RequestMethod.POST) 
-    public String changeInfo(@ModelAttribute("member") RegisterTrainerDTO dto) {
+    public String changeInfo(@ModelAttribute("member") RegisterTrainerDTO dto, MultipartFile memberOriName, HttpServletRequest request, RedirectAttributes rttr,
+    		String profileOriName, String profileFileName) throws IllegalStateException, IOException {
+    	
+    	// 파일 처리
+	    String filePath = this.getClass().getResource("").getPath(); 
+	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+	    "FitInZip/src/main/webapp/resources/trainer/img/";
+		
+		/*
+		 * String oriFileName = request.getParameter("profileOriName"); String
+		 * uploadedFileName = request.getParameter("profileFileName");
+		 */
+	    System.out.println("memberOriName.getOriginalFilename(): " + memberOriName.getOriginalFilename());
+		if(memberOriName.getOriginalFilename() == null || memberOriName.getOriginalFilename().equals("")) {
+			dto.setMemOriName(profileOriName);
+			dto.setMemFileName(profileFileName);
+			
+		} else {
+			MultipartFile uploadFile = memberOriName;
+			UUID uuid = UUID.randomUUID();
+			String fileName = memberOriName.getOriginalFilename();
+			dto.setMemOriName(fileName);
+			fileName = filePath + "memberOriName/" + uuid + "_" + fileName;
+			dto.setMemFileName(fileName);
+			uploadFile.transferTo(new File(fileName));
+			
+			System.out.println("파일 경로 및 이름 : " + profileFileName);
+			
+			File file = new File(profileFileName);
+			file.delete();
+		}
     	
     	trainerService.updateInfo1(dto);
     	trainerService.updateInfo2(dto);
+    	
 
     	System.out.println("정보 수정 성공!");
 		
-    	return "trainer/trainerMainPage";
+    	return "redirect:trainerMainPage";
 	}
     
     //내 리뷰 확인

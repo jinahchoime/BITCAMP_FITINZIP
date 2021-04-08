@@ -20,7 +20,6 @@
         WHERE m.ID = t.TRAINER_ID
 		AND m.ID = #{id}
 		AND m.PASSWORD = #{password}
-		AND t.REG_STATUS = 'RS01'
 	</select>
 	
 	<!-- 강사 마이페이지 메인 (신청한 클래스 개수) -->
@@ -53,7 +52,7 @@
 	<!-- 강사 등록하기 -->
 	<insert id="insertTrainer" parameterType="trainerDTO">
 		INSERT ALL
-	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, '원본명', '파일명', 'RL01', 'WD00', #{nickname}, null, null)
+	    INTO MEMBER VALUES(#{id}, #{password}, #{name}, #{phone}, null, null, null, null, #{gender}, #{birth}, #{memOriName}, #{memFileName}, 'RL01', 'WD00', #{nickname}, null, null, SYSDATE)
 	    INTO TRAINER_REGISTER VALUES(#{id}, #{trainerIntro}, #{career}, #{question1}, #{question2}, 0, 'RS00', null, null, SYSDATE)
 	    SELECT *
 	    FROM DUAL
@@ -76,7 +75,9 @@
 	<!-- 강사 정보 수정 -->
 	<update id="updateInfo1" parameterType="trainerDTO">
 		UPDATE MEMBER
-    	SET PASSWORD = #{password}
+    	SET PASSWORD = #{password},
+    	MEM_ORI_NAME = #{memOriName},
+    	MEM_FILE_NAME = #{memFileName}
     	WHERE ID = #{id}
 	</update>
 	

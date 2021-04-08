@@ -722,7 +722,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .btn_search.type6:first-child {margin: 0;}
 
 /*다운로드버튼*/
-.btn.type1 a {display: block; text-align: center; width: 280px; height: 60px; line-height: 60px; font-size:18px; color:#fff; background: #7b2fb9; font-weight:700; -webkit-transition: all .3s; transition: all .3s;} /* 결제하기 버튼 */
+.btn.type1 button {display: block; text-align: center; width: 280px; height: 60px; line-height: 60px; font-size:18px; color:#fff; background: #7b2fb9; font-weight:700; -webkit-transition: all .3s; transition: all .3s;} /* 결제하기 버튼 */
 /*.btn.type1 a:hover {background:#fff; color:#000}*/
 /*.btn.type1.end a {background: #3E3E3E; color: #fff;}
 .btn_download {display:table; position:absolute; right:390px; bottom:-88px; background:#7b2fb9}

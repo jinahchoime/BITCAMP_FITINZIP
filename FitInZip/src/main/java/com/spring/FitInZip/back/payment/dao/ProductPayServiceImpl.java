@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.FitInZip.back.cart.vo.CartDTO;
+import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
+
+import com.spring.FitInZip.back.common.vo.PaymentDTO;
+import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.payment.ProductPayService;
 
 @Service
@@ -17,6 +21,16 @@ public class ProductPayServiceImpl implements ProductPayService{
 	@Override
 	public List<CartDTO> getPayList(String mem_id) {
 		return productPayDAO.getPayPage(mem_id);
+	}
+
+	@Override
+	public List<PaymentDTO> couponList(MemberVO vo) {
+		return productPayDAO.couponList(vo);
+	}
+
+	@Override
+	public CouponDetailDTO couponDetail(String couponCode) {
+		return productPayDAO.couponDetail(couponCode);
 	}
 	
 }
