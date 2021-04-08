@@ -237,7 +237,10 @@ canvas{
 
 	<script type="text/javascript">
         $(document).ready(function () {
-        	
+        	$('#sidebarCollapse').on('click', function() {
+				$('#sidebar').toggleClass('active');
+				$(this).toggleClass('active');
+			});
 
             var dataOne = new Array();
             var dataTwo = new Array();
@@ -246,18 +249,17 @@ canvas{
             chartThreeStart();
             
             <!-- 차트 차이 계산하기  소숫점 첫째자리까지-->
-            let weightPer = (dataTwo[0] / dataOne[0] * 100).toFixed(1);
-            let fitnessPer = (dataTwo[1] / dataOne[1] * 100).toFixed(1);
-            let yogaPer = (dataTwo[2] / dataOne[2] * 100).toFixed(1);
-            let pilatesPer = (dataTwo[3] / dataOne[3] * 100).toFixed(1);
+            let weightPer = (dataOne[0] / dataTwo[0] * 100).toFixed(1);
+            let fitnessPer = (dataOne[1] / dataTwo[1] * 100).toFixed(1);
+            let yogaPer = (dataOne[2] /dataTwo[2] * 100).toFixed(1);
+            let pilatesPer = (dataOne[3] / dataTwo[3] * 100).toFixed(1);
             
             <!-- 차트 차이 계산하기  없애기-->
-            let weightP = (dataTwo[0] / dataOne[0] * 100).toFixed(0);
-            let fitnessP = (dataTwo[1] / dataOne[1] * 100).toFixed(0);
-            let yogaP = (dataTwo[2] / dataOne[2] * 100).toFixed(0);
-            let pilatesP = (dataTwo[3] / dataOne[3] * 100).toFixed(0);
-            
-            console.log("호호호호호" + weightP+fitnessP+yogaP+pilatesP);
+            let weightP = (dataOne[0] / dataTwo[0] * 100).toFixed(0);
+            let fitnessP = (dataOne[1] / dataTwo[1] * 100).toFixed(0);
+            let yogaP = (dataOne[2] / dataTwo[2] * 100).toFixed(0);
+            let pilatesP = (dataOne[3] / dataTwo[3] * 100).toFixed(0);
+
  
             document.getElementById('weightPer').innerHTML = weightPer+'%';
             document.getElementById('fitnessPer').innerHTML = fitnessPer+'%';

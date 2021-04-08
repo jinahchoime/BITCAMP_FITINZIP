@@ -13,6 +13,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
@@ -40,11 +41,9 @@ public class AdminDAO {
 	
 	/*상희*/
 	public List<GetMemberCheckDTO> getMemberCheck(){
-		System.out.println("여기까진오냐?");
 		return mybatis.selectList("AdminDAO.getMemberCheck");
 	}
 	public List<GetClsCheckDTO> getClsCheck(){
-		System.out.println("여기까진오냐?");
 		return mybatis.selectList("AdminDAO.getClsCheck");
 	}
 	
@@ -78,13 +77,9 @@ public class AdminDAO {
 	}
 	
 	public Integer approveClsTrainer(String id, String btnId) {
-		System.out.println("DAO ID : " + id);
-		System.out.println("DAO btnId : "+ btnId);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("id",id);
 		map.put("btnId", btnId);
-		System.out.println(map.toString());
-		
 		return mybatis.update("AdminDAO.approveClsTrainer",map);
 	}
 	public List<GetClsCheckDTO> getClsList(){
@@ -110,7 +105,13 @@ public class AdminDAO {
 		return mybatis.selectList("AdminDAO.inputDataTwo");
 	}
 	public List<GetSubChartDataDTO> getSubChartData(String btnParam){
-		System.out.println("dao btnParam : " + btnParam);
 		return mybatis.selectList("AdminDAO.getChageChartData",btnParam);
+	}
+	public List<GetSubBBSDataDTO> getSubBBSData(String btnParam){
+		System.out.println("dao btnParam : " + btnParam);
+		List<GetSubBBSDataDTO> list= mybatis.selectList("AdminDAO.getSubMainBBS",btnParam);
+		System.out.println("왜안나오노 "+list);
+		//return list;
+		return list;
 	}
 }
