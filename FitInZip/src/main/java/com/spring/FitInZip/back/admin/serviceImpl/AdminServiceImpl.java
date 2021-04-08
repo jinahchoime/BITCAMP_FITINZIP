@@ -203,5 +203,15 @@ public class AdminServiceImpl implements AdminService {
 		return list;
 	}
 
+	@Override
+	public List<GetSubChartDataDTO> getChartPeopleStartOne(String btnParam) {
+		return adminDAO.getChartPeopleStartOne(btnParam);
+	}
+
+	@Override
+	public List<GetSubChartDataDTO> getChartPeopleStartTwo(String btnParam) {
+		return adminDAO.getChartPeopleStartTwo(btnParam);
+	}
+
 
 }

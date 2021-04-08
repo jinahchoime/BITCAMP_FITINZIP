@@ -114,4 +114,10 @@ public class AdminDAO {
 		//return list;
 		return list;
 	}
+	public List<GetSubChartDataDTO> getChartPeopleStartOne(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleStartOne",btnParam);
+	}
+	public List<GetSubChartDataDTO> getChartPeopleStartTwo(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleStartTwo",btnParam);
+	}
 }

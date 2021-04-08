@@ -35,6 +35,8 @@ public interface AdminService {
 	Map<String,String> inputDataTwo();
 	List<GetSubChartDataDTO> getSubChartData(String btnParam);
 	List<GetSubBBSDataDTO> getSubBBSData(String btnParam);
+	List<GetSubChartDataDTO> getChartPeopleStartOne(String btnParam);
+	List<GetSubChartDataDTO> getChartPeopleStartTwo(String btnParam);
 	
 	/*다슬*/
 	void insertMap(MapVO vo);

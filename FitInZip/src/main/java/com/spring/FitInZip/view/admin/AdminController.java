@@ -253,6 +253,32 @@ public class AdminController {
 		
 		return "admin/subMainPart";
 	}
+	@RequestMapping("/subMainPeople")
+	public String subMainPeopel(HttpSession session, Model model) {
+			/* 로그인 처리부분 */
+			MemberVO vo = (MemberVO) session.getAttribute("admin");
+			model.addAttribute("vo",vo);
+			
+		return "admin/subMainPeople";
+	}
+	@RequestMapping("/chartPeopleStartOne")
+	@ResponseBody
+	public List<GetSubChartDataDTO> getChartPeopleStartOne(String btnParam){
+		List<GetSubChartDataDTO> list = adminService.getSubChartData(btnParam);
+		System.out.println(">>modalReturn : " + list);
+		
+		return list;
+	}
+	@RequestMapping("/chartPeopleStartTwo")
+	@ResponseBody
+	public List<GetSubChartDataDTO> getChartPeopleStartTwo(String btnParam){
+		List<GetSubChartDataDTO> list = adminService.getSubChartData(btnParam);
+		System.out.println(">>modalReturn : " + list);
+		
+		return list;
+	}
+	
+	
 	
 	
 	@RequestMapping("/test")

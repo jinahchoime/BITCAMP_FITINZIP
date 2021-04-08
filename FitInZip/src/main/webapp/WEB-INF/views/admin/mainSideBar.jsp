@@ -27,7 +27,7 @@
 			aria-expanded="false" class="dropdown-toggle">통계 </a></li>
 		<ul class="collapse list-unstyled" id="pageSubmenu">
 			<li><a href="/subMainPrice">물적통계</a></li>
-			<li><a href="#">인적통계</a></li>
+			<li><a href="/subMainPeople">인적통계</a></li>
 		</ul>
 		</li>
 
