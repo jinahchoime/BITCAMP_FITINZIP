@@ -24,6 +24,10 @@
 
     <!-- Custom styles for this template-->
     <link href="../resources/trainer/css/TrainerMain-sb-admin-2.min.css" rel="stylesheet">
+	
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -176,7 +180,7 @@
 
 					<div class="image" style="flex-wrap:wrap;margin-right:-.25rem;margin-left:-.25rem; position: relative;
     					transform: translate(-40%, 130%); top: 50%; left: 55%;">
-						<img src="${profileImg }" onerror="this.src='../resources/trainer/img/review_basic_img.png'" width="300px" height="300px" class="img-rounded">
+						<img id ="profileImg" src="../resources/trainer/img/review_basic_img.png"  width="300px" height="300px" class="img-rounded">
 					</div>
 					
 					
@@ -318,5 +322,25 @@
     <script src="js/demo/chart-pie-demo.js"></script> -->
 
 </body>
+<script>
+	$(function() {
 
+		$.ajax("/trainerMainPage", {
+			dataType: "json",
+			type : "post",
+			contentType: "application/json; charset=UTF-8;",
+			success: function(data) {
+				//alert("성공!");
+				console.log("data: " + data.profileImg);
+				
+				if(data.profileImg != null) {
+					$('#profileImg').attr('src', data.profileImg);
+				}
+				
+			}, error: function() {
+				alert("에러");
+			}
+		});
+	});
+</script>
 </html>
