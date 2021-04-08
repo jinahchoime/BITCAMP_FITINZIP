@@ -4,13 +4,46 @@
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
-.od-container {
-	padding-top: 120px;
-	max-height: 1440px;
-	width: 1200px;
-}
-.big-title {
-	font-size: 24px;
+.big-title.pro-tit {
+	font-size: 20px;
 	line-height: 30px;
-	font-weight: 700;
+	font-weight: 600;
+  	border-bottom: 1px solid black;
+  	padding-bottom: 15px;
+}
+
+.big-title.deli-tit {
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: 600;
+	border-bottom: 1px solid black;
+	padding-bottom: 15px;
+}
+
+.item-info .info-wrap {
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 18px;
+  vertical-align: top;
+  width: 800px;
+  margin-top: 12px;
+  border-top: 2px solid black;
+  padding-top: 20px;
+}
+
+.product-price {
+	float: right;
+}
+
+.product-img {
+	float: left;
+}
+
+.padding-left {
+	padding-left: 140px;
+}
+
+.bobo {
+	border-bottom: 1px solid #ebebeb;
+	padding-top: 15px;
 }
