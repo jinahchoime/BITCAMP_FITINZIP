@@ -66,7 +66,7 @@ public class LiveClassController {
 		// 우선 클레스 상세글 가져오고
 		ClsDetailDTO classDetail = clsService.getClassDetail(clsCode);
 		model.addAttribute("detail", classDetail);
-		
+		session.setAttribute("detail", classDetail);
 		// 우선 유저 정보 가져와야함
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		

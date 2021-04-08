@@ -64,8 +64,7 @@ public class TrainerController {
 	// 강사 등록하기 페이지
 	@RequestMapping("/registerTrainerMainPage")
 	public String registerView() {
-		//return "trainer/registerTrainerMainPage";
-		return "pay/LivePTPay";
+		return "trainer/registerTrainerMainPage";
 	}
 
 	@RequestMapping(value = "/registerForm", method = RequestMethod.GET)
@@ -130,15 +129,7 @@ public class TrainerController {
     	 
     	 return "trainer/trainerMainPage";
     }
-    //마이클래스
-	/*
-	 * @RequestMapping("/myClass") public String myPage(@ModelAttribute("member")
-	 * RegisterTrainerDTO dto, Model model) { List<ClsTrainerDTO> cvo1 =
-	 * trainerService.myPage1(dto); System.out.println("cvo1: " + cvo1);
-	 * model.addAttribute("ingCls", cvo1); List<ClsTrainerDTO> cvo2 =
-	 * trainerService.myPage2(dto); System.out.println("cvo2: " + cvo2);
-	 * model.addAttribute("edCls", cvo2); return "trainer/myClass"; }
-	 */
+   
     
     @RequestMapping("/myClass") 
     public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
@@ -288,7 +279,7 @@ public class TrainerController {
 		MultipartFile classUploadFile = null;
 	    String filePath = this.getClass().getResource("").getPath(); 
 	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
-	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+	    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
 		 
 		System.out.println(vo.getStartDate());
 
@@ -306,9 +297,6 @@ public class TrainerController {
 		String classCode = "C" + wdate + "_" + classKey;
 		UUID uuid = null;
 		String filename = "";
-		/*
-		 * String filePath = ""; filePath = "C:/FitInZip_Images/";
-		 */
 		
 		if(thumbnail != null) {
 			uuid = UUID.randomUUID();
@@ -440,7 +428,7 @@ public class TrainerController {
 		//String filePath = "C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
 		String filePath = this.getClass().getResource("").getPath(); 
 	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
-	    "FitInZip/bin/src/main/webapp/resources/classRegister/imgs/";
+	    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
 		
 		
 		if(thumbnail.getOriginalFilename().equals("")) {
@@ -466,7 +454,6 @@ public class TrainerController {
 			String oriFileName = request.getParameter("titleOriName");
 			String uploadedFileName = request.getParameter("titleFileName");
 			vo.setTitleOriName(oriFileName);
-			//vo.setTitleFileName("C:/MyStudy/Final_Project/Project/BITCAMP_FITINZIP/FitInZip/bin/src/main/webapp/" + uploadedFileName);
 			vo.setTitleFileName(filePath.substring(0, filePath.indexOf("webapp/")) + uploadedFileName);
 		} else {
 			MultipartFile uploadFile = title;

@@ -206,7 +206,7 @@
 											<div>
 											
 											<c:if test="${detail.reminder > 0}">
-												<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;">
+												<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;" href="/livePTPay">
 												클래스 신청하기
 												</a>
 											</c:if>

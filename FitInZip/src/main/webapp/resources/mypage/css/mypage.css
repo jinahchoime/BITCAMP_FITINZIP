@@ -561,19 +561,3 @@ footer {position: relative; padding: 50px 0 80px 0; background: #f8f8f8;}
 .bnr_top_float img {width:100%}
 .bnr_top_float .bnr_top_area {display: inline-block; width: 228px;}
 
-/* ë”±ì§€ */
-/*.badge_type1 {display: inline-block; background: #fc6160; color:#fff; font-size: 14px; font-weight: 700; line-height: 29px; padding:0 19px; margin-right: 4px;}
-.badge_type2 {display: inline-block; background: #000; color:#fff; font-size: 14px; font-weight: 700; line-height: 29px; padding:0 14px; margin-right: 3px;}
-.badge_type2:last-child {margin-right: 0;}
-.badge_type2 b {color:#fc6160}
-.badge_type1.diff {background: #7b2fb9; color:#fff}*/
-
-/* ë°°ì§€ */
-/*.badge_week {display: inline-table; vertical-align: middle; width: 46px; height: 46px; border-radius: 100px; background: #000;}
-.badge_week span {display: table-cell; vertical-align: middle; font-size: 16px; line-height: 24px; font-weight: 900; color: #7b2fb9; text-align: center;}
-.badge_week.big {width: 60px; height: 60px;}
-.badge_week.big span {font-size: 20px; line-height: 29px;}
-.badge_week.week2 {background: #7b2fb9;}
-.badge_week.week2 span {color: #fff;}
-.badge_week.week4 {background: #000;}
-.badge_week.week4 span {color: #7b2fb9;}*/

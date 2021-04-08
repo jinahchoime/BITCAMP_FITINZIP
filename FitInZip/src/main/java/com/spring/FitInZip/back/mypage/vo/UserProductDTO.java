@@ -24,6 +24,9 @@ public class UserProductDTO {
 	private String proName;
 	private String proImg;
 	
+	/*결제방법*/
+	private String paymethod;
+	
 	/*조건에 들어갈 아이디명*/
 	private String memId;
 	

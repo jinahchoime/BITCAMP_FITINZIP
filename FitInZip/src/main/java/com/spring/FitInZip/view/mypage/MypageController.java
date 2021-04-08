@@ -1,11 +1,14 @@
 package com.spring.FitInZip.view.mypage;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.FitInZip.back.mypage.MypageService;
@@ -56,7 +60,16 @@ public class MypageController {
 	private MemCouponService memCouponService;
 	
 	@RequestMapping(value="calendar")
-	public String goCalendar(HttpServletRequest request, Model model) {
+	public String goCalendar(HttpServletRequest request, Model model, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		
+		String profileImgFilePath = member.getMemFileName();
+		member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
 		
 		return "calendar/myCalendar";
 	}
@@ -163,13 +176,24 @@ public class MypageController {
 	
 	/*마이페이지로*/
 	@RequestMapping("/mypage")
-	public String mypage(HttpSession session) {
-		MemberVO member = (MemberVO)session.getAttribute("member");
+	public String mypage(HttpSession session, Model model){
+		MemberVO member = (MemberVO)session.getAttribute("member");	
 		
 		if(member == null) {
 			return "redirect:/loginMain";
 		}
 		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
 		
 		return "mypage/mypage";
 	}
@@ -186,7 +210,21 @@ public class MypageController {
 	
 	/*클래스 내역 페이지로*/
 	@RequestMapping("/clsHistory")
-	public String clsHistory() {
+	public String clsHistory(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		return "mypage/clsHistory";
 	}
 	
@@ -220,7 +258,21 @@ public class MypageController {
 	
 	/*찜한내역 페이지로*/
 	@RequestMapping("/clsHeart")
-	public String clsHeart() {
+	public String clsHeart(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		return "mypage/clsHeart";
 	}
 	
@@ -251,7 +303,21 @@ public class MypageController {
 	
 	/*쿠폰내역 페이지로*/
 	@RequestMapping("/couponHistory")
-	public String couponHistory() {
+	public String couponHistory(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		return "mypage/couponHistory";
 	}
 	
@@ -268,7 +334,21 @@ public class MypageController {
 	
 	/*주문조회 페이지로*/
 	@RequestMapping("/productHistory")
-	public String productHistory() {
+	public String productHistory(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		return "mypage/productHistory";
 	}
 	
@@ -286,8 +366,16 @@ public class MypageController {
 	@RequestMapping("/updateMemberInfo")
 	public String getMember(MemberVO vo, HttpSession session, Model model) {
 		
-		MemberVO member = (MemberVO)session.getAttribute("member");		
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
 		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
 		
 		System.out.println("member : " + member);
 		
@@ -299,7 +387,7 @@ public class MypageController {
 	
 	/*회원수정 처리*/
 	@RequestMapping("/UpdateMypage") 
-	public String updateMember(MemberVO vo, HttpServletRequest request, HttpSession session) {
+	public String updateMember(MemberVO vo, MultipartFile profileImg, HttpServletRequest request, HttpSession session) throws IllegalStateException, IOException {
 		System.out.println("updateMember 실행");
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
@@ -324,6 +412,28 @@ public class MypageController {
 		System.out.println("birth : " + birth);
 		vo.setBirth(birth);
 		
+		MultipartFile classUploadFile = null;
+		String filePath = this.getClass().getResource("").getPath(); 
+		filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
+			    "FitInZip/src/main/webapp/resources/mypage/imgs/";
+		
+		String filename = "";
+		UUID uuid = null;
+		
+		if(profileImg != null) {
+			uuid = UUID.randomUUID();
+			filename = profileImg.getOriginalFilename();
+			vo.setProfileImgOriginName(filename);
+			
+			if(filename != null && !filename.equals("")) {
+				filename = filePath + "thumbnail/" + uuid + "_" + filename;
+				vo.setProfileImgFileName(filename);
+				classUploadFile = profileImg;
+				classUploadFile.transferTo(new File(filename));
+			}
+			
+		}
+		
 		mypageService.updateMember(vo);
 		
 		return "redirect:/mypage";
@@ -333,7 +443,21 @@ public class MypageController {
 	
 	/*회원탈퇴 페이지로*/
 	@RequestMapping("/withdrawal")
-	public String withdrawal() {
+	public String withdrawal(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		return "mypage/withdrawal";
 	}
 	
