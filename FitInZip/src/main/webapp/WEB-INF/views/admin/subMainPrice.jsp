@@ -65,7 +65,11 @@
 						<canvas id="subMainChartStart" style="margin-top: 60px;"></canvas>
 					</div>
 				</div>
-
+				<div class="row">
+					<div class="col-md-12" id ="createBBS">
+					
+					</div>
+				</div>
 			</div>
 			<!--container 끝-->
 
@@ -82,6 +86,7 @@ $(document).ready(function() {
 		$(this).toggleClass('active');
 	});
 	chartFirstStart();
+	chartStrartBBS();
 	
 });
 	function addComma(num) {
@@ -116,20 +121,11 @@ $(document).ready(function() {
 		console.log(labels);
 		console.log(values);
 		*/
-	/* 	
-		const newData = data.map(v => {
-			return {
-				cdate: v.cdate,
-				rprice: v.rprice
-			}
-		})
-		console.log(newData); */
+
+		
 		/*
 		document.getElementById('subMainChartStart').remove();
-		var a = document.getElementById('createDiv').outerHTML; 
-		console.log(a);
-		a += "<canvas id='subMainChartStart' style='margin-top: 60px;'></canvas>";
-		console.log(a);
+		var a = document.getElementById('createDiv').outerHTML = "<canvas id='subMainChartStart' style='margin-top: 60px;'></canvas>"; 
 		*/
 		$('#subMainChartStart').remove();
 	    $('#createDiv').append('<canvas id="subMainChartStart" style="margin-top: 60px;"></canvas>');
@@ -192,6 +188,9 @@ $(document).ready(function() {
 			
 	}// 차트 funtion의 끝
 	
+	function chartStrartBBS(){
+		
+	};
 
 </script>
 </body>
