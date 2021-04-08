@@ -60,6 +60,11 @@
 				</li>
 			</ul>
 		</nav>
+		
+		<div class="category2">
+		
+		
+		</div>
 	</div>
 </body>
 </html>

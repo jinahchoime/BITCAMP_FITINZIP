@@ -637,3 +637,90 @@ img, input {
 	color: #666;
 }
 
+/* 토글부분 */
+#area04 {
+	border: none;
+}
+.table_basic_list.list2 ul li {
+    border-bottom: 1px solid #f8f8f8;
+}
+.table_basic_list.list2 .topbox {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 60px;
+    cursor: pointer;
+}
+.table_basic_list.list2 .topbox p:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 7px;
+    top: 29px;
+    width: 16px;
+    height: 4px;
+    background: #666;
+}
+.table_basic_list.list2 ul li.on .topbox p:after {
+    transform: rotate(0deg);
+}
+.table_basic_list.list2 .topbox p:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 7px;
+    top: 29px;
+    width: 16px;
+    height: 4px;
+    background: #666;
+    transform: rotate(90deg);
+    transition: all .2s;
+}
+
+.table_basic_list.list2 .topbox .num {
+    display: none;
+}
+.table_basic_list.list2 .topbox > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.table_basic_list.list2 .topbox p, .table_basic_list.list2 .topbox .tit {
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 700;
+    color: #000;
+    text-align: left;
+}
+.table_basic_list.list2 .topbox p {
+    position: relative;
+    padding-left: 40px;
+}
+.table_basic_list.list2 .topbox > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.table_basic_list.list2 .bottombox {
+    display: none;
+    padding: 0 20px 20px 40px;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    color: #666;
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

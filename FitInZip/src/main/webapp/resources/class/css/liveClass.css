@@ -39,8 +39,8 @@ a > div {
 	overflow: hidden;
     position: relative;
 }
-.pt80 {
-    padding-top: 80px !important;
+.pt40 {
+    padding-top: 40px !important;
 }
 .contents_wrap {
     width: 1120px;

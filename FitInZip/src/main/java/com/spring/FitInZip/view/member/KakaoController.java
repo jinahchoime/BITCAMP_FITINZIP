@@ -57,11 +57,12 @@ public class KakaoController {
 		System.out.println(">>> - 카카오 추가정보 가지고 insert하러 가자 제발~.~");
 		System.out.println("추가정보 입력 후 vo : " + vo);
 		
+		kakaoService.kakaoJoin(vo);
+		kakaoService.welcomeCoupon(vo);
+		
 		model.addAttribute("member", vo);
 		
-		kakaoService.kakaoJoin(vo);
 		return "true";
-		
 	}
 	
 	

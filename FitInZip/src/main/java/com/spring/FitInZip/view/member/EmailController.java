@@ -37,16 +37,45 @@ public class EmailController {
 		return "login/emailJoinForm";
 	}
 	
+	// 이메일 중복검사
+	@RequestMapping("/emailCheck")
+	@ResponseBody
+	public Boolean emailCheck(String id) {
+		System.out.println("emailCheck에 넘어온 id : " + id);
+		
+		Boolean overlap = false;
+		
+		int result = emailService.emailCheck(id);
+		
+		System.out.println("result : " + result);
+		if (result == 1) {
+			overlap = true;
+		}
+		
+		return overlap;
+	}
+	
+	
 	@RequestMapping("/emailJoin")
 	@ResponseBody
-	public String emailJoin(MemberVO vo) {
+	public String emailJoin(Model model, MemberVO vo) {
 		System.out.println("emailJoin 실행중");
 		System.out.println("이메일가입 정보 입력 후 vo : " + vo);
 		
 		emailService.emailJoin(vo);
+		emailService.welcomeCoupon(vo);
+		
+		model.addAttribute("member", vo);
 		
 		return "true";
 	}
+	
+	@RequestMapping("/welcome")
+	public String welcome() {
+		
+		return "login/welcome";
+	}
+	
 	
 	@RequestMapping("/emailLoginCheck")
 	@ResponseBody

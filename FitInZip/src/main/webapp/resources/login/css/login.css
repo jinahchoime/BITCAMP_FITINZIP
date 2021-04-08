@@ -8,6 +8,9 @@
 a:link, a:visited, a:hover, a:active, a:focus {
     text-decoration: none;
 }
+body {
+	background-color: #222529 !important;
+}
 div {
     display: block;
 }
@@ -33,14 +36,14 @@ section {
     font-size: 24px;
     line-height: 30px;
     font-weight: 700;
-    color: #000;
+    color: white;
     margin-bottom: 11px;
 }
 .page_title p {
     font-size: 15px;
     line-height: 24px;
     font-weight: 400;
-    color: #777;
+    color: LightGray;
     margin-bottom: 28px;
 }
 .form-box-input {
@@ -55,15 +58,17 @@ input[type="text"], input[type="number"], input[type="password"], select {
     line-height: 20px;
     font-weight: 400;
     padding: 14px 15px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
+    border: none;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    color: #000;
-    background: #fff;
+    color: white;
+    background: #393b3f;
     outline: 0;
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
+    border-radius: 5px;
 }
 input[type="button"] {
 	border: none;
@@ -109,7 +114,14 @@ label {
     font-weight: 700;
     color: #fff;
     box-sizing: border-box;
-    background: #000;
+    background: #393b3f;
+    border-radius: 5px;
+    transition: all ease .3s 0s;
+}
+
+.btn_basic:hover {
+	background-color: DarkOrange;
+
 }
 .btn_basic.disabled, .btn_basic:disabled {
     color: #fff;
@@ -145,7 +157,7 @@ label {
 }
 
 .gray7 {
-    color: #777 !important;
+    color: gray !important;
     font-size: 14px;
 }
 .bold {
@@ -167,8 +179,19 @@ label {
 .ml10 {
     margin-left: 10px !important;
 }
-.black {
-    color: #000 !important;
+.white {
+    color: #fff !important;
+}
+.adClick:hover {
+	color: white;
+	text-decoration: none;
+}
+.orange_border {
+	border: 1px solid orange !important; 
+}
+.btn_disabled {
+	background-color: #393b3f !important;
+	cursor: Default !important;
 }
 
 

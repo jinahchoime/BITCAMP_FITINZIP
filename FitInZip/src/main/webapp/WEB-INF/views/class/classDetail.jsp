@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,13 +110,36 @@
 	                }
 	            }
 			})
-			
 		}
-		
-		
 	};
-
-
+	
+	function paging(nowPage, cntPerPage) {
+	//	alert("두번째  파라미터 (nowPage) : " + nowPage +
+	//		  "\n세번째  파라미터 (cntPerPage) : " + cntPerPage);
+		$.ajax({
+			url:"/reviewPaging",
+			type : "post",
+			data: {"clsCode" : "${detail.clsCode}", "nowPage" : nowPage, "cntPerPage" : cntPerPage},
+			success : function(data){
+                /* console.log(data); */
+                /* alert("data : " + data); */
+                $('#review_wrap').html(data); // 성공 시, body부분에 data라는 html 문장들을 다 적용시킵니다. 
+            },
+            error : function(data){
+                alert('error');
+            } // error
+		})
+	};
+	
+	
+	// 토글
+	 $(document).on('click','.table_basic_list ul li', function() {
+        $(this).toggleClass('on').siblings().removeClass('on');
+        $(this).find('.bottombox').slideToggle();
+        $(this).siblings().find('.bottombox').slideUp();
+    });
+	
+	
 </script>
 
 </head>
@@ -157,7 +181,7 @@
 												<div class="price bottom">
 													<!---->
 													<span class="fns_price">
-														<b>${detail.totalPrice}</b>원
+														<b><fmt:formatNumber value="${detail.totalPrice}"/></b>원
 													</span>
 													<div class="ct_cost">(회당 ${detail.perPrice}원/${detail.lapse}회)</div>
 												</div>
@@ -312,9 +336,106 @@
 												</div>
 											</div>
 										</div>
-										<!-- 리뷰 -->
-										<%@ include file="review.jsp"%>
 										
+										
+										
+										<div id="area03" class="content_area">
+											<div class="maintxt2">
+												수강후기
+												<a href="javascript:;" class="btn_text2 font15 maincolor1 fr mt10" id="modal_btn" onclick='reviewRrite("${member.id}")'>리뷰쓰기</a>
+												
+												<!-- 여기부터 모달모달~~ -->
+												<div class="modal">					
+													<div class="layout_popup pop_w660">
+														<div class="pop_wrap">
+															<div data-adarea="피클_팝업닫기" class="close adClick">
+																<a>
+																	<img src="https://img.ficle.io/www/common/icon/btn_pop_close.png" alt="닫기">
+																</a>
+															</div>
+															<div class="contents_w">
+																<div class="pop_cont_wrap">
+																	<div class="layout_w100">
+																		<div class="tit">리뷰작성</div>
+																	</div>
+																	<div class="layout_w100">
+																		<form>
+																			<div class="write_area">
+																				<p class="maintxt" style="margin: 0;">${detail.clsName}</p>
+																				<span class="subtxt1">with. ${detail.name}</span>
+																			</div>
+																			<div class="write_area">
+																				<span class="subtxt2" style="position: relative; top: -52px;">클래스는 어떠셨나요?</span>
+																				<div class="rating" style='display: inline-block; position: relative; top: -27px;'>
+																					<input type="radio" id="star5" name="star" value="5"/><label class = "full" for="star5"></label>
+																				    <input type="radio" id="star4" name="star" value="4"/><label class = "full" for="star4"></label>
+																				    <input type="radio" id="star3" name="star" value="3"/><label class = "full" for="star3"></label>
+																				    <input type="radio" id="star2" name="star" value="2"/><label class = "full" for="star2"></label>
+																				    <input type="radio" id="star1" name="star" value="1"/><label class = "full" for="star1"></label>
+																				</div>
+																			</div>
+																			<div class="btn_search cont" style="position: relative; top: -50px;">
+																				<textarea id="contents" name="reviewContent" placeholder="클래스를 참여하며 느꼈던 점들을 작성해주세요. 다른분들께 큰 도움이 됩니다 :)" style="resize: none;"></textarea>
+																			</div>
+																			<div class="btn_wrap flat mt40">
+																				<input type="hidden" name="trainerId" value="${detail.trainerId}">
+																				<input type="hidden" name="clsCode" value="${detail.clsCode}">
+																				<input type="hidden" name="memId" value="${member.id}">
+																			
+																				<input type="button" id="review_btn" class="adClick review_btn type4" style="position: relative; top: -20px;" value="리뷰등록">
+																			</div>
+																		</form>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<!-- 모달 끝 -->
+											</div>
+											<div id="review_wrap">
+											<!-- 리뷰 -->
+											<%@ include file="review.jsp"%>
+											</div>
+										</div>
+										
+										
+										
+										<div id="area04" class="content_area">
+											<div class="maintxt2">FAQ</div>
+											<div class="table_basic_list list2">
+												<ul>
+													<li class>
+														<div class="topbox">
+															<span class="num">1</span>
+															<p>
+																<span class="tit">OO이 아픈데 운동을 얼마나 하면 나아질까요? </span>
+															</p>
+														</div>
+														<div class="bottombox" style="display: none;">사실, 누구도 장담할 순 없습니다. 치료와 운동 이전에 평소에 증상을 악화시키는 습관을 제거해주시는 게 1번입니다.</div>
+													</li>
+													<li class>
+														<div class="topbox">
+															<span class="num">1</span>
+															<p>
+																<span class="tit">교정운동을 하면서 통증이 발생하는데 어떻게 해야할까요? </span>
+															</p>
+														</div>
+														<div class="bottombox" style="display: none;">통증이 나타난다고 무조건 나쁜 상태인 것은 아닐 수도 있습니다. 정상적인 체형분석과정을 통한 솔루션이라면 교정이 되는 과정에서 불편감이나 통증이 일시적으로 증가할 수도 있습니다. 단, 꼭 전문가와 정기적인 확인/피드백 과정이 필요합니다.</div>
+													</li>
+													<li class>
+														<div class="topbox">
+															<span class="num">1</span>
+															<p>
+																<span class="tit">얼마나 자주 운동해야 할까요? </span>
+															</p>
+														</div>
+														<div class="bottombox" style="display: none;">운동의 강도와 빈도는 사람에 따라 굉장히 많은 차이를 보입니다. 평소 생활패턴이 너무 안좋으신 분들은 엄청난 강도와 빈도로 해도 제자리인 경우도 있지요. 가벼운 정도라면 매일 하셔도 되지만 몸이 변하고 있는지 중간 점검이 꼭 필요합니다!</div>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -324,5 +445,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- Footer -->
+    <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

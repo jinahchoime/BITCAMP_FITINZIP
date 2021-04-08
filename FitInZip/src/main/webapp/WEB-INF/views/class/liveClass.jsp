@@ -81,10 +81,12 @@
 		
 		<%@ include file="category.jsp"%>
 		
-		<div id="live_list" class="contents_wrap pt80">
+		<div id="live_list" class="contents_wrap pt40">
 		
 			<%@ include file="liveClassContent.jsp"%>
 		</div>
 	</div>
+	<!-- Footer -->
+    <jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

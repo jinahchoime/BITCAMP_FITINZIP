@@ -29,20 +29,28 @@ public class MemberDAO {
 	// 카카오로 가입처리
 	public void kakaoJoin(MemberVO vo) {
 		mybatis.insert("MemberDAO.kakaoJoin", vo);
-		
 	}
 
+	// 이메일 중복검사
+	public int emailCheck(String id) {
+		System.out.println("다오에 넘어온 id : " + id);
+		return mybatis.selectOne("MemberDAO.emailCheck", id);
+	}
+	
 	// 이메일로 가입처리
 	public void emailJoin(MemberVO vo) {
 		mybatis.insert("MemberDAO.emailJoin", vo);
-		
+	}
+	
+	
+	
+	// 쿠폰발급
+	public void welcomeCoupon(MemberVO vo) {
+		mybatis.insert("MemberDAO.welcomeCoupon", vo);
 	}
 
 	public MemberVO emailLogin(MemberVO vo) {
-		
-		MemberVO mvo = mybatis.selectOne("MemberDAO.emailLogin", vo);
-		
-		return mvo;
+		return mybatis.selectOne("MemberDAO.emailLogin", vo);
 	}
 	
 }

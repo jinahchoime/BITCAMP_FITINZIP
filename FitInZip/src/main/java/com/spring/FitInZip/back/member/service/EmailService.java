@@ -4,6 +4,9 @@ import com.spring.FitInZip.back.member.vo.MemberVO;
 
 public interface EmailService {
 	
+	int emailCheck(String id);
+	
 	void emailJoin(MemberVO vo);
 	MemberVO emailLogin(MemberVO vo);
+	void welcomeCoupon(MemberVO vo);
 }

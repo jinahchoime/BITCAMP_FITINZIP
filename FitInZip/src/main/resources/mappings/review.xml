@@ -15,10 +15,12 @@
 	<select id="getReview" resultType="com.spring.FitInZip.back.review.dto.ReviewDTO">
 		SELECT *       
           FROM (SELECT ROWNUM RN, NICKNAME, STAR, REVIEW_CONTENT
-		          FROM REVIEW R, MEMBER M
-		         WHERE R.MEM_ID = M.ID 
-		           AND CLS_CODE = #{clsCode}
-		          ORDER BY REG_DATE DESC)
+                  FROM (SELECT NICKNAME, STAR, REVIEW_CONTENT
+                  FROM REVIEW R, MEMBER M
+                 WHERE R.MEM_ID = M.ID 
+                   AND CLS_CODE = #{clsCode}
+              ORDER BY REG_DATE DESC)
+               )
          WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
