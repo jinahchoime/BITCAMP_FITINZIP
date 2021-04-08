@@ -8,6 +8,8 @@ import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.order.vo.OrderDetailVO;
 import com.spring.FitInZip.back.order.vo.OrderVO;
 import com.spring.FitInZip.back.payment.ProductPayService;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDTO;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDeliDTO;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 @Service
@@ -41,6 +43,16 @@ public class ProductPayServiceImpl implements ProductPayService{
 	@Override
 	public void deleteCart(String mem_id) {
 		productPayDAO.deleteCart(mem_id);
+	}
+
+	@Override
+	public List<OrderDetailDTO> orderDetail(String orderNum) {
+		return productPayDAO.orderDetail(orderNum);
+	}
+
+	@Override
+	public OrderDetailDeliDTO orderDetailDeli(String orderNum) {
+		return productPayDAO.orderDetailDeli(orderNum);
 	}
 
 	

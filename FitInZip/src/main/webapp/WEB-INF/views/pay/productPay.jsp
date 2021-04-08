@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>FITINZIP | 결제</title>
-<link rel="stylesheet" type="text/css"
-	href="../resources/product/css/productPay.css" />
+<link rel="stylesheet" type="text/css" href="../resources/product/css/productPay.css" />
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
@@ -162,7 +161,7 @@
 								<span class="item-price"> <span class="label">상품금액</span> 
 									<c:set var="sum" value="0" /> 
 									<c:forEach var="cartList" items="${cartList }">
-										<c:set var="sum" value="${sum + cartList.proPrice }" />
+										<c:set var="sum" value="${sum + (cartList.proPrice * cartList.amount) }" />
 									</c:forEach> <span class="price"><strong><c:out value="${sum }" /> 원</strong></span>
 								</span> <span class="delivery-price"> <span class="label">배송비</span>
 									<span class="price"><strong>0 원</strong></span>
@@ -227,11 +226,11 @@
 			}
 			
 			if(kakao == true && check == true) {
-				alert("카카오페이 결제하기");
-				var openKakao = window.open("/kakaopay", '카카오페이결제창', 'left='+ _left + ',top=' + _top  + ',width=520px,height=480px' );
+				//alert("카카오페이 결제하기");
+				var openKakao = window.open("/kakaopay", '카카오페이결제창', 'left='+ _left + ',top=' + _top  + ',width=520px,height=500px' );
 				
 			} else if(card == true && check == true) {
-				alert("카드 결제하기");
+				//alert("카드 결제하기");
 				var openCard = window.open("/card", '카드결제창', 'width=500px,height=700px');
 			} else {
 				alert("상품, 가격, 할인, 배송정보에 동의해주세요");

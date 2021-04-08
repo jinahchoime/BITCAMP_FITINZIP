@@ -134,7 +134,7 @@
 										<span class="opt quantity">수량 : <span id="viewAmount">${cartList.amount }</span></span>
 										
 										<c:if test="${cartList.proName eq '워크아웃 밴드' }">
-										<span class="select-option">스타일: </span>
+										<!-- <span class="select-option">스타일: </span> -->
 										</c:if>
 									</div>
 								</div>
