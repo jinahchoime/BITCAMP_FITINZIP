@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Bootstrap core CSS -->
   <link href="../resources/main/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,6 +17,27 @@
 
 <!-- 장바구니 아이콘 -->
  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+ <!-- Toastr -->
+<link href="/resources/main/css/toastr.css" rel="stylesheet">
+<script src="/resources/class/js/toastr.js"></script>
+<script>
+
+	var toastr = new Toastr({
+		position:'topCenter',
+		animation:'slide',
+		timeout: 2500
+	});
+	
+	function logout() {
+		toastr.show('로그아웃 되었습니다');
+		setTimeout(function() {
+			location.href="/memberLogout";
+		}, 2000);
+		
+	}
+	
+
+</script>
  
 <style>
 	* {
@@ -38,9 +60,16 @@
           <li class="nav-item">
             <a class="nav-link" href="product">용품</a>
           </li>
+          
           <li class="nav-item">
-            <a class="nav-link" href="loginMain">로그인</a>
+	          <c:if test="${member == null}">
+	            <a class="nav-link" href="loginMain">로그인</a>
+	          </c:if>
+	          <c:if test="${member != null}">
+	            <a class="nav-link" onclick="logout()" style="cursor: pointer;">로그아웃</a>
+	          </c:if>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="/mypage">마이페이지</a>
           </li>

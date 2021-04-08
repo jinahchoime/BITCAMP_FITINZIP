@@ -40,8 +40,7 @@
 		timeout: 2500
 	});
 	
-	// 모르겠다 자바스크립트랑 제이쿼리란... 
-	
+	// 모르겠다 자바스크립트랑 제이쿼리란... ㅅㅂ
 	
 
 	$(function(){
@@ -229,7 +228,7 @@
 									<div class="play_box">
 										<!---->
 										<div class="play_grid2">
-											<img src="resources/class/img/detail.png" alt="이미지">
+											<img src="${detail.titleFileName }" alt="이미지">
 										</div>
 									</div>
 								</div>
@@ -316,7 +315,7 @@
 													<div class="coach_info">
 														<div class="coach_img">
 															<span>
-																<img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-04/1609724756088852626.jpg" alt="강사이미지">
+																<img src="${detail.memFileName}" alt="강사이미지">
 															</span>
 														</div>
 														<div class="nm">본 클래스는 ${detail.name} 선생님과 함께합니다.</div>

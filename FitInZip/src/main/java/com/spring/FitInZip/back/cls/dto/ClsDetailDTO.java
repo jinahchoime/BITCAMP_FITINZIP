@@ -43,6 +43,8 @@ public class ClsDetailDTO {
 	private String curriculum;		// 커리큘럼
 	private String trainerIntro;		// 강사설명
 	private String career;		// 자격 및 경력
+	private String titleFileName;
+	private String memFileName;
 	
 	public void setReminder() {
 		this.reminder = maxMem - join;

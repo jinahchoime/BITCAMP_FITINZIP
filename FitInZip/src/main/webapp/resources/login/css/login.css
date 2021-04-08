@@ -49,7 +49,7 @@ section {
 .form-box-input {
     position: relative;
     width: 100%;
-    margin-bottom: 12px;
+    margin-top: 12px;
 	height: 50px;
 }
 input[type="text"], input[type="number"], input[type="password"], select {
@@ -120,7 +120,7 @@ label {
 }
 
 .btn_basic:hover {
-	background-color: DarkOrange;
+	background-color: #fb5302;
 
 }
 .btn_basic.disabled, .btn_basic:disabled {
@@ -192,4 +192,18 @@ label {
 .btn_disabled {
 	background-color: #393b3f !important;
 	cursor: Default !important;
+}
+.error_next_box {
+    color: Orange;
+    font-size: 13px;
+    margin-left: 15px;
+}
+.orange_border {
+	border: 1px solid orange !important; 
+}
+.gray {
+	color: gray;
+}
+.gray:hover {
+	color: gray;
 }

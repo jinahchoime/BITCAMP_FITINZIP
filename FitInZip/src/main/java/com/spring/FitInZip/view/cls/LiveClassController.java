@@ -36,6 +36,13 @@ public class LiveClassController {
 	@RequestMapping(value="/liveClassMain", method=RequestMethod.GET)
 	public String liveClassMain(String clsCategory, Model model) {
 		List<ClsListDTO> classList = clsService.getClassList(clsCategory);
+		
+		for (ClsListDTO clsListDTO : classList) {
+			String fileName = clsListDTO.getThumbnailFileName();
+			System.out.println("fileName : " + fileName);
+			fileName = fileName.substring(fileName.indexOf("resources"));
+			clsListDTO.setThumbnailFileName(fileName);
+		}
 		model.addAttribute("classList", classList);
 		
 		List<ClsListDTO> ingList = clsService.getIngList(clsCategory);
@@ -48,6 +55,14 @@ public class LiveClassController {
 	@RequestMapping(value="/liveClassMain", method=RequestMethod.POST)
 	public String getClassCategory(String clsCategory, Model model) {
 		List<ClsListDTO> classList = clsService.getClassList(clsCategory);
+		
+		for (ClsListDTO clsListDTO : classList) {
+			String fileName = clsListDTO.getThumbnailFileName();
+			System.out.println("fileName : " + fileName);
+			fileName = fileName.substring(fileName.indexOf("resources"));
+			clsListDTO.setThumbnailFileName(fileName);
+		}
+		
 		model.addAttribute("classList", classList);
 		
 		List<ClsListDTO> ingList = clsService.getIngList(clsCategory);
@@ -65,6 +80,16 @@ public class LiveClassController {
 		String clsCode = request.getParameter("clsCode");
 		// 우선 클레스 상세글 가져오고
 		ClsDetailDTO classDetail = clsService.getClassDetail(clsCode);
+		
+		
+			String fileName = classDetail.getTitleFileName();
+			fileName = fileName.substring(fileName.indexOf("resources"));
+			classDetail.setTitleFileName(fileName);
+			
+			String memFileName = classDetail.getMemFileName();
+			memFileName = memFileName.substring(fileName.indexOf("resources"));
+			classDetail.setMemFileName(fileName);
+		
 		model.addAttribute("detail", classDetail);
 		session.setAttribute("detail", classDetail);
 		// 우선 유저 정보 가져와야함

@@ -169,14 +169,14 @@ img, input {
     color: #666;
 }
 .maincolor1 {
-    color: DarkOrange !important;
+    color: #fb5302 !important;
 }
 b {
     font-weight: bold;
 }
 .label.on {
     color: #fff;
-    background: DarkOrange;
+    background: #fb5302;
 }
 .label.round {
     padding: 0 7px;
