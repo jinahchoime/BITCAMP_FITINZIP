@@ -40,6 +40,7 @@ import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.calendar.api.CalendarKey;
 import com.spring.FitInZip.back.calendar.dto.CalendarClassDTO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
@@ -65,7 +66,9 @@ public class MypageController {
 	
 	@RequestMapping(value="calendar")
 	public String goCalendar(HttpServletRequest request, Model model, HttpSession session) {
-		MemberVO member = (MemberVO)session.getAttribute("member");	
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		CalendarKey key = new CalendarKey();
 		
 		member = mypageService.getMember(member.getId());
 		try {
@@ -76,6 +79,8 @@ public class MypageController {
 		}
 		//멤버 바꾸기
 		model.addAttribute("member", member);
+		model.addAttribute("key", key.getCalendarKey());
+		model.addAttribute("holiday", key.getHolidayId());
 		
 		return "calendar/myCalendar";
 	}
