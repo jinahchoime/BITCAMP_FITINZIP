@@ -121,7 +121,8 @@ label {
 
 .btn_basic:hover {
 	background-color: #fb5302;
-
+	color: white;
+	text-decoration: none;
 }
 .btn_basic.disabled, .btn_basic:disabled {
     color: #fff;

@@ -165,7 +165,7 @@
 								<a href="emailJoinForm" data-adarea="피클_가입하기" class="ml10 white bold adClick">이메일로 회원가입</a>
 							</div>
 							<div class="gray7 mt30">
-								<a href="emailJoinForm" data-adarea="피클_가입하기" class="ml10 gray adClick">비밀번호 재설정</a>
+								<a href="/passwordFind" data-adarea="피클_가입하기" class="ml10 gray adClick">비밀번호 재설정</a>
 							</div>
 						</div>
 					</div>

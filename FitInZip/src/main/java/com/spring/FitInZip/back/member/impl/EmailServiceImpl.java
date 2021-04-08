@@ -1,5 +1,7 @@
 package com.spring.FitInZip.back.member.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,14 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public void welcomeCoupon(MemberVO vo) {
 		memberDAO.welcomeCoupon(vo);
+	}
+
+	@Override
+	public int passwordUpdate(Map<String, String> map) {
+		
+		System.out.println("서비스임플 : " + map);
+		
+		return memberDAO.passwordUpdate(map);
 	}
 
 	

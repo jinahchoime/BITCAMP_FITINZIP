@@ -1,5 +1,8 @@
 package com.spring.FitInZip.view.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +108,29 @@ public class EmailController {
 		}
 		
 		return isJoin;
+	}
+	
+	
+	// 비번찾기
+	@RequestMapping("/passwordFind")
+	public String passwordReset() {
+		return "login/passwordFind";
+	}
+	
+	// 이메일 재설정
+	@RequestMapping("/passwordUpdate")
+	public int passwordUpdate(String id, String password) {
+		System.out.println("여기 왔음????");
+		System.out.println("id : " + id);
+		System.out.println("password : " + password);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("password", password);
+	
+		int result = emailService.passwordUpdate(map);
+		
+		return result;
 	}
 	
 	

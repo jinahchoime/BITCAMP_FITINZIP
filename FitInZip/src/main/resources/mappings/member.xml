@@ -43,5 +43,12 @@
 		WHERE ID = #{id}
 	</select>
 	
+	<!-- 비밀번호 재설정 -->
+	<update id="passwordUpdate" parameterType="map"> 
+		UPDATE MEMBER
+        SET PASSWORD = #{password}
+        WHERE ID = #{id}
+	</update>
+	
 	
 </mapper>

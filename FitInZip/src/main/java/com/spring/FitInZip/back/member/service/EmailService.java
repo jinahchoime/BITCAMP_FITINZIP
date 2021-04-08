@@ -1,5 +1,7 @@
 package com.spring.FitInZip.back.member.service;
 
+import java.util.Map;
+
 import com.spring.FitInZip.back.member.vo.MemberVO;
 
 public interface EmailService {
@@ -9,4 +11,6 @@ public interface EmailService {
 	void emailJoin(MemberVO vo);
 	MemberVO emailLogin(MemberVO vo);
 	void welcomeCoupon(MemberVO vo);
+	int passwordUpdate(Map<String, String> map);
+	
 }

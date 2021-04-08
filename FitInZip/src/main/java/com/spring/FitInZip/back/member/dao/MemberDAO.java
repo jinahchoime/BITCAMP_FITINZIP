@@ -1,5 +1,7 @@
 package com.spring.FitInZip.back.member.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,6 +53,13 @@ public class MemberDAO {
 
 	public MemberVO emailLogin(MemberVO vo) {
 		return mybatis.selectOne("MemberDAO.emailLogin", vo);
+	}
+
+	public int passwordUpdate(Map<String, String> map) {
+		
+		System.out.println("다오 : " + map);
+		
+		return mybatis.update("MemberDAO.passwordUpdate", map);
 	}
 	
 }
