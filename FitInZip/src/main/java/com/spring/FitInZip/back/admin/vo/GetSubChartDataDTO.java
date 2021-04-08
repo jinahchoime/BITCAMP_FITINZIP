@@ -15,15 +15,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class GetModalDTO {
-	private String id;
-	private String name;
-	private String phone;
-	private String gender;
-	private String birth;
-	private String trainerIntro;	
-	private String career;
-	private String questionFirst;
-	private String questionSecond;
-	private String registerDate;
+public class GetSubChartDataDTO {
+	private String cdate;
+	private String rprice;
+
 }

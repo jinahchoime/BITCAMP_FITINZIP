@@ -108,10 +108,39 @@
 	WHERE P.CLS_CODE = F.CLS_CODE AND F.CLS_CATEGORY = C.COMMON_CODE  AND TO_CHAR(PAY_DATE,'YYYYMM') = TO_CHAR(ADD_MONTHS(SYSDATE,-1) ,'YYYYMM')
 	</select>
 	
-	<select id="inputData" resultType="com.spring.FitInZip.back.member.vo.MemberVO">
-	SELECT ID, NAME, GENDER, ROLE,JOIN_DATE 
+	<select id="inputData" resultType="com.spring.FitInZip.back.admin.vo.GetInputData">
+	SELECT TO_CHAR(JOIN_DATE,'YYYY-MM-DD') AS JOIN_DATE, COUNT(*) AS COUNT 
 	FROM MEMBER 
-	WHERE  WITHDRAWAL = 'WD00' AND TO_CHAR(JOIN_DATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')
+	WHERE  WITHDRAWAL = 'WD00' AND ROLE='RL00' AND TO_CHAR(JOIN_DATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')   
+	GROUP BY TO_CHAR(JOIN_DATE,'YYYY-MM-DD')
 	</select>
 	
+	<select id="inputDataTwo" resultType="com.spring.FitInZip.back.admin.vo.GetInputData">
+	SELECT TO_CHAR(JOIN_DATE,'YYYY-MM-DD')  AS JOIN_DATE, COUNT(*) AS COUNT 
+	FROM MEMBER 
+	WHERE  WITHDRAWAL = 'WD00' AND ROLE='RL01' AND TO_CHAR(JOIN_DATE,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM') 
+	GROUP BY TO_CHAR(JOIN_DATE,'YYYY-MM-DD')
+	</select>
+	
+	<select id="getChageChartData" resultType="com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO" parameterType="string">
+	SELECT C.CDATE , NVL(D.RPRICE,0) AS RPRICE
+	FROM
+	(SELECT TO_CHAR(SYSDATE - (INTERVAL '1' MONTH)*(LEVEL-1) ,'YY/MM' ) AS CDATE
+	FROM DUAL
+	<![CDATA[
+	CONNECT BY LEVEL <= (SELECT SUBSTR(TO_CHAR(SYSDATE,'YY/MM'),-1) FROM DUAL)) C
+	]]>
+	LEFT JOIN
+	(SELECT TO_CHAR(P.PAY_DATE,'YY/MM') RDATE, SUM(P.ORIGIN_PRICE) RPRICE
+	FROM PAYMENT P, FIT_CLASS F, COMMON C
+	WHERE P.CLS_CODE = F.CLS_CODE AND F.CLS_CATEGORY = C.COMMON_CODE AND
+	TO_CHAR(PAY_DATE,'YYYY') = '2021'
+	<if test="value != null">
+		AND C.COMMON_NAME = #{value}
+	</if>
+	GROUP BY TO_CHAR(P.PAY_DATE,'YY/MM')) D
+	ON C.CDATE = D.RDATE
+	ORDER BY C.cdate
+	 </select>
+    
  </mapper>

@@ -77,6 +77,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
 <style type="text/css">
+/* 
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+ */
 .modal-backdrop {
 	background-color: transparent !important;
 	position: absolute;
@@ -91,7 +96,7 @@
 	text-align: center;
 	font-weight: 800;
 	font-size: 20px;
-	color: #fff;
+	color: black;/* 여기는글자색 */
 	text-transform: uppercase;
 }
 .easyPieChart{
@@ -104,6 +109,9 @@
 
 canvas{
 	width: 100% !important;
+}
+h5{
+ font-weight:600;
 }
 </style>
 
@@ -213,7 +221,7 @@ canvas{
 			<div class="row">
 				<div class="col-md-12">
 					<h5 style="text-align: center; padding-bottom: 10px;"
-						id="chartOnePrice">회원 증감 추이</h5>
+						id="chartOnePrice">이번달 회원 증감 추이</h5>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -231,6 +239,7 @@ canvas{
 
 	<script type="text/javascript">
         $(document).ready(function () {
+        	
 
             var dataOne = new Array();
             var dataTwo = new Array();
@@ -738,46 +747,58 @@ canvas{
 				$.ajax({
 					url: "chartThree",
 					type: "POST",
-					async:false,
 					dataType: "json",
 					success: function(data){
-						getchartThreeData(data)	
-						
+						crateChartThree(data)	
+						console.log("오냐고고고고ㅗㄱ"+data['15']);
 					},
 					error: function (){
 						alert("짜쓰~"+error);
 						}
 				});
-				return dataThree;
 			}
 			
-			
+		<!-- 	
 			function getchartThreeData(data){
+			
 		
 				crateChartThree();
 				
 			
 			}
-				function crateChartThree(){				
+		-->
+				function crateChartThree(data){				
 					let myChartThree = document.getElementById('myChartThree').getContext('2d');
 					
-					let barChartThree = new Chart(myChartThree, {
+					let lineChartThree = new Chart(myChartThree, {
 						type : 'line', //pie, line, doughnut, palarArea, bar
 						data : {
-							labels : ['1일' ,'2일', '3일' , '4일','5일','6일','7일','8일','9일','10일','11일','12일','13일','14일','15일','16일','17일','18일','19일','20일','21일','22일','23일','24일','25일','26일','27일','28일','29일','30일','31일',],
+							labels : ['1일' ,'2일', '3일' , '4일','5일','6일','7일','8일','9일','10일','11일','12일','13일','14일','15일','16일','17일','18일','19일','20일','21일','22일','23일','24일','25일','26일','27일','28일','29일','30일','31일'],
 							datasets : [ {
-								label : '',
-								data : [ ],
-								backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)' ],
-								borderWidth : 3
-							} ],
+								label : '일반회원',
+								data : [data['01'],data['02'],data['03'],data['04'],data['05'],data['06'],data['07'],data['08'],data['09'],data['10'],data['11'],data['12'],data['13'],data['14'],data['15'],data['16'],data['17'],data['18'],data['19'], data['20'],data['21'],data['22'],data['23'],data['25'],data['26'],data['27'],data['28'],data['29'],data['30'],data['31']],
+					            borderColor: 'rgba(247,67,54,0.7)',
+					            pointRadius:4,
+					            pointHoverRadius:8,
+					            pointHoverBackgroundColor:'rgba(247,67,54,0.8)',
+					            fill:false
+							},{
+									label : '트레이너',
+									data : [data['-01'],data['-02'],data['-03'],data['-04'],data['-05'],data['-06'],data['-07'],data['-08'],data['-09'],data['-10'],data['-11'],data['-12'],data['-13'],data['-14'],data['-15'],data['-16'],data['-17'],data['-18'],data['-19'], data['-20'],data['-21'],data['-22'],data['-23'],data['-25'],data['-26'],data['-27'],data['-28'],data['-29'],data['-30'],data['-31']],
+						            borderColor: "rgba(33,150,243,0.7)",
+						            pointRadius:4,
+						            pointHoverRadius:8,
+						            pointHoverBackgroundColor:'rgba(33,150,243,0.8)',
+						            fill:false
+						      }
+					],
 						},
 						options: {
 							tooltips: {
 							      callbacks: {
 							        label: function(tooltipItem, data) {
 							          var dataLabel = data.labels[tooltipItem.index];
-							          var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString()+'원';
+							          var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString()+'명';
 
 							          if (Chart.helpers.isArray(dataLabel)) {
 
@@ -792,19 +813,22 @@ canvas{
 							      }
 						   },
 						   scales: {
-				                yAxes: [{
+							   yAxes: [{
 				                    ticks: {
 				                        beginAtZero:true,
 				                        callback: function(value, index, values) {
-				                       
+				                            if(parseInt(value) >= 1000){
+				                               return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ '명';
+				                            } else {
 				                               return value+'명';
 				                            }
-				                       }                         
+				                       }                            
+				                    }
 				                }]
 				            },
-				            legend :{
+				            /* legend :{
 				            	display: false
-				            },
+				            }, */
 				            animation: {
 				                duration: 8000,
 				            },

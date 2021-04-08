@@ -80,7 +80,7 @@
 	text-align: center;
 	font-weight: 800;
 	font-size: 20px;
-	color: #fff;
+	color: black;
 	text-transform: uppercase;
 }
 
@@ -91,7 +91,7 @@
 
 .dropbtn {
     background-color: #6c757d00;
-    color: white;
+    color: black;
     padding: 5px;
     font-size: 14px;
     border: none;
