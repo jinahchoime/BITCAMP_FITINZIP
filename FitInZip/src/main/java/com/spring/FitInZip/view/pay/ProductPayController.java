@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import com.spring.FitInZip.back.cart.vo.CartDTO;
-import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
-import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
-import com.spring.FitInZip.back.common.vo.CouponInfoVO;
-import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.order.vo.OrderDetailVO;
 import com.spring.FitInZip.back.order.vo.OrderVO;
@@ -119,7 +117,8 @@ public class ProductPayController {
 		return "pay/productPayFin";
 		
 	}
-
+	
+	
 }
 
 

@@ -95,37 +95,29 @@
 	   			return false;
 	   		}
 	   		if(pwd.length > 0 && id.length > 0) {
-	   			var json = {
-					'id' : $("#id").val(), 
-					'password' : $( "#password" ).val()
-					
-				};
-			
-				$.ajax("/trainerLogin", {
+
+	   			var info = { 'id':$('#id').val(), 'password':$('#password').val() }
+	   			
+	   			$.ajax("/trainerLogin", {
 					type : "post",
-					data : json,
 					dataType: "json",
+					data: info,
 					success : function(data) {						
-						//alert("date는~" + data);
-						//alert("role: " + data.role);
-						//alert("data.id: " + data.id);
-						//alert("id: " + id);
-						//alert("데이터: " + data.regStatus);
-						if(data.role === 'RL01') {
-							alert("강사로 가르아~");
-							location.href = "/trainerMainPage";
-						} else if(data.role === 'RL02') {
-							alert("관리자로 가르아~");
+						console.log(data.status);
+						if(data.status === "trainer") {
+							//alert("강사로 가르아~");
+							location.href = "/trainerMainPageView";
+						} else if(data.status === "admin") {
+							//alert("관리자로 가르아~");
 							location.href = "/adminMain";
-					
-						}
-						else {
+						} else if(data.status === "false") {
 							alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+							return;
 						}
 			                       
 			         },
 			         error : function(error) { //404 500등 오류 발생시 
-			         	alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+			         	alert("에러");
 			         	return false;
 			         
 			         }	

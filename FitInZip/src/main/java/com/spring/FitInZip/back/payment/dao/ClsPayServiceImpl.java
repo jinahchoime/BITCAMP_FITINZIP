@@ -8,6 +8,7 @@ import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.payment.ClsPayService;
+import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 @Service
 public class ClsPayServiceImpl implements ClsPayService{
@@ -23,6 +24,12 @@ public class ClsPayServiceImpl implements ClsPayService{
 	@Override
 	public CouponDetailDTO couponDetail(String couponCode) {
 		return clsPayDAO.couponDetail(couponCode);
+	}
+
+	@Override
+	public void clsPayment(PaymentVO pvo) {
+		clsPayDAO.clsPayment(pvo);
+		
 	}
 
 }
