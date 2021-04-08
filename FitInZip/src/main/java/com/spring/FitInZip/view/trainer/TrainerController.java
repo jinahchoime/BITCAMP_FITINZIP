@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -303,13 +304,15 @@ public class TrainerController {
 
     //로그아웃
     @RequestMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, SessionStatus status, RedirectAttributes rttr) {
 		System.out.println(">>>로그아웃 처리");
 		// 1. 세션초기화(세션객체를 종료)
-		session.invalidate(); // 현재 사용중인 세션을 무효화처리
-
+		//session.invalidate(); // 현재 사용중인 세션을 무효화처리
+		if(!status.isComplete()) {
+			status.setComplete();
+		}
 		// 2. 화면 네비게이션(로그인페이지)
-		return "main";
+		return "redirect:/";
 		
 	}
     
