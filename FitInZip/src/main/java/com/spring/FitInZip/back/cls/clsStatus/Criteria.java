@@ -13,6 +13,7 @@ public class Criteria {
 	private int pageNum;	// 최초 페이지
 	private int amount;		// 페이지 당 표시할 글의 수
 	private String trainerId;
+	//private String classStatus;
 	
 	public Criteria() {
 		// 기본 페이지는 1페이지, 페이지 당 표시할 글의 수는 10개
@@ -23,6 +24,11 @@ public class Criteria {
 		this.pageNum = pageNum;
 		this.amount = amount;
 	}
+	
+	/*
+	 * public String getClsStatus() { return classStatus == null ? "" : classStatus;
+	 * }
+	 */
 	
 	
 	

@@ -195,6 +195,20 @@
 		<div class="card-body">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 				<div class="col-sm-12">
+				<div class="dropdown mb-4" style="right: auto;">
+                    <button class="btn btn-primary dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        	보기
+                    </button>
+                    <div id="" class="dropdown-menu animated--fade-in"
+                        aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">전체</a>
+                        <a class="dropdown-item" href="#">승인대기중</a>
+                        <a class="dropdown-item" href="#">승인 완료</a>
+                        <a class="dropdown-item" href="#">승인 거부</a>
+                    </div>
+                </div>
 			<table class="table table-bordered dataTable" style="table-layout: fixed;">
 				<thead>
 					<tr role="row">
@@ -282,6 +296,7 @@
 					<form id="actionForm" action="classStat" method="get">
 						<input type="hidden" name="pageNum" value="${pageMaker.crt.pageNum }">
 						<input type="hidden" name="amount" value="${pageMaker.crt.amount }">
+						<%-- <input type="hidden" name="classStatus" value="${pageMaker.crt.classStatus }"> --%>
 					</form>
 				
 				</div>
