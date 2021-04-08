@@ -34,9 +34,12 @@
 					$.each(returnValue, function(){
 						var year = new Date(this.payDate).getFullYear();
 						var month = (new Date(this.payDate).getMonth() + 1) + "";
-						var date = new Date(this.payDate).getDate();
+						var date = new Date(this.payDate).getDate() + "";
 						if(month.length == 1){
 							month = "0" + month;
+						}
+						if(date.length == 1){
+							date = "0" + date;
 						}
 						var ordertDate =  year + "-" + month + "-" + date;
 						 dispHtml += '<tr><td colspan="3" style="text-align: left; padding: 8px;">';
@@ -65,7 +68,7 @@
 					})
 					$('#content').append(dispHtml);
 					
-					if( _endIndex > returnValue.length){
+					if( _endIndex > returnValue[0].count){
 						$('#searchMoreNotify').remove();
 					}
 				},

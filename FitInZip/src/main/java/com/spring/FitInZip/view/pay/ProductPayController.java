@@ -10,13 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-=======
 import org.springframework.web.bind.annotation.SessionAttributes;
->>>>>>> 47fb2a8ef6a2104b9435bdef4d35fc36f2746731
-
 import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
@@ -62,43 +56,6 @@ public class ProductPayController {
 		return "pay/productPay";
 	}
 	
-<<<<<<< HEAD
-	@RequestMapping("/livePTPay")
-	public String payView(Model model, HttpSession session) {
-		MemberVO vo = (MemberVO)session.getAttribute("member");
-		
-		if(vo == null) {
-			return "redirect:/loginMain";
-		}
-		
-		ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
-		System.out.println("detail:" + detail);
-		List<PaymentDTO> list = productPayService.couponList(vo);
-		model.addAttribute("cpList", list); 
-		System.out.println("cplist: " + list);
-		return "pay/livePTPay";
-		
-		
-	}
-	
-	@RequestMapping("/clsPay")
-	@ResponseBody
-	public CouponDetailDTO clsCoupon(HttpSession session, @RequestParam("selectVal") String couponCode, Model model) {
-		MemberVO vo = (MemberVO)session.getAttribute("member");
-		ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
-		
-		System.out.println("couponCode: " + couponCode);
-		CouponDetailDTO cvo = productPayService.couponDetail(couponCode);
-		Integer totalPrice = detail.getTotalPrice();
-		Integer discountPrice = cvo.getDiscountPrice();
-		Integer netPrice = totalPrice - discountPrice;
-		System.out.println("netPrice: " + netPrice);
-		cvo.setFinalPrice(netPrice);
-		model.addAttribute("finalInfo", cvo);
-		return cvo;
-	}
-	 
-=======
 	//카카오페이 팝업
 	@RequestMapping("/kakaopay")
 	public String kakaoPay() {
@@ -130,7 +87,7 @@ public class ProductPayController {
 		pvo.setMemId(mem_id);
 		pvo.setOriginPrice(Integer.parseInt("" + session.getAttribute("totalPrice")));
 		pvo.setPaidPrice(Integer.parseInt("" + session.getAttribute("totalPrice")));
-		pvo.setPayMethod("카카오페이");
+		pvo.setPayMethod("PM01"); //카카오페이
 		
 		//pro_order
 		ovo.setOrderNum(orderNum);
@@ -162,7 +119,7 @@ public class ProductPayController {
 		return "pay/productPayFin";
 		
 	}
->>>>>>> 47fb2a8ef6a2104b9435bdef4d35fc36f2746731
+
 }
 
 

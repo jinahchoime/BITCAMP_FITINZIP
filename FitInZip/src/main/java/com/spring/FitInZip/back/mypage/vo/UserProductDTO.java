@@ -33,4 +33,7 @@ public class UserProductDTO {
 	/*시작번호 끝번호*/
 	private Integer startIndex;
 	private Integer endIndex;
+	
+	/*총 게시글 수*/
+	private Integer count;
 }

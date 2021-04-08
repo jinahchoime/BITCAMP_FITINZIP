@@ -164,7 +164,15 @@
 		<!-- 주문조회 불러오기  -->
 		<select id="productHistory" parameterType="com.spring.FitInZip.back.mypage.vo.UserProductDTO"
 			resultType="com.spring.FitInZip.back.mypage.vo.UserProductDTO">
-			SELECT R.*
+			SELECT R.*, (SELECT COUNT(*)
+				            FROM ORDER_DETAIL D
+				            INNER JOIN PRODUCT P
+				            ON D.PRO_NUM = P.PRO_NUM
+				            INNER JOIN PAYMENT E
+				            ON D.ORDER_NUM = E.ORDER_NUM
+                            INNER JOIN COMMON C
+                            ON C.COMMON_CODE = E.PAY_METHOD
+				        WHERE E.MEM_ID = #{memId}) AS COUNT
 				FROM(SELECT ROWNUM AS RNUM, M.*
 				        FROM (SELECT D.ORDER_NUM, D.AMOUNT, D.PRO_NUM, E.PAID_PRICE, E.PAY_DATE, P.PRO_NAME, P.PRO_IMG
                         , C.COMMON_NAME AS PAYMETHOD
