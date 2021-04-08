@@ -51,5 +51,7 @@ public class UserClsDTO {
 	/*이미지명*/
 	private String thumbnailFileName;
 	
+	/*테스트~~*/
+	
 	
 }
