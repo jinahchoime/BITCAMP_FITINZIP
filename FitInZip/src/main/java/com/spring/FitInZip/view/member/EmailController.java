@@ -119,6 +119,7 @@ public class EmailController {
 	
 	// 이메일 재설정
 	@RequestMapping("/passwordUpdate")
+	@ResponseBody
 	public int passwordUpdate(String id, String password) {
 		System.out.println("여기 왔음????");
 		System.out.println("id : " + id);
