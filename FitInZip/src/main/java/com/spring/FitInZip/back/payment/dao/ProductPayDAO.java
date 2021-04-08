@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.order.vo.OrderDetailVO;
 import com.spring.FitInZip.back.order.vo.OrderVO;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDTO;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDeliDTO;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 
@@ -41,5 +43,13 @@ public class ProductPayDAO {
 		mybatis.delete("PayDAO.deleteCart", mem_id);
 	}
 	
+	//주문서 상세페이지 상품정보
+	public List<OrderDetailDTO> orderDetail(String orderNum) {
+		return mybatis.selectList("PayDAO.orderDetail", orderNum);
+	}
 	
+	//주문서 상세페이지 배송지정보
+	public OrderDetailDeliDTO orderDetailDeli(String orderNum) {
+		return mybatis.selectOne("PayDAO.orderDetailDeli", orderNum);
+	}
 }

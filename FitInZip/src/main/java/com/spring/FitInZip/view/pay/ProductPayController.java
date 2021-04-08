@@ -15,18 +15,25 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.spring.FitInZip.back.cart.vo.CartDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
+import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.order.vo.OrderDetailVO;
 import com.spring.FitInZip.back.order.vo.OrderVO;
 import com.spring.FitInZip.back.payment.ProductPayService;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDTO;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDeliDTO;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 
 @Controller
-@SessionAttributes({"postcode", "detailAddress", "extraAddress", "directMsg"})
+@SessionAttributes({"postcode", "address", "detailAddress", "extraAddress", "directMsg", "sessionOrderNum"})
 public class ProductPayController {
 	
 	@Autowired 
 	private ProductPayService productPayService;
+	
+	//마이페이지 서비스
+	@Autowired
+	private MypageService mypageService;
 	
 	//결제 페이지 가져오기
 	@RequestMapping("/productPay")
@@ -80,6 +87,8 @@ public class ProductPayController {
 		String key = productPayService.getOrderSeq();
 		String orderNum = "S" + str + "_" + key;
 		
+		session.setAttribute("orderNum", orderNum);
+		
 		//payment
 		pvo.setOrderNum(orderNum);
 		pvo.setMemId(mem_id);
@@ -118,6 +127,37 @@ public class ProductPayController {
 		
 	}
 	
+	//주문서 상세 페이지 
+	@RequestMapping("/orderDetail")
+	public String orderDetail(Model model, String orderNum, HttpSession session, HttpServletRequest request) {
+		
+		/*다슬 - 마이페이지 메뉴 내 프로필 이미지*/
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
+		//상품정보
+		List<OrderDetailDTO> orderDetail = productPayService.orderDetail(request.getParameter("orderNum"));
+		model.addAttribute("orderDetail", orderDetail);
+		
+		//배송지 정보
+		OrderDetailDeliDTO deli = new OrderDetailDeliDTO();
+		deli = productPayService.orderDetailDeli(request.getParameter("orderNum"));
+		model.addAttribute("deli", deli);
+		
+		session.setAttribute("sessionOrderNum", request.getParameter("orderNum"));
+		
+		return "pay/productOrderDetail";
+	}
+
 	
 }
 

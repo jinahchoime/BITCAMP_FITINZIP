@@ -31,6 +31,9 @@
 				success : function(returnValue){
 					var dispHtml = ''
 					console.log(returnValue);
+					var arr = "";
+					
+					
 					$.each(returnValue, function(){
 						var year = new Date(this.payDate).getFullYear();
 						var month = (new Date(this.payDate).getMonth() + 1) + "";
@@ -41,6 +44,7 @@
 						if(date.length == 1){
 							date = "0" + date;
 						}
+						
 						var ordertDate =  year + "-" + month + "-" + date;
 						 dispHtml += '<tr><td colspan="3" style="text-align: left; padding: 8px;">';
 						 dispHtml += '<span style="padding-left: 20px">주문일자 : <b style="color:black">';
@@ -55,9 +59,9 @@
 						 dispHtml += this.proImg;
 						 dispHtml += '" style="width: 100%;"></span>';
 						 dispHtml += '<span style="display: inline-block;padding-left: 85px;vertical-align: middle;font-size: 15px;line-height: 20px;">';
-						 dispHtml += this.proName;
-						 dispHtml += '<br>';
-						 dispHtml += '수량 : ' + this.amount;
+						 dispHtml += '<a href="/orderDetail?orderNum=';
+						 dispHtml += this.orderNum;
+						 dispHtml += '">' + this.proName + '<a>';
 						 dispHtml += '</span></td><td style="font-size: 15px;">';
 						 dispHtml += this.paymethod;
 						 dispHtml += '<br>';
@@ -68,7 +72,10 @@
 					})
 					$('#content').append(dispHtml);
 					
-					if( _endIndex > returnValue[0].count){
+					console.log(_endIndex);
+					console.log(returnValue[0].count);
+					
+					if( _endIndex >= returnValue[0].count){
 						$('#searchMoreNotify').remove();
 					}
 				},

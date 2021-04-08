@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
 button {
 	border:none;
 	background: none;
@@ -18,10 +24,12 @@ button {
 }
 
 .addcart-btn-div:hover {
-	background-color: black;
+	background-color: #111;
 	color: white;
 }
-
+.addcart-btn:hover {
+	color: white;
+}
 .foreach-cart-btn {
 	margin-top: 136px;
 	margin-bottom: 80px;

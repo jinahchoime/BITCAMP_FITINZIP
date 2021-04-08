@@ -279,12 +279,24 @@ public class MypageController {
 	/*현재 클래스 history 내역 ajax로 뿌리기*/
 	@RequestMapping("/clsdata") 
 	@ResponseBody
-	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session, HttpServletRequest request) throws JsonProcessingException {
+	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session, HttpServletRequest request, Model model) throws JsonProcessingException {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		dto.setClsTimeStatus(request.getParameter("clsTimeStatus"));
+		List<UserClsDTO> userclsList = mypageService.nowGetUserCls(dto);
 		
-		return mypageService.nowGetUserCls(dto);
+		try {
+			for (UserClsDTO userClsDTO : userclsList) {
+		         String fileName = userClsDTO.getThumbnailFileName();
+		         System.out.println("fileName : " + fileName);
+		         fileName = fileName.substring(fileName.indexOf("resources"));
+		         userClsDTO.setThumbnailFileName(fileName);
+		      }
+		}catch(NullPointerException e){
+			
+		}
+		
+		return userclsList;
 		
 	}
 	
@@ -407,7 +419,6 @@ public class MypageController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		
-		System.out.println("리스트::트트트트트 :: " + mypageService.getproductList(dto));
 		
 		return mypageService.getproductList(dto);
 	}
