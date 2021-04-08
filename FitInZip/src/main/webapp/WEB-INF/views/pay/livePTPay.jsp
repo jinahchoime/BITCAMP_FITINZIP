@@ -51,12 +51,6 @@
 	    str = String(str);
 	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	}
-	 
-	//콤마풀기
-	function uncomma(str) {
-	    str = String(str);
-	    return str.replace(/[^\d]+/g, '');
-	}
 
  $(function(){
 		$('#couponBtn').click(function(){
@@ -75,7 +69,8 @@
 				var dp = comma(data.discountPrice);
 				console.log("dp: " + dp);
 				
-				
+				var fp = comma(data.finalPrice);
+				console.log("fp: " + fp);
 				
 				
 				$('#finalPrice').empty();
@@ -86,11 +81,11 @@
 				html += '<div class="price_area mt50"><div class="column1"> <div class="txt">상품금액</div> <div class="num"><b>${detail.totalPrice}</b>원</div></div>';
                 html += '<div class="column1"> <div class="txt">배송비</div> <div class="num"><b>0</b>원</div></div>';   
                 html += '<div class="column1"> <div class="txt">할인금액</div><div class="num"><b>';
-				html += data.discountPrice;
+				html += dp;
 				html += '</b>원</div></div></div>';
 				html += '<div class="price_area total_price"> <div class="column1"> <div class="txt">총 결제금액</div><div class="num" style="display: flex; margin-right: -63px;"><b><strong>';
 				
-				html += '<div id="totalfinalPrice">' + data.finalPrice + '</div>';
+				html += '<div id="totalfinalPrice">' + fp + '</div>';
 				html += '</strong></b>원</div></div></div>';
 
 				$('#finalPrice').append(html);
@@ -113,6 +108,12 @@
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script>
+//콤마풀기
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+
 function iamport(){
 	 
 	 var check = document.getElementById('check0').checked;
@@ -121,23 +122,14 @@ function iamport(){
 	 var price = document.getElementById("totalfinalPrice").innerHTML;
 	 console.log("finalPrice: " + price);
 	 
+	 var fp = uncomma(price);
+	 console.log("fp: " + fp);
+	 
 	 if(check == false) {
 		 alert("결제동의에 체크해주세요.");
 		 return false;
 	 }
-	 
-     function removeComma(price)
-
-		{
-			n = parseInt(price.replace(/,/g,""));
-			console.log("쉼표제거후가격: " + n);
-			return n;
-		}
-
-
-
-	출처: https://metal00456.tistory.com/3 [핵초보 개발자의 일상]
-
+	
 	 
  //가맹점 식별코드
  IMP.init('imp89234237');
@@ -146,7 +138,7 @@ function iamport(){
      pay_method: 'card',
      merchant_uid: 'merchant_' + new Date().getTime(),
      name: '<c:out value="${detail.clsName}" />',
-     amount: price, //판매 가격
+     amount: fp, //판매 가격
      buyer_name: '<c:out value="${member.name}"/>'
 
  }, function(rsp) {
@@ -196,7 +188,7 @@ function iamport(){
 	                        <div class="price_area mt50">
 	                            <div class="column1">
 	                                <div class="txt">상품금액</div>
-	                                <div class="num"><b>${detail.totalPrice}</b>원</div>
+	                                <div class="num"><b><fmt:formatNumber value="${detail.totalPrice}" /></b>원</div>
 	                            </div>
 	                            <div class="column1">
 	                                <div class="txt">배송비</div>
@@ -215,14 +207,14 @@ function iamport(){
 	                                <div class="txt">총 결제금액</div>
 	                                <div class="num" style="display: flex; margin-right: -63px;">
 	                                	<b>
-	                                     	<strong><div id="totalfinalPrice">${detail.totalPrice}</div></strong>
+	                                     	<strong><div id="totalfinalPrice"><fmt:formatNumber value="${detail.totalPrice}" /></div></strong>
 	                                	</b>원
 	                                </div>
 	                            </div>
 	                        </div>
                         </div>
                         <div class="btn type1">
-                        	<button type="button" onclick="iamport()" class="adClick" style="margin-bottom: 15px;">카드결제</button>
+                        	<button type="button" onclick="iamport()" class="adClick" style="margin-bottom: 15px;display: block; text-align: center; width: 280px; height: 60px; line-height: 60px; font-size:18px; color:#fff; background: linear-gradient(to right, DarkOrange, #FF3399); border-radius: 5px !important;font-weight:700; -webkit-transition: all .3s; transition: all .3s;">카드결제</button>
                         </div>
                         <div class="agree_box mt10"><input type="checkbox" id="check0" name="checkAgreement"><label for="check0"><span class="font12 gray4">위 주문정보를 확인하였으며, 회원 본인은 결제에 동의합니다.</span></label></div>                   
                     </div>

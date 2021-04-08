@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>    
+    
 <!doctype html>
 <html lang="en">
   <head>
@@ -145,7 +148,7 @@
 	    <div class="row g-3">  
 	      <div class="col-md-7 col-lg-8" style="width: 620px; margin: 0 auto;">
 	        <h4 class="mb-3" style="text-align: center; padding-bottom: 20px;">온라인 지원서</h4>
-	        <form class="needs-validation" method="post" > <!-- enctype="multipart/form-data" --> 
+	        <form class="needs-validation" method="post" enctype="multipart/form-data"> 
          
 	            <div class="col-12">
 	            	<label for="id" class="form-label">아이디(이메일주소)</label>
@@ -190,11 +193,11 @@
 	              	<input type="text" class="form-control" name="birth" id="birth" placeholder="19900101" required>
 	            </div>
 				
-				<!-- <div class="file1">
+				<div class="file1">
 	          	<label for="profile" class="form-label">프로필사진</label>
-	          	<input type="file" id="memOriName" name="memOriName" value="사진" accept=".jpg,.jpeg,.png,.gif">
+	          	<input type="file" id="memOriName" name="memberOriName" value="사진" accept=".jpg,.jpeg,.png,.gif">
 	          		<img id="blah" src="#" alt="프로필사진" width="300px" height="300px" style="padding-top: 20px; padding-bottom:20px;">
-	          	</div> -->
+	          	</div> 
 				
 				<div class="mb-3">
 					<label for="content" style="margin-top: 10px">강사소개</label>
@@ -207,24 +210,6 @@
 					<textarea id="editor2" name = "career"></textarea>
 					<script type="text/javascript">CKEDITOR.replace('editor2');</script>
 				</div>
-			
-				<!-- <label for="category" class="form-label" style="margin-top: 10px">분야</label>
-	            <div class="form-check">
-	            	<input id="pump_iron" name="category" value="ct_wt" type="radio" class="form-check-input" checked required>
-	              	<label class="form-check-label">웨이트 트레이닝</label>
-	            </div>
-	            <div class="form-check">
-	            	<input id="fitness" name="category" value="ct_ft" type="radio" class="form-check-input" required>
-	              	<label class="form-check-label">피트니스</label>
-	            </div>
-	            <div class="form-check">
-	            	<input id="yoga" name="category" value="ct_yg" type="radio" class="form-check-input" required>
-	              	<label class="form-check-label"">요가</label>
-	            </div>
-	            <div class="form-check">
-	            	<input id="pilates" name="category" value="ct_fl" type="radio" class="form-check-input" required>
-	              	<label class="form-check-label">필라테스</label>
-	            </div> -->
 				
 	            <div class="col-12">
 	            	<label for="address" class="form-label" style="margin-top: 10px">강의하는 곳의 Wi-Fi가 잘 갖추어져 있나요?</label>

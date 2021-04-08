@@ -56,9 +56,8 @@
           	var reader = new FileReader();
 
  	        reader.onload = function (e) {
-            	$('#blah').attr('src', e.target.result);
+            	$('#profileImg').attr('src', e.target.result);
             }
-
             reader.readAsDataURL(input.files[0]);
           	}
       	}
@@ -217,7 +216,7 @@
                 <div class="row g-3" style= "margin-left: 25%">  
 		        <div class="col-md-7 col-lg-8">
 		        <h4 class="mb-3" style="text-align: center; padding-bottom: 20px;">정보 수정</h4>
-		        <form class="needs-validation" method="post" name="frm"> <!-- enctype="multipart/form-data" --> 
+		        <form class="needs-validation" method="post" name="frm" enctype="multipart/form-data">
 		        	<div class="col-12">
 		            	<label for="id" class="form-label">아이디(이메일주소)</label> ${member.id }              
 	            	</div>
@@ -241,11 +240,17 @@
 	                	<input type="text" class="form-control" name="phone" id="phone" placeholder="01012345678" required>
 		            </div>
          	
-         <!-- <div class="file1">
+         	
+         		
+         	
+         	
+          		<div class="file1">
 	          	<label for="profile" class="form-label">프로필사진</label>
-	          	<input type="file" id="memOriName" name="memOriName" value="사진" accept=".jpg,.jpeg,.png,.gif">
-	          		<img id="blah" src="#" alt="프로필사진" width="300px" height="300px" style="padding-top: 20px; padding-bottom:20px;">
-	          	</div> -->
+	          	<input type="file" id="memOriName" name="memberOriName" value="사진" accept=".jpg,.jpeg,.png,.gif">
+	          		<img id="profileImg" src="${profileImg }" style="width:250px; height:250px;padding-top: 20px; padding-bottom:20px;">
+	          	</div> 
+	          	
+	          	
 					
 					<div class="mb-3">
 						<label for="content" style="margin-top: 10px">강사소개</label>
@@ -259,6 +264,11 @@
 						<script type="text/javascript">CKEDITOR.replace('editor2');</script>
 					</div>
 					<button class="w-100 btn btn-lg btn-primary" type="submit" value="정보수정" id="infoBtn" style="margin-top: 20px" onclick="registerForm()">정보수정</button>
+         			</div>
+         			
+         			<input type="hidden" name="profileOriName" value="${member.memOriName } ">
+         			<input type="hidden" name="profileFileName" value="${member.memFileName }">
+         		
          		</form>
                 </div>
                 <!-- /.container-fluid -->
