@@ -110,9 +110,7 @@
 canvas{
 	width: 100% !important;
 }
-h5{
- font-weight:600;
-}
+
 </style>
 
 
