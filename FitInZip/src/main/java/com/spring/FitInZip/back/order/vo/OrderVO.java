@@ -21,8 +21,8 @@ public class OrderVO {
 	private String memId;
 	private Integer totalPrice;
 	private Date orderDate;
-	private String post;
-	private String addr_1;
-	private String addr_2;
-	private String deliveryMsg;
+	private String postcode;
+	private String address;
+	private String detailAddress;
+	private String directMsg;
 }

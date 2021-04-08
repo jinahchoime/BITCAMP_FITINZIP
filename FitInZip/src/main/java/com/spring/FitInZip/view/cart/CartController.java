@@ -38,7 +38,6 @@ public class CartController {
 		
 		model.addAttribute("cartList", cartList);
 		
-		//session.setAttribute("cartList", cartList);
 		return "cart/cart";
 	}
 	
@@ -106,6 +105,7 @@ public class CartController {
 	}
 	
 	//상품 수량 변경
+	//up
 	@ResponseBody
 	@RequestMapping(value="/updateAmount", method= RequestMethod.POST)
 	public String updateAmount(CartVO vo) {
@@ -117,6 +117,7 @@ public class CartController {
 		return "redirect:/cart";
 	}
 	
+	//down
 	@ResponseBody
 	@RequestMapping(value="/downAmount", method= RequestMethod.POST)
 	public String downAmount(CartVO vo) {

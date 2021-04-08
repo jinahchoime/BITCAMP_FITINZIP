@@ -200,7 +200,7 @@
 										<span class="price">
 											<c:set var="sum" value="0"/>
 											<c:forEach var="cartList" items="${cartList }" >
-												<c:set var="sum" value="${sum + cartList.proPrice }" />
+												<c:set var="sum" value="${sum + (cartList.proPrice * cartList.amount) }" />
 											</c:forEach>
 											<strong><c:out value="${sum }"/> 원</strong>
 										</span>
@@ -216,7 +216,7 @@
 										<span class="price sale total">
 											<c:set var="sum" value="0"/>
 											<c:forEach var="cartList" items="${cartList }" >
-												<c:set var="sum" value="${sum + cartList.proPrice }" />
+												<c:set var="sum" value="${sum + (cartList.proPrice * cartList.amount) }" />
 											</c:forEach>
 											<strong><c:out value="${sum }"/> 원</strong>
 										</span>

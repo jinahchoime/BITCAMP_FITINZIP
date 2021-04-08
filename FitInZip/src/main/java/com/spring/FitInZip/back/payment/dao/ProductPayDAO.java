@@ -5,12 +5,11 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.spring.FitInZip.back.cart.vo.CartDTO;
-import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
-import com.spring.FitInZip.back.common.vo.CouponInfoVO;
-import com.spring.FitInZip.back.common.vo.PaymentDTO;
-import com.spring.FitInZip.back.member.vo.MemberVO;
+import com.spring.FitInZip.back.order.vo.OrderDetailVO;
+import com.spring.FitInZip.back.order.vo.OrderVO;
+import com.spring.FitInZip.back.payment.vo.PaymentVO;
+
 
 @Repository
 public class ProductPayDAO {
@@ -22,14 +21,24 @@ public class ProductPayDAO {
 		return mybatis.selectList("PayDAO.getPayList", mem_id);
 	}
 	
-	//클래스 결제 시 쿠폰 사용
-	public List<PaymentDTO> couponList(MemberVO vo) {
-		return mybatis.selectList("PayDAO.clsPayment", vo);
+	//구매내역 payment, pro_order, order_detail 테이블에 insert
+	public void productPayFin(PaymentVO pvo , OrderVO ovo) {
+		mybatis.insert("PayDAO.insertPayment", pvo);
+		mybatis.insert("PayDAO.insertProOrder", ovo);
 	}
 	
-	//클래스 결제 시 쿠폰 상세내역 (ajax)
-	public CouponDetailDTO couponDetail(String couponCode) {
-		return mybatis.selectOne("PayDAO.couponDetail", couponCode);
+	public void productPayFin(OrderDetailVO dvo) {
+		mybatis.insert("PayDAO.insertOrderDetail", dvo);
+	}
+	
+	//주문번호 생성용 시퀀스 채번
+	public String getOrderSeq() {
+		return mybatis.selectOne("PayDAO.propaySequence");
+	}
+	
+	//주문시 장바구니 비우기
+	public void deleteCart(String mem_id) {
+		mybatis.delete("PayDAO.deleteCart", mem_id);
 	}
 	
 }

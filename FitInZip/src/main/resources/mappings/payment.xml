@@ -15,6 +15,7 @@
 	WHERE M.ID = #{memId}
 	</select>	
 
+<<<<<<< HEAD
 	<!-- 클래스 결제 시 보유한 쿠폰 검색 -->
 	<select id="clsPayment" parameterType="memberVO" resultType="com.spring.FitInZip.back.common.vo.PaymentDTO">
 		SELECT c.COUPON_CODE, TO_CHAR(NVL(i.COUPON_START_DATE, ''), 'YYYY-MM-DD') as couponStartDate, TO_CHAR(NVL(i.COUPON_END_DATE, '9999-12-31'), 'YYYY-MM-DD') as couponEndDate, i.DISCOUNT_PRICE, i.COUPON_NAME 
@@ -33,4 +34,32 @@
 	</select>
 
 
+=======
+	<!-- payment 테이블에 주문완료정보 insert -->
+	<insert id="insertPayment" parameterType="com.spring.FitInZip.back.payment.vo.PaymentVO">
+	INSERT INTO PAYMENT (PAY_INDEX, ORDER_NUM, MEM_ID, ORIGIN_PRICE, PAID_PRICE, PAY_METHOD,PAY_DATE)
+	VALUES (PAYMENT_SEQ.nextval , #{orderNum}, #{memId} , #{originPrice}, #{paidPrice}, #{payMethod}, SYSDATE)
+	</insert>
+
+	<!-- 주문번호 시퀀스  -->
+	<select id="propaySequence" resultType="String">
+	SELECT PROPAY.NEXTVAL FROM DUAL
+	</select>
+
+	<!-- pro_order 테이블에 주문완료정보 insert -->
+	<insert id="insertProOrder" parameterType="com.spring.FitInZip.back.order.vo.OrderVO">
+	INSERT INTO PRO_ORDER (ORDER_NUM, MEM_ID, TOTAL_PRICE, ORDER_DATE, POSTCODE, ADDRESS, DETAIL_ADDRESS, DIRECT_MSG)
+	VALUES ( #{orderNum}, #{memId}, #{totalPrice}, SYSDATE, #{postcode}, #{address}, #{detailAddress}, #{directMsg})
+	</insert>
+	
+	<!-- order_detail 테이블에 주문완료정보 insert -->
+	<insert id="insertOrderDetail" parameterType="com.spring.FitInZip.back.order.vo.OrderDetailVO">
+	INSERT INTO ORDER_DETAIL (ORDER_NUM, PRO_NUM, AMOUNT)
+	VALUES ( #{orderNum}, #{proNum} , #{amount})
+	</insert>
+	
+	<delete id="deleteCart" parameterType="String">
+	DELETE FROM CART WHERE MEM_ID = #{memId}
+	</delete>
+>>>>>>> 47fb2a8ef6a2104b9435bdef4d35fc36f2746731
 </mapper>
