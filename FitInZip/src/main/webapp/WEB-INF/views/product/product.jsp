@@ -87,8 +87,8 @@
 								다양한 중량선택 가능<br>튼튼한 쇠파이프 내장<br>강력한 웨이트 트레이닝 가능
 							</p>
 						</c:if>
-						
 							<c:if test="${productList.proName eq '덤벨 1kg~10kg'}">
+								<!-- 
 								<select class="dumbbell-option" id="dumbbell">
 									<option value="none">[필수]옵션을 선택하세요</option>
 									<option value="1kg">1kg</option>
@@ -102,12 +102,18 @@
 									<option value="9kg">9kg(+19,200원)</option>
 									<option value="10kg">10kg(+21,600원)</option>
 								</select>
+								
 								<div class="addcart-btn-div dumbbell-cart-btn">
+									<button class="addcart-btn" type="button">장바구니 담기</button>
+								</div>
+								-->
+								<div class="addcart-btn-div foreach-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
 							</c:if>
 						
 							<c:if test="${productList.proName eq '워크아웃 밴드'}">
+								<!--
 								<select class="rubberband-option" id="rubberband">
 									<option class="option-default-text" value="none">[필수]옵션을 선택하세요</option>
 									<option value="레드 ">레드 - 1.3cm &nbsp; MAX: 20KG</option>
@@ -116,11 +122,16 @@
 									<option value="그린 ">그린 - 4.5cm &nbsp; MAX: 75KG</option>
 									<option value="블루 ">블루 - 6.4cm &nbsp; MAX: 100KG</option>
 								</select>
+								
 								<div class="addcart-btn-div rubberband-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
+								-->
+								<div class="addcart-btn-div foreach-cart-btn">
+									<button class="addcart-btn" type="button">장바구니 담기</button>
+								</div>
 							</c:if>
-						
+							
 							<c:if test="${productList.proName ne '덤벨 1kg~10kg' && productList.proName ne '워크아웃 밴드' }">
 								<div class="addcart-btn-div foreach-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>

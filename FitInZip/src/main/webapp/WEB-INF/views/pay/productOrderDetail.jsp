@@ -24,15 +24,17 @@
 			<div class="item-info">
 				<div class="table_basic_board board1 info-wrap">
 				<p class="big-title pro-tit">상품 정보</p>
-					<p>주문번호: ${sessionOrderNum }</p>
+					<p style="font-size:14px;">주문번호: ${sessionOrderNum }</p>
 					<c:forEach var="orderDetail" items="${orderDetail }">
 						<div class="forEach">
 							<p><img class="product-img" style="width:120px; height:120px;" src="${orderDetail.proImg }"></p>
-							<div class="pro-content">
+							<div class="pro-content float-left">
 								<p class="padding-left">상품번호 :  ${orderDetail.proNum }</p>
-								<p class="padding-left">상품명 : ${orderDetail.proName }</p>
-								<p class="product-price">상품가격 : ${orderDetail.proPrice } 원</p>
+								<p class="padding-left">${orderDetail.proName }</p>
 								<p class="padding-left">수량 : ${orderDetail.amount } 개</p>
+							</div>
+							<div class="float-right">
+								<p class="padding-left">${orderDetail.proPrice } 원</p>
 							</div>
 						</div>
 					</c:forEach>
@@ -41,19 +43,19 @@
 			</div>
 
 			
-			<div class="de-container">
+			<div class="deli-container">
 				<p class="big-title deli-tit">배송지 정보</p>
 				<div class="bobo">
-					<span>받는 사람 </span> <span class="right"> ${deli.name }</span>
+					<span>받으시는 분</span><span class="right"> ${deli.name }</span>
 				</div>
 				<div class="bobo">
-					<p>휴대전화 : ${deli.phone }</p>
+					<span>배송지</span><span class="right">${deli.address }, ${deli.detailAddress }</span>
 				</div>
 				<div class="bobo">
-					<p>배송지 : ${deli.address }, ${deli.detailAddress }</p>
+					<span>휴대전화</span><span class="right"> ${deli.phone }</span>
 				</div>
 				<div class="bobo">
-					<p>배송메시지 : ${deli.directMsg }</p> 
+					<span> ${deli.directMsg }</span> 
 				</div>
 				
 				
