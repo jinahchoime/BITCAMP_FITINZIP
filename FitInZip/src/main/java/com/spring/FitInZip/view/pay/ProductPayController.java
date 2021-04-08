@@ -20,11 +20,13 @@ import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.order.vo.OrderDetailVO;
 import com.spring.FitInZip.back.order.vo.OrderVO;
 import com.spring.FitInZip.back.payment.ProductPayService;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDTO;
+import com.spring.FitInZip.back.payment.vo.OrderDetailDeliDTO;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 
 @Controller
-@SessionAttributes({"postcode", "detailAddress", "extraAddress", "directMsg"})
+@SessionAttributes({"postcode", "address", "detailAddress", "extraAddress", "directMsg"})
 public class ProductPayController {
 	
 	@Autowired 
@@ -82,6 +84,8 @@ public class ProductPayController {
 		String key = productPayService.getOrderSeq();
 		String orderNum = "S" + str + "_" + key;
 		
+		session.setAttribute("orderNum", orderNum);
+		
 		//payment
 		pvo.setOrderNum(orderNum);
 		pvo.setMemId(mem_id);
@@ -119,7 +123,26 @@ public class ProductPayController {
 		return "pay/productPayFin";
 		
 	}
+	
+	//주문서 상세 페이지 
+	@RequestMapping("/orderDetail")
+	public String orderDetail(Model model, String orderNum, HttpSession session) {
 
+		//상품정보
+		List<OrderDetailDTO> orderDetail = productPayService.orderDetail("S20210408_21");
+		model.addAttribute("orderDetail", orderDetail);
+		
+		//배송지 정보
+		OrderDetailDeliDTO deli = new OrderDetailDeliDTO();
+		deli = productPayService.orderDetailDeli("S20210408_21");
+		model.addAttribute("deli", deli);
+		
+		
+		
+		return "pay/productOrderDetail";
+	}
+
+	
 }
 
 

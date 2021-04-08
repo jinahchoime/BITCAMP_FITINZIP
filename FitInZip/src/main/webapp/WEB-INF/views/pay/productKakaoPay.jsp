@@ -11,6 +11,10 @@
 	outline: none;
 	border: none;
 }
+#kakao-img {
+	padding-top: 70px;
+	padding-left: 130px;
+}
 
 </style>
 <link rel="stylesheet" type="text/css" href="../resources/product/css/productKakaoPay.css" />
@@ -53,7 +57,7 @@ function kakaopay(){
 <body>
 
 	<button type="button" id="kakaoPay" value="카카오페이" onclick="kakaopay()">
-		<img src="../resources/product/img/payment_icon_yellow_large.png">
+		<img id="kakao-img" src="../resources/product/img/payment_icon_yellow_large.png">
 	</button>
 	
 </body>
