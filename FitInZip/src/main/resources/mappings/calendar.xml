@@ -34,7 +34,7 @@
 	<select id="selectClsCode" parameterType="String" resultType="String">
 		select cls_code
 		from payment
-		where mem_id = #{mem_id}
+		where mem_id = #{mem_id} and CLS_CODE IS NOT NULL
 	</select>
 	
 	<!-- 캘린더에 표시할 수업 정보 조회 -->

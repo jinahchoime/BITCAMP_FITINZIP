@@ -68,10 +68,12 @@ public class MypageController {
 		MemberVO member = (MemberVO)session.getAttribute("member");	
 		
 		member = mypageService.getMember(member.getId());
-		
-		String profileImgFilePath = member.getMemFileName();
-		member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
-		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
 		//멤버 바꾸기
 		model.addAttribute("member", member);
 		
