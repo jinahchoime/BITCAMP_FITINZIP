@@ -122,6 +122,10 @@
 				alert("진행 요일을 입력해주세요");
 				$("#dayOfWeek").focus();
 				return false;
+			} else if($("#dayOfWeek").val().indexOf(",") == 0 || $("#dayOfWeek").val().charAt($("#dayOfWeek").val().length - 1) == ","){
+				alert("요일의 맨 앞이나 뒤에 ,(콤마)를 입력할 수 없습니다");
+				$("#dayOfWeek").focus();
+				return false;
 			}
 			
 			// 수업 횟수 검사
@@ -141,6 +145,71 @@
 				$("#clsPerPrice").focus();
 				return false;
 			}
+			
+			// 인원 수 검사
+			if($("#persons").val() == null || $("#persons").val() == ""){
+				alert("최대 인원 수를 입력해주세요");
+				$("#persons").focus();
+				return false;
+			}
+			
+			// 난이도 검사
+			if($("#clsDifficulty").val() == null || $("#clsDifficulty").val() == ""){
+				alert("난이도를 입력해주세요");
+				$("#clsDifficulty").focus();
+				return false;
+			}
+			
+			// 칼로리 검사
+			if($("#clsPerCalories").val() == null || $("#clsPerCalories").val() == ""){
+				alert("소모 칼로리량을 입력해주세요");
+				$("#clsPerCalories").focus();
+				return false;
+			} else if($("#clsPerCalories").val() < 0){
+				alert("소모 칼로리량은 0보다 작을 수 없습니다");
+				$("#clsPerCalories").focus();
+				return false;
+			}
+			
+			// 강의 내용 소개 검사
+			if(CKEDITOR.instances.clsInformation.getData() == null || CKEDITOR.instances.clsInformation.getData() == ''){
+				alert("강의 내용 소개를 입력해주세요");
+				$("#clsInformation").focus();
+				return false;
+			}
+			
+			// 커리큘럼 상세 정보 검사
+			if(CKEDITOR.instances.clsCurriculum.getData() == null || CKEDITOR.instances.clsCurriculum.getData() == ''){
+				alert("커리큘럼의 상세 정보를 입력해주세요");
+				$("#clsCurriculum").focus();
+				return false;
+			}
+			
+			// 썸네일 이미지 업로드 검사
+			if($("#thumbnailUpload").val() == null || $("#thumbnailUpload").val() == ""){
+				alert("썸네일 이미지를 업로드해주세요");
+				$("#thumbnailUpload").focus();
+				return false;
+			}
+			
+			// 타이틀 이미지 업로드 검사
+			if($("#titleUpload").val() == null || $("#titleUpload").val() == ""){
+				alert("타이틀 이미지를 업로드해주세요");
+				$("#titleUpload").focus();
+				return false;
+			}
+			
+			// 수업 주소 검사
+			if($("#clsUrl").val() == null || $("#clsUrl").val() == ""){
+				alert("강의를 진행할 주소를 입력해주세요(Google meet)");
+				$("#clsUrl").focus();
+				return false;
+			} else if($("#clsUrl").val().indexOf("http://") == -1 && $("#clsUrl").val().indexOf("https://") == -1){
+				alert("주소에 http:// 혹은 https:// 부분을 반드시 포함시켜주세요");
+				$("#clsUrl").focus();
+				return false;
+			}
+			
 			
 		});
 		
@@ -376,25 +445,23 @@
 						<th>요일</th>
 						<td colspan="2" style="text-align: center;">
 							<!-- validation 시 %/% 조건 확인할 것 -->
-							<input type="text" id="dayOfWeek" name="yoil" placeholder="ex)월,수,금">
+							<input type="text" id="dayOfWeek" name="yoil" placeholder="ex)월,수,금" oninput="this.value = this.value.replace(/[^ㄱ-힣,]/g, '').replace(/(\..*)\./g, '$1');">
 						</td>
 					</tr>
 					<tr>
 						<th>수업 횟수</th>
-						<td><input type="number" id="clsLapse" name="lapse" style="width: 100%;"></td>
+						<td><input type="number" id="clsLapse" name="lapse" style="width: 100%;"> 회</td>
 						<th>회당 가격</th>
-						<td><input type="number" id="clsPerPrice" name="perPrice" style="width: 100%;"></td>
+						<td><input type="number" id="clsPerPrice" name="perPrice" style="width: 100%;"> 원</td>
 						<th>인원 수</th>
 						<td>
-							<select name="maxMem">
-								<option>인원 수</option>
+							<select id="persons" name="maxMem">
+								<option value="" selected disabled>인원 수</option>
 								<option value="5">5</option>
 								<option value="6">6</option>
 								<option value="7">7</option>
 								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-							</select>
+							</select> 명
 						</td>
 					</tr>
 				</table>
@@ -410,7 +477,8 @@
 					<tr>
 						<th>난이도</th>
 						<td style="text-align: center;">
-							<select name="clsLevel" style="width: 30%;">
+							<select id="clsDifficulty" name="clsLevel" style="width: 30%;">
+								<option value="" selected disabled>난이도</option>
 								<option value="상">상</option>
 								<option value="중">중</option>
 								<option value="하">하</option>
@@ -418,7 +486,7 @@
 						</td>
 						<th>소모 칼로리</th>
 						<td>
-							<input type="number" name="calorie"> kcal
+							<input type="number" id="clsPerCalories" name="calorie"> kcal
 						</td>
 					</tr>
 					<tr>
@@ -428,14 +496,14 @@
 					<tr>
 						<th style="vertical-align: middle;">강의 내용 소개</th>
 						<td colspan="3">
-							<textarea id="clsInfo" name="clsInfo">수강생 여러분들이 참고할 수 있는 자세한 설명을 작성해주세요</textarea>
+							<textarea id="clsInformation" name="clsInfo">수강생 여러분들이 참고할 수 있는 자세한 설명을 작성해주세요</textarea>
 							<script type="text/javascript">CKEDITOR.replace("clsInfo")</script>
 				</td>
 			</tr>
 			<tr>
 				<th style="vertical-align: middle;">커리큘럼 상세 정보</th>
 				<td colspan="3">
-					<textarea id="curriculum" name="curriculum">강의의 상세한 커리큘럼을 작성해주세요</textarea>
+					<textarea id="clsCurriculum" name="curriculum">강의의 상세한 커리큘럼을 작성해주세요</textarea>
 					<script type="text/javascript">CKEDITOR.replace("curriculum")</script>
 								</td>
 							</tr>
@@ -458,15 +526,15 @@
 							
 							<tr>
 								<td style="text-align: center;">
-									<input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택">
+									<input type="file" id="thumbnailUpload" name="thumbnail" placeholder="파일 선택" accept="image/*">
 								</td>
 								<td>	
-									<input type="file" id="titleUpload" name="title" placeholder="파일 선택">
+									<input type="file" id="titleUpload" name="title" placeholder="파일 선택" accept="image/*">
 								</td>
 							</tr>
 							<tr>
 								<th>강의 주소</th>
-								<td colspan="3"><input type="text" name="meetUrl" style="width: 100%;"></td>
+								<td colspan="3"><input type="text" id="clsUrl" name="meetUrl" placeholder="Google Meet 주소를 입력해주세요(https:// 반드시 포함시켜주세요!!)" style="width: 100%;"></td>
 							</tr>
 						</table>
 						
@@ -513,17 +581,6 @@
 
     <!-- Core plugin JavaScript-->
     <script src="../resources/trainer/trainermainvendor/jquery-easing/jquery.easing.min.js"></script>
-    
-    <!-- validation -->
-    <script>
-    	
-    $(function(){
-    	
-		
-    	
-    });
-    
-    </script>
 	
 </body>
 </html>

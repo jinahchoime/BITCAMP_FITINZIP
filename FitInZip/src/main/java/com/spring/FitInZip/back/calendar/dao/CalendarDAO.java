@@ -11,6 +11,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.FitInZip.back.calendar.dto.CalendarClassDTO;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 
 @Repository("calendarDAO")
@@ -60,6 +61,16 @@ public class CalendarDAO {
 	
 	public int countDayOfMonth(Map<String, String> map) {
 		return mybatis.selectOne("calendar.countDayOfMonth", map);
+	}
+	
+	// 신청한 수업 정보를 조회하기 위한 코드 조회
+	public List<String> getClsCode(String mem_id){
+		return mybatis.selectList("calendar.selectClsCode", mem_id);
+	}
+	
+	// 회원이 신청한 수업 정보를 조회
+	public CalendarClassDTO getClsInfo(String cls_code){
+		return mybatis.selectOne("calendar.selectClsInfo", cls_code);
 	}
 	
 }

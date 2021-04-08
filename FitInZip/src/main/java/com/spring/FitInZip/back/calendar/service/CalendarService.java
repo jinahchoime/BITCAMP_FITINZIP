@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.spring.FitInZip.back.calendar.dto.CalendarClassDTO;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 
@@ -14,4 +15,6 @@ public interface CalendarService {
 	CalendarVO chkAttendance(String mem_id);
 	int insertAttendance(String mem_id);
 	int countDayOfMonth(Map<String, String> map);
+	List<String> getClsCode(String mem_id);
+	CalendarClassDTO getClsInfo(String cls_code);
 }

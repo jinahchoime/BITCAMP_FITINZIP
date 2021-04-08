@@ -3,8 +3,11 @@ package com.spring.FitInZip.view.mypage;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +40,7 @@ import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.calendar.dto.CalendarClassDTO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
@@ -169,6 +173,43 @@ public class MypageController {
 			  
 		}
 		return map;
+	}
+	
+	// 신청한 수업 정보 조회
+	@RequestMapping("/getClsInfo")
+	@ResponseBody
+	public List<CalendarClassDTO> getClsInfo(HttpSession session) throws ParseException {
+		String id = ((MemberVO)session.getAttribute("member")).getId();
+		
+		// id를 사용하여 cls_code 목록 조회
+		List<String> clsCode = calendarService.getClsCode(id);
+		
+		System.out.println("clsCode : " + clsCode);
+		
+		// CalendarClassDTO 타입의 List 생성
+		List<CalendarClassDTO> clsInfo = new ArrayList<CalendarClassDTO>();
+		
+		for (String code : clsCode) {
+			CalendarClassDTO dto = calendarService.getClsInfo(code);
+			
+			SimpleDateFormat converter = new SimpleDateFormat("yyyy-mm-dd");
+			Date temp = converter.parse(dto.getStartDate());
+			Date temp2 = converter.parse(dto.getEndDate());
+			dto.setStartDate(converter.format(temp));
+			dto.setEndDate(converter.format(temp2));
+			
+			clsInfo.add(dto);
+		}
+		
+		System.out.println("clsInfo : " + clsInfo);
+		
+		return clsInfo;
+	}
+	
+	// cls_code 조회
+	private List<String> getClsCode(String mem_id){
+		
+		return null;
 	}
 	
 	// 캘린더 끝

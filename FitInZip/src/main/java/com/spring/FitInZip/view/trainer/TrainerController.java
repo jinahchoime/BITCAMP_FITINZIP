@@ -149,9 +149,10 @@ public class TrainerController {
     	}
     	String profileImg = member.getMemFileName();
     	
-    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
-    	model.addAttribute("profileImg", profileImg);
-    		
+    	if(profileImg != null) {
+	    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
+	    	model.addAttribute("profileImg", profileImg);
+    	}
     	
     	String reqClass = trainerService.mainPage1(member);
      	System.out.println("Controller reqClass: " + reqClass);
@@ -197,8 +198,11 @@ public class TrainerController {
     	RegisterTrainerDTO info = trainerService.trainerInfo(dto);
     	System.out.println("trainerINFO: " + info);
     	String profileImg = info.getMemFileName();
-    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
-    	model.addAttribute("profileImg", profileImg);
+    	
+    	if(profileImg != null) {
+	    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
+	    	model.addAttribute("profileImg", profileImg);
+    	}
     	
     	model.addAttribute("trainerInfo", info);
     	

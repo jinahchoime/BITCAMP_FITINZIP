@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.spring.FitInZip.back.calendar.dao.CalendarDAO;
+import com.spring.FitInZip.back.calendar.dto.CalendarClassDTO;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 
@@ -49,5 +50,16 @@ public class CalendarServiceImpl implements CalendarService {
 	public int countDayOfMonth(Map<String, String> map) {
 		return calendarDAO.countDayOfMonth(map);
 	}
+
+	@Override
+	public List<String> getClsCode(String mem_id) {
+		return calendarDAO.getClsCode(mem_id);
+	}
+
+	@Override
+	public CalendarClassDTO getClsInfo(String cls_code) {
+		return calendarDAO.getClsInfo(cls_code);
+	}
+	
 	
 }

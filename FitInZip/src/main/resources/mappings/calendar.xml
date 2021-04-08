@@ -30,6 +30,20 @@
 		where mem_id = #{mem_id} and attend_date like #{attend_date}
 	</select>
 	
+	<!-- 수강신청한 강의의 정보를 조회하기 위한 수업 코드 조회 -->
+	<select id="selectClsCode" parameterType="String" resultType="String">
+		select cls_code
+		from payment
+		where mem_id = #{mem_id}
+	</select>
+	
+	<!-- 캘린더에 표시할 수업 정보 조회 -->
+	<select id="selectClsInfo" parameterType="String" resultType="CalendarClassDTO">
+		select cls_name, start_date, end_date, yoil
+		from fit_class
+		where cls_code = #{cls_code}
+	</select>
+	
 </mapper>
 
 
