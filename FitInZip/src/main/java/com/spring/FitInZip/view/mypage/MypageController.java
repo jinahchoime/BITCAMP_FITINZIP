@@ -402,7 +402,6 @@ public class MypageController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		
-		System.out.println("리스트::트트트트트 :: " + mypageService.getproductList(dto));
 		
 		return mypageService.getproductList(dto);
 	}

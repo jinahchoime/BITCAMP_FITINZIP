@@ -17,11 +17,32 @@
 			dataType : "json",
 			success : function(returnValue){
 				console.log(returnValue);
+				var clsCount = returnValue[0].clscount;
 				var clsParticipation = (returnValue[0].checkinCount / (returnValue[0].clscount * returnValue[0].lapseCount)) * 100;
-				$('#clsCount').text(returnValue[0].clscount + "회");
-				$('#clsParticipation').text(parseInt(clsParticipation)+"%");
-				$('#clsTime').text(returnValue[0].timeCount + "시간"); //이거 한번 확인하기
-				$('#clsCalorie').text(returnValue[0].calorieCount + "kcal");
+				var clsTime = returnValue[0].timeCount;
+				var clsCalorie = returnValue[0].calorieCount;
+				if(clsCount != null){
+					$('#clsCount').text(clsCount + "회");
+				}else{
+					$('#clsCount').text(0 + "회");
+				}
+				
+				if(clsParticipation != null){
+					$('#clsParticipation').text(parseInt(clsParticipation)+"%");
+				}else{
+					$('#clsParticipation').text(0+"%");
+				}
+				
+				if(clsTime != null){
+					$('#clsTime').text(clsTime + "시간"); //이거 한번 확인하기
+				}else{
+					$('#clsTime').text(0 + "시간");
+				}
+				if(clsCalorie != null){
+					$('#clsCalorie').text(clsCalorie + "kcal");
+				}else{
+					$('#clsCalorie').text(0 + "kcal");
+				}
 			},
 			error : function(){
 				alert("실패!");

@@ -48,5 +48,8 @@ public class UserClsDTO {
 	/*클래스 카테고리 - 클래스내역에서 사용됨*/
 	private String cate;
 	
+	/*이미지명*/
+	private String thumbnailFileName;
+	
 	
 }

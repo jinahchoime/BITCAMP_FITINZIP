@@ -7,7 +7,7 @@
 	    </div>
 	    <div class="submenu">
 	        <ul class="clearfix pl20">
-	            <li><a href="/mypage/std" class="nav_in">나의 클래스</a>
+	            <li><a class="nav_in" style="text-decoration: none;">나의 클래스</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
 	                        <li><a href="/clsHistory" class="adClick">클래스내역</a></li>
@@ -20,7 +20,7 @@
 	    </div>
 	    <div class="submenu">
 	        <ul class="clearfix pl20">
-	            <li><a href="/mypage/payhis" class="nav_in">상품</a>
+	            <li><a class="nav_in" style="text-decoration: none;">상품</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
 	                        <li><a href="/productHistory" class="adClick">주문조회</a></li>
@@ -31,7 +31,7 @@
 	    </div>
 	    <div class="submenu">
 	        <ul class="clearfix pl20">
-	            <li><a href="javascript:;" class="nav_in">회원정보</a>
+	            <li><a class="nav_in" style="text-decoration: none;">회원정보</a>
 	                <div class="nav_item_in">
 	                    <ul class="clearfix">
 	                        <li><a href="/calendar" class="adClick">나의일정</a></li>
