@@ -23,7 +23,6 @@ import com.spring.FitInZip.back.payment.vo.PaymentVO;
 @Controller
 @SessionAttributes({"postcode", "detailAddress", "extraAddress", "directMsg"})
 public class ProductPayController {
-
 	
 	@Autowired 
 	private ProductPayService productPayService;
@@ -68,7 +67,7 @@ public class ProductPayController {
 	
 	//결제완료 화면 
 	@RequestMapping("/productPayFin")
-	public String productPayFin(PaymentVO pvo, OrderVO ovo, OrderDetailVO dvo, HttpSession session, HttpServletRequest request ) {
+	public String productPayFin(PaymentVO pvo, OrderVO ovo, HttpSession session, HttpServletRequest request ) {
 		
 		String mem_id = ((MemberVO)session.getAttribute("member")).getId();
 		
@@ -80,13 +79,14 @@ public class ProductPayController {
 		String key = productPayService.getOrderSeq();
 		String orderNum = "S" + str + "_" + key;
 		
+		//payment
 		pvo.setOrderNum(orderNum);
 		pvo.setMemId(mem_id);
 		pvo.setOriginPrice(Integer.parseInt("" + session.getAttribute("totalPrice")));
 		pvo.setPaidPrice(Integer.parseInt("" + session.getAttribute("totalPrice")));
 		pvo.setPayMethod("카카오페이");
 		
-		
+		//pro_order
 		ovo.setOrderNum(orderNum);
 		ovo.setMemId(mem_id);
 		ovo.setTotalPrice(Integer.parseInt("" + session.getAttribute("totalPrice")));
@@ -97,11 +97,21 @@ public class ProductPayController {
 		
 		System.out.println(ovo);
 		
-		dvo.setOrderNum(orderNum);
-		dvo.setProNum("" + session.getAttribute("proNum"));
-		dvo.setAmount(Integer.parseInt("" + session.getAttribute("amount")));
+		//order_detail 
+		List<CartDTO> cartList = productPayService.getPayList(mem_id);
+		OrderDetailVO dvo = new OrderDetailVO();
 		
-		productPayService.productPayFin(pvo, ovo, dvo);
+		for(CartDTO dto : cartList) {
+			dvo.setOrderNum(orderNum);
+			dvo.setProNum(dto.getProNum());
+			dvo.setAmount(dto.getAmount());
+			productPayService.productPayFin(dvo);
+		}
+		
+		productPayService.productPayFin(pvo, ovo);
+		
+		//주문완료시 장바구니 비우기
+		productPayService.deleteCart(mem_id);
 		
 		return "pay/productPayFin";
 		

@@ -23,14 +23,27 @@ public class ProductPayServiceImpl implements ProductPayService{
 	}
 
 	@Override
-	public void productPayFin(PaymentVO pvo, OrderVO ovo, OrderDetailVO dvo) {
-		productPayDAO.productPayFin(pvo, ovo, dvo);
+	public void productPayFin(PaymentVO pvo, OrderVO ovo) {
+		productPayDAO.productPayFin(pvo, ovo);
+		
 	}
-
+	
+	@Override
+	public void productPayFin(OrderDetailVO dvo) {
+		productPayDAO.productPayFin(dvo);
+		
+	}
+	
 	@Override
 	public String getOrderSeq() {
 		return productPayDAO.getOrderSeq();
 	}
+
+	@Override
+	public void deleteCart(String mem_id) {
+		productPayDAO.deleteCart(mem_id);
+	}
+
 	
 	
 }

@@ -8,7 +8,6 @@
 <title>결제 완료</title>
 <style>
 .title {
-	padding-top: 400px; 
 	text-align: center;
 	vertical-align: middle;
 }
@@ -21,6 +20,7 @@
 	border: 1px solid #111;
 	width: 500px;
 	margin-left: 400px;
+	margin-top: 150px;
 }
 .a-btn {
 	color: #111;

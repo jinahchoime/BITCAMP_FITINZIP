@@ -38,7 +38,6 @@ public class CartController {
 		
 		model.addAttribute("cartList", cartList);
 		
-		//session.setAttribute("cartList", cartList);
 		return "cart/cart";
 	}
 	

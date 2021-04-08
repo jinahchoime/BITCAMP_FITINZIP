@@ -22,9 +22,12 @@ public class ProductPayDAO {
 	}
 	
 	//구매내역 payment, pro_order, order_detail 테이블에 insert
-	public void productPayFin(PaymentVO pvo , OrderVO ovo, OrderDetailVO dvo) {
+	public void productPayFin(PaymentVO pvo , OrderVO ovo) {
 		mybatis.insert("PayDAO.insertPayment", pvo);
 		mybatis.insert("PayDAO.insertProOrder", ovo);
+	}
+	
+	public void productPayFin(OrderDetailVO dvo) {
 		mybatis.insert("PayDAO.insertOrderDetail", dvo);
 	}
 	
@@ -33,5 +36,9 @@ public class ProductPayDAO {
 		return mybatis.selectOne("PayDAO.propaySequence");
 	}
 	
+	//주문시 장바구니 비우기
+	public void deleteCart(String mem_id) {
+		mybatis.delete("PayDAO.deleteCart", mem_id);
+	}
 	
 }

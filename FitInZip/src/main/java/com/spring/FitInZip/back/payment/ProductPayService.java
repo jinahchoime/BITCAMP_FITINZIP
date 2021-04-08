@@ -10,6 +10,8 @@ import com.spring.FitInZip.back.payment.vo.PaymentVO;
 public interface ProductPayService {
 
 	List<CartDTO> getPayList(String mem_id);
-	void productPayFin(PaymentVO pvo, OrderVO ovo, OrderDetailVO dvo);
+	void productPayFin(PaymentVO pvo, OrderVO ovo);
+	void productPayFin(OrderDetailVO dvo);
 	String getOrderSeq();
+	void deleteCart(String mem_id);
 }

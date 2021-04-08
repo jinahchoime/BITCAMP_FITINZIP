@@ -38,4 +38,7 @@
 	VALUES ( #{orderNum}, #{proNum} , #{amount})
 	</insert>
 	
+	<delete id="deleteCart" parameterType="String">
+	DELETE FROM CART WHERE MEM_ID = #{memId}
+	</delete>
 </mapper>
