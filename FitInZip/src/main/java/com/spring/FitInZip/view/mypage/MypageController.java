@@ -343,7 +343,20 @@ public class MypageController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		
-		return mypageService.getUserWishCls(dto);
+		List<UserClsDTO> userclsList = mypageService.getUserWishCls(dto);
+		
+		try {
+			for (UserClsDTO userClsDTO : userclsList) {
+		         String fileName = userClsDTO.getThumbnailFileName();
+		         System.out.println("fileName : " + fileName);
+		         fileName = fileName.substring(fileName.indexOf("resources"));
+		         userClsDTO.setThumbnailFileName(fileName);
+		      }
+		}catch(NullPointerException e){
+			
+		}
+		
+		return userclsList;
 		
 	}
 	
