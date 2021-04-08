@@ -17,6 +17,7 @@ import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponInfoVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
+import com.spring.FitInZip.back.mypage.MypageService;
 import com.spring.FitInZip.back.order.vo.OrderDetailVO;
 import com.spring.FitInZip.back.order.vo.OrderVO;
 import com.spring.FitInZip.back.payment.ProductPayService;
@@ -26,11 +27,15 @@ import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 
 @Controller
-@SessionAttributes({"postcode", "address", "detailAddress", "extraAddress", "directMsg"})
+@SessionAttributes({"postcode", "address", "detailAddress", "extraAddress", "directMsg", "sessionOrderNum"})
 public class ProductPayController {
 	
 	@Autowired 
 	private ProductPayService productPayService;
+	
+	//마이페이지 서비스
+	@Autowired
+	private MypageService mypageService;
 	
 	//결제 페이지 가져오기
 	@RequestMapping("/productPay")
@@ -126,18 +131,31 @@ public class ProductPayController {
 	
 	//주문서 상세 페이지 
 	@RequestMapping("/orderDetail")
-	public String orderDetail(Model model, String orderNum, HttpSession session) {
-
+	public String orderDetail(Model model, String orderNum, HttpSession session, HttpServletRequest request) {
+		
+		/*다슬 - 마이페이지 메뉴 내 프로필 이미지*/
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		member = mypageService.getMember(member.getId());
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
 		//상품정보
-		List<OrderDetailDTO> orderDetail = productPayService.orderDetail("S20210408_21");
+		List<OrderDetailDTO> orderDetail = productPayService.orderDetail(request.getParameter("orderNum"));
 		model.addAttribute("orderDetail", orderDetail);
 		
 		//배송지 정보
 		OrderDetailDeliDTO deli = new OrderDetailDeliDTO();
-		deli = productPayService.orderDetailDeli("S20210408_21");
+		deli = productPayService.orderDetailDeli(request.getParameter("orderNum"));
 		model.addAttribute("deli", deli);
 		
-		
+		session.setAttribute("sessionOrderNum", request.getParameter("orderNum"));
 		
 		return "pay/productOrderDetail";
 	}

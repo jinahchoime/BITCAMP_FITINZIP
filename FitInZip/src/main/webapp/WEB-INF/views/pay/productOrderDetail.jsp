@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>주문서</title>
 <link href="../resources/mypage/css/mypage.css" rel="stylesheet"></link>
-<link rel="stylesheet" type="text/css" href="../resources/product/css/productOrderDetail.css" />
+<link href="../resources/mypage/css/cls.css" rel="stylesheet"></link>
 </head>
 <body>
 	 <!-- Navigation -->
@@ -18,11 +18,12 @@
     	<!-- 마이페이지 메뉴  -->
 		<jsp:include page="../mypage/mypageMenu.jsp"></jsp:include>
 		
-		<div>
-			<div class="od-container">
+		<div style="display:inline-block;" class="mt200 ml30">
+		<p class="tit_area big mb10">주문조회</p>
+			<div class="table_basic_board board1">
 				<p class="big-title">상품 정보</p>
+					<p>주문번호: ${sessionOrderNum }</p>
 					<c:forEach var="orderDetail" items="${orderDetail }">
-						<p>주문번호: ${orderDetail.orderNum }</p>
 						<p><img style="width:120px; height:120px;" src="${orderDetail.proImg }"></p>
 						<p>상품번호 :  ${orderDetail.proNum }</p>
 						<p>상품명 : ${orderDetail.proName }</p>
