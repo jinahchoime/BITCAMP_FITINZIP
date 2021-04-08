@@ -61,10 +61,10 @@
 			</ul>
 		</nav>
 		
-		<div class="category2">
+		<!-- <div class="category2">
 		
 		
-		</div>
+		</div> -->
 	</div>
 </body>
 </html>

@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.FitInZip.back.member.service.EmailService;
 import com.spring.FitInZip.back.member.vo.MemberVO;
@@ -26,6 +28,18 @@ public class EmailController {
 		System.out.println("loginMain 실행중");
 		
 		return "login/loginForm";
+	}
+	
+	@RequestMapping("/memberLogout")
+	public String memberLogout(HttpSession session, SessionStatus status, RedirectAttributes rttr) {
+		System.out.println(">>>로그아웃 처리");
+	      // 1. 세션초기화(세션객체를 종료)
+	      //session.invalidate(); // 현재 사용중인 세션을 무효화처리
+	      if(!status.isComplete()) {
+	         status.setComplete();
+	      }
+		
+		return "main";
 	}
 	
 	

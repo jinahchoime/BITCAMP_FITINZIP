@@ -32,6 +32,7 @@ public class ClsListDTO {
 	private Integer maxMem;			// 최대인원
 	private Integer join;			// 신청인원
 	private Integer reminder;		// 남은인원
+	private String thumbnailFileName;
 	
 	public void setReminder() {
 		this.reminder = maxMem - join;

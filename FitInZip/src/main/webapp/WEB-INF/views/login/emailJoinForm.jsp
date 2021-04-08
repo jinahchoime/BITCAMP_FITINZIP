@@ -270,7 +270,7 @@
 	<!-- Navigation -->
   	<jsp:include page="../nav.jsp"></jsp:include>
   
-	<section class="join_wrap" v-else>
+	<section class="join_wrap">
 		<div class="contents">
 			<div class="page_title">
                 <h2 v-if="isEmail">회원가입</h2>

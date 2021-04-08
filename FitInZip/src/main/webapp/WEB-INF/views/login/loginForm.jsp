@@ -12,15 +12,37 @@
 <script src="https://kit.fontawesome.com/fa609ec6e5.js" crossorigin="anonymous"></script>
 <script src="http://developer.kakao.com/sdk/js/kakao.js"></script>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper"></script>
-<script type="text/javascript" src="/resources/login/js/common.js?2021032610"></script>
-<script type="text/babel" src="/resources/login/js/vue.common.js?20210326101"></script> -->
-
 
 
 <script>
+//이메일 유효성 검사
+	var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+
 	$(function(){
+		
+		// 아이디 중복 검사
+		$("#id").blur(function() {
+			var id = document.getElementById("id").value; 	
+			
+			if (!e_RegExp.test(id)) {
+				$("#idMsg").text("아이디는 이메일형식으로 입력해주세요");
+				$("#idMsg").css("display", "flex");
+			 	$("#id").addClass("orange_border");
+			 	
+			} else {
+			 	$("#idMsg").text("");
+				$("#idMsg").css("display", "none");				
+				$("#id").removeClass("orange_border");
+					 
+		   	}
+		});
+		
+		
+		
+		
+		
+		
 		$("#loginBtn").on("click", function() {
 
 			let formData = new FormData(this.form);
@@ -122,33 +144,28 @@
 						<article>
 							<form>
 								<div class="form-box-input adClick" data-adarea="피클_이메일입력">
-				                    <input type="text" name="id" v-model="id" ref="userEmail" required="required" placeholder="이메일 입력" :class="{ error: error.name == 'userEmail'}" @keyup="{error.name == 'userEmail' ? error.name = '': ''}">
-				                    <!-- <div class="myform_box">
-				                        <span class="clear"></span>
-				                    </div>
-				                    <div class="info-msg">
-				                        <label class="error"><span class="msg-box error" v-show="error.name == 'userEmail'">{{ error.msg }}</span></label>
-				                    </div> -->
+				                    <input type="text" name="id" id="id" required="required" placeholder="이메일 입력">
 				                </div>
+				                <div id="idMsg" class="error_next_box" style="display:none; margin-top: 5px; margin-bottom: 5px;">아이디 에러</div>
+				                
 				                <div class="form-box-input adClick" data-adarea="피클_비밀번호입력">
-				                    <input type="password" name="password" id="userPassword" v-model="userPassword" required="required" placeholder="비밀번호 입력" maxlength="20" :class="{ error: error.name == 'userPassword'}" @keyup="{error.name == 'userPassword' ? error.name = '': ''}" @keyup.13="loginEmail">
-				                    <!-- <div class="myform_box">
-				                        <span class="clear"></span>
-				                    </div>
-				                    <div class="info-msg">
-				                        <label class="error"><span class="msg-box error" v-show="error.name == 'userPassword'">{{ error.msg }}</span></label>
-				                    </div> -->
+				                    <input type="password" name="password" id="userPassword" placeholder="비밀번호 입력">			                   
 				                </div>
 				                <input type="button" id="loginBtn" class="btn_basic full mt15 adClick" value="로그인">
-				                <!-- <a href="javascript:;" class="btn_basic full mt5 adClick" data-adarea="피클_로그인" id="loginEmail" :class="{ disabled: !isInputComplete}" @click="loginEmail">로그인</a> -->
+				          
 			                </form>
 
 							<a href="javascript:kakaoLogin();" class="btn_basic full big icn-social kk mt15 adClick">카카오톡으로 시작하기</a>
 						</article>
+	
 						<div class="last-box mt40">
+							
 							<div class="gray7 mt30">
 								아직 계정이 없으신가요?
 								<a href="emailJoinForm" data-adarea="피클_가입하기" class="ml10 white bold adClick">이메일로 회원가입</a>
+							</div>
+							<div class="gray7 mt30">
+								<a href="emailJoinForm" data-adarea="피클_가입하기" class="ml10 gray adClick">비밀번호 재설정</a>
 							</div>
 						</div>
 					</div>
