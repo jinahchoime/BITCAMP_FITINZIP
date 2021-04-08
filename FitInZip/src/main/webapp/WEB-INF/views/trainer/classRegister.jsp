@@ -416,7 +416,7 @@
 									<option value="CT_WT">웨이트</option>
 									<option value="CT_FT">피트니스</option>
 									<option value="CT_YG">요가</option>
-									<option value="CT_FL">필라테스</option>
+									<option value="CT_PL">필라테스</option>
 								</select>
 							</td>
 							<td colspan="5">
