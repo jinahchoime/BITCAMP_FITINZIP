@@ -11,6 +11,7 @@ import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponInfoVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
+import com.spring.FitInZip.back.payment.vo.PaymentVO;
 
 @Repository
 public class ProductPayDAO {
@@ -30,6 +31,10 @@ public class ProductPayDAO {
 	//클래스 결제 시 쿠폰 상세내역 (ajax)
 	public CouponDetailDTO couponDetail(String couponCode) {
 		return mybatis.selectOne("PayDAO.couponDetail", couponCode);
+	}
+	
+	public void clsPayment(PaymentVO pvo) {
+		mybatis.insert("PayDAO.insertClsPayment", pvo);
 	}
 	
 }
