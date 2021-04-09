@@ -15,11 +15,20 @@
 
 
 <script>
-//이메일 유효성 검사
+
+	
+	
+	//이메일 유효성 검사
 	var e_RegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 
 	$(function(){
+		
+		var toastr = new Toastr({
+			position:'topCenter',
+			animation:'slide',
+			timeout: 2500
+		});
 		
 		// 아이디 중복 검사
 		$("#id").blur(function() {
@@ -59,13 +68,13 @@
 				  console.log(result);
 				  
 				  if (result == true) {
-					  alert("로그인 완료");
+					  /* alert("로그인 완료"); */
 					  /* alert("이전페이지 : " + document.referrer); */
 					  /* window.history.go(-1); */
-					  location.href=document.referrer;
+					  location.href = document.referrer;
 					  
 				  } else {
-					  alert("아이디, 비밀번호를 확인해주세요.");
+					  toastr.show('아이디 또는 비밀번호를 확인해주세요.');
 				  }
 				  				  
 				  
@@ -104,8 +113,8 @@
 						}).then(function (isJoin) {
 							/* alert("가입여부 : " + isFirst); */
 							if (isJoin == true) {
-								alert("로그인되었습니다");
-								location.href="/";
+								/* alert("로그인되었습니다"); */
+								location.href = document.referrer;
 							} else {
 								/* 추가정보 가입페이지로 이동 */
 								document.write(''

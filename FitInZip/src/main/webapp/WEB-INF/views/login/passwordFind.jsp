@@ -9,9 +9,36 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 
 <script>
-
-	function send_email() {
-		alert("클릭");
+	var toastr = new Toastr({
+		position:'topCenter',
+		animation:'slide',
+		timeout: 2500,
+		theme: 'orange'
+	});
+	
+	
+	function passwordFind() {
+		var id = document.getElementById("id").value;
+		
+		$.ajax({
+			url: "/emailCheck",
+			type: "POST",
+			async: false,
+			datatype: "json",
+			data: {"id" : id},
+			success : function(result) {
+				if(result == true) {
+					alert(" 패스워드 파인드에서 성공으로 옴")
+					sendEmail();	
+				} else {
+					toastr.show('가입하신 정보가 없습니다.');
+				}				
+			}
+		})	
+	};
+	
+	
+	function sendEmail() {
 		var result = Math.floor(Math.random() * 1000000)+100000;
 		if(result>1000000){
 		   result = result - 100000;
@@ -28,13 +55,13 @@
 		
 		emailjs.send("service_1wzu19l", "template_a8voq5f", templateParams) //이를 전송합니다.
 		.then(function(response){
-			alert("메일을 전송하였습니다."); 
+			
 			passwordUpdate(id, result);
 			
 		}, function(error){
 			alert("메일 전송 실패!"); 
 		})
-	};
+	}
 
 	
 	function passwordUpdate(id, newPassword) {
@@ -46,8 +73,8 @@
 			type: "POST",
 			data: { "id" : id, "password" : newPassword },
 			success : function(data) {
-				alert("성공했나");
-				location.href="/";
+				toastr.show('메일로 임시비밀번호를 발급해드렸습니다.');
+				history.back;
 			},
 			error : function(data) {
 				alert('error');
@@ -76,16 +103,9 @@
 	            <div class="form-box-input">
 	                <input type="text" name="id" id="id" placeholder="이메일 입력">
 	            </div>
-	            <!--div class="form-box-input">
-					<input type="text" name="idfind_call" id="idfind_call" placeholder="휴대폰번호 입력" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11">
-					<div class="myform_box">
-						<span class="clear"></span>
-					</div>
-					<div for="idfind_call" class="info-msg">
-						<label id="findcall-error" class="callerror" for="idfind_call"><span class="msg-box iderror">휴대폰번호를 입력해주세요.</span></label>
-					</div>
-				</div-->
-	            <a href="javascript:;" class="btn_basic full mt15" style='margin-bottom:130px;' onclick="send_email()">이메일로 비밀번호 찾기</a>
+	            <div id="idMsg" class="error_next_box" style="display:none; margin-top: 5px; margin-bottom: 5px;">아이디 에러</div>
+	             
+	            <a href="javascript:;" class="btn_basic full mt15" style='margin-bottom:130px;' onclick="passwordFind()">이메일로 비밀번호 찾기</a>
 	        </article>
 	    </div>
 	</div>

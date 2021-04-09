@@ -19,7 +19,7 @@ Documentation URI: https://www.voidtricks.com/toastr/
     left: 50%;
     margin-left: -250px;
     text-align: center;
-    background: rgb(0, 0, 0, 0.4);
+    background: rgb(255, 102, 0, 0.6);
     font-family: 'Roboto',sans-serif;
     color: #fff;
     font-weight: 800;
@@ -31,6 +31,7 @@ Documentation URI: https://www.voidtricks.com/toastr/
     opacity: 0;
     z-index: 999999;
 }
+
 .toastrWrap.topCenter{
     top: 40px;
     bottom: inherit;
