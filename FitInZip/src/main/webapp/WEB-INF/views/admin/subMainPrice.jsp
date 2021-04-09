@@ -155,8 +155,10 @@ $(document).ready(function() {
 		});
 	}
 	function getSubMainchartOne(data){
+		data.forEach(function(element){
+			console.log("이것인가??!"+element);	
+		})
 		
-		console.log(data);
 /* 		const labels = data.map(v => v.cdate);
 		const values = data.map(v => v.rprice);
 		console.log(labels);
@@ -172,6 +174,7 @@ $(document).ready(function() {
 	    $('#createDiv').append('<canvas id="subMainChartStart" style="margin-top: 60px;"></canvas>');
 		
 		let myChartStart = document.getElementById('subMainChartStart').getContext('2d');
+
 		
 		let getChartOne = new Chart(myChartStart, {
 			type : 'bar', //pie, line, doughnut, palarArea, bar

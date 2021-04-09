@@ -1,6 +1,7 @@
 package com.spring.FitInZip.view.admin;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.service.AdminService;
+import com.spring.FitInZip.back.admin.vo.GetChartPeopleData;
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSPeopleDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
@@ -253,8 +256,50 @@ public class AdminController {
 		
 		return "admin/subMainPart";
 	}
+	@RequestMapping("/subMainPeople")
+	public String subMainPeopel(HttpSession session, Model model) {
+			/* 로그인 처리부분 */
+			MemberVO vo = (MemberVO) session.getAttribute("admin");
+			model.addAttribute("vo",vo);
+			
+		return "admin/subMainPeople";
+	}
+	@RequestMapping("/chartPeopleStartOne")
+	@ResponseBody
+	public Map<String, List<GetChartPeopleData>> getChartPeopleStartOne(String btnParam){
+		System.out.println("내가누른 버튼 월 : " + btnParam);
+		List<GetChartPeopleData> list = adminService.getChartPeopleStartOne(btnParam);
+		List<GetChartPeopleData> list2 = adminService.getChartPeopleStartTwo(btnParam);
+		Map<String, List<GetChartPeopleData>> map = new HashMap<String, List<GetChartPeopleData>>();
+		map.put("listOne", list);
+		map.put("listTwo", list2);
+		System.out.println(map.toString());
+		
+		return map;
+	}
 	
-	
+	@RequestMapping("/chartPeopleStartTwo")
+	@ResponseBody
+	public Map<String, List<GetChartPeopleData>> chartPeopleStartTwo(String btnParam){
+		System.out.println("내가누른 버튼 월 : " + btnParam);
+		List<GetChartPeopleData> list = adminService.getChartPeopleOne(btnParam);
+		List<GetChartPeopleData> list2 = adminService.getChartPeopleTwo(btnParam);
+		Map<String, List<GetChartPeopleData>> map = new HashMap<String, List<GetChartPeopleData>>();
+		map.put("listOne", list);
+		map.put("listTwo", list2);
+		System.out.println(map.toString());
+		
+		return map;
+	}
+	@RequestMapping("/getChartPeopleBBS")
+	public String getChartPeopleBBS(String btnParam, Model model){
+		System.out.println(">>id : " +btnParam);
+		List<GetSubBBSPeopleDTO> list = adminService.getChartPeopleBBS(btnParam);
+		System.out.println(">>짜쓰~ : " + list);
+		model.addAttribute("subPeopleBBS",list);
+		
+		return "admin/subMainPeoplePart";
+	}
 	@RequestMapping("/test")
 	public String test() {
 		System.out.println("test 시작");

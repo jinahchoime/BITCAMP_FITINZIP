@@ -8,12 +8,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.FitInZip.back.admin.vo.GetChartPeopleData;
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSPeopleDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
@@ -113,5 +115,20 @@ public class AdminDAO {
 		System.out.println("왜안나오노 "+list);
 		//return list;
 		return list;
+	}
+	public List<GetChartPeopleData> getChartPeopleStartOne(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleStartOne",btnParam);
+	}
+	public List<GetChartPeopleData> getChartPeopleStartTwo(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleStartTwo",btnParam);
+	}
+	public List<GetChartPeopleData> getChartPeopleOne(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleOne",btnParam);
+	}
+	public List<GetChartPeopleData> getChartPeopleTwo(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleTwo",btnParam);
+	}
+	public List<GetSubBBSPeopleDTO> getChartPeopleBBS(String btnParam){
+		return mybatis.selectList("AdminDAO.getChartPeopleBBS",btnParam);
 	}
 }
