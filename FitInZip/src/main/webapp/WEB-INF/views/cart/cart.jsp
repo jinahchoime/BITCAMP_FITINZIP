@@ -98,7 +98,7 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
 	<article class="contents margin-xsmall">
-		<h2 class="cart-title">장바구니</h2>
+		<p class="cart-title">장바구니</p>
 		
 		<div class="item-container">
 			<div class="item-list-wrap" id="cart">
@@ -219,7 +219,7 @@
 					</span>
 					<span class="delivery-price">
 						<span class="label">예상 배송비</span>
-						<span class="price"><strong>0원</strong></span>
+						<span class="price" style="padding-left: 200px;"><strong>0원</strong></span>
 					</span>
 				</div>
 				<div class="total-price">

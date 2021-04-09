@@ -22,12 +22,14 @@
 <script>
 	$(function(){
 		$(".addcart-btn").on("click", function(){
-			alert("장바구니 담기 ajax 실행");
+			//alert("장바구니 담기 ajax 실행");
 			
 			if (${empty sessionScope.member.getId()} ) {
 				alert("로그인 후 이용가능합니다.");
 				location.href="/loginMain";
-			}
+				return;
+			} 
+				
 			
 			
 			let formData = new FormData(this.form);
@@ -39,7 +41,7 @@
 			fetch("/insertCart", options) 
 				.then(async function (response) {
 					let result = await response.json();
-			
+					alert("장바구니에 추가되었습니다.");
 				})
 				.catch(err => {
 					//alert("오류 발생: " + err);
@@ -64,7 +66,7 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 
 	<div class="product-list">
-	<h1 class="product-title">홈트용품</h1>
+	<p class="product-title">홈트용품</p>
 		<div class="container" style="max-width: 1600px;">
 			<div class="row row-cols-3" >
 			
@@ -75,7 +77,7 @@
 						</button>
 					
 			  	<form action="/insertCart" class="product-form" method="post"> 
-						<h4 class="product-name">${productList.proName }</h4>
+						<p class="product-name">${productList.proName }</p>
 						<p class="product-price">${productList.proPrice }원</p>
 						
 						<c:if test="${productList.proPrice ne '2400' }">

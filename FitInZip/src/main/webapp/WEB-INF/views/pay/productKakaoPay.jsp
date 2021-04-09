@@ -10,11 +10,11 @@
 	background: transparent;
 	outline: none;
 	border: none;
+	margin: 180px auto;
+    display: inherit;
+    width: 240px;
 }
-#kakao-img {
-	padding-top: 70px;
-	padding-left: 130px;
-}
+
 
 </style>
 <link rel="stylesheet" type="text/css" href="../resources/product/css/productKakaoPay.css" />

@@ -4,49 +4,41 @@
 	box-sizing: content-box;
 	font-family: 'Noto Sans KR', sans-serif;
 }
-
-
 .wrapper {
 	padding-top: 120px;
 	z-indec: 10;
 	min-height: 100%;
 }
-
 .section {
 	display: block;
 }
-
 .order-checkout {
 	max-width: 1440px;
 	margin: 0 auto;
 	box-sizing: border-box;
 }
-
 .contents {
 	position: relative;
 	margin: 0 auto;
 	box-sizing: border-box;
 }
-
 .order-tab {
 	border-top : 1px solid #d1d1d1;
 	float: left;
 	display: inline-block;
 	box-sizing: border-box;
-	width: 906px;
+	width: 1016px;
 	margin: 0px 20px;
 }
-
 .order-tab .header {
 	position: relative;
 	padding: 20px;
 }
-
 .mini-box {
 	border: 1px solid #e5e5e5;
 	background-color: #e5e5e5;
 	border-radius: 5px;
-	width: 380px;
+	width: 382px;
 	height: 65px;
 }
 .order-tab .header .tit {
@@ -54,26 +46,22 @@
 	font-weight: bold;
 	font-size: 18px;
 }
-
 .order-wrap {
 	position: relative;
 	margin: 0 auto;
 }
-
 .order-wrap .contents-title {
 	margin: 0 auto;
 	letter-spacing: -0.2px;
 	text-align: center;
 	padding-bottom: 30px;
 	font-size: 28px;
+	font-weight: bold;
 }
-
-
 .order_tab_wrap--right {
 	float: right;
 	width: 384px;
 }
-
 .order_tab_wrap .order-tab {
 	float: none;
 	width: 380px;
@@ -81,9 +69,8 @@
 	overflow: hidden;
 	border-radius: 5px;
 }
-
 .order_tab_wrap .order-tab.product-checkout .body {
-	padding: 20px;
+	padding: 12px;
 }
 .order_tab_wrap .order-tab .view {
 	opacity: 1;
@@ -93,7 +80,6 @@
 	border-top: 0px;
 	border-radius: 5px;
 }
-
 .order_tab_wrap .order-tab.product-checkout .order-list {
 	padding: 20px 0;
 	display: table;
@@ -105,7 +91,6 @@
 .cart-order_list .order-list {
 	position: relative;
 }
-
 .order_tab_wrap .order-tab.product-checkout .order-list .image-wrap {
 	float: none;
 	width: 120px;
@@ -114,7 +99,6 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
 .order_tab_wrap .order-tab.product-checkout .order-list .order-info .tit {
 	display: block;
 	font-weight: bold;
@@ -123,24 +107,24 @@
 	color: black;
 }
 .order-info {
-	padding-left: 20px;
+	padding-left: 30px;
 }
 .order-wrap .product-checkout .info-price {
 	padding-top : 15px;
 }
-
 .delivery-info {
 	width: 100%;
 	margin-top: 25px;
 }
-
 .delivery-info h6 {
 	vertical-align: middle;
 	margin-bottom: 25px;
 	border-top: 1px solid #d1d1d1;
 	padding-top: 30px;
 }
-
+.delivery-info > ul {
+	font-size: 14px;
+}
 .button.xlarge {
 	height: 48px;
 	font-size: 15px;
@@ -157,41 +141,35 @@
 	width: 900px;
 	border-radius: 5px;
 }
-
 .button.xlarge:hover {
 	background-color: #404040; 
 }
-
 .goCart-btn {
 	padding: 32px 0px;
 }
-
 .link {
 	text-decoration: underline;
 	color: #333;
 }
-
 .link:hover {
 	color: #333;
 }
-
 .address {
 	padding: 0px 0px 20px 0px;
 	border-top: 1px solid #d1d1d1;
 }
-
 .address [type=text] {
 	padding: 9px 12px;
 	margin: 4px;
+	font-size: 14px;
 }
-
 .address [type=button] {
 	background-color: white;
 	border: 1px solid #d1d1d1;
 	padding: 9px;
 	margin: 3px;
+	font-size: 14px;
 }
-
 .delivery-message {
 	padding: 9px 12px;
 	margin: 0px 4px;
@@ -200,12 +178,13 @@
 	color: #383838;
 	margin-bottom: 5px;
 	margin-top: 5px;
+	font-size: 14px;
 }
 .direct {
 	padding: 9px 12px;
 	color: #383838;
 	margin: 0 3px;
-	width: 494px;
+	width: 471px;
 	height: 44px;
 }
 .cart-order_list .price-wrap {
@@ -229,6 +208,7 @@
 .info-price .delivery-price > .label, 
 .info-price .total-price > .label {
 	float: left;
+	font-weight: 500;
 }
 .info-price .item-price > .price , 
 .info-price .delivery-price > .price , 
@@ -241,17 +221,17 @@
 	font-weight: bolder;
 	color: #fa5400;
 }
-
 .total-price {
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
 .total-price .label {
 	font-size: 18px;
-	padding-right: 125px;
+	padding-right: 124px;
 }
 .padding {
 	padding-left: 20px;
+	width: 600px;
 }
 .qty {
 	font-weight: bold;

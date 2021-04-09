@@ -1,6 +1,8 @@
 package com.spring.FitInZip.back.payment.vo;
 
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,4 +23,9 @@ public class OrderDetailDeliDTO {
 	private String address;
 	private String detailAddress;
 	private String directMsg;
+	private Date orderDate;
+	private Integer paidPrice;
+	private String payMethod;
+	private String commonName;
 }
+

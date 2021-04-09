@@ -17,6 +17,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	//상품 리스트 불러오기
 	@RequestMapping("/product")
 	public String getProductList(Model model, ProductVO vo) {
 		

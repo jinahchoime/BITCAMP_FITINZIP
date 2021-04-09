@@ -6,19 +6,17 @@
 .contents.margin-xsmall {
 	margin-top: 40px;
 }
-	
 .cart-title {
 	padding: 0;
 	margin: 0 0 15px 0;
-	margin-top: 120px;
+	margin-top: 130px;
 	text-align: center;
 	font-size: 28px;
 	line-height: 24px;
-	font-weight: bold;
+	font-weight: bold; 
 	letter-spacing: -0.2px;
 	color: #111111;
 }
-	
 .mc-cart-num {
 	width: 100%;
 	text-align: center;
@@ -26,7 +24,6 @@
 	font-size: 16px;
 	color: #666;
 }
-	
 .item-container {
 	display: table;
 	width: 100%;
@@ -36,14 +33,12 @@
 	/*padding: 0 55px 80px;*/
 	box-sizing: border-box;
 }
-
 .item-list-wrap {
 	display: block;
 	width: 100%;
 	max-width: 100%;
 	text-align: left;
 }
-
 .product-opt_cart {
 	position: relative;
   	width: 100%;
@@ -51,21 +46,17 @@
   	padding: 20px 50px 20px 0;
   	box-sizing: border-box;
 }
-
 .product-opt_cart:last-child {
 	border-bottom: 1px solid #dedfda;
 }
-
 .item-detail {
 	display: table;
 	width: 100%;
 	min-height: 110px;
 }
-
 .product-opt_cart .item-detail .item-info {
   width: 800px;
 }
-
 .product-opt_cart .item-detail .item-info .img-wrap {
   position: absolute;
   overflow: hidden;
@@ -73,7 +64,6 @@
   width: 110px;
   background-color: #f6f5f6;
 }
-
 .product-opt_cart .item-detail .item-info .info-wrap {
   display: inline-block;
   box-sizing: border-box;
@@ -83,21 +73,17 @@
   width: 500px;
   margin-top: 12px;
 }
-
 .opt.quantity {
   display: block;
   padding-top: 10px;
 }
-
 .retail-price {
 	color: #FA5400;
 	float: right;
 }
-
 .mypage-cart .product-opt_cart .item-detail .total-price strong {
   font-size: 15px;
 }
-
 .product-opt_cart .item-detail .delete-btn {
   position: absolute;
   top: 23px;
@@ -105,22 +91,12 @@
   background-color: transparent;
   border: none;
 }
-
 .change-btn {
   position: absolute;
   top: 23px;
   right: 130px;
   
 }
-
-/* .product-opt_cart .item-detail .delete-btn:hover {
-	background-color: transparent;
-}
-
-.product-opt_cart .item-detail .btn-delete:hover {
- background-color: transparent;
-} */
-
 .product-opt_cart .item-detail .option-wrap .optchange-btn {
   font-size: 14px;
   color: #6c6c6c;
@@ -130,13 +106,11 @@
   margin-left: 150px;
   padding-left: 2;
 }
-
 .product-opt_cart .item-detail .option-wrap {
   width: 22%;
   padding-left: 10px;
   vertical-align: top;
 }
-
 .item-container .item-list-wrap {
   margin: 0;
   float: left;
@@ -150,25 +124,19 @@
   font-size: 16px;
   font-weight: bold;
   color: #000;
-  
- /*  background-color: red; */
 }
-
 .item-container .item-list-wrap.item-list-no {
   width: 100%;
   margin: 0;
   padding: 0 64px 0 48px;
 }
-
 .item-container .item-list-wrap .product-select-all {
   padding: 20px 0;
   border-top: 1px solid #e5e5e5;
 }
-
 .item-container .item-list-wrap .product-select-all .btn-cart-delete-All {
   text-decoration: underline;
 }
-
 .item-container .product-checkout {
   margin: 0;
   width: 384px;
@@ -180,7 +148,6 @@
   border-radius: 5px;
   /* background-color: green; */
 }
-
 .item-container .product-checkout .tit {
   display: block;
   margin-top: -1px;
@@ -191,13 +158,11 @@
   background-color: #e5e5e5;
   border-radius: 5px;
 }
-
 .product-checkout {
 	border: 1px solid #e5e5e5;
     height: 333px;
 	border-radius: 5px;
 }
-
 .product-checkout .label {
 	display: table-cell;
 	color: #000;
@@ -205,13 +170,11 @@
 	letter-spacing: -1;
 	
 }
-
 .product-checkout .info-price > span {
   width: 100%; 
   display: table;
   margin-top: 20px;
 }
-
 .product-checkout .total-price {
   display: table;
   width: 100%;
@@ -224,7 +187,6 @@
   font-size: 20px;
   padding-left: 20px;
 }
-
 .product-checkout .btn-order {
   background-color: #fb5302;
   font-size: 14px;
@@ -241,21 +203,17 @@
   margin: 20px;
   border-radius: 5px;
 }
-
 .product-checkout .btn-order:hover {
 	text-decoration: none;
 	background-color: #ff8000;
 	color:white;
 }
-
 .info-price {
 	padding-left: 20px;
 }
-
 .price {
 	text-align: right;
 }
- 
 .arrow {
 	color: #ff471a;
 }
@@ -263,11 +221,9 @@
 	color:#111; 
 	text-decoration: underline;
 }
-
 .item-price .price {
-	padding-left: 156px;
+	padding-left: 178px;
 }
-
 .cart-empty {
 	border-top: 1px solid #dedfda;
 	border-bottom: 1px solid #dedfda;
@@ -276,7 +232,6 @@
 	line-height: 45px;
 	width: 1440px;
 }
-
 .goProduct-btn:active, .goProduct-btn:hover {
 	color: #212529;
 } 

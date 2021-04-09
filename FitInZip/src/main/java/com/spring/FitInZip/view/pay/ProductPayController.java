@@ -148,7 +148,7 @@ public class ProductPayController {
 		List<OrderDetailDTO> orderDetail = productPayService.orderDetail(request.getParameter("orderNum"));
 		model.addAttribute("orderDetail", orderDetail);
 		
-		//배송지 정보
+		//배송지, 가격, 주문번호 
 		OrderDetailDeliDTO deli = new OrderDetailDeliDTO();
 		deli = productPayService.orderDetailDeli(request.getParameter("orderNum"));
 		model.addAttribute("deli", deli);

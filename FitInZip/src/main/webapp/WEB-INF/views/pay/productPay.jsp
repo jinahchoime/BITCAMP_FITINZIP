@@ -16,13 +16,13 @@
 	<section class="order-checkout">
 		<article class="contents">
 			<div class="order-wrap">
-				<h2 class="contents-title">
+				<p class="contents-title">
 					<span class="title">주문결제</span>
-				</h2>
+				</p>
 				<div class="order-tab-wrap">
 					<div class="order-tab reservations-customer" id="block">
 						<div class="header">
-							<h5 class="tit">주문고객</h5>
+							<p class="tit">주문고객</p>
 						</div>
 						<div id="orderinfo-review" class="body view">
 							<div class="order-complete">
@@ -44,7 +44,7 @@
 					</div>
 					<div class="order-tab" id="block">
 						<div class="header">
-							<h5 class="tit">배송지 정보</h5>
+							<p class="tit">배송지 정보</p>
 						</div>
 						<div class="delivery-info">
 							<div id="shipping-review" class="body view">
@@ -66,7 +66,7 @@
 					</div>
 					<div class="order-tab reservations-order" id="block">
 						<div class="header">
-							<h5 class="tit">결제수단 선택</h5>
+							<p class="tit">결제수단 선택</p>
 						</div>
 						<div class="payment-review">
 							<input type="hidden" name="장바구니 각 넘버">
@@ -78,22 +78,23 @@
 											<div class="payment-method-item">
 												<!-- <form action="/kakaoPay" method="post"> -->
 												<button id="kakao" class="payMethod">
-													<h6 class="payment-method-item-title">
+													<p class="payment-method-item-title">
 														<img style="width: 60px;"
 															src="../resources/product/img/icon_kakaopay_100.jpg"
 															alt="카카오페이"> 카카오페이
-													</h6>
+													</p>
 												</button>
 											</div>
 											<div class="payment-method-item">
 												<button id="card" class="payMethod">
-													<h6 class="payment-method-item-title">신용카드</h6>
+													<p class="payment-method-item-title">신용카드</p>
 												</button>
 											</div>
 										</div>
 									</li>
 									<li
-										class="order-field-list uk-width-small-1-1 uk-width-medium-1-1 uk-margin-bottom-remove">
+										class="order-field-list uk-width-small-1-1 uk-width-medium-1-1 uk-margin-bottom-remove"
+										style="width:500px;">
 										<form name="checkout-agree-form">
 											<div class="input-form-group">
 												<span class="input-checkbox"> <input type="checkbox"
@@ -128,9 +129,7 @@
 				<div class="order-tab-wrap order_tab_wrap order_tab_wrap--right">
 					<div class="order-tab product-checkout checkout">
 						<div class="header">
-							<h5 class="tit">
-								<strong>주문내역</strong>
-							</h5>
+							<p class="tit">주문내역</p>
 						</div>
 						<div id="order-summary" class="body view">
 							<c:forEach var="cartList" items="${cartList }">

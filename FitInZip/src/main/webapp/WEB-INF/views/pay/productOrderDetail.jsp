@@ -19,12 +19,16 @@
 		<jsp:include page="../mypage/mypageMenu.jsp"></jsp:include>
 		
 		<div style="display:inline-block;" class="mt200 ml30">
-			<p class="tit_area big mb10">주문상세</p>
+			<p class="tit_area big mb10 title">주문 상세내역</p>
 			
+			<div>
+			<p style="font-size:14px; margin:0px;">No. ${sessionOrderNum }</p>
+			<p style="font-size:14px; margin:0px;">${deli.orderDate }</p>
+			</div>
 			<div class="item-info">
 				<div class="table_basic_board board1 info-wrap">
 				<p class="big-title pro-tit">상품 정보</p>
-					<p style="font-size:14px;">주문번호: ${sessionOrderNum }</p>
+					
 					<c:forEach var="orderDetail" items="${orderDetail }">
 						<div class="forEach">
 							<p><img class="product-img" style="width:120px; height:120px;" src="${orderDetail.proImg }"></p>
@@ -57,10 +61,17 @@
 				<div class="bobo">
 					<span> ${deli.directMsg }</span> 
 				</div>
+			</div>
+			
+			<div class="price-container">
+				<p class="big-title price-tit">최종 결제 정보</p>
 				
-				
-				
-				
+				<div class="bobo">
+					<span>최종 결제 금액</span><span class="right">${deli.paidPrice } 원</span>
+				</div>
+				<div class="bobo">
+					<span>결제 수단</span><span class="right">${deli.commonName }</span>
+				</div>
 			</div>
 			
 		</div>

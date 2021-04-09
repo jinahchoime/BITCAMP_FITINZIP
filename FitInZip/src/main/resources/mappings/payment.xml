@@ -75,12 +75,17 @@
 	WHERE D.ORDER_NUM = #{orderNum}
 	</select>
 	
-	<!-- 주문서 상세페이지  배송지 정보-->
+	<!-- 주문서 상세페이지  배송지, 가격 정보-->
 	<select id="orderDetailDeli" resultType="com.spring.FitInZip.back.payment.vo.OrderDetailDeliDTO" parameterType="string">
-	SELECT M.NAME, M.PHONE, P.ADDRESS, P.DETAIL_ADDRESS, P.DIRECT_MSG
-	FROM PRO_ORDER P
-    INNER JOIN MEMBER M
-    ON P.MEM_ID = M.ID
-	WHERE P.ORDER_NUM = #{orderNum}
+	SELECT M.NAME, M.PHONE, P.ADDRESS, P.DETAIL_ADDRESS, P.ORDER_NUM, P.DIRECT_MSG, P.ORDER_DATE, 
+        A.PAID_PRICE, A.PAY_METHOD, C.COMMON_NAME
+	FROM PAYMENT A
+	    INNER JOIN MEMBER M
+	    ON A.MEM_ID = M.ID
+	    INNER JOIN PRO_ORDER P
+	    ON A.ORDER_NUM = P.ORDER_NUM
+	    INNER JOIN COMMON C
+	    ON C.COMMON_CODE = A.PAY_METHOD
+		WHERE P.ORDER_NUM = #{ORDERNUM}
 	</select>
 </mapper>

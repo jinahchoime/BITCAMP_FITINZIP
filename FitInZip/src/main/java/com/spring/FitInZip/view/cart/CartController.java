@@ -24,6 +24,7 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
+	//장바구니 불러오기
 	@RequestMapping("/cart")
 	public String getCartList(Model model, CartVO vo, CartDTO dto, HttpSession session) {
 		
