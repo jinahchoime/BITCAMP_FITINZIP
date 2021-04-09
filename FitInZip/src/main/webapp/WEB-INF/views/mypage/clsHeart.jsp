@@ -43,13 +43,35 @@
 					}
 					$('#content').append(dispHtml1);
 					
-					if( _endIndex > returnValue.length || returnValue.length < 4){
+					if( _endIndex > returnValue.length || returnValue.count < 4){
 						$('#searchMoreNotify').remove();
 					}
 					
 					var dispHtml = '';
 					
 					function text(value, btn){
+						var starthour = new Date(value.startTime).getHours() +"";
+						var startminute = new Date(value.startTime).getMinutes()+"";
+						
+						var endhour = new Date(value.endTime).getHours()+"";
+						var endminute = new Date(value.endTime).getMinutes()+"";
+						
+						if(starthour.length == 1){
+							starthour = "0"+starthour;
+						}
+						
+						if(startminute.length == 1){
+							startminute = "0"+startminute;
+						}
+						
+						if(endhour.length == 1){
+							endhour = "0"+endhour;
+						}
+						
+						if(endminute.length == 1){
+							endminute = "0"+endminute;
+						}
+						
 						dispHtml += '<tr><td class="type_diff"><div class="list_img">';
 						dispHtml += '<img src="';
 						dispHtml +=  value.thumbnailFileName;
@@ -66,9 +88,9 @@
 						dispHtml += new Date(value.endDate).getFullYear() + "년 " + (new Date(value.endDate).getMonth() + 1) + "월 " + new Date(value.endDate).getDate()+ "일";
 						dispHtml += '</div>';
 						dispHtml += value.yoil + "요일  ";
-						dispHtml += new Date(value.startTime).getHours() + ":" + new Date(value.startTime).getMinutes();
+						dispHtml += starthour + ":" + startminute;
 						dispHtml += "~";
-						dispHtml += new Date(value.endTime).getHours() + ":" + new Date(value.endTime).getMinutes();
+						dispHtml += endhour + ":" + endminute;
 						dispHtml += '</dd></dl></div></a></td><td class="black"><a style="cursor: pointer" id="';
 						dispHtml += btn;
 						dispHtml +='" onclick="noHeart('+'\'';
@@ -92,7 +114,6 @@
 </script>
 <script type="text/javascript">
 	function noHeart(clsCode1){
-		alert(clsCode1);
 		alert("해당 클래스 찜하기를 취소합니다.");
 		$.ajax("/noHeart",{
 			type: "get",

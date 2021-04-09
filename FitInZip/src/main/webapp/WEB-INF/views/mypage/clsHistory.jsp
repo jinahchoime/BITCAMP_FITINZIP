@@ -58,7 +58,7 @@
 				'color': '#000'
 			});
 			let count = clsView(startIndex, "end", _endIndex);
-			console.log(count);
+			
 			if(count > 3){
 				$('#btn').html('<button id="endsearchMoreNotify" class="btn_basic type5 adClick mt50" style="display:inherit; margin: 0 auto;">더보기</button>');
             }else{
@@ -172,6 +172,29 @@
 		
 		/*콘텐츠 만들어주는 기능*/
 		function text(value, dispHtml, button){
+			
+			var starthour = new Date(value.startTime).getHours() +"";
+			var startminute = new Date(value.startTime).getMinutes()+"";
+			
+			var endhour = new Date(value.endTime).getHours()+"";
+			var endminute = new Date(value.endTime).getMinutes()+"";
+			
+			if(starthour.length == 1){
+				starthour = "0"+starthour;
+			}
+			
+			if(startminute.length == 1){
+				startminute = "0"+startminute;
+			}
+			
+			if(endhour.length == 1){
+				endhour = "0"+endhour;
+			}
+			
+			if(endminute.length == 1){
+				endminute = "0"+endminute;
+			}
+			
 			dispHtml += '<tr><td class="type_diff"> <div class="list_img">';
 			dispHtml += '<img src="';
 			dispHtml +=  value.thumbnailFileName;
@@ -182,8 +205,8 @@
 			dispHtml += '</span></div>';
 			dispHtml +=  value.clsName;
 			dispHtml +=  '</dt><dd class="mt5"><div>';
-			dispHtml +=  new Date(value.startTime).getHours();
-			dispHtml +=  '~' + new Date(value.endTime).getHours() + "시  ";
+			dispHtml +=  starthour + ":" + startminute;
+			dispHtml +=  '~' + endhour + ":" + endminute + " ";
 			dispHtml +=  value.yoil + "요일";
 			dispHtml +=  '</div>';
 			dispHtml +=  new Date(value.startDate).getFullYear() + "년 " + (new Date(value.startDate).getMonth() + 1) + "월 " + new Date(value.startDate).getDate()+ "일";
