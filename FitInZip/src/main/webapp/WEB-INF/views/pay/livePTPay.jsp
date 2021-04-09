@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 
 <!DOCTYPE html>
 <meta charset="UTF-8">
@@ -38,7 +39,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 
    <!-- Custom styles for this template-->
-    <link href="../resources/class/css/clsPayment.css" rel="stylesheet">
+    <link href="../resources/product/css/clsPayment.css" rel="stylesheet">
     <script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/936821621/?random=1617621176378&amp;cv=9&amp;fst=1617621176378&amp;num=1&amp;userId=undefined&amp;bg=ffffff&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;eid=2505059651&amp;u_h=1080&amp;u_w=1920&amp;u_ah=1040&amp;u_aw=1920&amp;u_cd=24&amp;u_his=16&amp;u_tz=540&amp;u_java=false&amp;u_nplug=3&amp;u_nmime=4&amp;gtm=2oa3o0&amp;sendb=1&amp;ig=1&amp;data=event%3Dgtag.config&amp;frm=0&amp;url=https%3A%2F%2Fwww.ficle.io%2Fplay%2Fplay_buy&amp;ref=https%3A%2F%2Fwww.ficle.io%2Fplay%2Fplay_apply%2F270&amp;tiba=%ED%94%BC%ED%81%B4%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%7C%20%ED%94%BC%EB%93%9C%EB%B0%B1%EC%9E%88%EB%8A%94%20%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%ED%94%BC%ED%8A%B8%EB%8B%88%EC%8A%A4%EC%88%98%EC%97%85&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
 
 
@@ -175,13 +176,14 @@ function iamport(){
 </head>
 
 <body>
+	 <jsp:include page="../nav.jsp"></jsp:include>
 	<div id="container">
-    <div class="contents clearfix" id="contents">
+    <div class="contents clearfix" id="contents" style="padding-top: 50px;">
 
 <!-- 결제 -->
         <div id="viewArea" class="column_left_wrap">
             <div class="contents_wrap">
-                <div class="wad_apply_area">
+                <div class="wad_apply_area" style="margin-top: 20px;">
                     <div class="wad_apply">               
                         <div class="tag_area"></div>
                         <p>${detail.clsName}</p>
@@ -221,7 +223,7 @@ function iamport(){
                     </div>
                 </div>
                 <div class="contents_wrap_type2">
-                    <div class="sub_title line">
+                    <div class="payment_title line">
                         <h3>신청 강좌 정보</h3>
                     </div>
                     <div class="table_basic_board board1 none">
@@ -232,25 +234,24 @@ function iamport(){
                             <tbody>
                                 <tr>
                                     <td class="type_diff">
-                                        <div class="list_img"><img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-02-04/1612438885971365399.png" alt="클래스썸네일"></div> <a href="javascript:;">
-                                            <div class="list_txt full">
-                                                <dl class="prod_infor">
-                                                    <dt>
-                                                        <div class="play_tch"><span>${detail.commonName }</span> <span>${detail.name}</span></div>
-                                                       ${detail.clsName}
-                                                    </dt>
-                                                </dl>
-                                                <p>기간 : ${detail.year}.${detail.startMonth}.${detail.startDay} ~ ${detail.endDate} </p>
-                                                <p> ${detail.yoil} ${detail.pm} ${detail.startTime} ~ ${detail.endTime} (총 ${detail.lapse}회)</p>
-                                                <div class="prod_prc"><fmt:formatNumber value="${detail.totalPrice}"/></div>
-                                            </div>
-                                        </a>
+                                    <div class="list_img"><img src="${detail.titleFileName }" alt="클래스사진" style="margin-top: 10px;"></div>
+                                        <div class="list_txt full">
+                                            <dl class="prod_infor">
+                                                <dt>
+                                                    <div class="play_tch" style="margin-bottom: 5px;"><span>${detail.commonName }</span> <span>${detail.name}</span></div>
+                                                   ${detail.clsName}
+                                                </dt>
+                                            </dl>
+                                            <p style="margin-top: -5px;">기간 : ${detail.year}.${detail.startMonth}.${detail.startDay} ~ ${detail.endDate} </p>
+                                            <p style="margin-top: -15px;"> ${detail.yoil} ${detail.pm} ${detail.startTime} ~ ${detail.endTime} (총 ${detail.lapse}회)</p>
+                                            <div class="prod_prc" style="margin-top: -5px; font-size: large;"><fmt:formatNumber value="${detail.totalPrice}"/></div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="sub_title line">
+                    <div class="payment_title line">
                         <h3>할인쿠폰</h3>
                     </div>
                     <div class="column_wrap">
@@ -258,25 +259,26 @@ function iamport(){
                             <p>할인쿠폰을 사용하고 할인을 받아보세요!</p>
                             <dl>
                                 <dd>
-                                    <div class="btn_search flat">
-                                    <select name="coupon" id="coupon" class="option_type" style="width: 608px;">                                         
+                                    <div class="btn_search flat" style="display: flex;margin-top: 15px;">
+                                    <select name="coupon" id="coupon" class="option_type" style="width: 608px;font-size: 15px;">                                         
                                         <c:if test="${empty cpList }">
                                         	<option value="">쿠폰을 선택하세요</option>
                                         </c:if>
                                         <c:if test="${not empty cpList }">
-                                       		 <option value="">쿠폰을 선택하세요</option>
+                                       		 <option value="" selected>쿠폰을 선택하세요</option>
                                         	<c:forEach var="cpList" items="${cpList }" >
                                         		<option id="couponOption" value="${cpList.couponCode }">${cpList.couponName }: ${cpList.discountPrice }원 (${cpList.couponStartDate }~${cpList.couponEndDate })</option>
                                      		</c:forEach>
                                      	</c:if>
-                                        </select> <button type="button"><a class="adClick btn_basic type1" id="couponBtn">적용하기</a></button></div>
-                                    <!---->
+                                        </select> <button type="button" class="adClick btn_basic1 type1" id="couponBtn">적용하기</button>
+                                       <!--  <button type="button"><a class="adClick btn_basic1 type1" id="couponBtn">적용하기</a></button> -->
+                                     </div>
                                 </dd>
                             </dl>
                         </div>
                     </div>
-                    <div class="layout_h60"></div>
-                    <div class="sub_title line">
+                    <div class="layout_h50"></div>
+                    <div class="payment_title line">
                         <h3>결제방법</h3>
                     </div>
                     <div class="column_wrap mb100">

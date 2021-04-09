@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
+import com.spring.FitInZip.back.cls.dto.ClsTrainerDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
@@ -109,7 +110,15 @@ public class TrainerServiceImpl implements TrainerService{
 		return trainerDAO.myPage2(dto);
 	}
 
+	@Override
+	public List<String> nameCheck(String clsCode) {
+		return trainerDAO.nameCheck(clsCode);
+		}
+	}
+
+	
+
 	
 	
 	
-}
+

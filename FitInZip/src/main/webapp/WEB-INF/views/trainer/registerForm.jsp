@@ -55,10 +55,21 @@
       }
       
       function registerInfo() {
-    	  if(document.getElementById("password").value.length < 5) {
-    		  alert("비밀번호는 5자리 이상 입력해주세요.");
+    	  var id = document.getElementById("id").value;
+    	  var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    	  if(id.match(regExp) == null) {
+    		  alert("아이디는 이메일 형식으로 입력해주세요.");
     		  return false;
-    	  } 
+    	  }
+    	  
+      	  var password = document.getElementById("password").value;
+      	  var passRule = /^[A-Za-z0-9]{6,12}$/; 
+    	  if(password.match(passRule) == null) {
+    		  alert("비밀번호는 숫자와 문자를 포함하여 6~12자리로 입력해주세요");
+    		  return false;
+    	  }
+    	  
     	  if(document.getElementById("name").value.length == 0) {
     		  alert("이름을 입력해주세요.");
     		  return false;
@@ -67,12 +78,26 @@
     		  alert("별명을 입력해주세요.");
     		  return false;
     	  }
-    	  if(document.getElementById("phone").value.length < 11) {
+    	  
+    	  var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
+    	  var phone = document.getElementById("phone").value;
+    	  if(phone.length < 11) {
     		  alert("핸드폰번호를 입력해주세요.");
     		  return false;
     	  }
-    	  if(document.getElementById("birth").value.length < 8) {
+    	  if(phone.match(phoneRule) == null) {
+    		  alert("핸드폰은 000-0000-0000의 형식으로 작성해주세요.");
+    		  return false;
+    	  }
+    	  
+    	  var birth = document.getElementById("birth").value;
+    	  var check_num = /[0-9]/; 
+    	  if(birth.length < 8) {
     		  alert("생년월일을 입력해주세요.");
+    		  return false;
+    	  }
+    	  if(birth.match(check_num) == null) {
+    		  alert("생년월일은 숫자만 적어주세요.");
     		  return false;
     	  }
 
@@ -175,7 +200,7 @@
 
 	            <div class="col-12">
 	            	<label for="phone" class="form-label" style="margin-top: 10px">핸드폰번호</label>
-                	<input type="text" class="form-control" name="phone" id="phone" placeholder="01012345678" required>
+                	<input type="text" class="form-control" name="phone" id="phone" placeholder="010-1234-5678" required>
 	            </div>
 	       
             	<label for="gender" class="form-label" style="margin-top: 10px">성별</label>

@@ -8,7 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
+import com.spring.FitInZip.back.cls.dto.ClsTrainerDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.vo.RegisterTrainerDTO;
@@ -114,6 +115,10 @@ public class TrainerDAO {
 	
 	public List<ClsTrainerDTO> myPage2(RegisterTrainerDTO dto) {
 		return mybatis.selectList("trainer.edClass", dto);
+	}
+	
+	public List<String> nameCheck(String clsCode) {
+		return mybatis.selectList("trainer.memberName", clsCode);
 	}
 
 }

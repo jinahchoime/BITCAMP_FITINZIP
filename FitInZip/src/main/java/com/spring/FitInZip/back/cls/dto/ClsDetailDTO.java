@@ -46,6 +46,7 @@ public class ClsDetailDTO {
 	private String titleFileName;
 	private String memFileName;
 	
+	
 	public void setReminder() {
 		this.reminder = maxMem - join;
 	}

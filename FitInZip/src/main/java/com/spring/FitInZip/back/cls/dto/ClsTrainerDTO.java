@@ -1,6 +1,7 @@
-package com.spring.FitInZip.back.cls.vo;
+package com.spring.FitInZip.back.cls.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class ClsTrainerDTO {
-
+	private String clsCode;
 	private String clsCategory;
 	private String clsName;
 	private String yoil;
@@ -32,7 +33,10 @@ public class ClsTrainerDTO {
 	private Date endTime;
 	private String meetUrl;
 	
-	private String clsOriName;	
+	
+	private String thumbnailFileName;	
+	
+	private List<String> list;
 	
 	
 }

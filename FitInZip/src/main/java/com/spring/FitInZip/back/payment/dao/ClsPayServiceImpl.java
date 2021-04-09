@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
+import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.payment.ClsPayService;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
+import com.spring.FitInZip.back.payment.vo.SelectClsDTO;
 
 @Service
 public class ClsPayServiceImpl implements ClsPayService{
@@ -30,6 +32,17 @@ public class ClsPayServiceImpl implements ClsPayService{
 	public void clsPayment(PaymentVO pvo) {
 		clsPayDAO.clsPayment(pvo);
 		
+	}
+
+	@Override
+	public void updateCoupon(MemCouponVO mvo) {
+		clsPayDAO.updateCoupon(mvo);
+		
+	}
+
+	@Override
+	public List<SelectClsDTO> searchCls(MemberVO vo) {
+		return clsPayDAO.searchCls(vo);
 	}
 
 }

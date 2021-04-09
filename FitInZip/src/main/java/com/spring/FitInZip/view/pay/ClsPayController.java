@@ -15,10 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
+import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.payment.ClsPayService;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
+import com.spring.FitInZip.back.payment.vo.SelectClsDTO;
 
 
 
@@ -34,6 +36,15 @@ public class ClsPayController {
 		
 		if(vo == null) {
 			return "redirect:/loginMain";
+		}
+		
+		
+		List<SelectClsDTO> clsCheck = clsPayService.searchCls(vo);
+		for (SelectClsDTO sdto : clsCheck) {
+			String classCode = sdto.getClsCode();
+			if(classCode != null) {
+				return "pay/errorPay";
+			}
 		}
 		
 		ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
@@ -65,10 +76,10 @@ public class ClsPayController {
 	}
 	
 	@RequestMapping("/clsPayConfirm")
-	public String confirmPayment(HttpSession session, PaymentVO pvo, RedirectAttributes rttr) {
+	public String confirmPayment(HttpSession session, PaymentVO pvo, MemCouponVO mvo, RedirectAttributes rttr) {
 	MemberVO vo = (MemberVO)session.getAttribute("member");
 	ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
-	CouponDetailDTO dto = (CouponDetailDTO)session.getAttribute("finalInfo");	
+	CouponDetailDTO dto = (CouponDetailDTO)session.getAttribute("finalInfo");
 	System.out.println("결제완료 후 vo: " + vo);
 	System.out.println("결제완료 후 detail: " + detail);
 	System.out.println("결제완료 후 dto: " + dto);
@@ -99,7 +110,12 @@ public class ClsPayController {
 	
 	System.out.println("결제정보 등록 완료!");
 	
-	//insert 하고
+	mvo.setMemId(vo.getId());
+	mvo.setCouponCode(dto.getCouponCode());
+	clsPayService.updateCoupon(mvo);
+	
+	System.out.println("쿠폰 사용 완료!");
+	//insert&update 하고
 	return "redirect:movePayResult";
 	}
 	

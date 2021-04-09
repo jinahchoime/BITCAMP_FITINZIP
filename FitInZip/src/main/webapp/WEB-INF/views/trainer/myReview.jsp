@@ -151,7 +151,7 @@ html {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/trainerMainPage">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/trainerMainPageView">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -179,7 +179,7 @@ html {
                     <div class="bg-white py-2 collapse-inner rounded">
                 
                         <a class="collapse-item" href="/myClass">나의 클래스</a>
-                        <a class="collapse-item" href="cards.html">클래스 신청현황</a>
+                        <a class="collapse-item" href="classStat">클래스 신청현황</a>
                     </div>
                 </div>
             </li>
