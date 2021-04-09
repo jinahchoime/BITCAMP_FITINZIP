@@ -103,7 +103,7 @@
 	                    }
 	                    else if (result == 0){
 	                    	// 좋아요 취소
-	                    	alert("result = 0")
+	                    	/* alert("result = 0") */
 	                        $("#btn_like").attr("style","color: gray");
 	                    }
 	                }
@@ -298,14 +298,15 @@
 											</div>
 										</div>
 										<div class="wad_area">
-											<div class="subtxt2 gray5 mt10">
+											<div class="subtxt2 gray5 mt10 clsInfo" style="padding-top: 80px;">
 												${detail.clsInfo}
 											</div>
 										</div>
 										<div class="wad_area">
-											<div class="subtxt2 gray5 mt10">
+											<div class="subtxt2 gray5 mt10" style="padding: 60px 0 80px 0;">
 												<div class="small_text">${detail.startMonth}월 ${detail.startDay}일 시작!</div>
-												${detail.curriculum}
+													${detail.curriculum}
+												
 											</div>
 										</div>
 										<div id="area02" class="content_area">
@@ -318,19 +319,17 @@
 																<img src="${detail.memFileName}" alt="강사이미지">
 															</span>
 														</div>
-														<div class="nm">본 클래스는 ${detail.name} 선생님과 함께합니다.</div>
+														<div class="coach_txt" style="padding-left: 15px;">본 클래스는 ${detail.name} 선생님과 함께합니다.</div>
 													</div>
-													<div class="coach_txt">
+													<div class="gray_text" style="margin-top: 20px; font-size: 16px;">
 														${detail.trainerIntro}
 														<br>
-														<br>
-														<font size="3">
-															<b>자격 및 경력</b>
-															<br>
-														</font>
-														<font size="2" class="gray_text">
-															${detail.career}
-														</font>
+													</div>
+													<div class="coach_txt">
+														자격 및 경력
+													</div>
+													<div class="gray_text" style="margin-top: 15px;">
+														${detail.career}
 													</div>
 												</div>
 											</div>

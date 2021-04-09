@@ -85,12 +85,12 @@ img, input {
     top: -10px;
     position: relative;
 }
-.subtxt2 {
+/* .subtxt2 {
     font-size: 14px;
     line-height: 24px;
     font-weight: 400;
     color: #000;
-}
+} */
 .subtxt + .star_group {
     margin: -5px auto auto 10px;
 }
