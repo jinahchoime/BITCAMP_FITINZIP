@@ -46,7 +46,7 @@
       <div class="container">
         <h1 class="masthead-heading mb-0" style="font-size: 84px;">We bring offline to online</h1>
         <h2 class="masthead-subheading mb-0" style="font-size:55px; font-weight: normal; margin-top: 30px;">헬스장 대신,<br> 이젠 집에서 라이브로 PT 받으세요</h2>
-        <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">둘러보기</a>
+        <a href="/liveClassMain" class="btn btn-primary btn-xl rounded-pill mt-5">둘러보기</a>
       </div>
     </div>
   </header>
