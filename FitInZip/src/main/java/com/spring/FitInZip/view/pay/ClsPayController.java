@@ -38,17 +38,20 @@ public class ClsPayController {
 			return "redirect:/loginMain";
 		}
 		
+		ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
+		System.out.println("detail:" + detail);
 		
 		List<SelectClsDTO> clsCheck = clsPayService.searchCls(vo);
 		for (SelectClsDTO sdto : clsCheck) {
 			String classCode = sdto.getClsCode();
-			if(classCode != null) {
+			System.out.println("classCode: " + classCode);
+			if(classCode.equals(detail.getClsCode()) ) {
 				return "pay/errorPay";
 			}
 		}
 		
-		ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
-		System.out.println("detail:" + detail);
+		
+		
 		List<PaymentDTO> list = clsPayService.couponList(vo);
 		model.addAttribute("cpList", list); 
 		System.out.println("cplist: " + list);
@@ -86,6 +89,7 @@ public class ClsPayController {
 	
 	Integer paidPrice;
 	
+	//최종가격(쿠폰 사용여부 확인하여 결정)
 	if(dto == null) {
 		paidPrice = detail.getTotalPrice();
 	} else {
@@ -103,20 +107,29 @@ public class ClsPayController {
 	pvo.setClsCode(detail.getClsCode());
 	pvo.setOriginPrice(originPrice);
 	pvo.setPaidPrice(paidPrice);
-	pvo.setCommission(comm);
+	pvo.setCommission(comm); 
 	pvo.setNetPrice(nprice);
 	
 	clsPayService.clsPayment(pvo);
 	
 	System.out.println("결제정보 등록 완료!");
 	
-	mvo.setMemId(vo.getId());
-	mvo.setCouponCode(dto.getCouponCode());
-	clsPayService.updateCoupon(mvo);
-	
-	System.out.println("쿠폰 사용 완료!");
-	//insert&update 하고
-	return "redirect:movePayResult";
+	//쿠폰 사용하여 결제 시
+	//System.out.println("detail.getTotalPrice() : " + detail.getTotalPrice());
+	//System.out.println("paidPrice(): " + paidPrice);
+	if( !detail.getTotalPrice().equals( paidPrice) ) {
+		mvo.setMemId(vo.getId());
+		mvo.setCouponCode(dto.getCouponCode());
+		clsPayService.updateCoupon(mvo);
+		
+		System.out.println("쿠폰 사용 완료!");
+		
+		return "redirect:movePayResult";
+	} else {
+
+		//insert&update 하고
+		return "redirect:movePayResult";
+	}
 	}
 	
 	@RequestMapping("/movePayResult")

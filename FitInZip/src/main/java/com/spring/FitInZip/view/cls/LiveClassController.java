@@ -87,8 +87,8 @@ public class LiveClassController {
 			classDetail.setTitleFileName(fileName);
 			
 			String memFileName = classDetail.getMemFileName();
-			memFileName = memFileName.substring(fileName.indexOf("resources"));
-			classDetail.setMemFileName(fileName);
+			memFileName = memFileName.substring(memFileName.indexOf("resources"));
+			classDetail.setMemFileName(memFileName);
 		
 		model.addAttribute("detail", classDetail);
 		session.setAttribute("detail", classDetail);
