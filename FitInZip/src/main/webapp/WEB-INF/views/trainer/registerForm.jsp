@@ -47,7 +47,8 @@
           var reader = new FileReader();
 
           reader.onload = function (e) {
-                  $('#blah').attr('src', e.target.result);
+               $('#blah').attr('src', e.target.result);
+               $('#blah').css({'border-radius': '50%', 'object-fit': 'cover'});
               }
 
             reader.readAsDataURL(input.files[0]);
@@ -64,9 +65,9 @@
     	  }
     	  
       	  var password = document.getElementById("password").value;
-      	  var passRule = /^[A-Za-z0-9]{6,12}$/; 
+      	  var passRule = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
     	  if(password.match(passRule) == null) {
-    		  alert("비밀번호는 숫자와 문자를 포함하여 6~12자리로 입력해주세요");
+    		  alert("비밀번호는 숫자와 영문, 특수문자를 포함하여 8~16자리로 입력해주세요");
     		  return false;
     	  }
     	  
@@ -91,13 +92,18 @@
     	  }
     	  
     	  var birth = document.getElementById("birth").value;
-    	  var check_num = /[0-9]/; 
+    	  var check_num = /^[0-9]+$/; 
     	  if(birth.length < 8) {
     		  alert("생년월일을 입력해주세요.");
     		  return false;
     	  }
     	  if(birth.match(check_num) == null) {
     		  alert("생년월일은 숫자만 적어주세요.");
+    		  return false;
+    	  }
+    	  
+    	  if(document.getElementById("memOriName").value.length == 0) {
+    		  alert("프로필 사진을 넣어주세요.");
     		  return false;
     	  }
 
@@ -218,20 +224,20 @@
 	              	<input type="text" class="form-control" name="birth" id="birth" placeholder="19900101" required>
 	            </div>
 				
-				<div class="file1">
+				<div class="file1" style="margin-top: 15px; margin-bottom: 25px;">
 	          	<label for="profile" class="form-label">프로필사진</label>
 	          	<input type="file" id="memOriName" name="memberOriName" value="사진" accept=".jpg,.jpeg,.png,.gif">
-	          		<img id="blah" src="#" alt="프로필사진" width="300px" height="300px" style="padding-top: 20px; padding-bottom:20px;">
+	          		<img id="blah" src="../resources/trainer/img/profileImg.png" onerror="../resources/trainer/img/profileImg.png"   width="300px" height="300px" style="margin-top: 20px; ">
 	          	</div> 
 				
 				<div class="mb-3">
-					<label for="content" style="margin-top: 10px">강사소개</label>
+					<label for="content" style="margin-top: 20px; margin-bottom: 10px;">강사소개</label>
 					<textarea id="editor" name = "trainerIntro"></textarea>
 					<script type="text/javascript">CKEDITOR.replace('editor');</script>
 				</div>
 				
 				<div class="mb-3">
-					<label for="content" style="margin-top: 10px">자격 및 경력</label>
+					<label for="content" style="margin-top: 15px; margin-bottom: 10px;">자격 및 경력</label>
 					<textarea id="editor2" name = "career"></textarea>
 					<script type="text/javascript">CKEDITOR.replace('editor2');</script>
 				</div>
@@ -242,10 +248,10 @@
 	            </div>
 	
 	            <div class="col-12">
-	            	<label for="address2" class="form-label" style="margin-top: 10px">사용중인 핸드폰 기종을 적어주세요.</label>
+	            	<label for="address2" class="form-label" style="margin-top: 25px;">사용중인 핸드폰 기종을 적어주세요.</label>
 	              	<input type="text" class="form-control" name="question1" id="question2" placeholder="아이폰12" required>
 	            </div>
-				<button class="w-100 btn btn-lg btn-primary" type="submit" id="reg_submit" style="margin-top:30px" onclick="registerInfo(this.form)">강사신청하기</button>	          
+				<button class="w-100 btn btn-lg btn-primary" type="submit" id="reg_submit" style="margin-top:40px" onclick="registerInfo(this.form)">강사신청하기</button>	          
 	        </form>
 	      </div>
 	    </div>

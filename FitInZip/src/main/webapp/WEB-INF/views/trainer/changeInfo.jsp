@@ -63,18 +63,26 @@
       	}
       	
       	function registerForm() {
-      		if(document.getElementById("password").value.length == 0) {
-      			alert("비밀번호를 입력해주세요.");	
-      			return false;
-      		}
+      		var password = document.getElementById("password").value;
+         	var passRule = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+	       	if(password.match(passRule) == null) {
+	       		alert("비밀번호는 숫자와 영문, 특수문자를 포함하여 8~16자리로 입력해주세요");
+	       		return false;
+	       	}
       		if(document.getElementById("nickname").value.length == 0) {
       			alert("별명을 입력해주세요.");
       			return false;
       		}
-      		if(document.getElementById("phone").value.length == 0){
-      			alert("전화번호를 입력해주세요.");
-      			return false;
-      		}
+      		var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
+      	  	var phone = document.getElementById("phone").value;
+      	  	if(phone.length < 11) {
+      		 	 alert("핸드폰번호를 입력해주세요.");
+      		 	 return false;
+      	 	 }
+      	  	if(phone.match(phoneRule) == null) {
+      		 	 alert("핸드폰은 000-0000-0000의 형식으로 작성해주세요.");
+      		 	 return false;
+      	 	 }
       		alert("정보 수정이 완료되었습니다!");
       		location.href="/trainerMainPage";
       	}

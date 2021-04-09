@@ -180,7 +180,7 @@
 
 					<div class="image" style="flex-wrap:wrap;margin-right:-.25rem;margin-left:-.25rem; position: relative;
     					transform: translate(-40%, 130%); top: 50%; left: 55%;">
-						<img id ="profileImg" src="../resources/trainer/img/review_basic_img.png"  width="300px" height="300px" class="img-rounded">
+						<img id ="profileImg" src="../resources/trainer/img/review_basic_img.png"  width="300px" height="300px" class="img-rounded" style="border-radius: 50%; object-fit: cover;">
 					</div>
 					
 					
