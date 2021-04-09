@@ -1,6 +1,7 @@
 package com.spring.FitInZip.back.cls.clsStatusService;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,8 @@ public class ClsStatusServiceImpl implements ClsStatusService {
 	
 	
 	@Override
-	public Integer getTotal(String trainerId) {
-		return dao.getClassCount(trainerId);
+	public Integer getTotal(Map<String, String> map) {
+		return dao.getClassCount(map);
 	}
 
 
@@ -42,13 +43,13 @@ public class ClsStatusServiceImpl implements ClsStatusService {
 
 	@Override
 	public void updateClass(ClsVO cls) {
-		System.out.println("수정 결과 : " + dao.updateCls(cls));
+		dao.updateCls(cls);
 		
 	}
 
 	@Override
 	public void insertClass(ClsVO cls) {
-		System.out.println("삽입 결과: " + dao.insertCls(cls));
+		dao.insertCls(cls);
 		
 	}
 

@@ -373,12 +373,14 @@ public class TrainerController {
 		String filePath = this.getClass().getResource("").getPath(); 
 		filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
 			    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
-		
-		System.out.println("path : " + filePath);
 
 		List<ClsVO> list = clsStatusService.getList(crt);
-		//System.out.println("list: " + list + " , list size: " + list.size());
-		int count = clsStatusService.getTotal(dto.getId());
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("trainerId", dto.getId());
+		map.put("classStatus", crt.getClassStatus());
+		
+		int count = clsStatusService.getTotal(map);
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", new PageDTO(crt, count)); // 뒤 쪽 매개변수는 총 데이터 개수
 
@@ -390,6 +392,7 @@ public class TrainerController {
 		
 		model.addAttribute("pageNum", crt.getPageNum());
 		model.addAttribute("amount", crt.getAmount());
+		model.addAttribute("classStatus", crt.getClassStatus());
 		
 		return "trainer/classRegister";
 	}
@@ -405,8 +408,6 @@ public class TrainerController {
 	    String filePath = this.getClass().getResource("").getPath(); 
 	    filePath = filePath.substring(1, filePath.indexOf(".metadata")) +
 	    "FitInZip/src/main/webapp/resources/classRegister/imgs/";
-		 
-		System.out.println(vo.getStartDate());
 
 		// 클래스 코드를 생성하기
 		java.util.Date now = new java.util.Date();
@@ -464,14 +465,10 @@ public class TrainerController {
 
 		vo.setStartTime(startTime);
 		vo.setEndTime(endTime);
-
-		System.out.println("starttime: " + startTime + ", endtime: " + endTime);
 		
 		vo.setTrainerId(dto.getId());
 		/* vo.setClsOriName(fileName); */
 		vo.setClsCode(classCode);
-
-		System.out.println("vo: " + vo.toString());
 
 		clsStatusService.insertClass(vo);
 
@@ -593,7 +590,6 @@ public class TrainerController {
 			file.delete();
 		}
 		// 파일 처리 끝
-		System.out.println("ClsVO : " + vo.toString());
 
 		clsStatusService.updateClass(vo);
 		
@@ -609,6 +605,7 @@ public class TrainerController {
 		
 		rttr.addAttribute("pageNum", crt.getPageNum());
 		rttr.addAttribute("amount", crt.getAmount());
+		rttr.addAttribute("classStatus", crt.getClassStatus());
 		
 		return "redirect:classStat";
 	}
