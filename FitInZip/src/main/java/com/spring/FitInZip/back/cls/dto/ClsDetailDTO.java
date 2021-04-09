@@ -45,6 +45,7 @@ public class ClsDetailDTO {
 	private String career;		// 자격 및 경력
 	private String titleFileName;
 	private String memFileName;
+	private Integer totalCal;
 	
 	
 	public void setReminder() {

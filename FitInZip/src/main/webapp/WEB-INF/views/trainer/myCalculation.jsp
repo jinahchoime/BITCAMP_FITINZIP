@@ -137,7 +137,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="classStat">
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>클래스 관리</span>
                 </a>
@@ -145,7 +145,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/myClass">나의 클래스</a>
-                        <a class="collapse-item" href="cards.html">클래스 신청현황</a>
+                        <a class="collapse-item" href="classStat">클래스 신청현황</a>
                     </div>
                 </div>
             </li>

@@ -136,13 +136,12 @@
 					
 					}
 					html += '<tr><td class="type_diff"><div class="list_img"><img src="' + data[i].thumbnailFileName +'" alt="클래스썸네일">';
-					/* https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">'; */
  					html += '</div> <a href="/play/play_apply/298" target="_blank"> <div class="list_txt full"> <dl class="prod_infor"> <dt> <div class="play_tch" style="margin-bottom: 5px;">';
  					html += '<span>' + data[i].clsCategory + '</span> <div>';
  					html += '</div>' + data[i].clsName + '</dt> <dd class="mt5"> <div>' + data[i].startDate;
  					html += '~' + data[i].endDate + '</div>' + data[i].yoil;
  					html += clsStartHour + ':' + clsStartMin + '~' + clsEndHour + ':' + clsEndMin + '</dd>';
- 					html += '<dd style="color: black; font-weight: 400;">클래스참여자: '; 
+ 					html += '<dd style="color: black; font-weight: 400;">'; 
  					
  					for(var j = 0; j < data[i].list.length; j++) {
  						html += data[i].list[j] + ' ';	
@@ -350,7 +349,7 @@
 				                            <tr>
 				                                <td class="type_diff">
 				                                    <div class="list_img">
-				                                        <img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">${edClass.clsOriName }
+				                                        <img src="${edClass.thumbnailFileName }" alt="클래스썸네일">
 				                                    </div>
 				                                    <a href="/play/play_apply/298" target="_blank">
 				                                        <div class="list_txt full">

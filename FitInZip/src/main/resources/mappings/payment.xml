@@ -39,6 +39,13 @@
     	VALUES (PAYMENT_SEQ.NEXTVAL, #{clsCode}, null, #{memId}, #{originPrice}, #{paidPrice}, #{commission}, #{netPrice}, 'PM00', SYSDATE)    	  
 	</insert>
 	
+	<!-- 결제 완료 후 강사 정산금 쌓아주기 -->
+	<update id="calUpdate" parameterType="com.spring.FitInZip.back.payment.vo.ClsCalDTO">
+		UPDATE TRAINER_REGISTER
+		SET TOTAL_CAL = #{totalCal}
+		WHERE TRAINER_ID = #{trainerId}
+	</update>
+	
 	<update id="useCoupon" parameterType="com.spring.FitInZip.back.common.vo.MemCouponVO">
 		UPDATE MEM_COUPON
         SET COUPON_USE_DATE = SYSDATE
