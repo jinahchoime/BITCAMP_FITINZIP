@@ -135,9 +135,7 @@ $(document).ready(function() {
 		}
 
 	function chartFirstStart(btnParam){
-		/* if(btnParam == null){
-			btnParam = '';
-		} */
+
 		chartStrartBBS(btnParam);
 		$.ajax({
 			url: "chageChartData",
@@ -150,7 +148,7 @@ $(document).ready(function() {
 				getSubMainchartOne(data)	
 			},
 			error: function (){
-				alert("짜쓰~"+error);
+				
 				}
 		});
 	}
@@ -159,17 +157,6 @@ $(document).ready(function() {
 			console.log("이것인가??!"+element);	
 		})
 		
-/* 		const labels = data.map(v => v.cdate);
-		const values = data.map(v => v.rprice);
-		console.log(labels);
-		console.log(values);
-		*/
-
-		
-		/*
-		document.getElementById('subMainChartStart').remove();
-		var a = document.getElementById('createDiv').outerHTML = "<canvas id='subMainChartStart' style='margin-top: 60px;'></canvas>"; 
-		*/
 		$('#subMainChartStart').remove();
 	    $('#createDiv').append('<canvas id="subMainChartStart" style="margin-top: 60px;"></canvas>');
 		

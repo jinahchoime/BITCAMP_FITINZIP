@@ -50,7 +50,6 @@ public class AdminDAO {
 	}
 	
 	public List<GetModalDTO> getModalList(String id){
-		System.out.println("DAO : " + id);
 		return mybatis.selectList("AdminDAO.getModal",id);
 	}
 	
@@ -60,8 +59,6 @@ public class AdminDAO {
 	}
 	
 	public Integer rejectTrainer(String id) {
-		System.out.println("거절 "+id);
-		
 		return mybatis.update("AdminDAO.rejectTrainer",id);
 	}
 	
@@ -70,7 +67,6 @@ public class AdminDAO {
 	}
 	
 	public List<GetMemberCheckDTO> allListRM(String key){
-		System.out.println("DAO 파라미터 값 : " + key);
 		return mybatis.selectList("AdminDAO.allListRM",key);
 	}
 	
@@ -89,7 +85,6 @@ public class AdminDAO {
 	}
 
 	public List<GetClsCheckDTO> allListCM(String key){
-		System.out.println("DAO key" + key);
 		return mybatis.selectList("AdminDAO.allListCM",key);
 	}
 	
@@ -110,10 +105,8 @@ public class AdminDAO {
 		return mybatis.selectList("AdminDAO.getChageChartData",btnParam);
 	}
 	public List<GetSubBBSDataDTO> getSubBBSData(String btnParam){
-		System.out.println("dao btnParam : " + btnParam);
 		List<GetSubBBSDataDTO> list= mybatis.selectList("AdminDAO.getSubMainBBS",btnParam);
-		System.out.println("왜안나오노 "+list);
-		//return list;
+
 		return list;
 	}
 	public List<GetChartPeopleData> getChartPeopleStartOne(String btnParam){

@@ -346,7 +346,7 @@ canvas{
 				
 			},
 			error: function (){
-				alert("짜쓰~"+error);
+				
 				}
 		});
 		
@@ -368,7 +368,7 @@ canvas{
 	function approveTrainer(){
 		let id = document.getElementById('modalBody').innerHTML;
 		let btnId = document.getElementById('btnResult1').innerHTML
-		alert("id : " + id + "btnId" + btnId);
+		
 		
 		$.ajax({
 			url: "approveTrainer",
@@ -376,12 +376,12 @@ canvas{
 			dataType: "json",
 			data: {id:id, btnId:btnId},
 			success: function(data){
-				alert("승인이 완료 되었습니다.");
+				
 				window.location.href="adminMain";
 			
 			},
 			error: function (){
-				alert("실패 : "+error);
+				
 				}
 		});
 	}
@@ -396,12 +396,12 @@ canvas{
 			dataType: "json",
 			data: {id:id, btnId:btnId},
 			success: function(data){
-				alert("승인이 거절 되었습니다.");
+				
 				window.location.href="adminMain";
 			
 			},
 			error: function (){
-				alert("실패 : "+error);
+				
 				}
 		});
 	}
@@ -426,7 +426,7 @@ canvas{
 				
 			},
 			error: function (){
-				alert("짜쓰~"+error);
+				
 				}
 		});
 	}
@@ -451,7 +451,7 @@ canvas{
 	function approveClsTrainer(){
 		let id = document.getElementById('modalClsBody').innerHTML;
 		let btnId = document.getElementById('btnClsResult1').innerHTML
-		alert("id : " + id + "btnId : " + btnId);	
+			
 		
 		$.ajax({
 			url: "approveClsTrainer",
@@ -459,12 +459,12 @@ canvas{
 			dataType: "json",
 			data: {id:id, btnId:btnId},
 			success: function(data){
-				alert("승인 되었습니다.");
+				
 				window.location.href="adminMain";
 			
 			},
 			error: function (){
-				alert("실패 : ");
+				
 				}
 		});
 	}
@@ -472,7 +472,7 @@ canvas{
 	function rejectClsTrainer(){
 		let id = document.getElementById('modalClsBody').innerHTML;
 		let btnId = document.getElementById('btnClsResult2').innerHTML
-		alert("id : " + id + "btnId : " + btnId);	
+			
 		
 		$.ajax({
 			url: "approveClsTrainer",
@@ -480,12 +480,12 @@ canvas{
 			dataType: "json",
 			data: {id:id, btnId:btnId},
 			success: function(data){
-				alert("승인 거부 되었습니다.");
+				
 				window.location.href="adminMain";
 			
 			},
 			error: function (){
-				alert("실패 : ");
+				
 				}
 		});
 	}
@@ -512,7 +512,7 @@ canvas{
 				dataOne = getchartOneData(data)	
 			},
 			error: function (){
-				alert("짜쓰~"+error);
+				
 				}
 		});
 	
@@ -638,7 +638,7 @@ canvas{
 					
 				},
 				error: function (){
-					alert("짜쓰~"+error);
+					
 					}
 			});
 			return dataTwo;
@@ -753,7 +753,7 @@ canvas{
 						console.log("오냐고고고고ㅗㄱ"+data['15']);
 					},
 					error: function (){
-						alert("짜쓰~"+error);
+						
 						}
 				});
 			}
