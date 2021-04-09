@@ -40,7 +40,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.FitInZip.back.cls.clsStatus.Criteria;
 import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
 import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
-import com.spring.FitInZip.back.cls.vo.ClsTrainerDTO;
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
+import com.spring.FitInZip.back.cls.dto.ClsTrainerDTO;
 import com.spring.FitInZip.back.cls.vo.ClsVO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.trainer.TrainerService;
@@ -227,6 +228,19 @@ public class TrainerController {
     public List<ClsTrainerDTO> myPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
     	
     	List<ClsTrainerDTO> ingCls = trainerService.myPage1(dto);
+    	for (ClsTrainerDTO cdto : ingCls) {
+			String code = cdto.getClsCode();
+			cdto.setList(trainerService.nameCheck(code));
+			String profileImg = cdto.getThumbnailFileName();
+			
+			if(profileImg != null) {
+				profileImg = profileImg.substring(profileImg.indexOf("resources"));
+				cdto.setThumbnailFileName(profileImg);
+				
+			}
+			
+			
+		}
     	System.out.println("ingCls: " + ingCls);
     	model.addAttribute("ingCls", ingCls);
     	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);

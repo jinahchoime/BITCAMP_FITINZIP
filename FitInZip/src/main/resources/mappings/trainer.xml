@@ -122,8 +122,8 @@
 	</update>
 	
 	<!-- 강사 클래스(나의 클래스) -->
-	<select id="ingClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.vo.ClsTrainerDTO">
-		SELECT f.THUMBNAIL_ORI_NAME AS thumbnailOriName, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime, f.MEET_URL as meetUrl  
+	<select id="ingClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.dto.ClsTrainerDTO">
+		SELECT f.THUMBNAIL_FILE_NAME AS thumbnailFileName, f.CLS_CODE AS clsCode, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime, f.MEET_URL as meetUrl  
 	    FROM FIT_CLASS f, COMMON c
 	    WHERE f.CLS_CATEGORY = c.COMMON_CODE 
 	    AND f.TRAINER_ID = #{id}
@@ -131,9 +131,19 @@
 	    AND CLS_STATUS = 'CS01'
 	</select>
 	
+	<!-- 나의 클래스 조회 시 이름 -->
+	<select id="memberName" parameterType="trainerDTO" resultType="String">
+		SELECT m.name
+		FROM
+		MEMBER m, PAYMENT p, FIT_CLASS c
+		WHERE m.ID = p.MEM_ID
+		AND p.CLS_CODE = c.CLS_CODE
+		AND c.cls_code = #{clsCode}
+	</select>
+	
 	<!-- 강사 클래스(종료된 클래스) -->
-	<select id="edClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.vo.ClsTrainerDTO">
-		SELECT f.THUMBNAIL_ORI_NAME AS thumbnailOriName, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime 
+	<select id="edClass" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.cls.dto.ClsTrainerDTO">
+		SELECT f.THUMBNAIL_FILE_NAME AS thumbnailFileName, f.CLS_CODE AS clsCode, c.COMMON_NAME AS clsCategory, f.CLS_NAME AS clsName, f.YOIL AS yoil, TO_CHAR(f.START_DATE, 'YYYY-MM-DD') AS startDate, TO_CHAR(f.END_DATE, 'YYYY-MM-DD') AS endDate, f.START_TIME as startTime, f.END_TIME as endTime 
 	    FROM FIT_CLASS f, COMMON c
 	    WHERE f.CLS_CATEGORY = c.COMMON_CODE 
 	    AND f.TRAINER_ID = #{id}

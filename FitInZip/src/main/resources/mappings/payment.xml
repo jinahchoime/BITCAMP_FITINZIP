@@ -22,6 +22,7 @@
  		WHERE m.ID = c.MEM_ID 
         AND c.COUPON_CODE = i.COUPON_CODE 
         AND m.ID = #{id} 
+        AND c.COUPON_USE_DATE IS NULL
         AND ((SYSDATE <![CDATA[ >= ]]> i.COUPON_START_DATE AND SYSDATE <![CDATA[ <= ]]> i.COUPON_END_DATE) OR COUPON_START_DATE IS NULL OR COUPON_END_DATE IS NULL)
 	</select>
 	
@@ -37,12 +38,26 @@
 		INSERT INTO PAYMENT
     	VALUES (PAYMENT_SEQ.NEXTVAL, #{clsCode}, null, #{memId}, #{originPrice}, #{paidPrice}, #{commission}, #{netPrice}, 'PM00', SYSDATE)    	  
 	</insert>
+	
+	<update id="useCoupon" parameterType="com.spring.FitInZip.back.common.vo.MemCouponVO">
+		UPDATE MEM_COUPON
+        SET COUPON_USE_DATE = SYSDATE
+        WHERE MEM_ID = #{memId}
+        AND COUPON_CODE = #{couponCode}
+	</update>
 
 	<!-- payment 테이블에 주문완료정보 insert -->
 	<insert id="insertPayment" parameterType="com.spring.FitInZip.back.payment.vo.PaymentVO">
 	INSERT INTO PAYMENT (PAY_INDEX, ORDER_NUM, MEM_ID, ORIGIN_PRICE, PAID_PRICE, PAY_METHOD,PAY_DATE)
 	VALUES (PAYMENT_SEQ.nextval , #{orderNum}, #{memId} , #{originPrice}, #{paidPrice}, #{payMethod}, SYSDATE)
 	</insert>
+	
+	<!-- cls결제 후 결제내역 조회 -->
+	<select id="selectCls" parameterType="memberVO" resultType="com.spring.FitInZip.back.payment.vo.SelectClsDTO">
+		SELECT CLS_CODE, MEM_ID
+		FROM PAYMENT
+		WHERE MEM_ID = #{id}
+	</select>
 
 	<!-- 주문번호 시퀀스  -->
 	<select id="propaySequence" resultType="String">

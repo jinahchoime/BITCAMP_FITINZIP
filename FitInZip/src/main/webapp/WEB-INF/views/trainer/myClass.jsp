@@ -50,8 +50,6 @@
 					$('#tableList').html(html);
 				}
 				
-				
-				
 				for(var i = 0; i < data.length; i++) {
 					var Now = new Date();
 					var nowYear = Now.getFullYear();
@@ -137,12 +135,20 @@
 						}
 					
 					}
-					html += '<tr><td class="type_diff"><div class="list_img"><img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">';
- 					html += '</div> <a href="/play/play_apply/298" target="_blank"> <div class="list_txt full"> <dl class="prod_infor"> <dt> <div class="play_tch">';
+					html += '<tr><td class="type_diff"><div class="list_img"><img src="' + data[i].thumbnailFileName +'" alt="클래스썸네일">';
+					/* https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-01-13/1610504309603274172.png" alt="클래스썸네일">'; */
+ 					html += '</div> <a href="/play/play_apply/298" target="_blank"> <div class="list_txt full"> <dl class="prod_infor"> <dt> <div class="play_tch" style="margin-bottom: 5px;">';
  					html += '<span>' + data[i].clsCategory + '</span> <div>';
  					html += '</div>' + data[i].clsName + '</dt> <dd class="mt5"> <div>' + data[i].startDate;
  					html += '~' + data[i].endDate + '</div>' + data[i].yoil;
- 					html += clsStartHour + ':' + clsStartMin + '~' + clsEndHour + ':' + clsEndMin + '</dd></dl></div></a></td><td>';
+ 					html += clsStartHour + ':' + clsStartMin + '~' + clsEndHour + ':' + clsEndMin + '</dd>';
+ 					html += '<dd style="color: black; font-weight: 400;">클래스참여자: '; 
+ 					
+ 					for(var j = 0; j < data[i].list.length; j++) {
+ 						html += data[i].list[j] + ' ';	
+					};
+					
+ 					html += '</dd></dl></div></a></td><td>';
  					html += button;
  					html += '</td> </tr>'; 					
 				}
@@ -173,7 +179,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/trainerMainPage">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/trainerMainPageView">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -201,7 +207,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                 
                         <a class="collapse-item" href="/myClass">나의 클래스</a>
-                        <a class="collapse-item" href="cards.html">클래스 신청현황</a>
+                        <a class="collapse-item" href="classStat">클래스 신청현황</a>
                     </div>
                 </div>
             </li>

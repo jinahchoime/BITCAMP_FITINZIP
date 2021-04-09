@@ -1,36 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>         
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>클래스 결제완료</title>
+<title>결제 완료</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<style>
+* {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.title {
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 20px;
+	font-size: 24px;
+	font-weight: 500;
+}
+.contents {
+	vertical-align: middle;
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 20px;
+	font-weight: 500;
+}
+.pay-container {
+	/*border: 1px solid #111; */ 
+	width: 500px;
+	margin-left: 700px;
+	margin-top: 150px;
+	border-top: 1px solid #dedfda;
+	box-sizing: border-box;
+}
+.a-btn {
+	color: #111;
+	text-decoration: underline;
+}
+.a-btn:active {
+	color: gray;
+}
+.a-btn:hover {
+	color: gray;
+}
+</style>
 </head>
-
-<link href="../resources/class/css/clsPayment.css" rel="stylesheet">
-
 <body>
-	<div class="subject" style="margin-top: 50px;">
-	<h2>주문완료</h2>
+	<jsp:include page="../nav.jsp"></jsp:include>
 	
-	
-	<hr>
-	<div class="payment" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
-	<div>
-	<img src="../resources/product/img/creditcard_payment_icon.png" style="width:170px; height: 170px;">
+	<div class="pay-container">
+		<p class="title" >결제가 완료되었습니다</p><i class="fas fa-dumbbell"></i>
+		
+		<div class="contents">
+			<p>- 구매처: FITINZIP</p>
+			<p>- 결제금액: ${detail.totalPrice }원 </p>
+			<a class="a-btn" href="/clsHistory">주문조회</a>
+		</div>
 	</div>
-	
-	<div>
-	<p>주문이 성공적으로 완료되었습니다.</p>
-	<p>주문내역 확인은 마이페이지에서 가능합니다.</p>
-	</div>
-	</div>
-	<hr>
-	<div>
-																				
-	<a data-adarea="피클_클래스 신청하기" class="btn_basic full big2 radius mainback1 mt0 relative adClick" style="cursor:pointer;" href="/myPage">
-	주문내역 확인하기
-	</a>
-	</div>
+	<div style="height:200px;"></div>
+	<!-- Footer -->
+	<jsp:include page="../footer.jsp"></jsp:include>
 </body>
 </html>

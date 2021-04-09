@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
-
+import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
 import com.spring.FitInZip.back.member.vo.MemberVO;
 import com.spring.FitInZip.back.payment.vo.PaymentVO;
+import com.spring.FitInZip.back.payment.vo.SelectClsDTO;
 
 
 @Repository
@@ -33,5 +34,12 @@ public class ClsPayDAO {
 	public void clsPayment(PaymentVO pvo) {
 		mybatis.insert("PayDAO.insertClsPayment", pvo);
 	}
-
+	//결제완료 후 쿠폰 사용
+	public void updateCoupon(MemCouponVO mvo) {
+		mybatis.update("PayDAO.useCoupon", mvo);
+	}
+	//결제완료 후 같은 클래스 구매하는지 확인
+	public List<SelectClsDTO> searchCls(MemberVO vo) {
+		return mybatis.selectList("PayDAO.selectCls", vo);
+	}
 }

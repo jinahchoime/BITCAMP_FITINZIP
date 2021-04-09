@@ -155,46 +155,19 @@
     <section class="page-section bg-primary text-white mb-0" id="about">
 
 	    <!-- About Section Heading-->
-	    <h4 class="page-section-heading text-center text-uppercase text-white">지금 바로 예상 수익을 확인하세요</h4>
+	    <h4 class="page-section-heading text-center text-uppercase text-white">지금 강사로 등록하고 수익을 받아가세요!</h4>
 	    
 	    <!-- Icon Divider-->
-	    <div class="divider-custom divider-light">
+	    <!-- <div class="divider-custom divider-light">
 	        <div class="divider-custom-line"></div>
 	        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
 	        <div class="divider-custom-line"></div>
-	    </div>
-		<!-- About Section Content-->
-		
-		
-	         <div style="background-color: rgb(240, 240, 240); padding:80px 0px; width:700px; height:414px; display: block; box-sizing: inherit;">
-	         <div class="count1" style="calc(100% + 24px); margin: -12px; align-items: center; flex-direction: column; 
-				display: flex; flex-wrap: wrap; box-sizing: border-box;"> 
-	    		<h4>수업 진행 횟수</h4> 
-	    		<div>
-		    		<p style="display:inline-flex">하루</p> 
-		    			<input type="text" value="횟수" name="count">
-		    		<p id="count" style="display:inline-flex">회</p> 
-		        	<p>1회는 50분 기준입니다.</p>
-	        	</div>
-	        	<div class="number">
-	        	<span id="numberUpDown">1</span>명
-	        		<button type="button" class="btn btn-outline-secondary" id="increaseQuantity">+</button>
-	        		<button type="button" class="btn btn-outline-secondary" id="decreaseQuantity">-</button>
-					<p>1일 예상 수익</p> 
-		        	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
-					  <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-					  <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
-					</svg>
-		        	<script>document.write(total)</script>원
-		    	</div>
-	         </div>
-	    </div>
-	    </div> 
-	
+	    </div> -->
+
 	    <!-- About Section Button-->
 		  
 	    <div class="text-center mt-4">
-	        <a class="btn btn-xl btn-outline-light" href="/registerForm">
+	        <a class="btn btn-xl btn-outline-light" href="/registerForm" style="margin-top: 40px;">
 	            <i class="fas fa-download mr-2"></i>
 	         	강사 지원하기
 	        </a>
@@ -206,13 +179,55 @@
     <!-- Footer--> <!-- 세부분으로 나눈 것을 하나로 합치기 -->
     <footer class="footer text-center">
         <div class="container">
-            <div class="row">  
+            <div class="row1">  
                 <!-- Footer About Text-->
-                <div class="">
-                    <h4 class="text-uppercase mb-4">풋터</h4>
-                    <p class="lead mb-0">
-                       	풋터내용///////////////////////////dfsdddddddddddddddㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-                    </p>
+                <!-- <div class="">
+                    <h4 class="text-uppercase mb-4">풋터</h4> -->
+                    <!-- <p class="lead mb-0">
+                       	
+                    </p> -->
+            <div style="display:inline-block; width: 370px; vertical-align: top;">
+		  	<h3 style="font-size: 18px; color: white; margin-bottom: 15px;">고객센터</h3>
+		    <a href="https://open.kakao.com/o/sAQYcE6c" style="color: black;border: 1px solid #ffffff52;background-color: white;padding: 10px 65px 10px 65px;border-radius: 5px;">
+		    	<img alt="카카오톡" src="https://img.ficle.io/www/common/icon/ic_kk_type4.png"
+		    		style="padding-bottom: 1px;">
+		    	문의하기
+		    </a>
+		    <p style="color:#ababab; margin-top:5px;">오전 11시 ~ 오후 6시 (주말, 공휴일 )</p>
+		  </div>
+		  <div style="display: inline-block; border: 0.5px solid #ffffff52; height: 122px;"></div>
+		   <div style="display:inline-block;color: #ffffff52;vertical-align: top;margin-top: 32px;">
+		  	<a href="#" style="margin-right: 20px; margin-left: 65px; color: white; text-decoration: none;">
+		  		<span style="color: #ffffff52;">
+		  			<i class="fab fa-instagram fa-3x"></i>
+		  		</span>
+		  	</a>
+		  	<a href="#" style="margin-right: 25px; color: white; text-decoration: none;">
+		  		<span style="color: #ffffff52;">
+		  			<i class="fab fa-facebook-square fa-3x"></i>
+		  		</span>
+		  	</a>
+		  	<a href="#" style="margin-right: 25px; color: white; text-decoration: none;">
+		  		<span style="color: #ffffff52;">
+		  			<i class="fab fa-twitter-square fa-3x"></i>
+		  		</span>
+		  	</a>
+		  	<a href="#" style="margin-right: 25px; color: white; text-decoration: none;">
+		  		<span style="color: #ffffff52;">
+		  			<i class="fab fa-blogger fa-3x"></i>
+		  		</span>
+		  	</a>
+		  </div> 
+		  <div>
+		  	<h3 style=" display: inline-block; margin-right: 20px; margin-top: 60px"><a href="/" style="color: white; text-decoration: none;">FITIN.ZIP</a></h3>
+		  	<p style="display: inline-block; color: #ababab; margin-right: 5px;">회사소개</p>
+		  	<p style="display: inline-block; color: #ababab; margin-right: 5px;">이용약관</p>
+		  	<p style="display: inline-block; color: #ababab;">개인정보취급방침</p>
+		  </div>
+		  <div style="font-size: 13px; color: #ffffff66;">
+		  	<p>사업자등록번호 000-00-00000 | 통신판매번호 2021-서울서초-0000 | 대표이사 김피트  | 개인정보관리책임자 김비트  | 서울특별시 서초구 서초4동 강남대로 </p>
+		  	<p>Copyright © FITINZIPCOMPANY Co. All rights reserved. Server : 000.00.00.000</p>
+		  </div>
                 </div>
             </div>
         </div>

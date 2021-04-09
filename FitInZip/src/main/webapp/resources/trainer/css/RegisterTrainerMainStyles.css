@@ -577,6 +577,12 @@ pre code {
   margin-right: -1.5rem;
   margin-left: -1.5rem;
 }
+.row1 {
+
+  flex-wrap: wrap;
+  margin-right: -1.5rem;
+  margin-left: -1.5rem;
+}
 
   .no-gutters {
   margin-right: 0;
