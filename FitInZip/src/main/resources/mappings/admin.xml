@@ -154,37 +154,81 @@
 	ORDER BY P.PAY_DATE DESC
 	</select>
 	
-	<select id="getChartPeopleStartOne" resultType="com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO" parameterType="string">
+	<select id="getChartPeopleStartOne" resultType="com.spring.FitInZip.back.admin.vo.GetChartPeopleData" parameterType="string">
 	SELECT C.CDATE , NVL(D.PCOUNT,0) AS PCOUNT
-    FROM (SELECT TO_CHAR(TO_DATE('20210401','YYYYMMDD') + (INTERVAL '1' DAY)*(LEVEL-1) ,'MM/DD' ) AS CDATE
+	FROM
+	(SELECT TO_CHAR(SYSDATE - (INTERVAL '1' MONTH)*(LEVEL-1) ,'YY/MM' ) AS CDATE
 	FROM DUAL
 	<![CDATA[
-	CONNECT BY LEVEL <= (SELECT TO_CHAR(LAST_DAY('20210401'),'DD')
+	CONNECT BY LEVEL <= (SELECT SUBSTR(TO_CHAR(SYSDATE,'YY/MM'),-1) FROM DUAL)) C
 	]]>
-    FROM DUAL)) C
-    LEFT JOIN
-    (SELECT TO_CHAR(JOIN_DATE,'MM/DD') AS CDATE , COUNT(*) AS PCOUNT FROM MEMBER
-    WHERE TO_CHAR(JOIN_DATE,'YYYY/MM') = '2021/04' AND ROLE='RL00' AND  WITHDRAWAL = 'WD00'
-    GROUP BY TO_CHAR(JOIN_DATE,'MM/DD')) D
-    ON C.CDATE = D.CDATE
-	ORDER BY C.CDATE;
+	LEFT JOIN
+	(SELECT TO_CHAR(JOIN_DATE,'YY/MM') AS CDATE,COUNT(*) AS PCOUNT
+    FROM MEMBER
+    WHERE WITHDRAWAL = 'WD00' AND ROLE ='RL00'
+    GROUP BY TO_CHAR(JOIN_DATE,'YY/MM')) D
+	ON C.CDATE = D.CDATE
+	ORDER BY C.CDATE
 	</select>
 	
-	<select id="getChartPeopleStartTwo" resultType="com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO" parameterType="string">
+	<select id="getChartPeopleStartTwo" resultType="com.spring.FitInZip.back.admin.vo.GetChartPeopleData" parameterType="string">
 	SELECT C.CDATE , NVL(D.PCOUNT,0) AS PCOUNT
-    FROM (SELECT TO_CHAR(TO_DATE('20210401','YYYYMMDD') + (INTERVAL '1' DAY)*(LEVEL-1) ,'MM/DD' ) AS CDATE
+	FROM
+	(SELECT TO_CHAR(SYSDATE - (INTERVAL '1' MONTH)*(LEVEL-1) ,'YY/MM' ) AS CDATE
 	FROM DUAL
 	<![CDATA[
-	CONNECT BY LEVEL <= (SELECT TO_CHAR(LAST_DAY('20210401'),'DD')
+	CONNECT BY LEVEL <= (SELECT SUBSTR(TO_CHAR(SYSDATE,'YY/MM'),-1) FROM DUAL)) C
 	]]>
+	LEFT JOIN
+	(SELECT TO_CHAR(JOIN_DATE,'YY/MM') AS CDATE,COUNT(*) AS PCOUNT
+    FROM MEMBER
+    WHERE WITHDRAWAL = 'WD00' AND ROLE ='RL01'
+    GROUP BY TO_CHAR(JOIN_DATE,'YY/MM')) D
+	ON C.CDATE = D.CDATE
+	ORDER BY C.CDATE
+	</select>
+	
+	<select id="getChartPeopleOne" resultType="com.spring.FitInZip.back.admin.vo.GetChartPeopleData" parameterType="string">
+	SELECT C.CDATE , NVL(D.PCOUNT,0) AS PCOUNT
+    FROM (SELECT TO_CHAR(TO_DATE(#{value},'YYYYMMDD') + (INTERVAL '1' DAY)*(LEVEL-1) ,'MM/DD' ) AS CDATE
+	FROM DUAL
+	<![CDATA[
+	CONNECT BY LEVEL <= ]]>(SELECT TO_CHAR(LAST_DAY(#{value}),'DD')
     FROM DUAL)) C
     LEFT JOIN
     (SELECT TO_CHAR(JOIN_DATE,'MM/DD') AS CDATE , COUNT(*) AS PCOUNT FROM MEMBER
-    WHERE TO_CHAR(JOIN_DATE,'YYYY/MM') = '2021/04' AND ROLE='RL01' AND  WITHDRAWAL = 'WD00'
+    WHERE TO_CHAR(JOIN_DATE,'YYYY/MM') =SUBSTR(#{value}, 1,4)||'/'||SUBSTR(#{value}, 5,2) AND ROLE='RL00' AND  WITHDRAWAL = 'WD00'
     GROUP BY TO_CHAR(JOIN_DATE,'MM/DD')) D
     ON C.CDATE = D.CDATE
-	ORDER BY C.CDATE;
+	ORDER BY C.CDATE
+	</select>
+	
+	<select id="getChartPeopleTwo" resultType="com.spring.FitInZip.back.admin.vo.GetChartPeopleData" parameterType="string">
+	SELECT C.CDATE , NVL(D.PCOUNT,0) AS PCOUNT
+    FROM (SELECT TO_CHAR(TO_DATE(#{value},'YYYYMMDD') + (INTERVAL '1' DAY)*(LEVEL-1) ,'MM/DD' ) AS CDATE
+	FROM DUAL
+	<![CDATA[
+	CONNECT BY LEVEL <= ]]>(SELECT TO_CHAR(LAST_DAY(#{value}),'DD')
+    FROM DUAL)) C
+    LEFT JOIN
+    (SELECT TO_CHAR(JOIN_DATE,'MM/DD') AS CDATE , COUNT(*) AS PCOUNT FROM MEMBER
+    WHERE TO_CHAR(JOIN_DATE,'YYYY/MM') =SUBSTR(#{value}, 1,4)||'/'||SUBSTR(#{value}, 5,2) AND ROLE='RL01' AND  WITHDRAWAL = 'WD00'
+    GROUP BY TO_CHAR(JOIN_DATE,'MM/DD')) D
+    ON C.CDATE = D.CDATE
+	ORDER BY C.CDATE
 	</select>
 	 
-	 
+	 <select id="getChartPeopleBBS" resultType="com.spring.FitInZip.back.admin.vo.GetSubBBSPeopleDTO" parameterType="string">
+    SELECT M.ID, M.NAME, M.GENDER, M.BIRTH, M.JOIN_DATE, C.COMMON_NAME 
+    FROM MEMBER M, COMMON C 
+    WHERE M.ROLE = C.COMMON_CODE AND COMMON_NAME IN ('회원','강사') AND M.WITHDRAWAL = 'WD00' 
+   <if test="value == null">
+    AND TO_CHAR(M.JOIN_DATE,'YYYY') = '2021'
+   </if>
+   <if test="value != null">
+    AND TO_CHAR(M.JOIN_DATE,'YYYYMM') = SUBSTR(#{value},1,6)
+   </if>  
+    ORDER BY COMMON_NAME DESC, JOIN_DATE DESC, NAME
+	</select>
+	
  </mapper>

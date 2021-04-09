@@ -35,7 +35,7 @@
 <link rel="stylesheet" href="../resources/admin/css/style5.css">
 
 <style>
-#btnResult{
+.btnResult{
 margin-right:20px;
 background-color: #D5E1DF;
 border-color:#7c9893;
@@ -56,24 +56,23 @@ border-color:#7c9893;
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12" style="text-align: center;">
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart()">ALL</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210101')">1월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210201')">2월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210301')">3월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210401')">4월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210501')">5월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210601')">6월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210701')">7월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210801')">8월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('20210901')">9월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('202101001')">10월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('202101101')">11월</button>
-						<button type="button" class="btn" id="btnResult" onclick="chartPeopleStart('202101201')">12월</button>
+						<button type="button" class="btn btnResult" id="btnResult" onclick="chartPeopleStart()">2021년</button>
+						<button type="button" class="btn" id="btnResult1" onclick="chartPeopleStartTwo('20210101')">1월</button>
+						<button type="button" class="btn" id="btnResult2" onclick="chartPeopleStartTwo('20210201')">2월</button>
+						<button type="button" class="btn" id="btnResult3" onclick="chartPeopleStartTwo('20210301')">3월</button>
+						<button type="button" class="btn" id="btnResult4" onclick="chartPeopleStartTwo('20210401')">4월</button>
+						<button type="button" class="btn" id="btnResult5" onclick="chartPeopleStartTwo('20210501')">5월</button>
+						<button type="button" class="btn" id="btnResult6" onclick="chartPeopleStartTwo('20210601')">6월</button>
+						<button type="button" class="btn" id="btnResult7" onclick="chartPeopleStartTwo('20210701')">7월</button>
+						<button type="button" class="btn" id="btnResult8" onclick="chartPeopleStartTwo('20210801')">8월</button>
+						<button type="button" class="btn" id="btnResult9" onclick="chartPeopleStartTwo('20210901')">9월</button>
+						<button type="button" class="btn" id="btnResult10" onclick="chartPeopleStartTwo('20211001')">10월</button>
+						<button type="button" class="btn" id="btnResult11" onclick="chartPeopleStartTwo('20211101')">11월</button>
+						<button type="button" class="btn" id="btnResult12" onclick="chartPeopleStartTwo('20211201')">12월</button>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12" id ="createDiv">
-						<canvas id="subMainPeopleChart" style="margin-top: 60px;"></canvas>
 					</div>
 				</div>
 				<div class="row">
@@ -102,7 +101,7 @@ border-color:#7c9893;
 					<div class="tbl-content h700">
 						<table cellpadding="0" cellspacing="0" border="0">
 							<tbody id="getList">
-								<%-- <%@ include file="subMainPart.jsp"%> --%>
+								<%-- <%@ include file="subMainPeoplePart.jsp"%> --%>
 							</tbody>
 
 						</table>
@@ -138,7 +137,7 @@ $(document).ready(function() {
 
 	function chartPeopleStart(btnParam){
 		console.log("btnParam"+btnParam);
-		
+		chartStrartBBS(btnParam);
 		$.ajax({
 			url: "chartPeopleStartOne",
 			type: "POST",
@@ -147,8 +146,7 @@ $(document).ready(function() {
 				btnParam :btnParam
 			},
 			success: function(data){
-				let dataTwo = chartPeopleSecond(btnParam);
-				getSubMainchartOne(data, dataTwo)	
+				getSubMainchartOne(data)	
 			},
 			error: function (){
 				alert("짜쓰~"+error);
@@ -156,29 +154,42 @@ $(document).ready(function() {
 		});
 	}
 	function getSubMainchartOne(data){
+		var arrOne = JSON.stringify(data.listOne);
+		var arrTwo = JSON.stringify(data.listTwo);
 		
-		console.log(data);
+		console.log(arrOne);
+	
+		
 		$('#subMainChartStart').remove();
 	    $('#createDiv').append('<canvas id="subMainChartStart" style="margin-top: 60px;"></canvas>');
 		
 		let myChartStart = document.getElementById('subMainChartStart').getContext('2d');
 		
 		let getChartOne = new Chart(myChartStart, {
-			type : 'bar', //pie, line, doughnut, palarArea, bar
+			type : 'line', //pie, line, doughnut, palarArea, bar
 			data : {
-				//labels: labels,
+				//labels: labels,[{cdate : '2/1', pcount : '20'}]
 				datasets : [{
-					data: data,
+					label: '일반회원',
+					data: JSON.parse(arrOne),
+					backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)','rgba(0,188,212,0.7)','rgba(255,193,7,0.7)','rgba(156,39,176,0.7)','rgba(0,150,136,0.7)','rgba(255,152,0,0.7)','rgba(103,58,183,0.7)','rgba(76,175,80,0.7)','rgba(77,44,264,0.7)' ],
+					borderWidth : 3,
+					borderColor : ['rgba(247,67,54,1)','rgba(33,150,243,1)' , 'rgba(255,152,0,1)' , 'rgba(233,30,99,1)','rgba(0,188,212,1)','rgba(255,193,7,1)','rgba(156,39,176,1)','rgba(0,150,136,1)','rgba(255,152,0,1)','rgba(103,58,183,1)','rgba(76,175,80,1)','rgba(77,44,264,1)']
+				},{
+					label : '트레이너',
+					data: JSON.parse(arrTwo),
 					backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)','rgba(0,188,212,0.7)','rgba(255,193,7,0.7)','rgba(156,39,176,0.7)','rgba(0,150,136,0.7)','rgba(255,152,0,0.7)','rgba(103,58,183,0.7)','rgba(76,175,80,0.7)','rgba(77,44,264,0.7)' ],
 					borderWidth : 3,
 					borderColor : ['rgba(247,67,54,1)','rgba(33,150,243,1)' , 'rgba(255,152,0,1)' , 'rgba(233,30,99,1)','rgba(0,188,212,1)','rgba(255,193,7,1)','rgba(156,39,176,1)','rgba(0,150,136,1)','rgba(255,152,0,1)','rgba(103,58,183,1)','rgba(76,175,80,1)','rgba(77,44,264,1)']
 				}] 
+		
 			},
 			options: {
 				parsing: {
 					xAxisKey: 'cdate',
-					yAxisKey: 'rprice'
-				},scales: {
+					yAxisKey: 'pcount'
+				},
+				scales: {
 					y: {
 						ticks:{
 							beginAtZero:true,
@@ -186,7 +197,7 @@ $(document).ready(function() {
 	                            if(parseInt(value) >= 1000){
 	                               return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ '원';
 	                            } else {
-	                               return value+'원';
+	                               return value+'명';
 	                            }
 	                       }                            
 						}
@@ -194,20 +205,120 @@ $(document).ready(function() {
 	            },
 				plugins:{
 					legend: {
-	            	    display: false,
+	            	    display: true,
 	                	labels: {
-	                    	color: 'rgb(255, 99, 132)'
+	                    	color: 'rgb(0, 0, 0,1)'
 	                	}
 	            	},tooltip: {
 					      callbacks: {
 					    	  label: function(context) {
-			                        var label = context.dataset.label || '매출액  ';
+			                        var label = context.dataset.label || '가입인원  ';
 
 			                        if (label) {
 			                            label += ': ';
 			                        }
 			                        if (context.parsed.y !== null) {
-			                            label += addComma(context.parsed.y) + ' 원';
+			                            label += addComma(context.parsed.y) + ' 명';
+			                        }
+			                        return label;
+			                    }
+						      }
+					   }
+				}, animation: {
+	                duration: 8000,
+	            }
+			}
+		}); // 차트 메인 콜백함수	
+	}
+	
+	function chartPeopleStartTwo(btnParam){
+		chartStrartBBS(btnParam);
+		console.log("btnParam"+btnParam);
+		
+		$.ajax({
+			url: "chartPeopleStartTwo",
+			type: "POST",
+			dataType: "json",
+			data :{
+				btnParam :btnParam
+			},
+			success: function(data){
+				getSubMainchartTwo(data)	
+			},
+			error: function (){
+				
+				}
+		});
+	}
+	
+	function getSubMainchartTwo(data){
+		var arrDetailOne = JSON.stringify(data.listOne);
+		var arrDetailTwo = JSON.stringify(data.listTwo);
+		
+		console.log(arrDetailOne);
+	
+		
+		$('#subMainChartStart').remove();
+	    $('#createDiv').append('<canvas id="subMainChartStart" style="margin-top: 60px;"></canvas>');
+		
+		let myChartStart = document.getElementById('subMainChartStart').getContext('2d');
+		
+		let getChartTwo = new Chart(myChartStart, {
+			type : 'line', //pie, line, doughnut, palarArea, bar
+			data : {
+				//labels: labels,[{cdate : '2/1', pcount : '20'}]
+				datasets : [{
+					label: '일반회원',
+					data: JSON.parse(arrDetailOne),
+					backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)','rgba(0,188,212,0.7)','rgba(255,193,7,0.7)','rgba(156,39,176,0.7)','rgba(0,150,136,0.7)','rgba(255,152,0,0.7)','rgba(103,58,183,0.7)','rgba(76,175,80,0.7)','rgba(77,44,264,0.7)' ],
+					borderWidth : 3,
+					pointRadius:4,
+					borderColor : ['rgba(247,67,54,1)','rgba(33,150,243,1)' , 'rgba(255,152,0,1)' , 'rgba(233,30,99,1)','rgba(0,188,212,1)','rgba(255,193,7,1)','rgba(156,39,176,1)','rgba(0,150,136,1)','rgba(255,152,0,1)','rgba(103,58,183,1)','rgba(76,175,80,1)','rgba(77,44,264,1)']
+				},{
+					label : '트레이너',
+					data: JSON.parse(arrDetailTwo),
+					backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)','rgba(0,188,212,0.7)','rgba(255,193,7,0.7)','rgba(156,39,176,0.7)','rgba(0,150,136,0.7)','rgba(255,152,0,0.7)','rgba(103,58,183,0.7)','rgba(76,175,80,0.7)','rgba(77,44,264,0.7)' ],
+					borderWidth : 3,
+					pointRadius:4,
+					borderColor : ['rgba(247,67,54,1)','rgba(33,150,243,1)' , 'rgba(255,152,0,1)' , 'rgba(233,30,99,1)','rgba(0,188,212,1)','rgba(255,193,7,1)','rgba(156,39,176,1)','rgba(0,150,136,1)','rgba(255,152,0,1)','rgba(103,58,183,1)','rgba(76,175,80,1)','rgba(77,44,264,1)']
+				}] 
+		
+			},
+			options: {
+				parsing: {
+					xAxisKey: 'cdate',
+					yAxisKey: 'pcount'
+				},
+				scales: {
+					y: {
+						ticks:{
+							beginAtZero:true,
+	                        callback: function(value, index, values) {
+	                            if(parseInt(value) >= 1000){
+	                               return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+ '원';
+	                            } else {
+	                               return value+'명';
+	                            }
+	                       }                            
+						}
+					}
+	            },
+				plugins:{
+					legend: {
+	            	    display: true,
+	                	labels: {
+	                    	color: 'rgb(0, 0, 0,1)'
+	                	}
+	            	},tooltip: {
+					      callbacks: {
+					    	  label: function(context) {
+			                        var label = context.dataset.label || '가입인원  ';
+
+			                        if (label) {
+			                            label += ': ';
+			                        }
+			                        if (context.parsed.y !== null) {
+			                            label += addComma(context.parsed.y) + ' 명';
 			                        }
 			                        return label;
 			                    }
@@ -218,35 +329,11 @@ $(document).ready(function() {
 	            }
 			}
 		}); // 차트 메인 콜백함수
-			
-	}// 차트 funtion의 끝
-	function chartPeopleSecond(btnParam){
-	console.log("Second btnParam : "+btnParam);
-	var dataTwo = new Array(); 
-	
-		$.ajax({
-			url: "chageChartData",
-			type: "POST",
-			dataType: "json",
-			async:false,
-			data :{
-				btnParam :btnParam
-			},
-			success: function(data){
-				dataTwo = chartPeopleSecond(btnParam);
-				getSubMainchartOne(data,dataTwo)	
-			},
-			error: function (){
-				alert("짜쓰~"+error);
-				}
-		});
-		return dataTwo
 	}
-	
 	
 	function chartStrartBBS(btnParam){
 		$.ajax({
-			url: "getSubMainBBSData",
+			url: "getChartPeopleBBS",
 			type: "POST",
 			data :{
 				btnParam :btnParam
@@ -259,6 +346,8 @@ $(document).ready(function() {
 				}
 		});
 	};
+	
+	
 
 </script>
 </body>

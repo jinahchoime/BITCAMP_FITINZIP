@@ -3,17 +3,17 @@ package com.spring.FitInZip.back.admin.service;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.FitInZip.back.admin.vo.GetChartPeopleData;
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
-import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSPeopleDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
-import com.spring.FitInZip.back.cls.vo.ClsVO;
-import com.spring.FitInZip.back.member.vo.MemberVO;
+
 
 
 public interface AdminService {
@@ -35,8 +35,11 @@ public interface AdminService {
 	Map<String,String> inputDataTwo();
 	List<GetSubChartDataDTO> getSubChartData(String btnParam);
 	List<GetSubBBSDataDTO> getSubBBSData(String btnParam);
-	List<GetSubChartDataDTO> getChartPeopleStartOne(String btnParam);
-	List<GetSubChartDataDTO> getChartPeopleStartTwo(String btnParam);
+	List<GetChartPeopleData> getChartPeopleStartOne(String btnParam);
+	List<GetChartPeopleData> getChartPeopleStartTwo(String btnParam);
+	List<GetChartPeopleData> getChartPeopleOne(String btnParam);
+	List<GetChartPeopleData> getChartPeopleTwo(String btnParam);
+	List<GetSubBBSPeopleDTO> getChartPeopleBBS(String btnParam);
 	
 	/*다슬*/
 	void insertMap(MapVO vo);

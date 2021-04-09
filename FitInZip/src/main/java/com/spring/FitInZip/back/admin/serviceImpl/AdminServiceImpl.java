@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.spring.FitInZip.back.admin.dao.AdminDAO;
 import com.spring.FitInZip.back.admin.service.AdminService;
+import com.spring.FitInZip.back.admin.vo.GetChartPeopleData;
 import com.spring.FitInZip.back.admin.vo.GetClsCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSPeopleDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
@@ -204,14 +206,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<GetSubChartDataDTO> getChartPeopleStartOne(String btnParam) {
+	public List<GetChartPeopleData> getChartPeopleStartOne(String btnParam) {
 		return adminDAO.getChartPeopleStartOne(btnParam);
 	}
 
 	@Override
-	public List<GetSubChartDataDTO> getChartPeopleStartTwo(String btnParam) {
+	public List<GetChartPeopleData> getChartPeopleStartTwo(String btnParam) {
 		return adminDAO.getChartPeopleStartTwo(btnParam);
 	}
 
+	@Override
+	public List<GetChartPeopleData> getChartPeopleOne(String btnParam) {
+		return adminDAO.getChartPeopleOne(btnParam);
+	}
 
+	@Override
+	public List<GetChartPeopleData> getChartPeopleTwo(String btnParam) {
+		return adminDAO.getChartPeopleTwo(btnParam);
+	}
+
+	@Override
+	public List<GetSubBBSPeopleDTO> getChartPeopleBBS(String btnParam) {
+		List<GetSubBBSPeopleDTO> list = adminDAO.getChartPeopleBBS(btnParam);
+		for (GetSubBBSPeopleDTO dto : list) {
+			dto.setJoinDate(dto.getJoinDate().substring(0,10));
+		}
+			return list;
+	}
 }
