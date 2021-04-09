@@ -52,13 +52,13 @@
 		
 		$("#deleteThumbnail").on('click', function(){
 			$('#deleteThumbnail').css('display', 'none');
-			$('#thumbnailImg').attr('src', "resources/classRegister/imgs/default/default_img.png");
+			$('#thumbnailImg').attr('src', "resources/classRegister/imgs/default/default_img_n.png");
 			$('#thumbnailUpload').val("");
 		});
 		
 		$("#deleteTitle").on('click', function(){
 			$('#deleteTitle').css('display', 'none');
-			$('#titleImg').attr('src', "resources/classRegister/imgs/default/default_img.png");
+			$('#titleImg').attr('src', "resources/classRegister/imgs/default/default_img_n.png");
 			$('#titleUpload').val("");
 		});
 		
@@ -504,13 +504,13 @@
 								<td class="thumbnailPreview">
 									<!-- 썸네일 미리보기 -->
 									<a class="btn btn-danger btn-circle btn-sm" id="deleteThumbnail" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-									<img id="thumbnailImg" src="resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
+									<img id="thumbnailImg" src="resources/classRegister/imgs/default/default_img_n.png" style="width:250px; height:250px;">
 								</td>
 								<th rowspan="2" style="vertical-align: middle;">타이틀 이미지</th>
 								<td>	
 									<!-- 타이틀 이미지 미리보기 -->
 									<a class="btn btn-danger btn-circle btn-sm" id="deleteTitle" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-									<img id="titleImg" src="resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;">
+									<img id="titleImg" src="resources/classRegister/imgs/default/default_img_n.png" style="width:250px; height:250px;">
 								</td>
 							</tr>
 							

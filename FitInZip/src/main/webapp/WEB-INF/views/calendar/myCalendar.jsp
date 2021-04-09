@@ -43,8 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				last   = new Date( last - 1 ); 
 				var lastD = last.getDate();
 				var thisMonth = {"lastday" : lastD}; 
-            	/* console.log("마지막 날 : " + lastD);
-            	console.log("마지막 날 : " + JSON.stringify(thisMonth)); */
             	
                 $.ajax({
                 	url: 'setAttendance',
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 	data: thisMonth,
                 	type: 'POST',
                 	success:function(result) {
-                		alert(JSON.stringify(result));
                 		if(result.result == 'overlap'){
                 			alert("이미 출석하셨습니다");
                 		}else{
