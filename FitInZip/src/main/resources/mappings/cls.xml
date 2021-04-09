@@ -13,16 +13,36 @@
 			        END_DATE, YOIL, START_TIME, END_TIME, LAPSE, CLS_LEVEL, EQUIP, PER_PRICE, CLS_INFO, CURRICULUM, THUMBNAIL_ORI_NAME,
 			        THUMBNAIL_FILE_NAME, TITLE_ORI_NAME, TITLE_FILE_NAME, CLS_STATUS, MAX_MEM, CALORIE, MEET_URL
 			    from fit_class
-			    where rownum <= #{pageNum} * #{amount} and trainer_id = #{trainerId})
-			where rn > (#{pageNum} -1) * #{amount} and trainer_id = #{trainerId}
+			    where ]]>
+			    	<if test="classStatus == 'CS00'">
+			    		(CLS_STATUS = 'CS00') and
+			    	</if>
+			    	<if test="classStatus == 'CS01'">
+			    		(CLS_STATUS = 'CS01') and
+			    	</if>
+			    	<if test="classStatus == 'CS02'">
+			    		(CLS_STATUS = 'CS02') and
+			    	</if>
+		<![CDATA[ rownum <= #{pageNum} * #{amount} and trainer_id = #{trainerId})
+			where rn > (#{pageNum} -1) * #{amount}
 		]]>
 	</select>
 	
 	<!-- 페이징을 위해 등록한 강의의 개수 조회 -->
-	<select id="getTotalCount" parameterType="String" resultType="Integer">
+	<select id="getTotalCount" parameterType="map" resultType="Integer">
 		select count(*)
 		from fit_class
-		where trainer_id = #{trainerId }
+		where 
+			<if test="classStatus == 'CS00'">
+	    		CLS_STATUS = 'CS00' and
+	    	</if>
+	    	<if test="classStatus == 'CS01'">
+	    		CLS_STATUS = 'CS01' and
+	    	</if>
+	    	<if test="classStatus == 'CS02'">
+	    		CLS_STATUS = 'CS02' and
+	    	</if>
+		trainer_id = #{trainerId }
 	</select>
 	
 	<!-- 주문번호 생성을 위한 시퀀스 select -->

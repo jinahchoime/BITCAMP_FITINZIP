@@ -33,19 +33,22 @@
 <script type="text/javascript">
 	$(function(){
 		
-		$("#register").on("click", function(){
-			/* self.location = "classRegister"; */
-		});
-		
 		var actionForm = $("#actionForm");
 		
 		$(".paginate_button a").on("click", function(e){
 			e.preventDefault();
 			
-			console.log('click');
-			
 			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 			actionForm.submit();
+		});
+		
+		$("#selectStatus").on('change', function(e){
+			
+			$("#searchForm").find("option:selected").val();
+			$("#searchForm").find("input[name='pageNum']").val("1");
+			e.preventDefault();
+			
+			$("#searchForm").submit();
 		});
 		
 	});
@@ -195,6 +198,26 @@
 		<div class="card-body">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 				<div class="col-sm-12">
+					<div class="row">
+					<div class="col-sm-12 col-md-6">
+						<div class="dataTables_filter">
+	                    <form id="searchForm" action="classStat" method="get">
+	                    	<select id="selectStatus" name="classStatus" class="custom-select custom-select-sm form-control form-control-sm"
+	                    		style="width: 20%; margin-bottom: 10px;">
+	                    		<option value="All" 
+	                    			<c:out value="${pageMaker.crt.classStatus == null || pageMaker.crt.classStatus eq 'All' ? 'selected' : '' }"/>>전체</option>
+	                    		<option value="CS00"
+	                    			<c:out value="${pageMaker.crt.classStatus eq 'CS00' ? 'selected' : '' }" />>승인대기중
+	                    		<option value="CS01"
+	                    			<c:out value="${pageMaker.crt.classStatus eq 'CS01' ? 'selected' : '' }" />>승인완료</option>
+	                    		<option value="CS02"
+	                    			<c:out value="${pageMaker.crt.classStatus eq 'CS02' ? 'selected' : '' }" />>승인거부</option>
+	                    	</select>
+	                    </form>
+	                    </div>
+					</div>
+					<div class="col-sm-12 col-md-6"></div>
+                    </div>
 			<table class="table table-bordered dataTable" style="table-layout: fixed;">
 				<thead>
 					<tr role="row">
@@ -214,6 +237,7 @@
 										<input type="hidden" name="clsCode" value="${i.clsCode }">
 										<input type="hidden" name="pageNum" value="${pageMaker.crt.pageNum }">
 										<input type="hidden" name="amount" value="${pageMaker.crt.amount }">
+										<input type="hidden" name="classStatus" value='<c:out value="${pageMaker.crt.classStatus }"/>'> 
 										<input class="btn btn-secondary btn-icon-split" style="width: 100px; height: 40px;" type="submit" value="수정">
 									</form>
 							</c:if>
@@ -235,7 +259,9 @@
 					<form action="classRegister">
 						<input type="hidden" name="pageNum" value="${pageMaker.crt.pageNum }">
 						<input type="hidden" name="amount" value="${pageMaker.crt.amount }">
-						<input type="submit" class="btn btn-primary btn-icon-split btn-lg" id="register" value="등록">
+						<input type="hidden" name="classStatus" value='<c:out value="${pageMaker.crt.classStatus }"/>'> 
+						<input type="submit" class="btn btn-primary btn-icon-split btn-lg" id="register" value="등록"
+							style="font-size: 1.1em;">
 					</form>
 				</div>
 			</div>
@@ -282,6 +308,7 @@
 					<form id="actionForm" action="classStat" method="get">
 						<input type="hidden" name="pageNum" value="${pageMaker.crt.pageNum }">
 						<input type="hidden" name="amount" value="${pageMaker.crt.amount }">
+						<input type="hidden" name="classStatus" value='<c:out value="${pageMaker.crt.classStatus }"/>'> 
 					</form>
 				
 				</div>

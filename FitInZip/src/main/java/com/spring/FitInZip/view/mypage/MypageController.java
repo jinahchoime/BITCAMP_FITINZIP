@@ -103,11 +103,8 @@ public class MypageController {
 		CalendarVO vo = calendarService.chkAttendance(id);
 		Map<String, String> map = new HashMap<String, String>();
 		
-		System.out.println("마지막 날 : " + lastday.get("lastday"));
-		
 		if(vo != null) {
 			map.put("result", "overlap");
-			//map.put("coupon", "issue");
 			return map;
 		}
 		
@@ -118,7 +115,6 @@ public class MypageController {
 			  Calendar cal = java.util.Calendar.getInstance(); SimpleDateFormat format =
 			  new SimpleDateFormat("yyyy-MM"); 
 			  String from = format.format(cal.getTime()) + "%"; 
-			  System.out.println("날짜 : " + from);
 			  
 			  Map<String, String> user = new HashMap<String, String>();
 			  user.put("mem_id", id);
@@ -130,8 +126,6 @@ public class MypageController {
 				  map.put("coupon", "issue");
 				  
 				  from = from.substring(5, 7);
-				  
-				  System.out.println("from: " + from);
 				  
 				  int parsedMonth = Integer.parseInt(from);
 				  String couponMonth = "";
@@ -171,10 +165,7 @@ public class MypageController {
 				coupvo.setCouponCode(couponMonth);
 				coupvo.setCouponStatus("CPU01");
 				
-				System.out.println("coupvo : " + coupvo.toString());
-				
 				int insertReslt = memCouponService.memCouponInsert(coupvo);
-				System.out.println("쿠폰 발급 건수 : " + insertReslt);
 				
 			  }
 			  
@@ -191,8 +182,6 @@ public class MypageController {
 		// id를 사용하여 cls_code 목록 조회
 		List<String> clsCode = calendarService.getClsCode(id);
 		
-		System.out.println("clsCode : " + clsCode);
-		
 		// CalendarClassDTO 타입의 List 생성
 		List<CalendarClassDTO> clsInfo = new ArrayList<CalendarClassDTO>();
 		
@@ -208,15 +197,7 @@ public class MypageController {
 			clsInfo.add(dto);
 		}
 		
-		System.out.println("clsInfo : " + clsInfo);
-		
 		return clsInfo;
-	}
-	
-	// cls_code 조회
-	private List<String> getClsCode(String mem_id){
-		
-		return null;
 	}
 	
 	// 캘린더 끝

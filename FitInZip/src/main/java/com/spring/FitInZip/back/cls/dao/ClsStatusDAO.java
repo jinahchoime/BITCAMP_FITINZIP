@@ -1,6 +1,7 @@
 package com.spring.FitInZip.back.cls.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class ClsStatusDAO {
 		return list;
 	}
 	
-	public Integer getClassCount(String trainerId) {
-		return mybatis.selectOne("ClsDAO.getTotalCount", trainerId);
+	public Integer getClassCount(Map<String, String> map) {
+		return mybatis.selectOne("ClsDAO.getTotalCount", map);
 	}
 	
 	public String getSequence() {

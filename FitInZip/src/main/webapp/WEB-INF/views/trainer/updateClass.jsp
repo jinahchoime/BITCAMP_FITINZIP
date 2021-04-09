@@ -527,6 +527,7 @@
 		<form action="goBack" id="actionForm">
 			<input type="hidden" name="pageNum" value='<c:out value="${crt.pageNum }"/>'>
 			<input type="hidden" name="amount" value='<c:out value="${crt.amount }"/>'>
+			<input type="hidden" name="classStatus" value='<c:out value="${crt.classStatus }"/>'> 
 		</form>
 	</div>
 	</div>

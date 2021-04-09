@@ -554,6 +554,7 @@
 				<form action="goBack" id="actionForm">
 					<input type="hidden" name="pageNum" value='${pageNum }'>
 					<input type="hidden" name="amount" value='${amount }'>
+					<input type="hidden" name="classStatus" value="${classStatus }">
 				</form>
 			</div>
 	
