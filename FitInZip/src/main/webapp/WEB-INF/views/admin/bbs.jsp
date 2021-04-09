@@ -25,7 +25,7 @@
 
 	function changeSt(btn){
 		let id = btn.parentElement.parentElement.firstElementChild.textContent;
-		alert(id);
+	
 		
 		$.ajax({
 			url: "bbs1Modal",
@@ -33,11 +33,11 @@
 			dataType: "json",
 			data: {send:id},
 			success: function(data){
-				alert("사발~"+data);
+	
 			
 			},
 			error: function (){
-				alert("짜쓰~"+error);
+	
 				}
 		});
 		

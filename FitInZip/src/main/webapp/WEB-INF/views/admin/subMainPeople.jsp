@@ -149,7 +149,7 @@ $(document).ready(function() {
 				getSubMainchartOne(data)	
 			},
 			error: function (){
-				alert("짜쓰~"+error);
+				
 				}
 		});
 	}
