@@ -14,6 +14,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
@@ -184,15 +185,22 @@ public class AdminServiceImpl implements AdminService {
 		for (GetInputData vo2 : list) {
 			map.put(vo2.getJoinDate(),vo2.getCount());
 		}
-	
-		
 		return map;
 	}
 
 	@Override
 	public List<GetSubChartDataDTO> getSubChartData(String btnParam) {		
-		
 		return adminDAO.getSubChartData(btnParam);
+	}
+
+	@Override
+	public List<GetSubBBSDataDTO> getSubBBSData(String btnParam) {
+		List<GetSubBBSDataDTO> list = adminDAO.getSubBBSData(btnParam);
+			for (GetSubBBSDataDTO dto : list) {
+				dto.setPayDate(dto.getPayDate().substring(0,10));
+			}
+				
+		return list;
 	}
 
 

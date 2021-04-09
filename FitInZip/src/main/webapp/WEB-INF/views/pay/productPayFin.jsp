@@ -6,21 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 완료</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <style>
+* {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
 .title {
 	text-align: center;
 	vertical-align: middle;
+	padding-top: 20px;
+	font-size: 24px;
+	font-weight: 500;
 }
 .contents {
 	vertical-align: middle;
 	text-align: center;
-	padding-top: 20px;
+	padding-top: 40px;
+	padding-bottom: 20px;
+	font-weight: 500;
 }
 .pay-container {
-	border: 1px solid #111;
+	/*border: 1px solid #111; */ 
 	width: 500px;
-	margin-left: 400px;
+	margin-left: 700px;
 	margin-top: 150px;
+	border-top: 1px solid #dedfda;
+	box-sizing: border-box;
 }
 .a-btn {
 	color: #111;
@@ -38,7 +50,7 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 	
 	<div class="pay-container">
-		<h4 class="title" >결제가 완료되었습니다</h4>
+		<p class="title" >결제가 완료되었습니다</p><i class="fas fa-dumbbell"></i>
 		
 		<div class="contents">
 			<p>- 구매처: FITINZIP</p>

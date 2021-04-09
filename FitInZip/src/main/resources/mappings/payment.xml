@@ -31,6 +31,12 @@
 		FROM COUPON_INFO
 		WHERE COUPON_CODE = #{couponCode}
 	</select>
+	
+	<!-- 클래스 결제완료 시 -->
+	<insert id="insertClsPayment" parameterType="memberVO">
+		INSERT INTO PAYMENT
+    	VALUES (PAYMENT_SEQ.NEXTVAL, #{clsCode}, null, #{memId}, #{originPrice}, #{paidPrice}, #{commission}, #{netPrice}, 'PM00', SYSDATE)    	  
+	</insert>
 
 	<!-- payment 테이블에 주문완료정보 insert -->
 	<insert id="insertPayment" parameterType="com.spring.FitInZip.back.payment.vo.PaymentVO">
@@ -55,7 +61,26 @@
 	VALUES ( #{orderNum}, #{proNum} , #{amount})
 	</insert>
 	
+	<!-- 주문완료시 장바구니 비우기 -->
 	<delete id="deleteCart" parameterType="String">
 	DELETE FROM CART WHERE MEM_ID = #{memId}
 	</delete>
+	
+	<!-- 주문서 상세페이지  상품 정보-->
+	<select id="orderDetail" resultType="com.spring.FitInZip.back.payment.vo.OrderDetailDTO" parameterType="string">
+	SELECT D.ORDER_NUM, D.PRO_NUM , D.AMOUNT, P.PRO_IMG, P.PRO_PRICE, P.PRO_NAME
+		FROM ORDER_DETAIL D
+    	INNER JOIN PRODUCT P
+    	ON D.PRO_NUM = P.PRO_NUM
+	WHERE D.ORDER_NUM = #{orderNum}
+	</select>
+	
+	<!-- 주문서 상세페이지  배송지 정보-->
+	<select id="orderDetailDeli" resultType="com.spring.FitInZip.back.payment.vo.OrderDetailDeliDTO" parameterType="string">
+	SELECT M.NAME, M.PHONE, P.ADDRESS, P.DETAIL_ADDRESS, P.DIRECT_MSG
+	FROM PRO_ORDER P
+    INNER JOIN MEMBER M
+    ON P.MEM_ID = M.ID
+	WHERE P.ORDER_NUM = #{orderNum}
+	</select>
 </mapper>

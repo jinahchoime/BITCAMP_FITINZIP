@@ -26,8 +26,8 @@
 		<li><a href="#pageSubmenu" data-toggle="collapse"
 			aria-expanded="false" class="dropdown-toggle">통계 </a></li>
 		<ul class="collapse list-unstyled" id="pageSubmenu">
-			<li><a href="#">인적통계</a></li>
 			<li><a href="/subMainPrice">물적통계</a></li>
+			<li><a href="#">인적통계</a></li>
 		</ul>
 		</li>
 
@@ -35,8 +35,6 @@
 			class="dropdown-toggle">관리 </a></li>
 		<ul class="collapse list-unstyled" id="admin">
 			<li><a href="/searchMap">주소추가</a></li>
-			<li><a href="#">Home 2</a></li>
-			<li><a href="#">Home 3</a></li>
 		</ul>
 		</li>
 		<!-- 

@@ -171,7 +171,9 @@
 		/*콘텐츠 만들어주는 기능*/
 		function text(value, dispHtml, button){
 			dispHtml += '<tr><td class="type_diff"> <div class="list_img">';
-			dispHtml += '<img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-03-08/1615190947042146270.png" alt="클래스썸네일"></div>';
+			dispHtml += '<img src="';
+			dispHtml +=  value.thumbnailFileName;
+			dispHtml += '" alt="클래스썸네일" onerror="this.src=\'../resources/mypage/imgs/error.PNG\'"></div>';
 			dispHtml += '<a href="/getClassDetail?clsCode='+value.clsCode+'" target="_blank"><div class="list_txt full"><dl class="prod_infor"><dt>';
 			dispHtml += '<div class="play_tch"><span>';
 			dispHtml +=  value.cate + " · " + value.name;

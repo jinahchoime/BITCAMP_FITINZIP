@@ -81,14 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
        	
        	
        	// google 캘린더 api 적용
-		googleCalendarApiKey : 'AIzaSyAolCAndxuOM-aZnbCkElq-Nbh5151Hkl8',
+		googleCalendarApiKey : '${key}',
 		buttonText: { today : "오늘", month : "월별", week : "주별", day : "일별", }, 
 		eventSources : 
-			[   
-				{ googleCalendarId : 'kkulsevf1t2lua1kea39jrpvlg@group.calendar.google.com',
-					className : 'user'
-				}, 
-				{ googleCalendarId : 'qansohiecib58ga9k1bmppvt5oi65b1q@import.calendar.google.com',
+			[ 
+				{ googleCalendarId : '${holiday}',
 					className : 'ko_event',
 					color : '#d40000'
 				},

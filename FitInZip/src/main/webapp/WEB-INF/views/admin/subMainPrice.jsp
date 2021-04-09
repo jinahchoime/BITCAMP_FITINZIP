@@ -34,6 +34,14 @@
 <!-- MainSidebar -->
 <link rel="stylesheet" href="../resources/admin/css/style5.css">
 
+<style>
+#btnResult{
+margin-right:20px;
+background-color: #D5E1DF;
+border-color:#7c9893;
+}
+</style>
+
 </head>
 <body>
 	<div class="wrapper">
@@ -47,16 +55,16 @@
 
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
-						<button type="button" class="btn btn-primary" id="btnResult1"
+					<div class="col-md-12" style="text-align: center;">
+						<button type="button" class="btn" id="btnResult"
 							style="width: 90px;" onclick="chartFirstStart()">ALL</button>
-						<button type="button" class="btn btn-primary" id="btnResult2"
+						<button type="button" class="btn" id="btnResult"
 							style="width: 90px;" onclick="chartFirstStart('웨이트')">웨이트</button>
-						<button type="button" class="btn btn-primary" id="btnResult3"
+						<button type="button" class="btn" id="btnResult"
 							onclick="chartFirstStart('피트니스')">피트니스</button>
-						<button type="button" class="btn btn-primary" id="btnResult4"
+						<button type="button" class="btn" id="btnResult"
 							style="width: 90px;" onclick="chartFirstStart('요가')">요가</button>
-						<button type="button" class="btn btn-primary" id="btnResult5"
+						<button type="button" class="btn" id="btnResult"
 							onclick="chartFirstStart('필라테스')">필라테스</button>
 					</div>
 				</div>
@@ -68,8 +76,40 @@
 				<div class="row">
 					<div class="col-md-12" id ="createBBS">
 					
-					</div>
+					</div>				
 				</div>
+			</div><!-- 그래프 div끝 -->
+				
+				<!-- 가입승인게시판 -->
+				<section>
+					<div class="tbl-header">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<thead>
+								<tr style="text-align: center;">
+									<th style="width: 120px;">종목</th>
+									<th style="width: 120px;">강사아이디</th>
+									<th style="width: 250px;">클래스명</th>
+									<th style="width: 120px;">구매자아이디</th>
+									<th style="width: 120px;">구매자성별</th>
+									<th style="width: 120px;">생년월일</th>
+									<th style="width: 120px;">결제일</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="tbl-content h700">
+						<table cellpadding="0" cellspacing="0" border="0">
+							<tbody id="getList">
+								<%@ include file="subMainPart.jsp"%>
+							</tbody>
+
+						</table>
+					</div>
+				</section>
+			
+
+
+		</div>
 			</div>
 			<!--container 끝-->
 
@@ -86,7 +126,7 @@ $(document).ready(function() {
 		$(this).toggleClass('active');
 	});
 	chartFirstStart();
-	chartStrartBBS();
+
 	
 });
 	function addComma(num) {
@@ -98,6 +138,7 @@ $(document).ready(function() {
 		/* if(btnParam == null){
 			btnParam = '';
 		} */
+		chartStrartBBS(btnParam);
 		$.ajax({
 			url: "chageChartData",
 			type: "POST",
@@ -138,9 +179,9 @@ $(document).ready(function() {
 				//labels: labels,
 				datasets : [{
 					data: data,
-					backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)' ],
+					backgroundColor : [ 'rgba(247,67,54,0.7)','rgba(33,150,243,0.7)' , 'rgba(255,152,0,0.7)' , 'rgba(233,30,99,0.7)','rgba(0,188,212,0.7)','rgba(255,193,7,0.7)','rgba(156,39,176,0.7)','rgba(0,150,136,0.7)','rgba(255,152,0,0.7)','rgba(103,58,183,0.7)','rgba(76,175,80,0.7)','rgba(77,44,264,0.7)' ],
 					borderWidth : 3,
-					borderColor : ['rgba(247,67,54,1)','rgba(33,150,243,1)' , 'rgba(255,152,0,1)' , 'rgba(233,30,99,1)']
+					borderColor : ['rgba(247,67,54,1)','rgba(33,150,243,1)' , 'rgba(255,152,0,1)' , 'rgba(233,30,99,1)','rgba(0,188,212,1)','rgba(255,193,7,1)','rgba(156,39,176,1)','rgba(0,150,136,1)','rgba(255,152,0,1)','rgba(103,58,183,1)','rgba(76,175,80,1)','rgba(77,44,264,1)']
 				}] 
 			},
 			options: {
@@ -181,15 +222,29 @@ $(document).ready(function() {
 			                        return label;
 			                    }
 						      }
-					   },
-				}
+					   }
+				}, animation: {
+	                duration: 8000,
+	            }
 			}
 		}); // 차트 메인 콜백함수
 			
 	}// 차트 funtion의 끝
 	
-	function chartStrartBBS(){
-		
+	function chartStrartBBS(btnParam){
+		$.ajax({
+			url: "getSubMainBBSData",
+			type: "POST",
+			data :{
+				btnParam :btnParam
+			},
+			success: function(data){
+
+				$('#getList').html(data);
+			},
+			error: function (){
+				}
+		});
 	};
 
 </script>

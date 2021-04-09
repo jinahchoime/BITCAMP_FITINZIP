@@ -36,7 +36,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.spring.FitInZip.back.cls.clsStatus.Criteria;
 import com.spring.FitInZip.back.cls.clsStatus.PageDTO;
 import com.spring.FitInZip.back.cls.clsStatusService.ClsStatusService;
@@ -49,7 +49,7 @@ import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Controller
-@SessionAttributes({ "admin", "member"/* , "reviewList", "calList" */})
+@SessionAttributes({ "admin", "member", "trainer" /* , "reviewList", "calList" */})
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -126,32 +126,57 @@ public class TrainerController {
 	//로그인 시 데이터 전달 (강사/관리자 확인)
     @RequestMapping(value = "/trainerLogin", method = RequestMethod.POST) 
     @ResponseBody
-    public MemberVO loginTrainer(MemberVO vo, Model model) throws Exception {
+    public Map<String, String> loginTrainer(MemberVO vo, Model model, @RequestParam Map<String, String> info , HttpServletRequest request) throws Exception {
     	System.out.println("trainerCheck!");	
+    	
+    	Map<String, String> map = new HashMap<String, String>();
+    	
+    	String mId = info.get("id");
+    	String mPwd = info.get("password");
+    	System.out.println("mid: " + mId);
+    	System.out.println("mpwd: " + mPwd);
+    	
+    	vo.setId(mId);
+    	vo.setPassword(mPwd);
+    	
+    	
     	MemberVO mvo = trainerService.loginFirst(vo);
-    	model.addAttribute("admin", mvo);
-    	return mvo;
+    	System.out.println("로그인 mvo: " + mvo);
+    	
+    	if(mvo == null) {
+    		map.put("status", "false");
+    		return map;
+    	}
+    	
+    	if(mId.equals(mvo.getId()) && mPwd.equals(mvo.getPassword())) {
+	    	if(mvo.getRole().equals("RL01")) {
+	    		map.put("status", "trainer");
+	    		model.addAttribute("trainer", mvo);
+	    		return map;
+	    	}
+	    	if(mvo.getRole().equals("RL02")) {
+	    		map.put("status", "admin");
+	    		model.addAttribute("admin", mvo);
+	    		return map;
+	    	}
+    	} else {
+    		map.put("status", "fail");
+    	}
+    	return map;
     }
     
     
-    //강사 로그인
-    @RequestMapping("/trainerMainPage") 
-    public String mainPage(RegisterTrainerDTO dto, @ModelAttribute("admin") MemberVO vo, Model model) {
+    //강사 로그인 시 프로필 사진 여부
+    @RequestMapping("/trainerMainPageView") 
+    public String mainPageView(RegisterTrainerDTO dto, @ModelAttribute("trainer") MemberVO vo, Model model) {
     	// System.out.println("mvo: " + vo); 
-    	System.out.println("mvo 타입: " + vo.getRole()); 
     	dto.setId(vo.getId());
-    	dto.setPassword(vo.getPassword());
     	
     	RegisterTrainerDTO member = trainerService.loginTrainer(dto);
+ 
     	System.out.println("member: " + member.getRegStatus());
     	if(member.getRegStatus().equals("RS00")) {
     		return "trainer/errorLogin";
-    	}
-    	String profileImg = member.getMemFileName();
-    	
-    	if(profileImg != null) {
-	    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
-	    	model.addAttribute("profileImg", profileImg);
     	}
     	
     	String reqClass = trainerService.mainPage1(member);
@@ -169,8 +194,26 @@ public class TrainerController {
     	 
     	 return "trainer/trainerMainPage";
     }
-   
     
+    //마이페이지 이동 시 프로필 사진이 있는지 여부
+    @RequestMapping("/trainerMainPage")
+    @ResponseBody
+    public Map<String, String> mainPage(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
+    	// System.out.println("mvo: " + vo); 
+    	
+    	RegisterTrainerDTO trainerInfo = trainerService.loginTrainer(dto);
+
+    	String profileImg = trainerInfo.getMemFileName();
+    	
+    	profileImg = profileImg.substring(profileImg.indexOf("resources"));
+    	//model.addAttribute("profileImg", profileImg);
+    	
+    	Map<String, String> result = new HashMap<String, String>();
+    	result.put("profileImg", profileImg);
+
+    	return result;
+    }
+	
     @RequestMapping("/myClass") 
     public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
     	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
@@ -250,7 +293,7 @@ public class TrainerController {
 
     	System.out.println("정보 수정 성공!");
 		
-    	return "redirect:trainerMainPage";
+    	return "redirect:trainerMainPageView";
 	}
     
     //내 리뷰 확인

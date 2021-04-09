@@ -40,6 +40,7 @@ import com.spring.FitInZip.back.mypage.vo.UserWithdrawalDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.FitInZip.back.admin.vo.MapVO;
+import com.spring.FitInZip.back.calendar.api.CalendarKey;
 import com.spring.FitInZip.back.calendar.dto.CalendarClassDTO;
 import com.spring.FitInZip.back.calendar.service.CalendarService;
 import com.spring.FitInZip.back.calendar.vo.CalendarVO;
@@ -65,7 +66,9 @@ public class MypageController {
 	
 	@RequestMapping(value="calendar")
 	public String goCalendar(HttpServletRequest request, Model model, HttpSession session) {
-		MemberVO member = (MemberVO)session.getAttribute("member");	
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		CalendarKey key = new CalendarKey();
 		
 		member = mypageService.getMember(member.getId());
 		try {
@@ -76,6 +79,8 @@ public class MypageController {
 		}
 		//멤버 바꾸기
 		model.addAttribute("member", member);
+		model.addAttribute("key", key.getCalendarKey());
+		model.addAttribute("holiday", key.getHolidayId());
 		
 		return "calendar/myCalendar";
 	}
@@ -274,12 +279,24 @@ public class MypageController {
 	/*현재 클래스 history 내역 ajax로 뿌리기*/
 	@RequestMapping("/clsdata") 
 	@ResponseBody
-	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session, HttpServletRequest request) throws JsonProcessingException {
+	public List<UserClsDTO> nowClsData(UserClsDTO dto, HttpSession session, HttpServletRequest request, Model model) throws JsonProcessingException {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		dto.setClsTimeStatus(request.getParameter("clsTimeStatus"));
+		List<UserClsDTO> userclsList = mypageService.nowGetUserCls(dto);
 		
-		return mypageService.nowGetUserCls(dto);
+		try {
+			for (UserClsDTO userClsDTO : userclsList) {
+		         String fileName = userClsDTO.getThumbnailFileName();
+		         System.out.println("fileName : " + fileName);
+		         fileName = fileName.substring(fileName.indexOf("resources"));
+		         userClsDTO.setThumbnailFileName(fileName);
+		      }
+		}catch(NullPointerException e){
+			
+		}
+		
+		return userclsList;
 		
 	}
 	
@@ -326,7 +343,20 @@ public class MypageController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		
-		return mypageService.getUserWishCls(dto);
+		List<UserClsDTO> userclsList = mypageService.getUserWishCls(dto);
+		
+		try {
+			for (UserClsDTO userClsDTO : userclsList) {
+		         String fileName = userClsDTO.getThumbnailFileName();
+		         System.out.println("fileName : " + fileName);
+		         fileName = fileName.substring(fileName.indexOf("resources"));
+		         userClsDTO.setThumbnailFileName(fileName);
+		      }
+		}catch(NullPointerException e){
+			
+		}
+		
+		return userclsList;
 		
 	}
 	
@@ -402,7 +432,6 @@ public class MypageController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		dto.setMemId(member.getId());
 		
-		System.out.println("리스트::트트트트트 :: " + mypageService.getproductList(dto));
 		
 		return mypageService.getproductList(dto);
 	}

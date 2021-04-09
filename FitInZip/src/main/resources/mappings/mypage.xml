@@ -164,18 +164,7 @@
 		<!-- 주문조회 불러오기  -->
 		<select id="productHistory" parameterType="com.spring.FitInZip.back.mypage.vo.UserProductDTO"
 			resultType="com.spring.FitInZip.back.mypage.vo.UserProductDTO">
-			SELECT R.*, (SELECT COUNT(*)
-				            FROM ORDER_DETAIL D
-				            INNER JOIN PRODUCT P
-				            ON D.PRO_NUM = P.PRO_NUM
-				            INNER JOIN PAYMENT E
-				            ON D.ORDER_NUM = E.ORDER_NUM
-                            INNER JOIN COMMON C
-                            ON C.COMMON_CODE = E.PAY_METHOD
-				        WHERE E.MEM_ID = #{memId}) AS COUNT
-				FROM(SELECT ROWNUM AS RNUM, M.*
-				        FROM (SELECT D.ORDER_NUM, D.AMOUNT, D.PRO_NUM, E.PAID_PRICE, E.PAY_DATE, P.PRO_NAME, P.PRO_IMG
-                        , C.COMMON_NAME AS PAYMETHOD
+			SELECT R.*, (SELECT SUM(COUNT(DISTINCT D.ORDER_NUM))
 				            FROM ORDER_DETAIL D
 				            INNER JOIN PRODUCT P
 				            ON D.PRO_NUM = P.PRO_NUM
@@ -184,6 +173,21 @@
                             INNER JOIN COMMON C
                             ON C.COMMON_CODE = E.PAY_METHOD
 				        WHERE E.MEM_ID = #{memId}
+                        GROUP BY D.ORDER_NUM
+                        ) AS COUNT
+				FROM(SELECT ROWNUM AS RNUM, M.*
+				        FROM (SELECT D.ORDER_NUM, SUM(D.AMOUNT) AS AMOUNT, MAX(D.PRO_NUM) AS PRO_NUM, 
+                        MAX(E.PAID_PRICE) AS PAID_PRICE, MAX(E.PAY_DATE) AS PAY_DATE, MAX(P.PRO_NAME) AS PRO_NAME, MAX(P.PRO_IMG) AS PRO_IMG
+                        , MAX(C.COMMON_NAME) AS PAYMETHOD
+				            FROM ORDER_DETAIL D
+				            INNER JOIN PRODUCT P
+				            ON D.PRO_NUM = P.PRO_NUM
+				            INNER JOIN PAYMENT E
+				            ON D.ORDER_NUM = E.ORDER_NUM
+                            INNER JOIN COMMON C
+                            ON C.COMMON_CODE = E.PAY_METHOD
+				        WHERE E.MEM_ID = #{memId}
+                        GROUP BY D.ORDER_NUM
 				        ) M
 				    )R
 				WHERE RNUM BETWEEN #{startIndex} AND #{endIndex}

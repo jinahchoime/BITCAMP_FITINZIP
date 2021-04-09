@@ -24,6 +24,7 @@ import com.spring.FitInZip.back.admin.vo.GetClsModalDTO;
 import com.spring.FitInZip.back.admin.vo.GetInputData;
 import com.spring.FitInZip.back.admin.vo.GetMemberCheckDTO;
 import com.spring.FitInZip.back.admin.vo.GetModalDTO;
+import com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO;
 import com.spring.FitInZip.back.admin.vo.GetSubChartDataDTO;
 import com.spring.FitInZip.back.admin.vo.MapVO;
 import com.spring.FitInZip.back.admin.vo.MonthPaymentChartDTO;
@@ -229,7 +230,7 @@ public class AdminController {
 	}
 	@RequestMapping("/subMainPrice")
 	public String subMainPrice(HttpSession session, Model model) {
-		System.out.println("subMainPrice go!");
+			/* 로그인 처리부분 */
 			MemberVO vo = (MemberVO) session.getAttribute("admin");
 			model.addAttribute("vo",vo);
 			
@@ -238,13 +239,20 @@ public class AdminController {
 	@RequestMapping("/chageChartData")
 	@ResponseBody
 	public List<GetSubChartDataDTO> getChageChartData(String btnParam){
-		System.out.println(">>id : " +btnParam);
 		List<GetSubChartDataDTO> list = adminService.getSubChartData(btnParam);
 		System.out.println(">>modalReturn : " + list);
 		
 		return list;
 	}
-	
+	@RequestMapping("/getSubMainBBSData")
+	public String getSubMainBBSData(String btnParam, Model model){
+		System.out.println(">>id : " +btnParam);
+		List<GetSubBBSDataDTO> list = adminService.getSubBBSData(btnParam);
+		System.out.println(">>짜쓰~ : " + list);
+		model.addAttribute("subBBS",list);
+		
+		return "admin/subMainPart";
+	}
 	
 	
 	@RequestMapping("/test")

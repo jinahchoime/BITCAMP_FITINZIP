@@ -19,7 +19,6 @@
 		FROM MEMBER m, TRAINER_REGISTER t
         WHERE m.ID = t.TRAINER_ID
 		AND m.ID = #{id}
-		AND m.PASSWORD = #{password}
 	</select>
 	
 	<!-- 강사 마이페이지 메인 (신청한 클래스 개수) -->

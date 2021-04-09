@@ -142,5 +142,17 @@
 	ON C.CDATE = D.RDATE
 	ORDER BY C.cdate
 	 </select>
-    
+	 
+	<select id="getSubMainBBS" resultType="com.spring.FitInZip.back.admin.vo.GetSubBBSDataDTO" parameterType="string">
+	SELECT C.COMMON_NAME, F.TRAINER_ID, F.CLS_NAME, P.MEM_ID, M.GENDER, M.BIRTH, P.PAY_DATE 
+	FROM PAYMENT P ,FIT_CLASS F, COMMON C, MEMBER M
+	WHERE PAY_DATE BETWEEN TO_DATE('20210101','YYYYMMDD') AND SYSDATE
+	AND P.CLS_CODE = F.CLS_CODE AND F.CLS_CATEGORY = C.COMMON_CODE AND P.MEM_ID = M.ID 
+	<if test="value != null"> 
+	AND C.COMMON_NAME= #{value} 
+	</if>
+	ORDER BY P.PAY_DATE DESC
+	</select>
+	 
+	 
  </mapper>

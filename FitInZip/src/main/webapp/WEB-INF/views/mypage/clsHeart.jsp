@@ -50,7 +50,11 @@
 					var dispHtml = '';
 					
 					function text(value, btn){
-						dispHtml += '<tr><td class="type_diff"><div class="list_img"><img src="https://ficle-live.s3.ap-northeast-2.amazonaws.com/origin/program/2021-03-08/1615190947042146270.png" alt="클래스썸네일"></div> <a href="/play/play_apply/293" target="_blank">';
+						dispHtml += '<tr><td class="type_diff"><div class="list_img">';
+						dispHtml += '<img src="';
+						dispHtml +=  value.thumbnailFileName;
+						dispHtml += '" alt="클래스썸네일" onerror="this.src=\'../resources/mypage/imgs/error.PNG\'">';
+						dispHtml += '</div> <a href="/play/play_apply/293" target="_blank">';
 						dispHtml += '<div class="list_txt full"><dl class="prod_infor"><dt>';
 						dispHtml += '<div class="play_tch"><span>';
 						dispHtml += value.commonName + " · " + value.name;
