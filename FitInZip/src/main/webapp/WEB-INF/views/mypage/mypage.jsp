@@ -19,7 +19,7 @@
 				console.log(returnValue);
 				var clsCount = returnValue[0].clscount;
 				var clsParticipation = (returnValue[0].checkinCount / (returnValue[0].clscount * returnValue[0].lapseCount)) * 100;
-				var clsTime = parseFloat(returnValue[0].timeCount);
+				var clsTime = returnValue[0].timeCount;
 				var clsCalorie = returnValue[0].calorieCount;
 				
 				console.log(clsTime);
