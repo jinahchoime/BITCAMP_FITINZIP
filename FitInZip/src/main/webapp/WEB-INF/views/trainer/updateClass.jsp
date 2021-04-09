@@ -474,14 +474,12 @@
 							<td class="thumbnailPreview">
 								<!-- 썸네일 미리보기 -->
 								<a class="btn btn-danger btn-circle btn-sm" id="deleteThumbnail" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-								<%-- <c:if test="${cls.thumbnailOriName == null || empty cls.thumbnailOriName }"><img id="thumbnailImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;"></c:if> --%>
 								<img id="thumbnailImg" src="${cls.thumbnailFileName }" style="width:250px; height:250px;">
 							</td>
 							<th rowspan="2" style="vertical-align: middle;">타이틀 이미지</th>
 							<td>	
 								<!-- 타이틀 이미지 미리보기 -->
 								<a class="btn btn-danger btn-circle btn-sm" id="deleteTitle" style="display: none; float: right; position: relative; top: 15px;"><i class="fas fa-trash"></i></a>
-								<%-- <c:if test="${cls.titleOriName == null || empty cls.titleOriName }"><img id="titleImg" src="${path }/resources/classRegister/imgs/default/default_img.png" style="width:250px; height:250px;"></c:if> --%>
 									<img id="titleImg" src="${cls.titleFileName }" style="width:250px; height:250px;">
 								</td>
 						</tr>
