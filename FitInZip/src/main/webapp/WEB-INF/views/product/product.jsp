@@ -29,8 +29,6 @@
 				location.href="/loginMain";
 				return;
 			} 
-				
-			
 			
 			let formData = new FormData(this.form);
 			let options = {
