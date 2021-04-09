@@ -16,13 +16,13 @@ ul, li, ol, dl, dt, dd {
 	letter-spacing: 0;
 }
 
-body, textarea, input, select, button, a, span, p {
+/* body, textarea, input, select, button, a, span, p {
 	color: #aaa;
 	text-decoration: none;
 	font-size: 14px;
 	line-height: 1.571;
 	letter-spacing: 0;
-}
+} */
 
 a:link, a:visited, a:hover, a:active, a:focus {
 	text-decoration: none;
@@ -449,9 +449,9 @@ ul {
 	position: relative;
 }
 
-.wad_area {
+/* .wad_area {
 	margin-bottom: 80px;
-}
+} */
 
 .homet_program ul {
 	display: table;
@@ -529,20 +529,6 @@ ul {
 	color: #666;
 }
 
-.subtxt2 h4 {
-	line-height: 36px;
-	font-weight: 700;
-	color: #000;
-}
-
-.subtxt2 p {
-	color: #666 !important;
-	font-size: 17px;
-	line-height: 28px;
-	font-weight: 400;
-	margin-bottom: 70px !important;
-}
-
 .small_text {
 	font-size: medium;
 	color: DarkOrange;
@@ -569,9 +555,6 @@ ul {
 	margin-bottom: 20px;
 }
 
-.wad_area:last-child {
-	margin-bottom: 0;
-}
 
 .coach_wrap .coach_info {
 	display: table;
@@ -627,14 +610,16 @@ img, input {
 
 .coach_wrap .coach_txt {
 	margin-top: 10px;
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 25px;
-	font-weight: 400;
-	color: #000;
+	font-weight: 600;
 }
 
 .gray_text {
 	color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 28px;
 }
 
 /* 토글부분 */
@@ -708,8 +693,6 @@ img, input {
     color: #666;
     text-align: left;
 }
-
-
 
 
 
