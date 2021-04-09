@@ -101,7 +101,7 @@
             <img class="img-fluid rounded-circle" src="../resources/main/img/img_main_cont3.png" alt="">
           </div>
         </div>
-        <div class="col-lg-6 order-lg-1">
+        <div class="col-lg-6 order-lg-1">  
           <div class="p-5" data-aos="fade-right" style="padding-right: 0px;">
             <h4 class="display-4" style="font-size: 30px;">
             의지가 약한 홈트족을 위해 <br>책임감과 경쟁심 자극</h4>

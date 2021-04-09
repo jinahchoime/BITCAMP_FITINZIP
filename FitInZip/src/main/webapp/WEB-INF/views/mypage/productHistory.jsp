@@ -33,50 +33,52 @@
 					console.log(returnValue);
 					var arr = "";
 					
-					
-					$.each(returnValue, function(){
-						var year = new Date(this.payDate).getFullYear();
-						var month = (new Date(this.payDate).getMonth() + 1) + "";
-						var date = new Date(this.payDate).getDate() + "";
-						if(month.length == 1){
-							month = "0" + month;
-						}
-						if(date.length == 1){
-							date = "0" + date;
-						}
-						
-						var ordertDate =  year + "-" + month + "-" + date;
-						 dispHtml += '<tr><td colspan="3" style="text-align: left; padding: 8px;">';
-						 dispHtml += '<span style="padding-left: 20px">주문일자 : <b style="color:black">';
-						 dispHtml += ordertDate;
-						 dispHtml += '</b></span><span style="padding-left: 50px">주문번호 : ';
-						 dispHtml += '<b style="color:black">';
-						 dispHtml += this.orderNum;
-						 dispHtml +='</b></span></td></tr>';
-						 dispHtml += '<tr><td style="text-align: left; padding: 0 0 0 20px;">';
-						 dispHtml += '<span style="display: inline-block; width: 100px; height: 100px; margin-bottom: 20px; margin-left: 10px;">';
-						 dispHtml += '<img alt="이미지" src="';
-						 dispHtml += this.proImg;
-						 dispHtml += '" style="width: 100%;"></span>';
-						 dispHtml += '<span style="display: inline-block;padding-left: 85px;vertical-align: middle;font-size: 15px;line-height: 20px;">';
-						 dispHtml += '<a href="/orderDetail?orderNum=';
-						 dispHtml += this.orderNum;
-						 dispHtml += '" style="color:black">' + this.proName + '<a>';
-						 dispHtml += '</span></td><td style="font-size: 15px;">';
-						 dispHtml += this.paymethod;
-						 dispHtml += '<br>';
-						 dispHtml += this.paidPrice;
-						 dispHtml += '</td><td style="font-size: 15px;">';
-						 dispHtml += '주문완료';
-						 dispHtml += '</td></tr>';
-					})
-					$('#content').append(dispHtml);
-					
-					console.log(_endIndex);
-					console.log(returnValue[0].count);
-					
-					if( _endIndex >= returnValue[0].count){
+					if(returnValue == 0){
 						$('#searchMoreNotify').remove();
+					}else{
+					
+						$.each(returnValue, function(){
+							var year = new Date(this.payDate).getFullYear();
+							var month = (new Date(this.payDate).getMonth() + 1) + "";
+							var date = new Date(this.payDate).getDate() + "";
+							if(month.length == 1){
+								month = "0" + month;
+							}
+							if(date.length == 1){
+								date = "0" + date;
+							}
+							
+							var ordertDate =  year + "-" + month + "-" + date;
+							 dispHtml += '<tr><td colspan="3" style="text-align: left; padding: 8px;">';
+							 dispHtml += '<span style="padding-left: 20px">주문일자 : <b style="color:black">';
+							 dispHtml += ordertDate;
+							 dispHtml += '</b></span><span style="padding-left: 50px">주문번호 : ';
+							 dispHtml += '<b style="color:black">';
+							 dispHtml += this.orderNum;
+							 dispHtml +='</b></span></td></tr>';
+							 dispHtml += '<tr><td style="text-align: left; padding: 0 0 0 20px;">';
+							 dispHtml += '<span style="display: inline-block; width: 100px; height: 100px; margin-bottom: 20px; margin-left: 10px;">';
+							 dispHtml += '<img alt="이미지" src="';
+							 dispHtml += this.proImg;
+							 dispHtml += '" style="width: 100%;"></span>';
+							 dispHtml += '<span style="display: inline-block;padding-left: 85px;vertical-align: middle;font-size: 15px;line-height: 20px;">';
+							 dispHtml += '<a href="/orderDetail?orderNum=';
+							 dispHtml += this.orderNum;
+							 dispHtml += '" style="color:black">' + this.proName + '<a>';
+							 dispHtml += '</span></td><td style="font-size: 15px;">';
+							 dispHtml += this.paymethod;
+							 dispHtml += '<br>';
+							 dispHtml += this.paidPrice;
+							 dispHtml += '</td><td style="font-size: 15px;">';
+							 dispHtml += '주문완료';
+							 dispHtml += '</td></tr>';
+						})
+						$('#content').append(dispHtml);
+						
+						
+						if( _endIndex >= returnValue[0].count){
+							$('#searchMoreNotify').remove();
+						}
 					}
 				},
 				error : function(){

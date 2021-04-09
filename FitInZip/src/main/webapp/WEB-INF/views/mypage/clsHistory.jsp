@@ -20,8 +20,10 @@
 		var weekName = new Array('일','월','화','수','목','금','토');
 		
 		//첫 로딩시 현재 클래스 로딩
-		clsView(startIndex, "now", _endIndex);
-		$('#btn').html('<button id="searchMoreNotify" class="btn_basic type5 adClick mt50" style="display:inherit; margin: 0 auto;">더보기</button>');
+		let count = clsView(startIndex, "now", _endIndex);
+		if(count > 3){
+			$('#btn').html('<button id="searchMoreNotify" class="btn_basic type5 adClick mt50" style="display:inherit; margin: 0 auto;">더보기</button>');
+		}
 		
 		/* 현재 클래스 버튼 */
 		$('#nowBtn').click(function(){
@@ -106,9 +108,9 @@
 					var dispHtml = '';
 					var button = '';
 					if(clsStatus == 'now'){
-						button = '<input type="button" class="maincolor1" value="입장">';
+						button = '<input type="button" class="maincolor1" value="입장" style="padding: 2px 10px;">';
 					}else if(clsStatus == 'end'){
-						button = '<input type="button" class="maincolor1" value="입장" disabled>';
+						button = '<input type="button" class="maincolor1" value="입장" style="padding: 2px 10px;" disabled>';
 					}
 					
 					for(var i =0; i<returnValue.length; i++){
@@ -143,14 +145,14 @@
 									let code = returnValue[i].clsCode;
 									let url = returnValue[i].meetUrl;
 									//console.log(iam);
-									button = '<input type="button" class="maincolor1" value="입장" onclick="meet(\''+ url +'\'' + ', ' + code+')">';
+									button = '<input type="button" class="maincolor1" value="입장" style="padding: 2px 10px;" onclick="meet(\''+ url +'\'' + ', ' + code+')">';
 									break;
 								}else{
-									button = '<input type="button" class="maincolor1" value="입장" disabled>';
+									button = '<input type="button" class="maincolor1" value="입장" style="padding: 2px 10px;" disabled>';
 								}
 								
 							}else{
-								button = '<input type="button" class="maincolor1" value="입장" disabled>';
+								button = '<input type="button" class="maincolor1" value="입장" style="padding: 2px 10px;" disabled>';
 							}
 						}
 						
