@@ -394,7 +394,7 @@
 		</div>
 	<div class="card-body">
 	
-			<form id="class-info" action="regCls" enctype="multipart/form-data" method="post">
+			<form id="class-info" action="regCls" enctype="multipart/form-data" method="post" accept-charset="UTF-8">
 				<div class="card mb-4">
 				<div class="card-header py-3"></div>
 				<div class="card-body">
