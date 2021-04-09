@@ -324,7 +324,6 @@
 </body>
 <script>
 	$(function() {
-
 		$.ajax("/trainerMainPage", {
 			dataType: "json",
 			type : "post",

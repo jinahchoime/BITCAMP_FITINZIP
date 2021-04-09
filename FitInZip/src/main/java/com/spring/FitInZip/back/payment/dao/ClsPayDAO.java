@@ -5,7 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import com.spring.FitInZip.back.payment.vo.ClsCalDTO;
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
@@ -41,5 +42,10 @@ public class ClsPayDAO {
 	//결제완료 후 같은 클래스 구매하는지 확인
 	public List<SelectClsDTO> searchCls(MemberVO vo) {
 		return mybatis.selectList("PayDAO.selectCls", vo);
+	}
+	
+	//결제완료 후 강사 정산금 넣어주기
+	public void updateCal(ClsCalDTO cdto) {
+		mybatis.update("PayDAO.calUpdate", cdto);
 	}
 }

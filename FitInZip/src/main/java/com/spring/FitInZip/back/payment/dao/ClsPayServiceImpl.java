@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.spring.FitInZip.back.payment.vo.ClsCalDTO;
+import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
@@ -44,5 +47,13 @@ public class ClsPayServiceImpl implements ClsPayService{
 	public List<SelectClsDTO> searchCls(MemberVO vo) {
 		return clsPayDAO.searchCls(vo);
 	}
+
+	@Override
+	public void updateCal(ClsCalDTO cdto) {
+		clsPayDAO.updateCal(cdto);
+		
+	}
+	
+	
 
 }

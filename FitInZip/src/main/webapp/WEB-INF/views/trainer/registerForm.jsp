@@ -57,20 +57,23 @@
       
       function registerInfo() {
     	  var id = document.getElementById("id").value;
-    	  var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    	  var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/; 
 
-    	  if(id.match(regExp) == null) {
+    	  if(!regex.test(id)) {
     		  alert("아이디는 이메일 형식으로 입력해주세요.");
     		  return false;
     	  }
     	  
       	  var password = document.getElementById("password").value;
-      	  var passRule = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-    	  if(password.match(passRule) == null) {
-    		  alert("비밀번호는 숫자와 영문, 특수문자를 포함하여 8~16자리로 입력해주세요");
-    		  return false;
-    	  }
-    	  
+      	  var pattern1 = /[0-9]/;
+          var pattern2 = /[a-zA-Z]/;
+          var pattern3 = /[~!@\#$%<>^&*]/;
+      	  
+      	  if(!pattern1.test(password)||!pattern2.test(password)||!pattern3.test(password)||password.length<8||password.length>17){
+             alert("비밀번호엔 영문과 숫자, 특수문자를 모두 입력하여 8자 이상 16자 이하로 만들어주세요.");
+             return false;
+         } 
+      	 
     	  if(document.getElementById("name").value.length == 0) {
     		  alert("이름을 입력해주세요.");
     		  return false;
@@ -82,22 +85,21 @@
     	  
     	  var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
     	  var phone = document.getElementById("phone").value;
-    	  if(phone.length < 11) {
+    	  if(phone.length == 0) {
     		  alert("핸드폰번호를 입력해주세요.");
     		  return false;
     	  }
-    	  if(phone.match(phoneRule) == null) {
+    	  if(!phoneRule.test(phone)) {
     		  alert("핸드폰은 000-0000-0000의 형식으로 작성해주세요.");
     		  return false;
     	  }
     	  
-    	  var birth = document.getElementById("birth").value;
-    	  var check_num = /^[0-9]+$/; 
-    	  if(birth.length < 8) {
+    	  var birth = document.getElementById("birth").value; 
+    	   if(birth.length == 0) {
     		  alert("생년월일을 입력해주세요.");
     		  return false;
-    	  }
-    	  if(birth.match(check_num) == null) {
+    	  } 
+    	  if(!pattern1.test(birth)) {
     		  alert("생년월일은 숫자만 적어주세요.");
     		  return false;
     	  }
@@ -108,11 +110,11 @@
     	  }
 
     	  if(document.getElementById("question1").value.length == 0) {
-    		  alert("질문에 대답해주세요.");
+    		  alert("질문1에 대답해주세요.");
     		  return false;
     	  } 
     	  if(document.getElementById("question2").value.length == 0) {
-    		  alert("질문에 대답해주세요.");
+    		  alert("질문2에 대답해주세요.");
     		  return false;
     	  }
     

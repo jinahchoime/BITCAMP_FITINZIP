@@ -50,7 +50,7 @@ import com.spring.FitInZip.back.trainer.vo.TrainerCalDTO;
 import com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO;
 
 @Controller
-@SessionAttributes({ "admin", "member", "trainer" /* , "reviewList", "calList" */})
+@SessionAttributes({ "admin", "member", "trainer", "reqClass", "ingCls", "totalCal", "reviewList", "calList" })
 public class TrainerController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainerController.class);
 
@@ -245,6 +245,18 @@ public class TrainerController {
     	model.addAttribute("ingCls", ingCls);
     	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
     	System.out.println("edCls: " + edCls);
+    	for (ClsTrainerDTO cdto2: edCls) {
+    		String profileImg = cdto2.getThumbnailFileName();
+			
+			if(profileImg != null) {
+				profileImg = profileImg.substring(profileImg.indexOf("resources"));
+				cdto2.setThumbnailFileName(profileImg);
+				
+			}
+		}
+    	
+    	
+    	
     	model.addAttribute("edCls", edCls);
     	return ingCls;
 	}

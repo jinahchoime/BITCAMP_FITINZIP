@@ -2,6 +2,7 @@ package com.spring.FitInZip.back.payment;
 
 import java.util.List;
 
+import com.spring.FitInZip.back.payment.vo.ClsCalDTO;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.MemCouponVO;
 import com.spring.FitInZip.back.common.vo.PaymentDTO;
@@ -16,6 +17,7 @@ public interface ClsPayService {
 	public void clsPayment(PaymentVO pvo);
 	public void updateCoupon(MemCouponVO mvo);
 	List<SelectClsDTO> searchCls(MemberVO vo);
+	public void updateCal(ClsCalDTO cdto);
 
 }
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.FitInZip.back.payment.vo.ClsCalDTO;
 import com.spring.FitInZip.back.cls.dto.ClsDetailDTO;
 import com.spring.FitInZip.back.common.vo.CouponDetailDTO;
 import com.spring.FitInZip.back.common.vo.MemCouponVO;
@@ -52,6 +53,7 @@ public class ClsPayController {
 		
 		
 		
+		
 		List<PaymentDTO> list = clsPayService.couponList(vo);
 		model.addAttribute("cpList", list); 
 		System.out.println("cplist: " + list);
@@ -79,7 +81,7 @@ public class ClsPayController {
 	}
 	
 	@RequestMapping("/clsPayConfirm")
-	public String confirmPayment(HttpSession session, PaymentVO pvo, MemCouponVO mvo, RedirectAttributes rttr) {
+	public String confirmPayment(HttpSession session, PaymentVO pvo, MemCouponVO mvo, ClsCalDTO cdto, RedirectAttributes rttr) {
 	MemberVO vo = (MemberVO)session.getAttribute("member");
 	ClsDetailDTO detail = (ClsDetailDTO)session.getAttribute("detail");
 	CouponDetailDTO dto = (CouponDetailDTO)session.getAttribute("finalInfo");
@@ -113,6 +115,21 @@ public class ClsPayController {
 	clsPayService.clsPayment(pvo);
 	
 	System.out.println("결제정보 등록 완료!");
+	
+	//강사 정산금 넣어주기
+	Integer tc = detail.getTotalCal();
+	Integer np = pvo.getNetPrice();
+	Integer sum;
+	if(tc == null) {
+		sum = np;
+	} else {
+		sum = tc + np;
+	}
+	
+	
+	cdto.setTotalCal(sum);
+	cdto.setTrainerId(detail.getTrainerId());
+	clsPayService.updateCal(cdto);
 	
 	//쿠폰 사용하여 결제 시
 	//System.out.println("detail.getTotalPrice() : " + detail.getTotalPrice());

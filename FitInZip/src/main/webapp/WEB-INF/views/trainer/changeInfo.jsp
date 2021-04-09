@@ -64,25 +64,35 @@
       	
       	function registerForm() {
       		var password = document.getElementById("password").value;
-         	var passRule = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-	       	if(password.match(passRule) == null) {
-	       		alert("비밀번호는 숫자와 영문, 특수문자를 포함하여 8~16자리로 입력해주세요");
-	       		return false;
-	       	}
-      		if(document.getElementById("nickname").value.length == 0) {
-      			alert("별명을 입력해주세요.");
-      			return false;
-      		}
-      		var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
-      	  	var phone = document.getElementById("phone").value;
-      	  	if(phone.length < 11) {
-      		 	 alert("핸드폰번호를 입력해주세요.");
-      		 	 return false;
-      	 	 }
-      	  	if(phone.match(phoneRule) == null) {
-      		 	 alert("핸드폰은 000-0000-0000의 형식으로 작성해주세요.");
-      		 	 return false;
-      	 	 }
+        	var pattern1 = /[0-9]/;
+            var pattern2 = /[a-zA-Z]/;
+            var pattern3 = /[~!@\#$%<>^&*]/;
+        	  
+       	  	if(!pattern1.test(password)||!pattern2.test(password)||!pattern3.test(password)||password.length<8||password.length>17){
+              alert("비밀번호엔 영문과 숫자, 특수문자를 모두 입력하여 8자 이상 16자 이하로 만들어주세요.");
+              return false;
+           } 
+        	 
+      	  if(document.getElementById("nickname").value.length == 0) {
+      		  alert("별명을 입력해주세요.");
+      		  return false;
+      	  }
+      	  
+      	  var phoneRule = /^\d{3}-\d{3,4}-\d{4}$/;
+      	  var phone = document.getElementById("phone").value;
+      	  if(phone.length == 0) {
+      		  alert("핸드폰번호를 입력해주세요.");
+      		  return false;
+      	  }
+      	  if(!phoneRule.test(phone)) {
+      		  alert("핸드폰은 000-0000-0000의 형식으로 작성해주세요.");
+      		  return false;
+      	  }
+      	  
+      	  if(document.getElementById("memOriName").value.length == 0) {
+      		  alert("프로필 사진을 넣어주세요.");
+      		  return false;
+      	  }
       		alert("정보 수정이 완료되었습니다!");
       		location.href="/trainerMainPage";
       	}
@@ -100,7 +110,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/trainerMainPage">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/trainerMainPageView">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -128,7 +138,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                 
                         <a class="collapse-item" href="/myClass">나의 클래스</a>
-                        <a class="collapse-item" href="cards.html">클래스 신청현황</a>
+                        <a class="collapse-item" href="classStat">클래스 신청현황</a>
                     </div>
                 </div>
             </li>
@@ -300,10 +310,7 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+   
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
