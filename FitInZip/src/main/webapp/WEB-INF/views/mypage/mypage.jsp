@@ -72,7 +72,7 @@
 				<h2 style="margin: 90px 0 20px 89px;">달성내역</h2>
 				<div class="wrap">
 					<span class="awsome">
-						<i class="fas fa-running fa-3x"></i>
+						<i class="fas fa-walking fa-3x"></i>
 					</span>
 					<span class="clsTitle">신청한 클래스</span>
 					<span class="clsCount" id="clsCount">0회</span>
@@ -93,7 +93,7 @@
 				</div>
 				<div class="wrap">
 					<span class="awsome" style="color:red">
-						<i class="fas fa-fire-alt fa-3x"></i>
+						<i class="fas fa-burn fa-3x"></i>
 					</span>
 					<span class="clsTitle">소모칼로리</span>
 					<span class="clsCount" id="clsCalorie">0kcal</span>

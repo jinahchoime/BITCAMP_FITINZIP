@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1 컨설턴팅</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
@@ -27,8 +28,10 @@
 	* {
 	font-family: 'Noto Sans KR', sans-serif;
 	}
+	.fa,.fab,.fad,.fal,.far,.fas{
+		font-weight: 900 !important;
+	}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 	<!-- Navigation -->
@@ -74,11 +77,11 @@
 					<p style="display: inline-block;">마스크를 착용해야 합니다</p>
 				</div>
 				<div style="color:gray; margin-bottom: 20px;">
-					<i class="fas fa-hands-wash fa-3x" style="margin-right: 20px;"></i>
+					<i class="fas fa-hand-sparkles fa-3x" style="margin-right: 20px;"></i>
 					<p style="display: inline-block;">손을 꼭 씻도록 합니다</p>
 				</div>
 				<div style="color:gray; margin-bottom: 20px;">
-					<i class="fas fa-people-arrows fa-3x" style="margin-right: 20px;"></i>
+					<i class="fas fa-users-slash fa-3x" style="margin-right: 20px;"></i>
 					<p style="display: inline-block;">사람간의 간격을 유지합니다</p>
 				</div>
 				<div style="color:gray; margin-bottom: 20px;">

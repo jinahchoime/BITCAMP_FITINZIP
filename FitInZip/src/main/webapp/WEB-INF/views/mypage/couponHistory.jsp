@@ -50,7 +50,11 @@
 						dispHtml += this.commonName;
 						dispHtml += '</p></a></div></div></div></li></ul>';
 				})
-				$('#piece').text(count+"장");
+				if(count == "undefined" || count == null || count == ""){
+					$('#piece').text(0+"장");
+				}else{
+					$('#piece').text(count+"장");
+				}
 				$('#content').html(dispHtml);
 			},
 			error : function(){
