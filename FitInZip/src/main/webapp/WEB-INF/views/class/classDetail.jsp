@@ -56,7 +56,7 @@
 			  .then(async function (response) {
 				  let result = await response.json();
 				  alert("리뷰가 작성되었습니다.");
-				  location.href="/getClassDetail?clsCode=" + ${detail.clsCode};
+				  location.href="/getClassDetail?clsCode=" + "${detail.clsCode}";
 			  })
 			  .catch(err => alert("오류가 발생 : " + err));
 		});
