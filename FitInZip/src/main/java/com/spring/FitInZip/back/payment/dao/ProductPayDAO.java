@@ -23,12 +23,13 @@ public class ProductPayDAO {
 		return mybatis.selectList("PayDAO.getPayList", mem_id);
 	}
 	
-	//구매내역 payment, pro_order, order_detail 테이블에 insert
+	//구매내역 payment, pro_order테이블에 insert
 	public void productPayFin(PaymentVO pvo , OrderVO ovo) {
 		mybatis.insert("PayDAO.insertPayment", pvo);
 		mybatis.insert("PayDAO.insertProOrder", ovo);
 	}
 	
+	//구매내역 order_detail 테이블에 insert
 	public void productPayFin(OrderDetailVO dvo) {
 		mybatis.insert("PayDAO.insertOrderDetail", dvo);
 	}

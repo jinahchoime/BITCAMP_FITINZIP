@@ -8,7 +8,6 @@
 	box-sizing: border-box;
 	padding-top: 80px;
 }
-
 .contents {
 	position: relative;
 	margin: 0 auto;
@@ -20,37 +19,34 @@
 }
 .order-tab-wrap {
 	display: inline-block;
-	width: 1000px;
+	width: 1016px;
 }
 #block {
 	display: block;
 	width: 100%;
 }
 .order-checkout .contents-title {
-	padding: 50px 0 30px;
+	padding: 40px 0 30px;
 	font-size: 28px;
 	font-weight: bold;
 	letter-spacing: -0.2px;
 	text-align: center;
 	color: #111111;
+	margin: 0px;
 }
-
 .order-tab:first-child {
 	margin-top: 0;
 }
-
 .order-tab {
 	background-color: #ffffff;
 	float: left;
 	display: inline-block;
 	box-sizing: border-box;
 }
-
 .order-tab .header {
 	position: relative;
 	padding: 32px 25px;
 }
-
 .order-tab .header .tit {
 	color: #111111;
 	display: inline;
@@ -63,7 +59,6 @@
 	padding: 0 25px 32px;
 	font-size: 14px;
 }
-
 .uk-grid {
 	margin-left: -20px;
 	display: flex;
@@ -72,12 +67,10 @@
 	margin: 0;
 	padding: 0;
 }
-
 .order-tab .body .order-field-list {
 	margin-bottom: 10px;
 	line-height: 1.6;
 }
-
 .uk-grid > * {
 	padding-left: 20px;
 	float: left;
@@ -85,26 +78,21 @@
 li {
 	display: list-item;
 }
-
 .uk-grid > * > :last-child {
 	margin-bottom: 0;
 }
-
 .order-tab .body .order-field-list .input-form-group {
 	margin-top: 50px;
 }
-
 .order-tab .footer {
 	padding: 0px 25px 50px;
 }
-
 .button.xlarge {
 	height: 48px;
 	font-size: 15px;
 	padding: 16px 50px;
 	border-radius: 5px;
 }
-
 .button.width-max {
 	width: 100%;
 	text-aling: center;
@@ -112,7 +100,6 @@ li {
 .width-max {
 	max-width: 100%;
 }
-
 #money {
 	text-decoration: none;
 	outline: none;
@@ -125,53 +112,45 @@ li {
 	line-height: 100%;
 	box-sizing: border-box;
 }
-
 .order_tab_wrap--right {
 	float: right;
 	width: 384px;
 }
-
 .order_tab_wrap .order_tab:first-child {
 	margin: 0;
 }
-
 .order_tab_wrap .order-tab {
 	float: none;
-	width: auto;
+	width: 382px;
 	display: block;
 }
-
 .order_tab_wrap .order-tab.product-checkout .header {
 	background: #e5e5e5;
 	padding: 20px;
 	z-index: 1;
 	border-radius: 5px;
 }
-
 .order-tab .header {
 	position: relative;
 	border-top: 1px solid #d1d1d1;
 }
-
 .order_tab_wrap .order-tab .header .tit {
 	position: relative;
 	display: block;
-	font-size: 16px;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0px;
 }
-
 .order-tab .header .tit {
 	vertical-align: middle;
 }
-
 .order_tab_wrap .order-tab.product-checkout .body {
 	padding: 20px;
 }
-
 .order_tab_wrap .order-tab .view {
 	opacity: 1;
 	height: 100%;
 }
-
 .order_tab_wrap .order-tab .body {
 	border: 1px solid #e5e5e5;
 	border-top: 0;
@@ -187,7 +166,6 @@ li {
 	border-bottom: 1px solid #e5e5e5;
 	padding-top: 15px;
 }
-
 .order_tab_wrap .order-tab.product-checkout .order-list:first-child {
 	padding-top: 0;
 }
@@ -209,7 +187,6 @@ li {
 	display: table-cell;
 	vertical-align: top;
 }
-
 .cart-order_list .order-list .image-wrap {
 	padding: 0;
 	box-sizing: border-box;
@@ -233,7 +210,6 @@ li {
 	max-height: none;
 	line-height: 18px;
 }
-
 .cart-order_list .order-list .order-info .tit {
 	width: 87%;
 }
@@ -246,7 +222,6 @@ a {
 order-info .tit {
 	color: black;
 }
-
 .cart-order_list .order-list .order-info .qty {
 	display: inline-block;
 }
@@ -309,13 +284,11 @@ order-info .tit {
 	margin-top: 30px;
 	padding-bottom: 20px;
 }
-
 .product-checkout .total-price {
 	padding: 0;
 	border: none;
 	width: 100%;
 }
-
 .product-checkout .total-price .label {
 	font-size: 18px;
 }
@@ -325,7 +298,6 @@ order-info .tit {
 .product-checkout .price {
 	font-size: 16px;
 }
-
 .order-tab .body .order-field-list .payment-method-list .payment-method-item {
 	max-width: 480px;
 	margin-bottom: 10px;
@@ -335,19 +307,19 @@ order-info .tit {
 }
 .order-field-list .payment-method-list .payment-method-item .payment-method-item-title {
 	box-sizing: border-box;
-	padding: 17px 25px 16px;
+	padding: 13px 20px;
 	border: 1px solid #d1d1d1;
 	font-size: 19px;
 	cursor: pointer;
 	text-align: center;
 	margin-bottom: 0px;
+	font-weight: 500;
 }
 .payment-method-item-title {
 	color: #606060;
 }
-
 .input-checkbox > label > .label {
-	font-size: 18px;
+	font-size: 16px;
 	margin-left: -10px;
 }
 .icon-checkbox {
@@ -358,8 +330,8 @@ order-info .tit {
 	z-index: 10;
 }
 [type=checkbox] {
-	width: 18px;
-	height: 18px;
+	width: 16px;
+	height: 16px;
 }
 .order-tab .order-complete {
 	position: relative;
@@ -367,7 +339,6 @@ order-info .tit {
 .uk-width-7-10 {
 	width: 70%;
 }
-
 .total-price strong {
 	font-size: 20px;
 }

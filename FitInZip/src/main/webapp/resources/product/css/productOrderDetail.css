@@ -3,47 +3,85 @@
 * {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
-
+.title {
+	 border-bottom: 2px solid black; 
+	 padding-bottom: 16px;
+}
 .big-title.pro-tit {
-	font-size: 20px;
+	font-size: 17px;
 	line-height: 30px;
 	font-weight: 600;
   	border-bottom: 1px solid black;
   	padding-bottom: 15px;
 }
-
 .big-title.deli-tit {
-	font-size: 20px;
+	font-size: 17px;
 	line-height: 30px;
 	font-weight: 600;
 	border-bottom: 1px solid black;
 	padding-bottom: 15px;
+	padding-top: 15px;
 }
-
+.big-title.price-tit {
+	font-size: 17px;
+	line-height: 30px;
+	font-weight: 600;
+	border-bottom: 1px solid black;
+	padding-bottom: 15px;
+	padding-top: 17px;
+}
 .item-info .info-wrap {
   display: inline-block;
   box-sizing: border-box;
   line-height: 18px;
   vertical-align: top;
   width: 800px;
-  margin-top: 12px;
-  border-top: 2px solid black;
-  padding-top: 20px;
+  margin-top: 20px;
+  padding-bottom: 10px;
 }
-
-.product-price {
-	float: right;
-}
-
 .product-img {
 	float: left;
 }
 
 .padding-left {
-	padding-left: 140px;
+	padding-left: 45px;
+	display: block;
+	margin-bottom: 5px;
+	font-size: 14px;
 }
 
-.bobo {
+.bobo:not(:last-child) {
 	border-bottom: 1px solid #ebebeb;
 	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 14px;
+}
+.bobo:last-child {
+	padding-top: 15px;
+	padding-bottom: 30px;
+	font-size: 14px;
+}
+.bobo > p {
+	margin: 0px;
+}
+.pro-content {
+	font-size: 14px;
+	display: inline-block;
+}
+
+.deli-container, .price-container {
+	border-top: 5px solid #F8F8F8;
+}
+
+.forEach {
+	padding-bottom: 10px;
+	margin-bottom: 25px;
+	overflow: hidden;
+}
+.float-right, .right {
+	float: right;
+}
+
+.float-left {
+	float: left;
 }

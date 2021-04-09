@@ -22,12 +22,14 @@
 <script>
 	$(function(){
 		$(".addcart-btn").on("click", function(){
-			alert("장바구니 담기 ajax 실행");
+			//alert("장바구니 담기 ajax 실행");
 			
 			if (${empty sessionScope.member.getId()} ) {
 				alert("로그인 후 이용가능합니다.");
 				location.href="/loginMain";
-			}
+				return;
+			} 
+				
 			
 			
 			let formData = new FormData(this.form);
@@ -39,7 +41,7 @@
 			fetch("/insertCart", options) 
 				.then(async function (response) {
 					let result = await response.json();
-			
+					alert("장바구니에 추가되었습니다.");
 				})
 				.catch(err => {
 					//alert("오류 발생: " + err);
@@ -64,7 +66,7 @@
 	<jsp:include page="../nav.jsp"></jsp:include>
 
 	<div class="product-list">
-	<h1 class="product-title">홈트용품</h1>
+	<p class="product-title">홈트용품</p>
 		<div class="container" style="max-width: 1600px;">
 			<div class="row row-cols-3" >
 			
@@ -75,7 +77,7 @@
 						</button>
 					
 			  	<form action="/insertCart" class="product-form" method="post"> 
-						<h4 class="product-name">${productList.proName }</h4>
+						<p class="product-name">${productList.proName }</p>
 						<p class="product-price">${productList.proPrice }원</p>
 						
 						<c:if test="${productList.proPrice ne '2400' }">
@@ -87,8 +89,8 @@
 								다양한 중량선택 가능<br>튼튼한 쇠파이프 내장<br>강력한 웨이트 트레이닝 가능
 							</p>
 						</c:if>
-						
 							<c:if test="${productList.proName eq '덤벨 1kg~10kg'}">
+								<!-- 
 								<select class="dumbbell-option" id="dumbbell">
 									<option value="none">[필수]옵션을 선택하세요</option>
 									<option value="1kg">1kg</option>
@@ -102,12 +104,18 @@
 									<option value="9kg">9kg(+19,200원)</option>
 									<option value="10kg">10kg(+21,600원)</option>
 								</select>
+								
 								<div class="addcart-btn-div dumbbell-cart-btn">
+									<button class="addcart-btn" type="button">장바구니 담기</button>
+								</div>
+								-->
+								<div class="addcart-btn-div foreach-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
 							</c:if>
 						
 							<c:if test="${productList.proName eq '워크아웃 밴드'}">
+								<!--
 								<select class="rubberband-option" id="rubberband">
 									<option class="option-default-text" value="none">[필수]옵션을 선택하세요</option>
 									<option value="레드 ">레드 - 1.3cm &nbsp; MAX: 20KG</option>
@@ -116,11 +124,16 @@
 									<option value="그린 ">그린 - 4.5cm &nbsp; MAX: 75KG</option>
 									<option value="블루 ">블루 - 6.4cm &nbsp; MAX: 100KG</option>
 								</select>
+								
 								<div class="addcart-btn-div rubberband-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>
 								</div>
+								-->
+								<div class="addcart-btn-div foreach-cart-btn">
+									<button class="addcart-btn" type="button">장바구니 담기</button>
+								</div>
 							</c:if>
-						
+							
 							<c:if test="${productList.proName ne '덤벨 1kg~10kg' && productList.proName ne '워크아웃 밴드' }">
 								<div class="addcart-btn-div foreach-cart-btn">
 									<button class="addcart-btn" type="button">장바구니 담기</button>

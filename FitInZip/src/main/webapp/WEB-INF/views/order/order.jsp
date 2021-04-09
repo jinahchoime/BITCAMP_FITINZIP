@@ -109,11 +109,11 @@
 			<article class="contents">
 				<form action="productPay" method="post" id="form">
 				<div class="order-wrap">
-					<h2 class="contents-title">
+					<p class="contents-title">
 						<span class="title">주문결제</span>
 						<!-- <input type="hidden" name="samedayDeliveryNotAvailable">
 						<input type="hidden" name="samedayDeliveryNotAvailableMessage"> -->
-					</h2>
+					</p>
 						<div class="order_simply_tit">
 						</div>
 					<div class="order-tab">
@@ -138,7 +138,7 @@
 								<input type="text" name="extraAddress" id="extraAddress" placeholder="참고주소">
 						
 								<select class="delivery-message" id="deliMsg" onchange="deli(this)">
-									<option class="deli-msg-default" value="none" selected>배송 메모를 선택해주세요.</option>
+									<option class="deli-msg-default" value="배송 메모를 선택해주세요." selected>배송 메모를 선택해주세요.</option>
 									<option value="배송 시 연락 부탁드립니다.">배송 시 연락 부탁드립니다.</option>
 									<option value="빠른 배송 부탁드립니다.">빠른 배송 부탁드립니다.</option>
 									<option value="directMsg">직접 입력</option>
@@ -148,9 +148,8 @@
 						</div>
 						
 						<div class="delivery-info">
-							<h6></h6>
-							<span class="label">일반배송 : 배송비 무료</span>
-							<ul>
+							<ul style="padding-left:20px; ">
+								<li><span class="label">일반배송 : 배송비 무료</span></li>
 								<li>배송지역 : 전국 (일부 도서산간 지역 제외)</li>
 								<li>배송기간 : 결제 후 3일 이내 (토요일, 공휴일 제외)</li>
 								<li>배송안내 : 상품의 출고지 또는 물류센터 보관장소에 따라 분리 배송</li>
@@ -165,7 +164,7 @@
 					<div class="order-tab-wrap order_tab_wrap order_tap_wrap--right">
 						<div class="order-tab product-checkout checkout border">
 							<div class="header mini-box">
-								<h5 class="tit"><strong>주문내역</strong></h5>
+								<p class="tit" style="font-weight: bold;">주문내역</p>
 							</div>
 							<c:forEach var="cartList" items="${cartList }">
 							<div id="order-summary" class="body view">

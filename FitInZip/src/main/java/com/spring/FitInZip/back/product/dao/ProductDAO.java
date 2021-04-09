@@ -18,7 +18,7 @@ public class ProductDAO {
 		System.out.println(">> ProductDAO() 객체 생성 ");
 	}
 	
-	//상품 전체
+	//상품 전체 불러오기
 	public List<ProductVO> getProductList() {
 		System.out.println(">> DAO에서 getProductList()실행");
 		
