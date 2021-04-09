@@ -61,7 +61,7 @@
 						 dispHtml += '<span style="display: inline-block;padding-left: 85px;vertical-align: middle;font-size: 15px;line-height: 20px;">';
 						 dispHtml += '<a href="/orderDetail?orderNum=';
 						 dispHtml += this.orderNum;
-						 dispHtml += '">' + this.proName + '<a>';
+						 dispHtml += '" style="color:black">' + this.proName + '<a>';
 						 dispHtml += '</span></td><td style="font-size: 15px;">';
 						 dispHtml += this.paymethod;
 						 dispHtml += '<br>';
