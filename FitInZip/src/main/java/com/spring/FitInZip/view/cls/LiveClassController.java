@@ -32,7 +32,7 @@ public class LiveClassController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	// 원데이PT 클래스 화면
+	// 원데이PT 클래스 화면....
 	@RequestMapping(value="/liveClassMain", method=RequestMethod.GET)
 	public String liveClassMain(String clsCategory, Model model) {
 		List<ClsListDTO> classList = clsService.getClassList(clsCategory);
