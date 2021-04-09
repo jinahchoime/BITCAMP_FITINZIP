@@ -52,7 +52,7 @@ import com.spring.FitInZip.back.member.vo.MemberVO;
 @Controller
 public class MypageController {
 	
-	//마이페이지 서비스
+	//마이페이지 서비스...
 	@Autowired
 	private MypageService mypageService;
 	
