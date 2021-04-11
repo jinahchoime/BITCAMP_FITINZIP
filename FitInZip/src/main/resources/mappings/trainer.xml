@@ -91,7 +91,7 @@
 	
 	<!-- 내 리뷰 확인 -->
 	<select id="checkReview" parameterType="trainerDTO" resultType="com.spring.FitInZip.back.trainer.vo.TrainerReviewDTO">
-		SELECT m.NAME, f.CLS_NAME, r.REVIEW_CONTENT, r.REG_DATE, r.STAR, m.MEM_ORI_NAME
+		SELECT m.NAME, f.CLS_NAME, r.REVIEW_CONTENT, r.REG_DATE, r.STAR, m.MEM_FILE_NAME
 		FROM MEMBER m, REVIEW r, FIT_CLASS f
 		WHERE r.MEM_ID = m.ID
 		AND f.CLS_CODE = r.CLS_CODE

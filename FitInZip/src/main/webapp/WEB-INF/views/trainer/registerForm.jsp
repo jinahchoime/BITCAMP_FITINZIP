@@ -55,7 +55,7 @@
           }
       }
       
-      function registerInfo() {
+      function registerInfo(frm) {
     	  var id = document.getElementById("id").value;
     	  var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/; 
 
@@ -119,8 +119,8 @@
     	  }
     
       	alert("강사 신청이 완료되었습니다. 강사 등록 확정은 이메일로 안내해드리겠습니다.");
-      	location.href = "/registerForm" 
- 
+ 		frm.action="/registerForm"     	/* location.href = "/registerForm"  */
+ 		frm.submit();
       	
       }
       
@@ -253,19 +253,16 @@
 	            	<label for="address2" class="form-label" style="margin-top: 25px;">사용중인 핸드폰 기종을 적어주세요.</label>
 	              	<input type="text" class="form-control" name="question1" id="question2" placeholder="아이폰12" required>
 	            </div>
-				<button class="w-100 btn btn-lg btn-primary" type="submit" id="reg_submit" style="margin-top:40px" onclick="registerInfo(this.form)">강사신청하기</button>	          
+				<button class="w-100 btn btn-lg btn-primary" type="button" id="reg_submit" style="margin-top:40px" onclick="registerInfo(this.form)">강사신청하기</button>	          
 	        </form>
 	      </div>
 	    </div>
 	  </main>
 	
 	  <footer class="my-5 pt-5 text-muted text-center text-small">
-	    <p class="mb-1">&copy; 2021 Company Name</p>
-	    <!-- <ul class="list-inline">
-	      <li class="list-inline-item"><a href="#">Privacy</a></li>
-	      <li class="list-inline-item"><a href="#">Terms</a></li>
-	      <li class="list-inline-item"><a href="#">Support</a></li>
-	    </ul> -->
+	    <p>사업자등록번호 000-00-00000 | 통신판매번호 2021-서울서초-0000 | 대표이사 김피트  | 개인정보관리책임자 김비트  |</p>
+        <p> 서울특별시 서초구 서초4동 강남대로 </p>
+		<p>Copyright © FITINZIPCOMPANY Co. All rights reserved. Server : 000.00.00.000</p>
 	  </footer>
 	</div>
 	

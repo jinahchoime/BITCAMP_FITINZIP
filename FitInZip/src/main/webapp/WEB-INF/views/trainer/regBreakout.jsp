@@ -2,6 +2,7 @@
 <%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
  
 <!DOCTYPE html>
 <html lang="en">
@@ -25,47 +26,151 @@
     <!-- Custom styles for this template-->
     <link href="../resources/trainer/css/TrainerMain-sb-admin-2.min.css" rel="stylesheet">
 
+<style>
+	button: disabled { background: #fee; border: 0;}
+</style>
+	<script type="text/javascript"></script>
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script>	
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<script>
-	
-	$(function(){
-		$('#insert_form').on("submit", function() {
-			event.preventDefault();
-			var calCheck = RegExp(/[^0-9]$/);
+	 $(function() {
+		$.ajax("/classData", {
+			contentType: "application/json; charset=UTF-8;",
 			
-			if($('#requestCal').val() < 5000) {
-				alert("최소 인출 금액은 5,000원입니다.");
-				return false;
-			} else if(calCheck.test($('#requestCal').val()) ) {
-				alert("인출금액은 숫자만 입력해주세요.");
-				$('#requestCal').val('');
-				return false;
-			} else if($('#bankName').val() == '') {
-				alert("은행명을 입력해주세요.");
-				return false;
-			} else if($('#bankAccount').val() == '') {
-				alert("계좌번호을 입력해주세요.");
-				return false;
-			} else if(calCheck.test($('#bankAccount').val()) ) {
-				alert("계좌번호는 숫자만 입력해주세요");
-				return false;
-			} else {
-				alert("출금 신청이 완료되었습니다. 은행 입금은 신청일 기준 다음 날 처리됩니다.");
+			success: function(data) {
+				//alert("성공");
+				var html = "";
+				var button = "";
+				console.log(data);
+				
+				if(data.length == 0) {
+					alert("데이터가 없습니다.");
+					html  += '<tr> <td colspan="2" class="none">진행중인 클래스가 없습니다.</td></tr>';
+					$('#tableList').html(html);
+				}
+				
+				for(var i = 0; i < data.length; i++) {
+					var Now = new Date();
+					var nowYear = Now.getFullYear();
+					var nowMonth = Now.getMonth(); // 월
+					var nowDay = Now.getDate(); // 일
+					var nowHour = Now.getHours(); // 시
+					var nowMins = Now.getMinutes(); // 분
+					
+					var week = new Array('일', '월', '화', '수', '목', '금', '토'); //요일
+					var days = week[Now.getDay()]; //오늘 요일
+					
+					var yoil = (data[i].yoil).split(','); //클래스 요일
+					console.log("요일: " + yoil);
+					
+					for(var j = 0; j < (data[i].yoil).split(',').length; j++) {
+						var clsYoil = yoil[j]; //클래스 요일
+						/* var clsStartYear = new Date(data[i].startDate).getFullYear();//클래스 시작 년
+						var clsEndYear = new Date(data[i].endDate).getFullYear(); //클래스 끝 년
+						var clsStartMonth = new Date(data[i].startDate).getMonth(); //클래스 시작 달
+						var clsEndMonth = new Date(data[i].endDate).getMonth(); //클래스 끝 달
+						var clsStartDate = new Date(data[i].startTime).getDate(); //클래스 시작일
+						var clsEndDate = new Date(data[i].endDate).getDate(); //클래스 종료일 */
+						var clsStartHour = new Date(data[i].startTime).getHours(); //클래스 시작시간
+						var clsEndHour = new Date(data[i].endTime).getHours(); //클래스 끝 시간
+						var clsStartMin = new Date(data[i].startTime).getMinutes(); //클래스 시작 분
+						var clsEndMin = new Date(data[i].endTime).getMinutes(); //클래스 끝 분
+						console.log("clsStartHour: " + clsStartHour);
+						console.log("clsEndHour: " + clsEndHour);
+						console.log("clsStartMin: " + clsStartMin);
+						console.log("clsEndMin: " + clsEndMin);
+						console.log("nowMonth: " + nowMonth);
+						
+						
+						function pluszero(time){
+						    var time = time.toString(); // 시간을 숫자에서 문자로 바꿈
+						    if(time.length < 2){ //2자리 보다 작다면
+						        time = '0' + time; //숫자앞 0을 붙여줌
+						        return time; //값을 내보냄
+							} else {
+						    return time; //2자리라면 값을 내보냄
+							}
+						}
+						/* clsStartYear = pluszero(clsStartYear);
+						clsEndYear = pluszero(clsEndYear);
+						clsStartMonth = pluszero(clsStartMonth); //만들었던 함수 적용
+						clsEndMonth = pluszero(clsEndMonth);
+						clsStartDate = pluszero(clsStartDate);
+						clsEndDate = pluszero(clsEndDate); */
+						nowYear = pluszero(nowYear);
+						nowMonth = pluszero(nowMonth);
+						nowDay = pluszero(nowDay);
+						clsStartHour = pluszero(clsStartHour);
+						clsEndHour = pluszero(clsEndHour);
+						clsStartMin = pluszero(clsStartMin);
+						clsEndMin = pluszero(clsEndMin); 
+					
+						
+						
+						if(clsYoil == days) {
+							var compareTime = new Date(nowYear, nowMonth, nowDay, clsStartHour, clsStartMin); //시작시간
+							var endCompareTime = new Date(nowYear, nowMonth, nowDay, clsEndHour, clsEndMin); // 끝나는시간
+							console.log("endCompareTime: " + endCompareTime);
+							//시작시간 15분 전
+							var finalTime = compareTime.setMinutes(compareTime.getMinutes() - 15);
+			
+							//지금 시간이 시작시간 15분 전보다 덜남거나 끝나는 시간이 지금 시간보다 이전일 때
+							if((finalTime <= new Date().getTime()) && (new Date().getTime() < endCompareTime.getTime())) {
+								console.log("new Date().getTime(): " + new Date().getTime());
+								console.log("endCompareTime.getTime(): " + endCompareTime.getTime());
+								//버튼 활성화
+								button = '<button type="button" class="btn btn-primary" id="cls_button" onclick="meet(\'' + data[i].meetUrl + '\')">시작</button>';
+								console.log("url1:" + data[i].meetUrl);
+								break;
+							} else {
+								//버튼 비활성화
+								button = '<button type="button" class="btn btn-primary" onclick="meet(\'' + data[i].meetUrl + '\')" id="cls_button" disabled>시작 </button>';
+								
+							}
+							
+						} else {
+							button = '<button type="button" class="btn btn-primary" onclick="meet(\'' + data[i].meetUrl + '\')" id="cls_button" disabled>시작 </button>';
+							
+						}
+					
+					}
+					html += '<tr><td class="type_diff"><div class="list_img"><img src="' + data[i].thumbnailFileName +'" alt="클래스썸네일">';
+ 					html += '</div><div class="list_txt full"> <dl class="prod_infor"> <dt style="margin-bottom: 70px; margin-top: 10px;"> <div class="play_tch" style="margin-bottom: 5px;">';
+ 					html += '<span>' + data[i].clsCategory + '</span> <div class="clsName" style="margin-top: 20px;">';
+ 					html +=  data[i].clsName + '</div></dt> <dd class="mt5" style="font-size: 14px; margin-bottom: 20px;"> <div style="margin-bottom: 10px;">' + data[i].startDate;
+ 					html += '~' + data[i].endDate + '</div>' + data[i].yoil;
+ 					html += clsStartHour + ':' + clsStartMin + '~' + clsEndHour + ':' + clsEndMin + '</dd>';
+ 					html += '<dd style="color: black; font-weight: 400; font-size: 12px; font-weight: bold;">'; 
+ 					
+ 					for(var j = 0; j < data[i].list.length; j++) {
+ 						html += data[i].list[j] + ' ';	
+					};
+					
+ 					html += '</dd></dl></div></a></td><td>';
+ 					html += button;
+ 					html += '</td> </tr>'; 					
+				}
+				$('#tableList').html(html);
+				
+			}, error: function() {
+				alert("에러 발생");
 			}
-			document.getElementById("insert_form").submit();
 		});
 		
+		
 	});
-	
-	
-	
-	 </script>
-			 
+	  
+	function meet(url){
+		location.href = url;
+	}
+</script>
+
+
 </head>
 
 <body id="page-top">
-	
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -144,7 +249,7 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-           <!--  <div class="text-center d-none d-md-inline">
+            <!-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div> -->
 
@@ -162,9 +267,9 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
-                    </button>
+                    </button> -->
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -195,35 +300,19 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid" style="text-align:center; margin-top: 10%;">
+                <div class="container-fluid">
 
                    <!-- Page Heading -->
-                    <div class="col-lg-6" style="margin: auto;">
-
-				    <div class="card position-relative">
-				        <div class="card-header py-3">
-				            <h6 class="m-0 font-weight-bold text-primary">나의 정산금액</h6>
-				        </div>
-				        <div class="card-body">
-				            
-				            <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-				                <div class="navbar-brand" style="margin-left: auto;">${totalCal }원</div>
-				            </nav>
-				            
-				            <div class="dropdown mb-4">
-				                <button class="btn btn-primary" type="button" id="dropdownMenuButton" data-toggle="modal" data-target="#withDrawModal">
-				                   	 인출 신청하기
-				                </button>
-				            </div>
-				            <p class="mb-0 small">주의: 인출 신청 시 잘못된 계좌번호를 기재하여 발생할 수 있는 피해에 FITINZIP은 책임을 지지 않습니다.<br>
-				            						인출 전 본인의 계좌번호가 맞는지 확인해주세요.</p>
-				        </div>
-				    </div>
-				
-				</div>
-                    
-                   
-
+					<div id="viewArea" class="column_right" style="text-align: center; margin-top: 15%;">
+				    	
+				    	<div id="signout">
+				    	<img src="../resources/trainer/img/trainerSignout.png" style="width:200px; height:200px;">
+					<div id="content">
+						<p style="font-size: 20px; margin-bottom: 40px;">강사님! 회원탈퇴는 FITIN.ZIP 관리자(8282)에게 직접 연락해주세요.</p>
+					</div>
+					<button type="submit" onclick="history.back(-1)" class="btn btn-primary">뒤로가기</button>
+					</div>
+					</div>
 					
                 </div>
                 <!-- /.container-fluid -->
@@ -254,53 +343,6 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-
-
-
- <!-- Logout Modal-->
-    <div class="modal fade" id="withDrawModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">인출 신청하기</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                	<form method="get" action="/myWithdrawCheck" id="insert_form">
-                		<label>정산금액</label>
-                		<label>${totalCal }원</label>
-                		<br>
-                		<br>
-                		<label>인출금액(최소 5000원부터)</label>	
-                		<input type="text" id="requestCal" name="requestCal" class="form-control">
-                		<br>
-                		<label>은행명</label>
-                		<input type="text" id="bankName" name="bankName" class="form-control">
-                		<br>
-                		<label>계좌번호</label>
-                		<input type="text" id="bankAccount" name="bankAccount" class="form-control">
-                		<br>
-                		
-                <div class="modal-footer">
-                <br>
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <!-- <a class="btn btn-primary" href="requestWithdraw()">신청하기</a> -->
-                    <input type="submit" class="btn btn-primary" id="requestWithdraw" name="requestWithdraw" value="신청하기">
-                		<br>
-                </div>
-                	</form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -328,15 +370,6 @@
     <!-- Core plugin JavaScript-->
     <script src="../resources/trainer/trainermainvendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-   <!--  <script src="js/sb-admin-2.min.js"></script> -->
-
-    <!-- Page level plugins -->
-    <!-- <script src="resources/vendor/chart.js/Chart.min.js"></script> -->
-
-    <!-- Page level custom scripts -->
-  <!--   <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script> -->
 
 </body>
 

@@ -62,7 +62,7 @@
           	}
       	}
       	
-      	function registerForm() {
+      	function registerForm(frm) {
       		var password = document.getElementById("password").value;
         	var pattern1 = /[0-9]/;
             var pattern2 = /[a-zA-Z]/;
@@ -94,7 +94,9 @@
       		  return false;
       	  }
       		alert("정보 수정이 완료되었습니다!");
-      		location.href="/trainerMainPage";
+      		frm.action = "/changeInfo"
+      		/* location.href="/trainerMainPage"; */
+      		frm.submit();
       	}
       		    	
     </script>
@@ -182,9 +184,9 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <!-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> -->
 
            
         </ul>
@@ -234,6 +236,7 @@
                 <div class="row g-3" style= "margin-left: 25%">  
 		        <div class="col-md-7 col-lg-8">
 		        <h4 class="mb-3" style="text-align: center; padding-bottom: 20px;">정보 수정</h4>
+		        <h5 style="font-size: 12px; text-align: right;"><a href="/regBreakout" style="color:darkslateblue">회원 탈퇴 요청</a></h5>
 		        <form class="needs-validation" method="post" name="frm" enctype="multipart/form-data">
 		        	<div class="col-12">
 		            	<label for="id" class="form-label">아이디(이메일주소)</label> ${member.id }              
@@ -244,7 +247,7 @@
 		              	<input type="password" class="form-control" name="password" id="password" placeholder="" required>
 		            </div>
           
-		            <div class="col-12">
+		            <div class="col-12" style="margin-top: 10px;">
 		            	<label for="name" class="form-label" style="margin-top: 10px">이름</label> ${member.name }
 		            </div>
 	            
@@ -255,33 +258,33 @@
 	
 		            <div class="col-12">
 		            	<label for="phone" class="form-label" style="margin-top: 10px">핸드폰번호</label>
-	                	<input type="text" class="form-control" name="phone" id="phone" placeholder="01012345678" required>
+	                	<input type="text" class="form-control" name="phone" id="phone" placeholder="010-1234-5678" required>
 		            </div>
          	
          	
          		
          	
          	
-          		<div class="file1">
-	          	<label for="profile" class="form-label">프로필사진</label>
+          		<div class="file1" style="margin-left: 10px;">
+	          	<label for="profile" class="form-label" style="margin-top: 20px;">프로필사진</label>
 	          	<input type="file" id="memOriName" name="memberOriName" value="사진" accept=".jpg,.jpeg,.png,.gif">
-	          		<img id="profileImg" src="${profileImg }" style="width:250px; height:250px;padding-top: 20px; padding-bottom:20px;">
+	          		<img id="profileImg" src="${profileImg }" style="width:250px; height:250px;border-radius: 50%; object-fit: cover; margin-top: 20px; margin-bottom: 30px; border-radius: 50%;">
 	          	</div> 
 	          	
 	          	
 					
-					<div class="mb-3">
+					<div class="mb-3" style="margin-left: 10px;">
 						<label for="content" style="margin-top: 10px">강사소개</label>
 						<textarea id = "editor" name = "trainerIntro">${trainerInfo.trainerIntro }</textarea>
 						<script type="text/javascript">CKEDITOR.replace('editor');</script>
 					</div>
 					
-					<div class="mb-3">
+					<div class="mb-3" style="margin-left: 10px;">
 						<label for="content" style="margin-top: 10px">자격 및 경력</label>
 						<textarea id = "editor2" name = "career">${trainerInfo.career }</textarea>
 						<script type="text/javascript">CKEDITOR.replace('editor2');</script>
 					</div>
-					<button class="w-100 btn btn-lg btn-primary" type="submit" value="정보수정" id="infoBtn" style="margin-top: 20px" onclick="registerForm()">정보수정</button>
+					<button class="w-100 btn btn-lg btn-primary" type="button" value="정보수정" id="infoBtn" style="margin-top: 20px" onclick="registerForm(this.form)">정보수정</button>
          			</div>
          			
          			<input type="hidden" name="profileOriName" value="${member.memOriName } ">
@@ -298,7 +301,9 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <p>사업자등록번호 000-00-00000 | 통신판매번호 2021-서울서초-0000 | 대표이사 김피트  | 개인정보관리책임자 김비트  |</p>
+                        <p> 서울특별시 서초구 서초4동 강남대로 </p>
+		  				<p>Copyright © FITINZIPCOMPANY Co. All rights reserved. Server : 000.00.00.000</p>
                     </div>
                 </div>
             </footer>

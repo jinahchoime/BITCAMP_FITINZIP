@@ -18,7 +18,7 @@ import lombok.ToString;
 public class TrainerReviewDTO {
 	
 	private String name;
-	private String memOriName;
+	private String memFileName;
 	
 	private String clsName;
 	private String reviewContent;

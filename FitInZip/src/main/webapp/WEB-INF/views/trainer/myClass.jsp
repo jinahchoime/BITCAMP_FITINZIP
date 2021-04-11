@@ -42,7 +42,7 @@
 				//alert("성공");
 				var html = "";
 				var button = "";
-				console.log(data);
+				//console.log(data);
 				
 				if(data.length == 0) {
 					alert("데이터가 없습니다.");
@@ -51,6 +51,7 @@
 				}
 				
 				for(var i = 0; i < data.length; i++) {
+					console.log("i: " + i); 
 					var Now = new Date();
 					var nowYear = Now.getFullYear();
 					var nowMonth = Now.getMonth(); // 월
@@ -62,7 +63,7 @@
 					var days = week[Now.getDay()]; //오늘 요일
 					
 					var yoil = (data[i].yoil).split(','); //클래스 요일
-					console.log("요일: " + yoil);
+					//console.log("요일: " + yoil);
 					
 					for(var j = 0; j < (data[i].yoil).split(',').length; j++) {
 						var clsYoil = yoil[j]; //클래스 요일
@@ -76,11 +77,11 @@
 						var clsEndHour = new Date(data[i].endTime).getHours(); //클래스 끝 시간
 						var clsStartMin = new Date(data[i].startTime).getMinutes(); //클래스 시작 분
 						var clsEndMin = new Date(data[i].endTime).getMinutes(); //클래스 끝 분
-						console.log("clsStartHour: " + clsStartHour);
-						console.log("clsEndHour: " + clsEndHour);
-						console.log("clsStartMin: " + clsStartMin);
-						console.log("clsEndMin: " + clsEndMin);
-						console.log("nowMonth: " + nowMonth);
+						//console.log("clsStartHour: " + clsStartHour);
+						//console.log("clsEndHour: " + clsEndHour);
+						//console.log("clsStartMin: " + clsStartMin);
+						//console.log("clsEndMin: " + clsEndMin);
+						//console.log("nowMonth: " + nowMonth);
 						
 						
 						function pluszero(time){
@@ -136,17 +137,25 @@
 					
 					}
 					html += '<tr><td class="type_diff"><div class="list_img"><img src="' + data[i].thumbnailFileName +'" alt="클래스썸네일">';
- 					html += '</div> <a href="/play/play_apply/298" target="_blank"> <div class="list_txt full"> <dl class="prod_infor"> <dt> <div class="play_tch" style="margin-bottom: 5px;">';
- 					html += '<span>' + data[i].clsCategory + '</span> <div>';
- 					html += '</div>' + data[i].clsName + '</dt> <dd class="mt5"> <div>' + data[i].startDate;
+ 					html += '</div><div class="list_txt full"> <dl class="prod_infor"> <dt style="margin-bottom: 50px; margin-top: 10px;"> <div class="play_tch" style="margin-bottom: 5px;">';
+ 					html += '<span>' + data[i].clsCategory + '</span> <div class="clsName" style="margin-top: 25px;">';
+ 					html +=  data[i].clsName + '</div></dt> <dd class="mt5" style="font-size: 14px; margin-bottom: 20px;"> <div style="margin-bottom: 10px;">' + data[i].startDate;
  					html += '~' + data[i].endDate + '</div>' + data[i].yoil;
  					html += clsStartHour + ':' + clsStartMin + '~' + clsEndHour + ':' + clsEndMin + '</dd>';
- 					html += '<dd style="color: black; font-weight: 400;">'; 
+ 					html += '<dd style="color: black; font-weight: 400; font-size: 12px; font-weight: bold;">수강자: '; 
+ 					
+ 					console.log("datai: " + data[i].list.length);
+ 					if(data[i].list.length == 0) {
+						 html += '신청한 수강자가 없습니다.'; 
+					}
  					
  					for(var j = 0; j < data[i].list.length; j++) {
- 						html += data[i].list[j] + ' ';	
+ 						console.log("수강생: " + data[i].list[j].length + ' ');
+ 						console.log("이름: " + data[i].list[j]);
+ 						console.log("data[i]: " + i);
+ 						console.log("list[j]: " + j);
+						html += data[i].list[j] + ' ';	
 					};
-					
  					html += '</dd></dl></div></a></td><td>';
  					html += button;
  					html += '</td> </tr>'; 					
@@ -249,9 +258,9 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <!-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> -->
 
            
         </ul>
@@ -305,7 +314,7 @@
                    <!-- Page Heading -->
 					<div id="viewArea" class="column_right">
 				    <div>
-				        <p class="tit_area big mb10">나의 클래스</p>
+				        <p class="tit_area big mb10" style="color: #5a5c69!important; font-size: 22px;">나의 클래스</p>
 				        
 				        <div class="table_basic_board board1">
 				            <table style="width: 1024px;">
@@ -325,7 +334,7 @@
 				            </table>
 				        </div>
 				        
-				        <p class="tit_area big mb10">종료된 클래스</p>
+				        <p class="tit_area big mb10" style="color: #5a5c69!important; font-size: 22px;">종료된 클래스</p>
 				        <div class="table_basic_board board1">
 				            <table style="width: 1024px;">
 				                <colgroup>
@@ -351,18 +360,17 @@
 				                                    <div class="list_img">
 				                                        <img src="${edClass.thumbnailFileName }" alt="클래스썸네일">
 				                                    </div>
-				                                    <a href="/play/play_apply/298" target="_blank">
-				                                        <div class="list_txt full">
+				                                        <div class="list_txt full" style="margin-bottom: 5px;">
 				                                            <dl class="prod_infor">
-				                                                <dt>
-				                                                    <div class="play_tch">
+				                                                <dt style="margin-bottom: 50px; margin-top: 10px;">
+				                                                    <div class="play_tch" style="margin-bottom: 5px;">
 				                                                        <span>${edClass.clsCategory }</span>
 				
 				                                                    </div>
-				                                                    ${edClass.clsName }
+				                                                    <div class="clsName" style="margin-top: 20px;">${edClass.clsName }</div>
 				                                                </dt>
-				                                                <dd class="mt5">
-				                                                    <div>${edClass.startDate }~${edClass.endDate }</div>
+				                                                <dd class="mt5" style="font-size: 14px; margin-bottom: 20px;">
+				                                                    <div style="margin-bottom: 10px;">${edClass.startDate }~${edClass.endDate }</div>
 				                                                    <fmt:formatDate value="${edClass.startTime }" pattern="HH:mm" />
 				                                                    ~ <fmt:formatDate value="${edClass.endTime }" pattern="HH:mm" />
 				                                                 
@@ -395,7 +403,9 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <p>사업자등록번호 000-00-00000 | 통신판매번호 2021-서울서초-0000 | 대표이사 김피트  | 개인정보관리책임자 김비트  |</p>
+                        <p> 서울특별시 서초구 서초4동 강남대로 </p>
+		  				<p>Copyright © FITINZIPCOMPANY Co. All rights reserved. Server : 000.00.00.000</p>
                     </div>
                 </div>
             </footer>

@@ -219,7 +219,17 @@ public class TrainerController {
     public String myPageView(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
     	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
     	System.out.println("edCls: " + edCls);
+    	for (ClsTrainerDTO cdto2: edCls) {
+    		String profileImg = cdto2.getThumbnailFileName();
+			
+			if(profileImg != null) {
+				profileImg = profileImg.substring(profileImg.indexOf("resources"));
+				cdto2.setThumbnailFileName(profileImg);
+				
+			}
+		}
     	model.addAttribute("edCls", edCls);
+
     	return "trainer/myClass";
     }
     
@@ -238,26 +248,7 @@ public class TrainerController {
 				cdto.setThumbnailFileName(profileImg);
 				
 			}
-			
-			
 		}
-    	System.out.println("ingCls: " + ingCls);
-    	model.addAttribute("ingCls", ingCls);
-    	List<ClsTrainerDTO> edCls = trainerService.myPage2(dto);
-    	System.out.println("edCls: " + edCls);
-    	for (ClsTrainerDTO cdto2: edCls) {
-    		String profileImg = cdto2.getThumbnailFileName();
-			
-			if(profileImg != null) {
-				profileImg = profileImg.substring(profileImg.indexOf("resources"));
-				cdto2.setThumbnailFileName(profileImg);
-				
-			}
-		}
-    	
-    	
-    	
-    	model.addAttribute("edCls", edCls);
     	return ingCls;
 	}
     
@@ -322,10 +313,28 @@ public class TrainerController {
     	return "redirect:trainerMainPageView";
 	}
     
+    //회원탈퇴 요청
+    @RequestMapping("/regBreakout")
+    public String regBreakoutView() {
+    	return "trainer/regBreakout";
+    }
+    
+    
     //내 리뷰 확인
     @RequestMapping("/myReview")
     public String checkReview(@ModelAttribute("member") RegisterTrainerDTO dto, Model model) {
     	List<TrainerReviewDTO> list = trainerService.checkReview(dto);
+		
+    	String profileImg;
+    	for (TrainerReviewDTO tdto : list) {
+			profileImg = tdto.getMemFileName();
+		
+			if(profileImg != null) {
+				profileImg = profileImg.substring(profileImg.indexOf("resources"));
+				tdto.setMemFileName(profileImg);
+			}
+    	}
+    	    	
     	model.addAttribute("reviewList", list);
     	System.out.println("리뷰 보여준다~~");
     	return "trainer/myReview";

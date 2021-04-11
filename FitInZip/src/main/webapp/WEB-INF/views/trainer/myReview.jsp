@@ -223,9 +223,9 @@ html {
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <!-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> -->
 
            
         </ul>
@@ -295,7 +295,7 @@ html {
 							                <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2 MuiGrid-item" style="padding: 8px; display: flex;">
 							                    <div class="MuiGrid-root MuiGrid-item MuiAvatar-root" style="padding: 8px; margin: 0; box-sizing: border-box;">
 							                 
-							                        <img src="" onerror="this.src='../resources/trainer/img/review_basic_img.png'" class="MuiAvatar-img" style="border-radius: 50%; width:40px; height:40px;">${review.memOriName }
+							                        <img src="${review.memFileName }" onerror="this.src='../resources/trainer/img/review_basic_img.png'" class="MuiAvatar-img" style="border-radius: 50%; width:40px; height:40px;">
 							                    </div>
 							          
 							                    <div class="MuiGrid-root css-r0bh7x-shortInformation MuiGrid-item" style=" display: flex; -webkit-box-pack: center; justify-content: center; margin: 0;
@@ -345,7 +345,9 @@ html {
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <p>사업자등록번호 000-00-00000 | 통신판매번호 2021-서울서초-0000 | 대표이사 김피트  | 개인정보관리책임자 김비트  |</p>
+                        <p> 서울특별시 서초구 서초4동 강남대로 </p>
+		  				<p>Copyright © FITINZIPCOMPANY Co. All rights reserved. Server : 000.00.00.000</p>
                     </div>
                 </div>
             </footer>
