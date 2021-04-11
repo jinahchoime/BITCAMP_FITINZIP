@@ -34,6 +34,8 @@
 					var dispHtml1 = '';
 					var clsCode1 = '';
 					
+					console.log("count : " + returnValue[0].count);
+					
 					var btn = new Array(returnValue.length);
 					console.log(btn);
 					for(var i=0; i<btn.length; i++){
@@ -43,7 +45,7 @@
 					}
 					$('#content').append(dispHtml1);
 					
-					if( _endIndex > returnValue.length || returnValue.count < 4){
+					if( _endIndex > returnValue.length || returnValue[0].count < 4){
 						$('#searchMoreNotify').remove();
 					}
 					
