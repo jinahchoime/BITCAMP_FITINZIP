@@ -30,9 +30,22 @@
 	
 	function logout() {
 		toastr.show('로그아웃 되었습니다');
+		
 		setTimeout(function() {
+		$.ajax({
+			url: "/memberLogout",
+			type: "POST",
+			success: function(data){
+				location.href="/";
+			},
+			error: function (){
+				
+				}
+		});},2000);
+		
+/* 		setTimeout(function() {
 			location.href="/memberLogout";
-		}, 2000);
+		}, 2000); */
 		
 	}
 	

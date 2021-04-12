@@ -39,7 +39,8 @@
 <body>
 
   <!-- Navigation -->
-  <jsp:include page="nav.jsp"></jsp:include>
+  <!-- <jsp:include page="nav.jsp"></jsp:include> -->
+  <%@ include file="nav.jsp" %>
   
   <header class="masthead text-center text-white">
     <div class="masthead-content">

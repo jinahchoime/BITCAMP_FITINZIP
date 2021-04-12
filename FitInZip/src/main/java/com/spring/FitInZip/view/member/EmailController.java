@@ -34,15 +34,17 @@ public class EmailController {
 	}
 	
 	@RequestMapping("/memberLogout")
+	@ResponseBody
 	public String memberLogout(HttpSession session, SessionStatus status, RedirectAttributes rttr) {
 		System.out.println(">>>로그아웃 처리");
 	      // 1. 세션초기화(세션객체를 종료)
 	      //session.invalidate(); // 현재 사용중인 세션을 무효화처리
+	      System.out.println("asdasdsad");
 	      if(!status.isComplete()) {
 	         status.setComplete();
 	      }
-		
-		return "main";
+		String a = "성공";
+		return a;
 	}
 	
 	
