@@ -63,7 +63,7 @@
 	<select id="selectCls" parameterType="memberVO" resultType="com.spring.FitInZip.back.payment.vo.SelectClsDTO">
 		SELECT CLS_CODE, MEM_ID
 		FROM PAYMENT
-		WHERE MEM_ID = #{id}
+		WHERE MEM_ID = #{id} AND ORDER_NUM IS NULL
 	</select>
 
 	<!-- 주문번호 시퀀스  -->

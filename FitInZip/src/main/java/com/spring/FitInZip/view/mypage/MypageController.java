@@ -64,6 +64,30 @@ public class MypageController {
 	@Autowired
 	private MemCouponService memCouponService;
 	
+	/*마이페이지로*/
+	@RequestMapping("/mypage")
+	public String mypage(HttpSession session, Model model){
+		MemberVO member = (MemberVO)session.getAttribute("member");	
+		
+		if(member == null) {
+			return "redirect:/loginMain";
+		}
+		
+		member = mypageService.getMember(member.getId());
+		
+		try {
+			String profileImgFilePath = member.getMemFileName();
+			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
+		} catch (NullPointerException e) {
+			
+		}
+		
+		//멤버 바꾸기
+		model.addAttribute("member", member);
+		
+		return "mypage/mypage";
+	}
+	
 	@RequestMapping(value="calendar")
 	public String goCalendar(HttpServletRequest request, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
@@ -203,29 +227,6 @@ public class MypageController {
 	// 캘린더 끝
 	
 	
-	/*마이페이지로*/
-	@RequestMapping("/mypage")
-	public String mypage(HttpSession session, Model model){
-		MemberVO member = (MemberVO)session.getAttribute("member");	
-		
-		if(member == null) {
-			return "redirect:/loginMain";
-		}
-		
-		member = mypageService.getMember(member.getId());
-		
-		try {
-			String profileImgFilePath = member.getMemFileName();
-			member.setProfileImgFileName(member.getMemFileName().substring(profileImgFilePath.indexOf("resources")));
-		} catch (NullPointerException e) {
-			
-		}
-		
-		//멤버 바꾸기
-		model.addAttribute("member", member);
-		
-		return "mypage/mypage";
-	}
 	
 	/*마이페이지 유저의 참여수 데이터 뿌리기*/
 	@RequestMapping("/userExerciseData")
