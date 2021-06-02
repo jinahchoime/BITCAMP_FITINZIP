@@ -37,6 +37,76 @@
 <img src="https://user-images.githubusercontent.com/73566078/120489652-c506ef00-c3f2-11eb-82c7-61e7480bdabd.png" width="950" height="400">
 <img src="https://user-images.githubusercontent.com/73566078/120489663-c6d0b280-c3f2-11eb-9f45-4436ea7fb158.png" width="950" height="400">
 
+***
+#### ajax를 이용하여 
+'''
+<script>
+	//수량 변경
+	
+	function showModal(form) {
+		const modal = new bootstrap.Modal(form.querySelector("#exampleModal2"));
+		modal.toggle();
+	} 
+	
+	function up(form) {
+		const $viewAmount = form.querySelector("#viewAmount");
+		const $changeAmount = form.querySelector("#changeAmount");
+		let viewAmount = parseInt($viewAmount.innerText);
+		viewAmount++;
+		$viewAmount.innerText = viewAmount;
+		$changeAmount.innerText = viewAmount;
+		
+		//let formData = $("form[name=form]").serialize();
+		//let formData = new FormData(document.getElementById("thisform"));
+		//let formData = new FormData(this.form);
+		let formData = new FormData(form);
+		
+		let options = {
+				method: "POST",
+				body : new URLSearchParams(formData)
+		}
+		
+		fetch("/updateAmount", options) 
+			.then(async function (response) {
+				let result = await response.json();
+			})
+		 
+		
+		.catch(err => {
+			//alert("오류 발생: " + err)
+			//location.href="/cart"
+		});  
+	}
+	
+	function down(form) {
+		const $viewAmount = form.querySelector("#viewAmount");
+		const $changeAmount = form.querySelector("#changeAmount");
+		let viewAmount = parseInt($viewAmount.innerText);
+		viewAmount--;
+		$viewAmount.innerText = viewAmount;
+		$changeAmount.innerText = viewAmount;
+		
+		//let formData = $("form[name=form]").serialize();
+		let formData = new FormData(form);
+		
+		let options = {
+				method: "POST",
+				body : new URLSearchParams(formData)
+		}
+		
+		fetch("/downAmount", options) 
+			.then(async function (response) {
+				let result = await response.json();
+			})
+		
+		.catch(err => {
+			//alert("오류 발생: " + err);
+			//location.href="/cart"
+		});  
+	}
+</script>
+'''
+
 -----------
 ### 🖥 주문 상세내역 화면
 -----------
