@@ -2,3 +2,13 @@
 #### Spring Framework를 이용한 비대면 스포츠 클래스 사이트(라이브PT, 간단한 운동용품 구매)
 
 -----------
+### 📍 내가 구현한 기능
+![화면 캡처 2021-06-02 221607](https://user-images.githubusercontent.com/73566078/120486577-28435200-c3f0-11eb-99d5-8487425e2f40.png)
+
+---------
+#### 📍 메인 화면
+![KakaoTalk_20210602_221955833](https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png)
+
+-----------
+
+![Untitled (9)](https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png)
