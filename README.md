@@ -108,7 +108,7 @@
 
 
 <img src="https://user-images.githubusercontent.com/73566078/120489663-c6d0b280-c3f2-11eb-9f45-4436ea7fb158.png" width="950" height="400">
------------
+***
 ### 🖥 주문 상세내역 화면
------------
+***
 <img src="https://user-images.githubusercontent.com/73566078/120489667-c801df80-c3f2-11eb-9efa-5beb6171fde1.png" width="950" height="400">
