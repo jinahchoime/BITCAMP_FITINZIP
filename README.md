@@ -4,7 +4,7 @@
 -----------
 ### 📍 내가 구현한 기능
 -----------
-<img src="https://user-images.githubusercontent.com/73566078/120486577-28435200-c3f0-11eb-99d5-8487425e2f40.png" width="500" height="400">
+<img src="https://user-images.githubusercontent.com/73566078/120486577-28435200-c3f0-11eb-99d5-8487425e2f40.png" width="400" height="350">
 
 -----------
 ### 📍 메인 화면
