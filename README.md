@@ -31,7 +31,7 @@
 <img src="https://user-images.githubusercontent.com/73566078/120489534-adc80180-c3f2-11eb-9c76-59c812f250c2.png" width="950" height="400">
 <img src="https://user-images.githubusercontent.com/73566078/120489635-c0dad180-c3f2-11eb-8190-e82e094396f0.png" width="950" height="400">
 
-#### ajax를 사용하여 수량 변경 처리 
+#### - ajax를 사용하여 수량 변경 처리 
 ```
 <script>
 	//수량 변경
