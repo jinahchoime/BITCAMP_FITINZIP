@@ -35,7 +35,7 @@
 
 <img src="https://user-images.githubusercontent.com/73566078/120489643-c33d2b80-c3f2-11eb-8896-f7434b88b680.png" width="950" height="400">
 <img src="https://user-images.githubusercontent.com/73566078/120489652-c506ef00-c3f2-11eb-82c7-61e7480bdabd.png" width="950" height="400">
-<img src="https://user-images.githubusercontent.com/73566078/120489663-c6d0b280-c3f2-11eb-9f45-4436ea7fb158.png" width="950" height="400">
+
 
 #### ajax를 이용하여 수량 변경 처리 
 ```
@@ -105,7 +105,7 @@
 	}
 </script>
 ```
-
+<img src="https://user-images.githubusercontent.com/73566078/120489663-c6d0b280-c3f2-11eb-9f45-4436ea7fb158.png" width="950" height="400">
 -----------
 ### 🖥 주문 상세내역 화면
 -----------
