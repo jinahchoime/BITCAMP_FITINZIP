@@ -20,12 +20,13 @@
 
 ### 장바구니에 담기
 -----------
-<img src="https://user-images.githubusercontent.com/73566078/120489534-adc80180-c3f2-11eb-9c76-59c812f250c2.png" width="950" height="400">
+<img src="https://user-images.githubusercontent.com/73566078/120489548-af91c500-c3f2-11eb-8930-c6986b537f8d.png" width="950" height="400">
+
 
 -----------
 ### 장바구니 화면
 -----------
-<img src="https://user-images.githubusercontent.com/73566078/120489548-af91c500-c3f2-11eb-8930-c6986b537f8d.png" width="950" height="400">
+<img src="https://user-images.githubusercontent.com/73566078/120489534-adc80180-c3f2-11eb-9c76-59c812f250c2.png" width="950" height="400">
 
 -----------
 ### 주문 결제 화면
