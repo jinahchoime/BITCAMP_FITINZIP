@@ -11,7 +11,7 @@
 
 -----------
 ### 📍 용품 페이지 
-<img src="https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png" width="800" height="400">
+<img src="https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png" width="1000" height="400">
 -------------
 
 #### 장바구니에 담기
