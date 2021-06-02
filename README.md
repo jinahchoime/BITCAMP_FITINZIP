@@ -7,7 +7,7 @@
 
 ---------
 #### 📍 메인 화면
-<img src="https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png" width="700" height="800">
+<img src="https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png" width="700" height="1000">
 
 -----------
 
