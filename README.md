@@ -107,7 +107,7 @@
 -----------
 ### 🖥 주문 결제 화면
 -----------
-<img src="https://user-images.githubusercontent.com/73566078/120489643-c33d2b80-c3f2-11eb-8896-f7434b88b680.png" width="950" height="400">
+<img src="https://user-images.githubusercontent.com/73566078/120498829-807f5180-c3fa-11eb-9b8f-9b6ea4470b7e.jpg" width="950" height="400">
 
 - 배송지 입력 : Daum 주소 API 사용
 
