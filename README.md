@@ -20,7 +20,8 @@
 
 ### 🖥 장바구니에 담기
 -----------
-##### ajax 
+##### ajax 사용
+##### 동일한 상품이 장바구니에 있으면 알림창이 뜬다.
 <img src="https://user-images.githubusercontent.com/73566078/120489548-af91c500-c3f2-11eb-8930-c6986b537f8d.png" width="950" height="400">
 
 
