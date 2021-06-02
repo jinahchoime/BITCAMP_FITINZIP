@@ -9,15 +9,16 @@
 ### 📍 메인 화면
 <img src="https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png" width="700" height="1000">
 
------------
+--------------
 ### 📍 용품 페이지 
-<img src="https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png" width="1000" height="400">
--------------
+![Untitled (9)](https://user-images.githubusercontent.com/73566078/120490055-0dbea800-c3f3-11eb-87f8-e7dff34f0a4b.png)
+
+---------------
 
 #### 장바구니에 담기
 ![Untitled (10)](https://user-images.githubusercontent.com/73566078/120489534-adc80180-c3f2-11eb-9c76-59c812f250c2.png)
 
----------------
+------------------
 #### 장바구니 화면
 ![Untitled (11)](https://user-images.githubusercontent.com/73566078/120489548-af91c500-c3f2-11eb-8930-c6986b537f8d.png)
 
@@ -28,6 +29,6 @@
 ![Untitled (14)](https://user-images.githubusercontent.com/73566078/120489652-c506ef00-c3f2-11eb-82c7-61e7480bdabd.png)
 ![Untitled (15)](https://user-images.githubusercontent.com/73566078/120489663-c6d0b280-c3f2-11eb-9f45-4436ea7fb158.png)
 
-----------
+-------------
 #### 주문 상세내역 화면
 ![Untitled (16)](https://user-images.githubusercontent.com/73566078/120489667-c801df80-c3f2-11eb-9efa-5beb6171fde1.png)
