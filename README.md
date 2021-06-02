@@ -7,8 +7,8 @@
 
 ---------
 #### 📍 메인 화면
-![KakaoTalk_20210602_221955833](https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png)
+!<img src="https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png" width="500" height="700">
 
 -----------
 
-![Untitled (9)](https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png)
+!<img src="https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png" width="500" height="400">
