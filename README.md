@@ -3,7 +3,7 @@
 
 -----------
 ### 📍 내가 구현한 기능
-![화면 캡처 2021-06-02 221607](https://user-images.githubusercontent.com/73566078/120486577-28435200-c3f0-11eb-99d5-8487425e2f40.png)
+!<img src="https://user-images.githubusercontent.com/73566078/120486577-28435200-c3f0-11eb-99d5-8487425e2f40.png" width="700" height="400">
 
 ---------
 #### 📍 메인 화면
