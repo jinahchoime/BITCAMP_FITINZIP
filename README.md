@@ -10,5 +10,6 @@
 <img src="https://user-images.githubusercontent.com/73566078/120487508-ff6f8c80-c3f0-11eb-9557-7476af3844e1.png" width="700" height="1000">
 
 -----------
-### 📍 운동용품 카테고리 
+### 📍 용품 메인 페이지 
 <img src="https://user-images.githubusercontent.com/73566078/120486277-de5a6c00-c3ef-11eb-99bc-23fd95b1b26d.png" width="800" height="400">
+---------
